@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>英単語カードゲーム</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<h1>英単語カードゲーム</h1>
+
+<div>
+
+<button onclick="show('pack')">カードパック</button>
+<button onclick="show('deck')">デッキ編成</button>
+<button onclick="show('battle')">ボス戦</button>
+<button onclick="show('book')">図鑑</button>
+<button onclick="show('versus')">対戦</button>
+
+</div>
+
+<!-- パック -->
+<div id="pack" class="screen active">
+
+<h2>カードパック</h2>
+
+<button onclick="openPack()">パックを開ける</button>
+
+<div id="packArea"></div>
+
+<div id="packResult"></div>
+
+</div>
+
+<!-- デッキ -->
+<div id="deck" class="screen">
+
+<h2>デッキ編成（5枚）</h2>
+
+<div>
+デッキATK合計: <span id="deckATK">0</span>
+デッキHP合計: <span id="deckHP">0</span>
+プレイヤーHP: <span id="deckPlayerHP">0</span>
+</div>
+
+<div id="deckCards"></div>
+
+</div>
+
+<!-- バトル -->
+<div id="battle" class="screen">
+
+<div id="bossQuizArea"></div>
+
+<h2>ボス戦</h2>
+
+<div>
+デッキATK: <span id="battleATK">0</span>
+デッキHP: <span id="battleHP">0</span>
+プレイヤーHP: <span id="playerHP">0</span>
+</div>
+
+<div>
+BOSS Lv.<span id="bossLevel">1</span>
+HP: <span id="bossHP">150</span>
+ATK: <span id="bossATK">50</span>
+</div>
+
+<div id="battleResult"></div>
+
+</div>
+
+<!-- 対戦 -->
+<div id="versus" class="screen">
+
+<h2>プレイヤー対戦</h2>
+
+<button onclick="createVersusCode()">対戦コード作成</button>
+
+<button onclick="loadEnemyCode()">相手コード読み込み</button>
+
+<div id="enemyDeck"></div>
+
+<button onclick="startVersus()">対戦開始</button>
+
+<button onclick="stopVersus()">対戦をやめる</button>
+
+<div id="versusResult">
+<div>あなたHP <span id="vPlayerHP">0</span></div>
+<div>あなたATK <span id="vPlayerATK">0</span></div>
+
+<div>相手HP <span id="vEnemyHP">0</span></div>
+<div>相手ATK <span id="vEnemyATK">0</span></div>
+
+<div id="turnText"></div>
+</div>
+
+<div id="versusQuizArea"></div>
+
+</div>
+
+<!-- 図鑑 -->
+<div id="book" class="screen">
+
+<h2>カード図鑑</h2>
+
+<div id="collection"></div>
+
+</div>
+
+<script src="game.js"></script>
+
+</body>
+</html>
