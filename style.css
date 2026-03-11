@@ -112,3 +112,30 @@ font-size:14px;
 0%{filter:hue-rotate(0deg);}
 100%{filter:hue-rotate(360deg);}
 }
+
+@media (max-width:600px){
+
+.card{
+width:40%;
+height:auto;
+}
+
+button{
+font-size:18px;
+padding:12px;
+}
+
+.packWrapper{
+transform:scale(0.8);
+}
+
+}
+
+#book button{
+margin:4px;
+}
+
+#book{
+max-width:600px;
+margin:auto;
+}
