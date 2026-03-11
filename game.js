@@ -90,6 +90,26 @@ choices:["修理","改善","建設","整備","改良"]},
 choices:["怒っている","不安な","恥ずかしい","緊張した","困った"]},
 {word:"discontent",meaning:"不満",atk:22,hp:120,rarity:"N",
 choices:["喜び","満足","快適","幸福","安心"]},
+{word:"auditor",meaning:"会計検査官",atk:38,hp:170,rarity:"R",
+choices:["医者","弁護士","教師","銀行員","秘書"]},
+{word:"revise",meaning:"修正する",atk:27,hp:145,rarity:"R",
+choices:["を隠す","を壊す","を無視する","を忘れる","を止める"]},
+{word:"indignation",meaning:"憤慨",atk:41,hp:175,rarity:"SR",
+choices:["驚き","安堵","喜び","満足","安心"]},
+{word:"politician",meaning:"政治家",atk:30,hp:150,rarity:"R",
+choices:["弁護士","教師","医者","記者","俳優"]},
+{word:"emigrant",meaning:"（他国への）移住者",atk:44,hp:180,rarity:"SR",
+choices:["（移動手段の）旅行者","（特定地域の）居住者","（国内の）住民","観光客","通勤者"]},
+{word:"organic",meaning:"有機的な",atk:46,hp:185,rarity:"SR",
+choices:["無機的な","機械的な","科学的な","人工的な","技術的な"]},
+{word:"insult",meaning:"を侮辱する",atk:40,hp:175,rarity:"SR",
+choices:["を賞賛する","を称える","を助ける","を守る","を励ます"]},
+{word:"magistrate",meaning:"判事",atk:37,hp:165,rarity:"R",
+choices:["警察官","医者","教師","弁護士","検察官"]},
+{word:"usher",meaning:"（劇場などの）案内係",atk:24,hp:130,rarity:"N",
+choices:["（音楽の）作曲家","（絵画の）画家","（料理の）シェフ","俳優","歌手"]},
+{word:"virtue",meaning:"美徳",atk:28,hp:145,rarity:"R",
+choices:["悪","短所","欠点","罪","不正"]},
 
 ];
 
@@ -99,6 +119,7 @@ let bossHP=150;
 let bossLevel=1;
 let bossATK=50;
 let playerHP = 0;
+let rarityFilter = "all";
 
 function openPack(){
 
@@ -210,6 +231,10 @@ for(const key in grouped){
 
 const c=grouped[key];
 
+if(rarityFilter !== "all" && c.rarity !== rarityFilter){
+continue;
+}
+
 col.innerHTML+=`
 
 <div class="card ${c.rarity.toLowerCase()}">
@@ -225,10 +250,13 @@ col.innerHTML+=`
 </div>
 
 `;
-
 }
 
 calcDeckStats();
+
+const unique = new Set(owned.map(c=>c.word));
+const rate = Math.floor(unique.size / allCards.length * 100);
+document.getElementById("collectionRate").textContent = rate;
 
 }
 
@@ -493,8 +521,7 @@ atk = Math.floor(atk/2);
 
 }else{
 
-alert("不正解！等倍ダメージ");
-
+alert("不正解！ 正しい答えは「" + quizAnswer + "」です");
 }
 
 bossHP -= atk;
@@ -572,10 +599,10 @@ return;
 playerFirst = Math.random() < 0.5;
 
 if(playerFirst){
-playerTurn = true;
+playerTurn = false;
 alert("あなたが先攻！");
 }else{
-playerTurn = false;
+playerTurn = true;
 alert("相手が先攻！");
 }
 
@@ -706,7 +733,7 @@ if(choice === quizAnswer){
 alert("正解！ダメージ半減");
 playerHP -= Math.floor(enemyATK/2);
 }else{
-alert("不正解！等倍ダメージ");
+alert("不正解！ 正しい答えは「" + quizAnswer + "」です");
 playerHP -= enemyATK;
 }
 
@@ -715,10 +742,10 @@ playerHP -= enemyATK;
 // 相手ターン
 
 if(choice === quizAnswer){
-alert("相手正解！ダメージ半減");
+alert("正解！ダメージ半減");
 enemyHP -= Math.floor(myATK/2);
 }else{
-alert("相手不正解！等倍ダメージ");
+alert("不正解！ 正しい答えは「" + quizAnswer + "」です");
 enemyHP -= myATK;
 }
 
@@ -765,5 +792,39 @@ document.getElementById("versusQuizArea").innerHTML = "";
 alert("対戦を終了しました");
 
 show("deck");
+
+}
+
+function sortCollection(type){
+
+if(type === "atk"){
+owned.sort((a,b)=>b.atk-a.atk);
+}
+
+if(type === "hp"){
+owned.sort((a,b)=>b.hp-a.hp);
+}
+
+if(type === "rarity"){
+
+const order={
+SSR:4,
+SR:3,
+R:2,
+N:1
+};
+
+owned.sort((a,b)=>order[b.rarity]-order[a.rarity]);
+}
+
+update();
+
+}
+
+function filterRarity(r){
+
+rarityFilter = r;
+
+update();
 
 }
