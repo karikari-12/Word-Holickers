@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>英単語カードゲーム</title>
 
 <link rel="stylesheet" href="style.css">
@@ -106,6 +107,22 @@ ATK: <span id="bossATK">50</span>
 <div id="book" class="screen">
 
 <h2>カード図鑑</h2>
+
+<div>
+収集率: <span id="collectionRate">0</span>%
+</div>
+
+<h3>並び替え</h3>
+<button onclick="sortCollection('atk')">ATK</button>
+<button onclick="sortCollection('hp')">HP</button>
+<button onclick="sortCollection('rarity')">レアリティ</button>
+
+<h3>レアリティフィルター</h3>
+<button onclick="filterRarity('all')">全部</button>
+<button onclick="filterRarity('N')">N</button>
+<button onclick="filterRarity('R')">R</button>
+<button onclick="filterRarity('SR')">SR</button>
+<button onclick="filterRarity('SSR')">SSR</button>
 
 <div id="collection"></div>
 
