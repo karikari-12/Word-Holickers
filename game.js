@@ -110,6 +110,70 @@ choices:["警察官","医者","教師","弁護士","検察官"]},
 choices:["（音楽の）作曲家","（絵画の）画家","（料理の）シェフ","俳優","歌手"]},
 {word:"virtue",meaning:"美徳",atk:28,hp:145,rarity:"R",
 choices:["悪","短所","欠点","罪","不正"]},
+{word:"penetrate",meaning:"に侵入する",atk:41,hp:175,rarity:"SR",
+choices:["を避ける","を観察する","を修理する","を防ぐ","を無視する"]},
+{word:"intrusion",meaning:"（私生活への）侵害",atk:43,hp:180,rarity:"SR",
+choices:["（自由な）行動","（他人との）交流","（大声での）発言","参加","発表"]},
+{word:"judiciary",meaning:"裁判官",atk:39,hp:170,rarity:"R",
+choices:["弁護士","検察官","警察官","裁判所職員","法律顧問"]},
+{word:"imitation",meaning:"模倣",atk:36,hp:160,rarity:"R",
+choices:["革新","創造","発展","改革","進歩"]},
+{word:"climate",meaning:"気候",atk:25,hp:135,rarity:"N",
+choices:["気温","環境","温暖化","天気","湿度"]},
+{word:"require",meaning:"を必要とする",atk:27,hp:150,rarity:"R",
+choices:["を獲得する","を提供する","を求める","を与える","を集める"]},
+{word:"subsidiary",meaning:"子会社",atk:38,hp:170,rarity:"R",
+choices:["急成長","取り引き先","支店","関連会社","本社"]},
+{word:"salary",meaning:"給与",atk:58,hp:200,rarity:"SSR",
+choices:["収入","手当","報酬","賃金","利益"]},
+{word:"acknowledgment",meaning:"認めること",atk:34,hp:165,rarity:"R",
+choices:["証明書","拒否","支払い","契約","報告"]},
+{word:"purchase",meaning:"購入",atk:24,hp:140,rarity:"N",
+choices:["販売","配布","返品","交換","寄付"]},
+{word:"quantity",meaning:"量",atk:26,hp:145,rarity:"R",
+choices:["色","長さ","形","重さ","高さ"]},
+{word:"eclipse",meaning:"日食",atk:44,hp:180,rarity:"SR",
+choices:["星空","月明り","流星群","彗星","星座"]},
+{word:"commission",meaning:"手数料",atk:32,hp:165,rarity:"R",
+choices:["報酬","業務","契約","給料","利益"]},
+{word:"layman",meaning:"素人",atk:22,hp:135,rarity:"N",
+choices:["研究者","専門家","技術者","学者","教授"]},
+{word:"accommodation",meaning:"宿泊施設",atk:30,hp:160,rarity:"R",
+choices:["観光地","交通手段","食事","空港","お土産"]},
+{word:"remainder",meaning:"残り",atk:28,hp:150,rarity:"R",
+choices:["食べ物","材料","物質","資源","道具"]},
+{word:"communist",meaning:"共産主義者",atk:34,hp:170,rarity:"R",
+choices:["資本主義者","国家主義者","民主主義者","社会主義者","自由主義者"]},
+{word:"apprentice",meaning:"見習い",atk:23,hp:140,rarity:"N",
+choices:["指導者","教師","公演者","専門家","監督"]},
+{word:"advance",meaning:"を前へ進める",atk:33,hp:160,rarity:"R",
+choices:["を減らす","を戻す","を止める","を隠す","を壊す"]},
+{word:"duchess",meaning:"公爵夫人",atk:36,hp:170,rarity:"R",
+choices:["教師","弁護士","看護師","王女","女王"]},
+{word:"yield",meaning:"収穫",atk:29,hp:155,rarity:"R",
+choices:["供給","輸送","支出","販売","配達"]},
+{word:"prosecutor",meaning:"検察官",atk:35,hp:170,rarity:"R",
+choices:["証人","裁判官","弁護士","陪審員","被告"]},
+{word:"withstand",meaning:"に耐える",atk:41,hp:175,rarity:"SR",
+choices:["に勝つ","に備える","に従う","に頼る","に避ける"]},
+{word:"norm",meaning:"規範",atk:27,hp:150,rarity:"R",
+choices:["例外","計画","事件","規則","法律"]},
+{word:"prescription",meaning:"処方箋",atk:34,hp:165,rarity:"R",
+choices:["参考文献","処理","処遇","診断","治療"]},
+{word:"pretension",meaning:"自負",atk:37,hp:170,rarity:"R",
+choices:["期待","誇張","希望","願望","理想"]},
+{word:"poverty",meaning:"貧困",atk:24,hp:140,rarity:"N",
+choices:["繁栄","富裕","豊かさ","裕福","成功"]},
+{word:"amendment",meaning:"修正",atk:39,hp:170,rarity:"R",
+choices:["追加","削除","変更","改良","調整"]},
+{word:"inquiry",meaning:"問い合わせ",atk:31,hp:160,rarity:"R",
+choices:["検察","質問","依頼","調査","確認"]},
+{word:"use up",meaning:"を使い果たす",atk:26,hp:150,rarity:"R",
+choices:["を保存する","を始める","を戻す","を増やす","を集める"]},
+{word:"consensus",meaning:"合意",atk:42,hp:180,rarity:"SR",
+choices:["対立","不確実性","疑念","反対","争い"]},
+{word:"consider",meaning:"を考える",atk:27,hp:150,rarity:"R",
+choices:["を閉じる","を忘れる","を避ける","を壊す","を隠す"]},
 
 ];
 
@@ -120,8 +184,26 @@ let bossLevel=1;
 let bossATK=50;
 let playerHP = 0;
 let rarityFilter = "all";
+let packOpening = false;
+let sortType = "none";
+let coins = 0;
+let materials = 0;
+let convertMode = "coin";
+let diamonds = 0;
+
+let lastLoginDate = "";
+let missionDate = "";
+let missionCount = 0;
 
 function openPack(){
+
+if(packOpening) return; // ←連打防止
+
+packOpening = true;
+
+document.querySelectorAll("button").forEach(b=>{
+b.disabled = true;
+});
 
 document.getElementById("packResult").innerHTML="";
 
@@ -217,7 +299,29 @@ col.innerHTML="";
 
 const grouped={};
 
-owned.forEach(c=>{
+let list = [...owned];
+
+if(sortType === "atk"){
+list.sort((a,b)=>b.atk-a.atk);
+}
+
+if(sortType === "hp"){
+list.sort((a,b)=>b.hp-a.hp);
+}
+
+if(sortType === "rarity"){
+
+const order={
+SSR:4,
+SR:3,
+R:2,
+N:1
+};
+
+list.sort((a,b)=>order[b.rarity]-order[a.rarity]);
+}
+
+list.forEach(c=>{
 
 if(!grouped[c.word]){
 grouped[c.word]={...c,count:0};
@@ -244,8 +348,11 @@ col.innerHTML+=`
 <div class="stat">ATK ${c.atk}</div>
 <div class="stat">HP ${c.hp}</div>
 <div class="stat">枚数 ×${c.count}</div>
+<div class="stat">強化 ${c.upgrade||0}/10</div>
 
 <button onclick="addDeckFromBook('${c.word}')">デッキに入れる</button>
+
+<button onclick="upgradeCard('${c.word}')">強化</button>
 
 </div>
 
@@ -254,9 +361,65 @@ col.innerHTML+=`
 
 calcDeckStats();
 
+document.getElementById("diamonds").textContent = diamonds;
+document.getElementById("coins").textContent = coins;
+document.getElementById("materials").textContent = materials;
+
+const convertCoins = document.getElementById("convertCoins");
+const convertMaterials = document.getElementById("convertMaterials");
+
+if(convertCoins) convertCoins.textContent = coins;
+if(convertMaterials) convertMaterials.textContent = materials;
+
 const unique = new Set(owned.map(c=>c.word));
 const rate = Math.floor(unique.size / allCards.length * 100);
 document.getElementById("collectionRate").textContent = rate;
+
+const conv = document.getElementById("convertCards");
+
+if(conv){
+
+conv.innerHTML="";
+
+const grouped={};
+
+owned.forEach(c=>{
+
+if(!grouped[c.word]){
+grouped[c.word]={...c,count:0};
+}
+
+grouped[c.word].count++;
+
+});
+
+for(const key in grouped){
+
+const c=grouped[key];
+
+if(c.count > 1){
+
+conv.innerHTML += `
+
+<div class="card ${c.rarity.toLowerCase()}">
+
+<div class="word">${c.word}</div>
+<div class="stat">枚数 ${c.count}</div>
+
+<button onclick="convertCard('${c.word}')">変換</button>
+
+</div>
+
+`;
+
+}
+
+}
+
+document.getElementById("coins").textContent = coins;
+document.getElementById("materials").textContent = materials;
+
+}
 
 }
 
@@ -357,7 +520,16 @@ owned:owned,
 deck:deck,
 bossHP:bossHP,
 bossLevel:bossLevel,
-bossATK:bossATK
+bossATK:bossATK,
+
+coins:coins,
+materials:materials,
+diamonds:diamonds,
+
+lastLoginDate:lastLoginDate,
+missionDate:missionDate,
+missionCount:missionCount
+
 };
 
 localStorage.setItem("wordCardGame",JSON.stringify(data));
@@ -376,7 +548,16 @@ owned=save.owned || [];
 deck=save.deck || [];
 bossHP=save.bossHP || 150;
 bossLevel=save.bossLevel || 1;
-bossATK = save.bossATK || 50;
+bossATK=save.bossATK || 50;
+
+coins = save.coins || 0;
+materials = save.materials || 0;
+diamonds = save.diamonds || 0;
+
+lastLoginDate = save.lastLoginDate || "";
+missionDate = save.missionDate || "";
+missionCount = save.missionCount || 0;
+
 document.getElementById("bossLevel").textContent=bossLevel;
 document.getElementById("bossATK").textContent=bossATK;
 document.getElementById("bossHP").textContent=bossHP;
@@ -424,6 +605,10 @@ document.getElementById("battleHP").textContent = totalHP;
 
 function openAnimation(){
 
+if(!packOpening) return;
+
+packOpening = false;
+
 const pack=document.getElementById("packBox");
 
 pack.classList.add("open");
@@ -466,6 +651,11 @@ document.getElementById("packResult").innerHTML = html;
 saveGame();
 update();
 
+packOpening = false;
+
+document.querySelectorAll("button").forEach(b=>{
+b.disabled = false;
+});
 }
 
 let quizAnswer = "";
@@ -518,6 +708,18 @@ if(choice === quizAnswer){
 
 alert("正解！ダメージ半減");
 atk = Math.floor(atk/2);
+
+missionCount++;
+
+if(missionCount === 3){
+
+diamonds += 3;
+
+alert("ミッション達成！💎3");
+
+saveGame();
+
+}
 
 }else{
 
@@ -797,25 +999,7 @@ show("deck");
 
 function sortCollection(type){
 
-if(type === "atk"){
-owned.sort((a,b)=>b.atk-a.atk);
-}
-
-if(type === "hp"){
-owned.sort((a,b)=>b.hp-a.hp);
-}
-
-if(type === "rarity"){
-
-const order={
-SSR:4,
-SR:3,
-R:2,
-N:1
-};
-
-owned.sort((a,b)=>order[b.rarity]-order[a.rarity]);
-}
+sortType = type;
 
 update();
 
@@ -828,3 +1012,139 @@ rarityFilter = r;
 update();
 
 }
+
+function convertCard(word){
+
+let cards = owned.filter(c=>c.word===word);
+
+if(cards.length <= 1){
+alert("変換できるカードがありません");
+return;
+}
+
+let convertCount = cards.length - 1;
+
+owned = owned.filter(c=>{
+
+if(c.word === word && convertCount > 0){
+
+convertCount--;
+
+if(convertMode === "coin"){
+
+if(c.rarity === "N") coins += 10;
+if(c.rarity === "R") coins += 10;
+if(c.rarity === "SR") coins += 50;
+if(c.rarity === "SSR") coins += 300;
+
+}else{
+
+if(c.rarity === "N") materials += 1;
+if(c.rarity === "R") materials += 2;
+if(c.rarity === "SR") materials += 5;
+if(c.rarity === "SSR") materials += 30;
+
+}
+
+return false;
+
+}
+
+return true;
+
+});
+
+saveGame();
+update();
+
+}
+
+function getUpgradeCost(rarity){
+
+if(rarity === "N") return 3;
+if(rarity === "R") return 3;
+if(rarity === "SR") return 10;
+if(rarity === "SSR") return 50;
+
+}
+
+function upgradeCard(word){
+
+const index = owned.findIndex(c=>c.word===word);
+
+if(index === -1) return;
+
+const card = owned[index];
+
+if(!card.upgrade) card.upgrade = 0;
+
+if(card.upgrade >= 10){
+alert("最大強化です");
+return;
+}
+
+const cost = getUpgradeCost(card.rarity);
+
+if(materials < cost){
+alert("素材が足りません");
+return;
+}
+
+materials -= cost;
+
+const atkUp = Math.floor(card.atk * 0.05);
+const hpUp = Math.floor(card.hp * 0.10);
+
+card.atk += atkUp;
+card.hp += hpUp;
+
+card.upgrade++;
+
+owned[index] = card;
+
+saveGame();
+update();
+
+}
+
+function setConvertMode(mode){
+
+convertMode = mode;
+
+alert("変換モード: " + (mode === "coin" ? "コイン" : "素材"));
+
+}
+
+function checkLoginBonus(){
+
+const today = new Date().toDateString();
+
+if(lastLoginDate !== today){
+
+diamonds += 3;
+
+alert("ログインボーナス！💎3");
+
+lastLoginDate = today;
+
+saveGame();
+
+}
+
+}
+
+function checkMission(){
+
+const today = new Date().toDateString();
+
+if(missionDate !== today){
+
+missionDate = today;
+missionCount = 0;
+
+}
+
+}
+
+checkLoginBonus();
+checkMission();
