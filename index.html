@@ -11,6 +11,18 @@
 
 <body>
 
+<div id="topResource">
+
+<div id="topResource">
+
+<span class="res">💎 <span id="diamonds">0</span></span>
+<span class="res">🪙 <span id="coins">0</span></span>
+<span class="res">🔧 <span id="materials">0</span></span>
+
+</div>
+
+</div>
+
 <h1>英単語カードゲーム</h1>
 
 <div>
@@ -20,6 +32,7 @@
 <button onclick="show('battle')">ボス戦</button>
 <button onclick="show('book')">図鑑</button>
 <button onclick="show('versus')">対戦</button>
+<button onclick="show('convert')">変換所</button>
 
 </div>
 
@@ -125,6 +138,24 @@ ATK: <span id="bossATK">50</span>
 <button onclick="filterRarity('SSR')">SSR</button>
 
 <div id="collection"></div>
+
+</div>
+
+<div id="convert" class="screen">
+
+<h2>カード変換所</h2>
+
+<div>
+コイン: <span id="convertCoins">0</span><br>
+素材: <span id="convertMaterials">0</span>
+</div>
+
+<h3>変換モード</h3>
+
+<button onclick="setConvertMode('coin')">コインに変換</button>
+<button onclick="setConvertMode('material')">素材に変換</button>
+
+<div id="convertCards"></div>
 
 </div>
 
