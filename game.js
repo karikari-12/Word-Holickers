@@ -1,4 +1,3 @@
-
 const allCards=[
 {word:"genuine",meaning:"本物の",atk:20,hp:120,rarity:"R",choices:["古い","偽物の","新しい","大きい","速い"]},
 {word:"mania",meaning:"（過度の）熱中",atk:20,hp:120,rarity:"R",choices:["（普通の）好奇心","（穏やかな）関心","（軽い）興味","退屈","無関心"]},
