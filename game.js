@@ -1,3 +1,6 @@
+// =============================================
+//  CARD DATA
+// =============================================
 const allCards=[
 {word:"genuine",meaning:"本物の",atk:20,hp:120,rarity:"R",choices:["古い","偽物の","新しい","大きい","速い"]},
 {word:"mania",meaning:"（過度の）熱中",atk:20,hp:120,rarity:"R",choices:["（普通の）好奇心","（穏やかな）関心","（軽い）興味","退屈","無関心"]},
@@ -278,6 +281,414 @@ const kobunCards=[
     {correct:"奥ゆかしい", choices:["奥ゆかしい","憎らしい","腹立たしい","疎ましい","恨めしい","いまいましい"]},
   ]
 },
+{
+  word:"うつくし",
+  meaning:"かわいらしい / 立派だ",
+  rarity:"R", atk:29, hp:143,
+  reading:"うつくし", hinshi:"形容詞（シク活用）",
+  detail:"小さいもの・幼いものをいつくしむ気持ちが核心。現代語の「美しい」とは異なり、可憐でいとおしいものへの感情を表す。",
+  example:"頭は尼そぎなるちごの、うつくしげなること。",
+  exampleMeaning:"髪を肩のあたりで切りそろえた幼子の、かわいらしいこと。",
+  source:"枕草子",
+  quizzes:[
+    {correct:"かわいらしい", choices:["かわいらしい","醜い","おぞましい","疎ましい","憎らしい","目障りだ"]},
+    {correct:"立派だ",       choices:["立派だ","みすぼらしい","粗末だ","惨めだ","情けない","恥ずかしい"]},
+  ]
+},
+{
+  word:"めでたし",
+  meaning:"すばらしい / 喜ばしい",
+  rarity:"SR", atk:42, hp:176,
+  reading:"めでたし", hinshi:"形容詞（ク活用）",
+  detail:"最大級の称賛を表す語。５段階評価なら５に相当する。心から称賛・感嘆する気持ちが核心。現代語の「目出度い（おめでたい）」の語源。",
+  example:"めでたき御姿かな。",
+  exampleMeaning:"すばらしいお姿よなあ。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"すばらしい", choices:["すばらしい","みっともない","つまらない","惨めだ","恥ずかしい","情けない"]},
+    {correct:"喜ばしい",   choices:["喜ばしい","悲しい","嘆かわしい","腹立たしい","憂鬱だ","残念だ"]},
+  ]
+},
+{
+  word:"なまめかし",
+  meaning:"優雅だ / みずみずしい / 若々しい",
+  rarity:"R", atk:33, hp:158,
+  reading:"なまめかし", hinshi:"形容詞（シク活用）",
+  detail:"「なま（若々しく美しい）」が原義で、そこから優雅・上品な美しさの意味へと発展した。生き生きとした若さと品のある美しさが核心。",
+  example:"なまめかしく、をかしげなる人の。",
+  exampleMeaning:"優雅で、趣のある人が。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"優雅だ",       choices:["優雅だ","野暮ったい","無骨だ","粗野だ","だらしない","品がない"]},
+    {correct:"みずみずしい", choices:["みずみずしい","枯れている","色あせた","くたびれた","古びた","生気がない"]},
+    {correct:"若々しい",     choices:["若々しい","老いぼれた","衰えた","くたびれた","老け込んだ","年老いた"]},
+  ]
+},
+{
+  word:"ありがたし",
+  meaning:"めったにない / めったにないほど立派だ / 生きるのが難しい / （実現が）難しい",
+  rarity:"SR", atk:45, hp:184,
+  reading:"ありがたし", hinshi:"形容詞（ク活用）",
+  detail:"「あること」が「難しい」から「めったにない」の意味に。現代語の「ありがとう」の語源でもある。存在することが稀なほど価値が高いというのが核心。",
+  example:"ありがたきもの、舅にほめらるる婿。",
+  exampleMeaning:"めったにないもの、舅に褒められる婿。",
+  source:"枕草子",
+  quizzes:[
+    {correct:"めったにない",           choices:["めったにない","ありふれている","よく見かける","どこにでもある","平凡だ","当たり前だ"]},
+    {correct:"めったにないほど立派だ", choices:["めったにないほど立派だ","取るに足らない","ごく普通だ","凡庸だ","どこにでもいる","平凡な存在だ"]},
+    {correct:"生きるのが難しい",       choices:["生きるのが難しい","生きるのが楽しい","暮らしが豊かだ","毎日が充実している","生活に不満がない","幸せに生きている"]},
+    {correct:"（実現が）難しい",       choices:["（実現が）難しい","簡単にできる","すぐに叶う","造作もない","たやすい","朝飯前だ"]},
+  ]
+},
+{
+  word:"はづかし",
+  meaning:"立派だ / 気後れする",
+  rarity:"R", atk:30, hp:147,
+  reading:"はづかし", hinshi:"形容詞（シク活用）",
+  detail:"相手を称える「立派だ」の意味が重要。相手があまりに立派なので自分が恥ずかしくなる、気後れするという心理が核心。",
+  example:"はづかしげなる御ありさまにて。",
+  exampleMeaning:"気後れするほど立派なご様子で。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"立派だ",     choices:["立派だ","みっともない","恥さらしだ","情けない","粗末だ","みすぼらしい"]},
+    {correct:"気後れする", choices:["気後れする","堂々としている","臆さない","自信満々だ","物おじしない","平然としている"]},
+  ]
+},
+{
+  word:"やさし",
+  meaning:"恥ずかしい / 優美だ",
+  rarity:"R", atk:27, hp:139,
+  reading:"やさし", hinshi:"形容詞（シク活用）",
+  detail:"「痩す（やす）」ほど恥ずかしがる様子が原義。身が細るほど恥ずかしい思いをする状態から、その立ち居振る舞いの優美さへと意味が発展した。",
+  example:"やさしく、らうたげなる人の。",
+  exampleMeaning:"優美で、かわいらしい人が。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"恥ずかしい", choices:["恥ずかしい","誇らしい","堂々としている","得意げだ","自慢したい","胸を張りたい"]},
+    {correct:"優美だ",     choices:["優美だ","野暮ったい","無骨だ","粗野だ","がさつだ","洗練されていない"]},
+  ]
+},
+{
+  word:"めづらし",
+  meaning:"すばらしい / めったにない / 目新しい",
+  rarity:"R", atk:32, hp:153,
+  reading:"めづらし", hinshi:"形容詞（シク活用）",
+  detail:"現代語の「珍しい」とはニュアンスが違い、単に見慣れないというより感嘆・称賛の気持ちが強い。目を見張るほど優れているという評価が核心。",
+  example:"めづらしき花の姿かな。",
+  exampleMeaning:"すばらしい花の様子よなあ。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"すばらしい",   choices:["すばらしい","つまらない","取るに足らない","凡庸だ","平凡だ","どこにでもある"]},
+    {correct:"めったにない", choices:["めったにない","ありふれている","よく見かける","珍しくもない","当たり前だ","どこにでもある"]},
+    {correct:"目新しい",     choices:["目新しい","見慣れている","古くさい","見飽きた","ありきたりだ","変わり映えしない"]},
+  ]
+},
+{
+  word:"なつかし",
+  meaning:"親しみが持てる / 慕わしい",
+  rarity:"R", atk:28, hp:142,
+  reading:"なつかし", hinshi:"形容詞（シク活用）",
+  detail:"古典では昔を懐かしむ意味合いは薄い。心が引き寄せられる・そばにいたいという感情が核心で、現代語とは異なる用法に注意。",
+  example:"なつかしき御ありさまに、涙おとされぬ。",
+  exampleMeaning:"慕わしいお姿に、涙をこぼされた。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"親しみが持てる", choices:["親しみが持てる","よそよそしい","近寄りがたい","冷たい","打ち解けられない","他人行儀だ"]},
+    {correct:"慕わしい",       choices:["慕わしい","憎らしい","疎ましい","遠ざけたい","嫌悪する","うとましい"]},
+  ]
+},
+{
+  word:"おとなし",
+  meaning:"大人びている / 主だっている / 思慮分別がある / 年配である",
+  rarity:"R", atk:36, hp:165,
+  reading:"おとなし", hinshi:"形容詞（シク活用）",
+  detail:"「大人らし＝おとなし」と覚える。現代語の「おとなしい（静か）」とは全く異なる。成熟した大人の落ち着きや分別が核心。",
+  example:"おとなしく、かどかどしき人。",
+  exampleMeaning:"思慮分別があり、才気ある人。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"大人びている",   choices:["大人びている","子供っぽい","幼稚だ","未熟だ","あどけない","無邪気だ"]},
+    {correct:"主だっている",   choices:["主だっている","取るに足らない","端役だ","目立たない","脇役だ","影が薄い"]},
+    {correct:"思慮分別がある", choices:["思慮分別がある","無鉄砲だ","向こう見ずだ","軽率だ","考えが浅い","分別がない"]},
+    {correct:"年配である",     choices:["年配である","若々しい","幼い","あどけない","青二才だ","年若い"]},
+  ]
+},
+{
+  word:"さうざうし",
+  meaning:"物足りない",
+  rarity:"N", atk:20, hp:115,
+  reading:"さうざうし", hinshi:"形容詞（シク活用）",
+  detail:"現代語の「騒々しい」とは全くの別語。何かが欠けていて心が満たされない、物足りなくもの寂しい感覚が核心。",
+  example:"さうざうしくて、おはしますめり。",
+  exampleMeaning:"物足りなそうに、いらっしゃるようだ。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"物足りない", choices:["物足りない","騒がしい","うるさい","やかましい","喧騒だ","賑やかだ"]},
+  ]
+},
+{
+  word:"あぢきなし",
+  meaning:"おもしろくない / どうにもならない / つまらない / 無益だ",
+  rarity:"SR", atk:40, hp:172,
+  reading:"あぢきなし", hinshi:"形容詞（ク活用）",
+  detail:"現代語の「味気ない」とはニュアンスが違う。どうしようもない閉塞感や、やるせなさが核心。思い通りにならない状況への嘆きを表す。",
+  example:"あぢきなく、世を思ひつづけらるれば。",
+  exampleMeaning:"どうにもならなく、世の中のことを思い続けてしまうので。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"おもしろくない",   choices:["おもしろくない","興味深い","夢中になれる","楽しくてたまらない","心惹かれる","面白い"]},
+    {correct:"どうにもならない", choices:["どうにもならない","なんとかなる","打開できる","解決できる","うまくいく","可能性がある"]},
+    {correct:"つまらない",       choices:["つまらない","胸躍る","わくわくする","刺激的だ","やりがいがある","充実している"]},
+    {correct:"無益だ",           choices:["無益だ","有益だ","価値がある","意義深い","役に立つ","実りが多い"]},
+  ]
+},
+{
+  word:"すさまじ",
+  meaning:"殺風景だ / 興ざめだ",
+  rarity:"R", atk:31, hp:150,
+  reading:"すさまじ", hinshi:"形容詞（シク活用）",
+  detail:"現代語の「すさまじい（激しい）」の意味で訳さないこと。期待外れで興が冷める・場の雰囲気が白ける状態が核心。",
+  example:"すさまじきものにして、人の来ぬ。",
+  exampleMeaning:"興ざめなこととして、人が来ない。",
+  source:"枕草子",
+  quizzes:[
+    {correct:"殺風景だ", choices:["殺風景だ","趣がある","風情がある","美しい","情緒豊かだ","絵になる"]},
+    {correct:"興ざめだ", choices:["興ざめだ","興奮する","感動的だ","心が弾む","盛り上がる","熱狂する"]},
+  ]
+},
+{
+  word:"あやし",
+  meaning:"不思議だ / （身分が）卑しい",
+  rarity:"R", atk:29, hp:145,
+  reading:"あやし", hinshi:"形容詞（シク活用）",
+  detail:"「怪し」は不思議だ・理解できない、「賤し」は身分・品質が低いの意。同じ読みで漢字が異なる二つの意味を文脈で判断する必要がある重要語。",
+  example:"あやしき翁、竹を取りつつ。",
+  exampleMeaning:"粗末な老人が竹を取りながら。",
+  source:"竹取物語",
+  quizzes:[
+    {correct:"不思議だ",       choices:["不思議だ","当然だ","納得できる","理にかなっている","もっともだ","当たり前だ"]},
+    {correct:"（身分が）卑しい", choices:["（身分が）卑しい","高貴だ","気品がある","身分が高い","立派な家柄だ","由緒ある"]},
+  ]
+},
+{
+  word:"あさまし",
+  meaning:"驚きあきれるほどだ / 嘆かわしい",
+  rarity:"R", atk:34, hp:160,
+  reading:"あさまし", hinshi:"形容詞（シク活用）",
+  detail:"驚き呆れるほどの状態を表す。良い意味でも悪い意味でも使われ、「…」の内容は文脈から判断する。現代語の「あさましい」より使用範囲が広い。",
+  example:"あさましく、心憂き目を見るかな。",
+  exampleMeaning:"驚きあきれるほど、つらい目にあうことよ。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"驚きあきれるほどだ", choices:["驚きあきれるほどだ","当然だ","予想通りだ","驚くほどでもない","ありきたりだ","想定の範囲内だ"]},
+    {correct:"嘆かわしい",         choices:["嘆かわしい","喜ばしい","誇らしい","清々しい","晴れやかだ","胸が躍る"]},
+  ]
+},
+{
+  word:"つらし",
+  meaning:"薄情だ / 恨めしい",
+  rarity:"R", atk:32, hp:152,
+  reading:"つらし", hinshi:"形容詞（ク活用）",
+  detail:"自分がつらいのではなく、相手が薄情だという意味が核心。相手の冷たい仕打ちへの恨みや嘆きを表す語。",
+  example:"つらき人の、なほ恋しきかな。",
+  exampleMeaning:"薄情な人が、それでも恋しいことよ。",
+  source:"古今和歌集",
+  quizzes:[
+    {correct:"薄情だ",   choices:["薄情だ","思いやりがある","情け深い","優しい","心温かい","親切だ"]},
+    {correct:"恨めしい", choices:["恨めしい","ありがたい","感謝している","嬉しい","頼もしい","慕わしい"]},
+  ]
+},
+{
+  word:"こころぐるし",
+  meaning:"つらい / 気の毒だ",
+  rarity:"N", atk:22, hp:128,
+  reading:"こころぐるし", hinshi:"形容詞（シク活用）",
+  detail:"現代語の「心苦しい（申し訳ない）」ではない。胸が痛むほどつらい状態、または相手への同情・憐れみの気持ちが核心。",
+  example:"こころぐるしげなる御けしきにて。",
+  exampleMeaning:"つらそうなご様子で。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"つらい",    choices:["つらい","心地よい","清々しい","晴れやかだ","気楽だ","のびのびする"]},
+    {correct:"気の毒だ",  choices:["気の毒だ","羨ましい","誇らしい","頼もしい","ありがたい","嬉しい"]},
+  ]
+},
+{
+  word:"わびし",
+  meaning:"つらい / つまらない / みすぼらしい",
+  rarity:"R", atk:30, hp:146,
+  reading:"わびし", hinshi:"形容詞（シク活用）",
+  detail:"「わぶ」と同じく失望・困難・悩みのニュアンスが核心。心細くやるせない状態、みじめな様子を幅広く表す語。",
+  example:"わびしく、心細き旅の空かな。",
+  exampleMeaning:"つらく、心細い旅先の空よなあ。",
+  source:"土佐日記",
+  quizzes:[
+    {correct:"つらい",       choices:["つらい","楽しい","心地よい","幸せだ","充実している","満ち足りている"]},
+    {correct:"つまらない",   choices:["つまらない","胸躍る","わくわくする","刺激的だ","やりがいがある","面白い"]},
+    {correct:"みすぼらしい", choices:["みすぼらしい","立派だ","堂々としている","華やかだ","見栄えがする","威厳がある"]},
+  ]
+},
+{
+  word:"あたらし",
+  meaning:"惜しい / すばらしい",
+  rarity:"R", atk:26, hp:138,
+  reading:"あたらし", hinshi:"形容詞（シク活用）",
+  detail:"「新しい」より「可惜し（あたらし）＝もったいない・惜しい」が大切。価値あるものが失われることへの惜しむ気持ちと、それほど価値があるというすばらしさが核心。",
+  example:"あたらしき御心ばへかな。",
+  exampleMeaning:"惜しいほどすばらしいお気持ちよなあ。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"惜しい",     choices:["惜しい","どうでもよい","未練がない","捨てても構わない","惜しくもない","執着しない"]},
+    {correct:"すばらしい", choices:["すばらしい","つまらない","凡庸だ","取るに足らない","平凡だ","価値がない"]},
+  ]
+},
+{
+  word:"うしろめたし",
+  meaning:"気がかりだ / 心配だ",
+  rarity:"N", atk:21, hp:120,
+  reading:"うしろめたし", hinshi:"形容詞（シク活用）",
+  detail:"「後ろから見て気がかりだ」が原義。後に残していく人や物事が心配で気になる状態が核心。現代語の「後ろめたい（やましい）」とは異なる。",
+  example:"うしろめたく、悲しき別れかな。",
+  exampleMeaning:"気がかりで、悲しい別れよなあ。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"気がかりだ", choices:["気がかりだ","安心だ","心配いらない","気にならない","問題ない","平気だ"]},
+    {correct:"心配だ",     choices:["心配だ","のんきだ","気楽だ","余裕がある","安堵している","落ち着いている"]},
+  ]
+},
+{
+  word:"むつかし",
+  meaning:"不快だ / （気分が）優れない / 恐ろしい",
+  rarity:"R", atk:31, hp:148,
+  reading:"むつかし", hinshi:"形容詞（シク活用）",
+  detail:"「むずかる（古語ではむつかる）＝不快に思う」から連想。不機嫌・不快感が核心。現代語の「難しい」とは全く異なるので注意。",
+  example:"むつかしげなる御気色にて。",
+  exampleMeaning:"不快そうなご様子で。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"不快だ",          choices:["不快だ","心地よい","気持ちがいい","爽快だ","すがすがしい","快適だ"]},
+    {correct:"（気分が）優れない", choices:["（気分が）優れない","体調が良い","元気いっぱいだ","すこぶる健康だ","快調だ","絶好調だ"]},
+    {correct:"恐ろしい",         choices:["恐ろしい","頼もしい","安心できる","心強い","怖くない","穏やかだ"]},
+  ]
+},
+{
+  word:"あからさまなり",
+  meaning:"ほんのしばらく / 全く",
+  rarity:"R", atk:28, hp:144,
+  reading:"あからさまなり", hinshi:"形容動詞（ナリ活用）",
+  detail:"現代語の「あからさま（露骨）」とは全く異なる。「ほんのちょっとの間」または打消しを伴って「全く〜ない」の意味になる。文脈判断が重要。",
+  example:"あからさまに出でたるほどに。",
+  exampleMeaning:"ほんのしばらく外出したところ。",
+  source:"枕草子",
+  quizzes:[
+    {correct:"ほんのしばらく", choices:["ほんのしばらく","永遠に","いつまでも","ずっと","長い間","果てしなく"]},
+    {correct:"全く",           choices:["全く","少し","ほんの少し","わずかに","ちょっとだけ","かすかに"]},
+  ]
+},
+{
+  word:"おろかなり",
+  meaning:"いい加減だ / 不十分だ",
+  rarity:"N", atk:19, hp:110,
+  reading:"おろかなり", hinshi:"形容動詞（ナリ活用）",
+  detail:"「疎（おろ）か」と覚える。いい加減で不十分なさまが核心。現代語の「愚かだ（知性がない）」の意味では使われないので注意。",
+  example:"おろかならず思ひきこゆ。",
+  exampleMeaning:"いい加減でなく（＝心から）お慕い申し上げる。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"いい加減だ", choices:["いい加減だ","誠実だ","真摯だ","丁寧だ","念入りだ","手を抜かない"]},
+    {correct:"不十分だ",   choices:["不十分だ","十分すぎる","申し分ない","完璧だ","余りある","申し分ない"]},
+  ]
+},
+{
+  word:"いたづらなり",
+  meaning:"むだだ / むなしい / つまらない",
+  rarity:"N", atk:22, hp:124,
+  reading:"いたづらなり", hinshi:"形容動詞（ナリ活用）",
+  detail:"現代語の「悪戯（いたずら）」とは全くの別語。何の価値も意味もない空虚な状態が核心。時間や命が無為に過ぎる虚しさを表す。",
+  example:"いたづらに日を暮らしつ。",
+  exampleMeaning:"むなしく一日を過ごしてしまった。",
+  source:"徒然草",
+  quizzes:[
+    {correct:"むだだ",     choices:["むだだ","意義深い","価値がある","有益だ","実りがある","役に立つ"]},
+    {correct:"むなしい",   choices:["むなしい","充実している","満ち足りている","生きがいがある","やりがいがある","心が満たされる"]},
+    {correct:"つまらない", choices:["つまらない","胸躍る","わくわくする","刺激的だ","面白い","興味深い"]},
+  ]
+},
+{
+  word:"て",
+  meaning:"筆跡 / 手段 / 手傷",
+  rarity:"N", atk:18, hp:108,
+  reading:"て", hinshi:"名詞",
+  detail:"「手」の働きによって生じるものが原義。筆を持つ手から「筆跡」、手を使う方法から「手段」、手に受ける傷から「手傷」へと意味が広がった。",
+  example:"いとをかしげなる手にて書きたり。",
+  exampleMeaning:"たいそう趣のある筆跡で書いてあった。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"筆跡", choices:["筆跡","声色","身振り","表情","口ぶり","顔つき"]},
+    {correct:"手段", choices:["手段","目的","結果","理由","動機","原因"]},
+    {correct:"手傷", choices:["手傷","病気","疲労","疫病","老衰","心の傷"]},
+  ]
+},
+{
+  word:"うへ",
+  meaning:"天皇 / 御殿 / 奥方 / 加えて",
+  rarity:"R", atk:35, hp:163,
+  reading:"うへ", hinshi:"名詞・副詞",
+  detail:"「上」にいる人やその場所から意味が派生した。最も上にいる人＝天皇、上の人がいる場所＝御殿、家の中の上位の人＝奥方、そして「それに加えて」という副詞的用法も持つ。",
+  example:"うへの御前にさぶらふ。",
+  exampleMeaning:"天皇の御前にお仕えしている。",
+  source:"枕草子",
+  quizzes:[
+    {correct:"天皇", choices:["天皇","将軍","公家","僧侶","武士","貴族"]},
+    {correct:"御殿", choices:["御殿","庭園","市場","寺院","城下","港"]},
+    {correct:"奥方", choices:["奥方","侍女","乳母","女官","尼僧","巫女"]},
+    {correct:"加えて", choices:["加えて","しかし","そして","ところが","それゆえ","つまり"]},
+  ]
+},
+{
+  word:"ついで",
+  meaning:"順序 / 機会",
+  rarity:"N", atk:17, hp:105,
+  reading:"ついで", hinshi:"名詞",
+  detail:"「次（つぎ）て」が語源で順序が原義。物事の並び順から、ちょうどよい折・機会という意味へ発展した。",
+  example:"ついでごとに申しはべりしを。",
+  exampleMeaning:"機会あるごとに申し上げていましたが。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"順序", choices:["順序","目的","結果","理由","原因","動機"]},
+    {correct:"機会", choices:["機会","障害","邪魔","失敗","躓き","妨げ"]},
+  ]
+},
+{
+  word:"やう",
+  meaning:"様子 / 理由 / 〜こと",
+  rarity:"R", atk:26, hp:137,
+  reading:"やう", hinshi:"名詞",
+  detail:"漢字は「様」。「用」や「要」ではない。物事のありさま・理由・内容を広く表す多義語で、文脈によって意味が大きく変わる重要語。",
+  example:"かかるやうやはある。",
+  exampleMeaning:"このようなことがあるだろうか（＝あるはずがない）。",
+  source:"竹取物語",
+  quizzes:[
+    {correct:"様子",   choices:["様子","声色","心情","気配","匂い","足音"]},
+    {correct:"理由",   choices:["理由","結果","目的","手段","結末","成り行き"]},
+    {correct:"〜こと", choices:["〜こと","〜もの","〜ところ","〜とき","〜ひと","〜ほど"]},
+  ]
+},
+{
+  word:"けしき",
+  meaning:"有様（ありさま）/ 趣 / 機嫌 / 兆候",
+  rarity:"R", atk:28, hp:148,
+  reading:"けしき", hinshi:"名詞",
+  detail:"漢字は「気色」であり「景色」ではない。人の表情・様子・気配・兆しまで幅広く表す多義語。自然の風景を指す現代語の「景色」とは全く異なる。",
+  example:"あやしきけしきを見せたまふ。",
+  exampleMeaning:"不思議な様子をお見せになる。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"有様（ありさま）", choices:["有様（ありさま）","美しい景色","遠くの眺め","自然の風景","山河の眺め","絶景"]},
+    {correct:"趣",               choices:["趣","騒ぎ","勢い","迫力","激しさ","大きさ"]},
+    {correct:"機嫌",             choices:["機嫌","体調","才能","身分","年齢","容姿"]},
+    {correct:"兆候",             choices:["兆候","結果","記録","証拠","原因","理由"]},
+  ]
+},
 ];
 kobunCards.forEach(c=>c.type="kobun");
 
@@ -327,6 +738,7 @@ function cardPool(){ return currentMode==="english" ? allCards : kobunCards; }
 // =============================================
 function switchMode(mode){
   if(versusMode && mode !== currentMode){ alert("対戦中はモード変更できません！"); return; }
+  if(versusPhase==="p1deck" || versusPhase==="p2deck"){ alert("デッキ選択中はモード変更できません！"); return; }
   currentMode = mode;
   inBattle = false;
 
@@ -367,12 +779,14 @@ function switchMode(mode){
     if(d.length < 5){
       show("deck");
     } else {
+      inBattle = true;
       startBattle();
       const state = ms();
       document.getElementById("bossLevel").textContent      = state.bossLevel;
       document.getElementById("bossATKDisplay").textContent = state.bossATK;
       updateBossVisual();
       updateHPBars();
+      document.getElementById("bossQuizArea").innerHTML = "";
       generateQuiz();
     }
   } else {
@@ -454,13 +868,13 @@ function showDmgPopup(dmg, isPlayer){
 // =============================================
 //  BATTLE OVERLAY
 // =============================================
-function showBattleOverlay(type){
+function showBattleOverlay(type, msg){
   const overlay = document.getElementById("battleOverlay");
   overlay.className = "show "+type;
   if(type==="victory"){
     document.getElementById("overlayEmoji").textContent="🏆";
     document.getElementById("overlayTitle").textContent="VICTORY!";
-    document.getElementById("overlayMsg").textContent="ボスを倒した！次のレベルへ…";
+    document.getElementById("overlayMsg").textContent = msg || "ボスを倒した！次のレベルへ…";
     spawnStars();
   } else {
     document.getElementById("overlayEmoji").textContent="💀";
@@ -561,8 +975,20 @@ function checkBattle(){
     document.getElementById("bossATKDisplay").textContent = state.bossATK;
     updateBossVisual();
     updateHPBars();
+
+    // ダイヤ報酬
+    const isMillestone = state.bossLevel % 10 === 0;
+    const reward = isMillestone ? 10 : 3;
+    diamonds += reward;
     saveGame();
-    showBattleOverlay("victory");
+    update();
+
+    // 勝利メッセージにダイヤ表示
+    const msg = isMillestone
+      ? `Lv.${state.bossLevel} 達成！💎×${reward} ボーナス！`
+      : `ボスを倒した！💎×${reward} 獲得！`;
+
+    showBattleOverlay("victory", msg);
     startBattle();
     return;
   }
@@ -710,22 +1136,35 @@ function show(id){
 
   if(id==="battle"){
     const d = currentDeck();
-    if(d.length===0){alert("デッキを編成してください！");show("deck");return;}
-    if(d.length<5){alert("デッキは5枚編成してください！");show("deck");return;}
+    if(d.length===0){
+      inBattle = false;
+      alert("デッキを編成してください！");
+      show("deck");
+      return;
+    }
+    if(d.length<5){
+      inBattle = false;
+      alert("デッキは5枚編成してください！");
+      show("deck");
+      return;
+    }
     inBattle = true;
     const state = ms();
     document.getElementById("bossLevel").textContent      = state.bossLevel;
     document.getElementById("bossATKDisplay").textContent = state.bossATK;
     updateBossVisual();
     startBattle();
+    // クイズエリアをリセットしてから生成
+    document.getElementById("bossQuizArea").innerHTML = "";
     generateQuiz();
   }
 
   document.getElementById(id).classList.add("active");
+  if(id==="versus") initVersusUI();
   update();
 
   document.querySelectorAll(".bottomMenu button").forEach(b=>b.classList.remove("active"));
-  const map={battle:"btnBattle",pack:"btnPack",deck:"btnDeck",book:"btnBook",convert:"btnConvert"};
+  const map={battle:"btnBattle",pack:"btnPack",deck:"btnDeck",book:"btnBook",convert:"btnConvert",versus:"btnVersus"};
   if(map[id]) document.getElementById(map[id]).classList.add("active");
 }
 
@@ -778,7 +1217,7 @@ function openPack(){
   document.querySelectorAll("button").forEach(b=>b.disabled=true);
   document.getElementById("packResult").innerHTML="";
   document.getElementById("packArea").innerHTML=`
-    <div class="packWrapper" id="packBox" onclick="openAnimation()">
+    <div class="packWrapper" id="packBox" onclick="openAnimation()" style="pointer-events:auto">
       <div class="packTop"></div>
       <div class="packBottom"></div>
       <div class="packLogo">WORD<br>PACK</div>
@@ -787,8 +1226,11 @@ function openPack(){
 
 function openAnimation(){
   if(!packOpening) return;
-  document.getElementById("packBox").classList.add("open");
-  setTimeout(revealCards,700);
+  // パック自体のクリックを即座に無効化して連打防止
+  const packBox = document.getElementById("packBox");
+  if(packBox) packBox.style.pointerEvents = "none";
+  packBox.classList.add("open");
+  setTimeout(revealCards, 700);
 }
 
 function revealCards(){
@@ -808,13 +1250,16 @@ function revealCards(){
   document.getElementById("packArea").innerHTML="";
   document.getElementById("packResult").innerHTML=html;
   saveGame(); update();
-  packOpening=false;
+  packOpening = false;
   document.querySelectorAll("button").forEach(b=>b.disabled=false);
 }
 
 // 古文 1回ガチャ
 function openKobunGacha1(){
+  if(packOpening) return;
   if(diamonds<5){alert("💎が足りません（必要: 5）");return;}
+  packOpening = true;
+  document.querySelectorAll("button").forEach(b=>b.disabled=true);
   diamonds-=5;
   const card = kobunCards[Math.floor(Math.random()*kobunCards.length)];
   owned.push({...card,type:"kobun"});
@@ -828,11 +1273,16 @@ function openKobunGacha1(){
       <div class="stat">${card.rarity}</div>
     </div>`;
   saveGame(); update();
+  packOpening = false;
+  document.querySelectorAll("button").forEach(b=>b.disabled=false);
 }
 
 // 古文 10連ガチャ
 function openKobunGacha10(){
+  if(packOpening) return;
   if(diamonds<50){alert("💎が足りません（必要: 50）");return;}
+  packOpening = true;
+  document.querySelectorAll("button").forEach(b=>b.disabled=true);
   diamonds-=50;
   const results=[];
   for(let i=0;i<10;i++){
@@ -846,6 +1296,7 @@ function openKobunGacha10(){
   const closeBtn=document.getElementById("gacha10CloseBtn");
   stage.innerHTML=`<div id="gacha10Title">📜 古文 10連ガチャ！</div>`;
   closeBtn.style.display="none";
+  closeBtn.disabled = false; // 閉じるボタンは常に有効
   overlay.style.display="flex";
 
   results.forEach((card,i)=>{
@@ -872,7 +1323,12 @@ function openKobunGacha10(){
       }
     }, 200+i*280);
   });
-  setTimeout(()=>{ closeBtn.style.display="block"; }, 200+10*280+600);
+
+  // 全カード表示後に閉じるボタンを表示（disabledは解除済み）
+  setTimeout(()=>{
+    closeBtn.style.display="block";
+    closeBtn.disabled = false;
+  }, 200+10*280+600);
 }
 
 function spawnGachaParticles(wrap){
@@ -896,6 +1352,9 @@ function spawnGachaParticles(wrap){
 function closeGacha10(){
   document.getElementById("gacha10Overlay").style.display="none";
   document.getElementById("gacha10Stage").innerHTML="";
+  packOpening = false;
+  // すべてのボタンを確実に再有効化
+  document.querySelectorAll("button").forEach(b=>b.disabled=false);
   update();
 }
 
@@ -941,74 +1400,252 @@ function convertCard(word){
 // =============================================
 //  VERSUS
 // =============================================
-function createVersusCode(){
-  const d = currentDeck();
-  if(d.length<5){alert("デッキを5枚編成してください");return;}
-  const code=prompt("4文字以上の対戦コードを作ってください");
-  if(!code||code.length<4){alert("4文字以上にしてください");return;}
-  versusCode=code;
-  const sendData=code+"|"+currentMode+"|"+d.map(c=>c.word).join(",");
-  prompt("この対戦コードを友達に送ってください",sendData);
+
+// 対戦状態
+let p1Name="プレイヤー1", p2Name="プレイヤー2";
+let p1HP=0, p1MaxHP=0, p1ATK=0;
+let p2HP=0, p2MaxHP=0, p2ATK=0;
+let p1Deck=[], p2Deck=[];
+let versusPhase="setup"; // setup | p1deck | p2deck | battle | result
+let versusCurrentPlayer=1; // 1 or 2
+
+function initVersusUI(){
+  versusPhase="setup";
+  versusMode=false;
+  p1Deck=[]; p2Deck=[];
+  renderVersus();
 }
 
-function loadEnemyCode(){
-  const data=prompt("相手の対戦コードを入力");
-  if(!data) return;
-  const parts=data.split("|");
-  if(parts.length<3){alert("コードが正しくありません");return;}
-  const enemyMode=parts[1];
-  if(enemyMode!==currentMode){alert(`モードが違います！相手は${enemyMode==="english"?"英語":"古文"}モードです`);return;}
-  const words=parts[2].split(",");
-  const pool = currentMode==="english" ? allCards : kobunCards;
-  enemyDeck=[];
-  words.forEach(w=>{ const c=pool.find(x=>x.word===w); if(c) enemyDeck.push(c); });
-  let html="<h3>相手デッキ</h3>";
-  enemyDeck.forEach(c=>{
-    html+=`<div class="card ${c.rarity.toLowerCase()}"><div class="word">${c.word}</div><div class="stat">ATK ${c.atk}</div><div class="stat">HP ${c.hp}</div></div>`;
+function renderVersus(){
+  const area = document.getElementById("versusArea");
+  if(!area) return;
+
+  if(versusPhase==="setup"){
+    area.innerHTML=`
+      <div class="vs-setup">
+        <h3>👤 プレイヤー名を設定</h3>
+        <div class="vs-name-row">
+          <input id="p1NameInput" class="vs-input" placeholder="プレイヤー1の名前" value="${p1Name}" maxlength="10">
+          <input id="p2NameInput" class="vs-input" placeholder="プレイヤー2の名前" value="${p2Name}" maxlength="10">
+        </div>
+        <button onclick="goP1Deck()" style="background:linear-gradient(135deg,#4D96FF,#6BCB77);margin-top:12px">
+          ⚔️ 対戦開始
+        </button>
+      </div>`;
+
+  } else if(versusPhase==="p1deck"){
+    area.innerHTML=`
+      <div class="vs-deckselect">
+        <div class="vs-turn-banner p1-banner">
+          👤 ${p1Name} のデッキを選んでください
+        </div>
+        <p style="color:rgba(255,255,255,0.5);font-size:13px;margin:6px 0 12px">※相手には見えません</p>
+        <div id="vsCardPicker"></div>
+        <div class="vs-selected-deck">
+          <div style="color:rgba(255,255,255,0.6);font-size:13px;margin-bottom:6px">選択中: <span id="vsSelectedCount">0</span>/5</div>
+          <div id="vsSelectedCards"></div>
+        </div>
+        <button id="vsDeckConfirmBtn" onclick="confirmP1Deck()" style="background:linear-gradient(135deg,#6BCB77,#4D96FF);opacity:0.4;cursor:not-allowed" disabled>
+          ✅ このデッキで確定
+        </button>
+      </div>`;
+    renderCardPicker(1);
+
+  } else if(versusPhase==="p2deck"){
+    area.innerHTML=`
+      <div class="vs-deckselect">
+        <div class="vs-turn-banner p2-banner">
+          👤 ${p2Name} のデッキを選んでください
+        </div>
+        <p style="color:rgba(255,255,255,0.5);font-size:13px;margin:6px 0 12px">※相手には見えません</p>
+        <div id="vsCardPicker"></div>
+        <div class="vs-selected-deck">
+          <div style="color:rgba(255,255,255,0.6);font-size:13px;margin-bottom:6px">選択中: <span id="vsSelectedCount">0</span>/5</div>
+          <div id="vsSelectedCards"></div>
+        </div>
+        <button id="vsDeckConfirmBtn" onclick="confirmP2Deck()" style="background:linear-gradient(135deg,#C77DFF,#FF6B6B);opacity:0.4;cursor:not-allowed" disabled>
+          ✅ このデッキで確定
+        </button>
+      </div>`;
+    renderCardPicker(2);
+
+  } else if(versusPhase==="battle"){
+    renderVersusBattle();
+
+  } else if(versusPhase==="result"){
+    renderVersusResult();
+  }
+}
+
+// カードピッカー（所持カードから選ぶ）
+let vsPickedWords=[];
+function renderCardPicker(player){
+  vsPickedWords=[];
+  const pool = owned.filter(c=>c.type===currentMode);
+  const grouped={};
+  pool.forEach(c=>{ if(!grouped[c.word]) grouped[c.word]={...c}; });
+
+  let html="";
+  for(const key in grouped){
+    const c=grouped[key];
+    html+=`<div class="vs-pick-card ${c.rarity.toLowerCase()}" id="vspick-${c.word}" onclick="toggleVsPick('${c.word}','${player}')">
+      <div class="word">${c.word}</div>
+      <div class="meaning" style="font-size:11px">${c.meaning}</div>
+      <div style="font-size:11px">ATK ${c.atk}</div>
+    </div>`;
+  }
+  if(!html) html=`<p style="color:rgba(255,255,255,0.4)">カードがありません。先にガチャを引いてください。</p>`;
+  document.getElementById("vsCardPicker").innerHTML=html;
+  updateVsSelectedDisplay();
+}
+
+function toggleVsPick(word, player){
+  const idx=vsPickedWords.indexOf(word);
+  const el=document.getElementById("vspick-"+word);
+  if(idx>=0){
+    vsPickedWords.splice(idx,1);
+    el.classList.remove("vs-picked");
+  } else {
+    if(vsPickedWords.length>=5){ return; }
+    vsPickedWords.push(word);
+    el.classList.add("vs-picked");
+  }
+  updateVsSelectedDisplay();
+}
+
+function updateVsSelectedDisplay(){
+  document.getElementById("vsSelectedCount").textContent=vsPickedWords.length;
+  const btn=document.getElementById("vsDeckConfirmBtn");
+  if(vsPickedWords.length===5){
+    btn.disabled=false;
+    btn.style.opacity="1";
+    btn.style.cursor="pointer";
+  } else {
+    btn.disabled=true;
+    btn.style.opacity="0.4";
+    btn.style.cursor="not-allowed";
+  }
+  const pool = owned.filter(c=>c.type===currentMode);
+  let html="";
+  vsPickedWords.forEach(w=>{
+    const c=pool.find(x=>x.word===w);
+    if(c) html+=`<div class="vs-mini-card ${c.rarity.toLowerCase()}"><div>${c.word}</div><div style="font-size:10px">ATK ${c.atk}</div></div>`;
   });
-  document.getElementById("enemyDeck").innerHTML=html;
+  document.getElementById("vsSelectedCards").innerHTML=html;
 }
 
-function startVersus(){
+function goP1Deck(){
+  p1Name=document.getElementById("p1NameInput").value||"プレイヤー1";
+  p2Name=document.getElementById("p2NameInput").value||"プレイヤー2";
+  versusPhase="p1deck";
+  renderVersus();
+}
+
+function confirmP1Deck(){
+  if(vsPickedWords.length<5){alert("5枚選んでください");return;}
+  const pool=owned.filter(c=>c.type===currentMode);
+  p1Deck=vsPickedWords.map(w=>pool.find(c=>c.word===w)).filter(Boolean);
+  p1HP=0; p1ATK=0;
+  p1Deck.forEach(c=>{p1HP+=c.hp; p1ATK+=c.atk;});
+  p1MaxHP=p1HP;
+  // P2に渡す前に画面を隠す演出
+  versusPhase="p2deck";
+  renderVersus();
+}
+
+function confirmP2Deck(){
+  if(vsPickedWords.length<5){alert("5枚選んでください");return;}
+  const pool=owned.filter(c=>c.type===currentMode);
+  p2Deck=vsPickedWords.map(w=>pool.find(c=>c.word===w)).filter(Boolean);
+  p2HP=0; p2ATK=0;
+  p2Deck.forEach(c=>{p2HP+=c.hp; p2ATK+=c.atk;});
+  p2MaxHP=p2HP;
+  // 先攻決定
+  versusCurrentPlayer=Math.random()<0.5?1:2;
   versusMode=true;
-  if(enemyDeck.length===0){alert("相手デッキを読み込んでください");return;}
-  playerFirst=Math.random()<0.5;
-  playerTurn=playerFirst;
-  alert(playerFirst?"あなたが先攻！":"相手が先攻！");
-  const d=currentDeck();
-  let myHP=0, myATK=0;
-  d.forEach(c=>{myHP+=c.hp; myATK+=c.atk;});
-  playerHP=myHP;
-  enemyHP=0; enemyATK=0;
-  enemyDeck.forEach(c=>{enemyHP+=c.hp; enemyATK+=c.atk;});
-  document.getElementById("versusResult").innerHTML=`
-    <div>あなたHP <span id="vPlayerHP">${playerHP}</span></div>
-    <div>あなたATK <span id="vPlayerATK">${myATK}</span></div>
-    <div>相手HP <span id="vEnemyHP">${enemyHP}</span></div>
-    <div>相手ATK <span id="vEnemyATK">${enemyATK}</span></div>
-    <div id="turnText"></div>`;
-  document.getElementById("turnText").textContent=playerTurn?"あなたのターン":"相手のターン";
+  versusPhase="battle";
+  renderVersus();
+}
+
+// バトル画面
+function renderVersusBattle(){
+  const area=document.getElementById("versusArea");
+  const isP1=versusCurrentPlayer===1;
+  const name=isP1?p1Name:p2Name;
+  const bannerClass=isP1?"p1-banner":"p2-banner";
+
+  area.innerHTML=`
+    <div class="vs-battle">
+      <div class="vs-turn-banner ${bannerClass}">
+        ⚔️ ${name} のターン
+      </div>
+
+      <div class="vs-hp-area">
+        <div class="vs-hp-block">
+          <div class="vs-hp-name">${p1Name}</div>
+          <div class="hp-bar-wrap"><div class="hp-bar player" id="vp1Bar" style="width:${p1HP/p1MaxHP*100}%"></div></div>
+          <div class="vs-hp-num" id="vp1HP">${p1HP} / ${p1MaxHP}</div>
+        </div>
+        <div class="vs-vs-badge">VS</div>
+        <div class="vs-hp-block">
+          <div class="vs-hp-name">${p2Name}</div>
+          <div class="hp-bar-wrap"><div class="hp-bar boss" id="vp2Bar" style="width:${p2HP/p2MaxHP*100}%"></div></div>
+          <div class="vs-hp-num" id="vp2HP">${p2HP} / ${p2MaxHP}</div>
+        </div>
+      </div>
+
+      <div id="versusQuizArea"></div>
+
+      <button onclick="stopVersus()" style="background:rgba(255,107,107,0.3);box-shadow:none;font-size:12px;margin-top:8px">❌ 対戦をやめる</button>
+    </div>`;
+
   generateVersusQuiz();
+}
+
+function updateVersusBattleHP(){
+  const p1Bar=document.getElementById("vp1Bar");
+  const p2Bar=document.getElementById("vp2Bar");
+  if(p1Bar) p1Bar.style.width=Math.max(0,p1HP/p1MaxHP*100)+"%";
+  if(p2Bar) p2Bar.style.width=Math.max(0,p2HP/p2MaxHP*100)+"%";
+  const p1El=document.getElementById("vp1HP");
+  const p2El=document.getElementById("vp2HP");
+  if(p1El) p1El.textContent=Math.max(0,p1HP)+" / "+p1MaxHP;
+  if(p2El) p2El.textContent=Math.max(0,p2HP)+" / "+p2MaxHP;
+}
+
+function renderVersusResult(){
+  const area=document.getElementById("versusArea");
+  const winner=p1HP<=0?p2Name:p1Name;
+  area.innerHTML=`
+    <div class="vs-result">
+      <div style="font-size:60px;margin-bottom:10px">🏆</div>
+      <div style="font-family:'Fredoka One',cursive;font-size:2rem;color:var(--pop2);margin-bottom:6px">${winner}</div>
+      <div style="color:rgba(255,255,255,0.7);margin-bottom:20px">の勝利！</div>
+      <button onclick="initVersusUI()" style="background:linear-gradient(135deg,#FFD93D,#FF6B6B)">🔄 もう一度</button>
+    </div>`;
+  versusMode=false;
 }
 
 function generateVersusQuiz(){
   const pool = cardPool();
   const card = pool[Math.floor(Math.random()*pool.length)];
-
   let correct, choices;
-  if(card.quizzes && card.quizzes.length > 0){
-    const q = card.quizzes[Math.floor(Math.random()*card.quizzes.length)];
-    correct = q.correct;
-    const wrongs = q.choices.filter(c=>c!==correct).sort(()=>Math.random()-0.5).slice(0,3);
-    choices = [...wrongs, correct].sort(()=>Math.random()-0.5);
+  if(card.quizzes && card.quizzes.length>0){
+    const q=card.quizzes[Math.floor(Math.random()*card.quizzes.length)];
+    correct=q.correct;
+    const wrongs=q.choices.filter(c=>c!==correct).sort(()=>Math.random()-0.5).slice(0,3);
+    choices=[...wrongs,correct].sort(()=>Math.random()-0.5);
   } else {
-    correct = card.meaning;
-    const wrongs = [...card.choices].sort(()=>Math.random()-0.5).slice(0,3);
-    choices = [...wrongs, correct].sort(()=>Math.random()-0.5);
+    correct=card.meaning;
+    const wrongs=[...card.choices].sort(()=>Math.random()-0.5).slice(0,3);
+    choices=[...wrongs,correct].sort(()=>Math.random()-0.5);
   }
-  quizAnswer = correct;
+  quizAnswer=correct;
 
-  let html=`<h2>${card.word} の意味は？</h2><div class="quiz-options">`;
+  const isP1=versusCurrentPlayer===1;
+  const name=isP1?p1Name:p2Name;
+  let html=`<div style="color:rgba(255,255,255,0.5);font-size:12px;margin-bottom:4px">${name}へ</div>`;
+  html+=`<h2>「${card.word}」の意味は？</h2><div class="quiz-options">`;
   choices.forEach(opt=>{
     html+=`<button class="quiz-btn" onclick="answerVersusQuiz('${opt.replace(/'/g,"\\'")}',this)">${opt}</button>`;
   });
@@ -1016,31 +1653,45 @@ function generateVersusQuiz(){
   document.getElementById("versusQuizArea").innerHTML=html;
 }
 
-function answerVersusQuiz(choice,btn){
+function answerVersusQuiz(choice, btn){
   if(!versusMode) return;
-  let myATK=0; currentDeck().forEach(c=>myATK+=c.atk);
   document.querySelectorAll(".quiz-btn").forEach(b=>b.disabled=true);
-  if(playerTurn){
-    if(choice===quizAnswer){btn.classList.add("correct");playerHP-=Math.floor(enemyATK/2);}
-    else{btn.classList.add("wrong");playerHP-=enemyATK;}
+
+  const isP1=versusCurrentPlayer===1;
+  const atkDeck=isP1?p1Deck:p2Deck;
+  let atk=0; atkDeck.forEach(c=>atk+=c.atk);
+
+  if(choice===quizAnswer){
+    btn.classList.add("correct");
+    // 正解：相手に半分ダメージ
+    if(isP1) p2HP-=Math.floor(atk/2);
+    else     p1HP-=Math.floor(atk/2);
   } else {
-    if(choice===quizAnswer){btn.classList.add("correct");enemyHP-=Math.floor(myATK/2);}
-    else{btn.classList.add("wrong");enemyHP-=myATK;}
+    btn.classList.add("wrong");
+    // 不正解：相手にフルダメージ & 自分にも半分
+    if(isP1){ p2HP-=Math.floor(atk/2); p1HP-=Math.floor(atk/4); }
+    else     { p1HP-=Math.floor(atk/2); p2HP-=Math.floor(atk/4); }
   }
-  document.getElementById("vEnemyHP").textContent=enemyHP;
-  document.getElementById("vPlayerHP").textContent=playerHP;
-  if(enemyHP<=0){alert("対戦勝利！");versusMode=false;document.getElementById("versusQuizArea").innerHTML="";return;}
-  if(playerHP<=0){alert("対戦敗北...");versusMode=false;document.getElementById("versusQuizArea").innerHTML="";return;}
-  playerTurn=!playerTurn;
-  document.getElementById("turnText").textContent=playerTurn?"あなたのターン":"相手のターン";
-  setTimeout(generateVersusQuiz,800);
+
+  updateVersusBattleHP();
+
+  setTimeout(()=>{
+    if(p1HP<=0||p2HP<=0){
+      versusPhase="result";
+      renderVersus();
+      return;
+    }
+    // ターン交代
+    versusCurrentPlayer=isP1?2:1;
+    // バトル画面ごと再描画（ターンバナー更新）
+    renderVersusBattle();
+  }, 900);
 }
 
 function stopVersus(){
-  versusMode=false; enemyDeck=[];
-  document.getElementById("versusQuizArea").innerHTML="";
-  alert("対戦を終了しました");
-  show("deck");
+  versusMode=false;
+  versusPhase="setup";
+  renderVersus();
 }
 
 // =============================================
