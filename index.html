@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>単語カードゲーム</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -98,20 +98,8 @@
 
 <!-- ===== VERSUS ===== -->
 <div id="versus" class="screen">
-  <h2 id="versusTitle">🆚 プレイヤー対戦（英語）</h2>
-  <button onclick="createVersusCode()">🔑 対戦コード作成</button>
-  <button onclick="loadEnemyCode()">📥 相手コード読み込み</button>
-  <div id="enemyDeck"></div>
-  <button onclick="startVersus()" style="background:linear-gradient(135deg,#6BCB77,#4D96FF)">⚔️ 対戦開始</button>
-  <button onclick="stopVersus()" style="background:rgba(255,107,107,0.4);box-shadow:none">❌ 対戦をやめる</button>
-  <div id="versusResult">
-    <div>あなたHP <span id="vPlayerHP">0</span></div>
-    <div>あなたATK <span id="vPlayerATK">0</span></div>
-    <div>相手HP <span id="vEnemyHP">0</span></div>
-    <div>相手ATK <span id="vEnemyATK">0</span></div>
-    <div id="turnText"></div>
-  </div>
-  <div id="versusQuizArea"></div>
+  <h2 id="versusTitle">🆚 プレイヤー対戦</h2>
+  <div id="versusArea"></div>
 </div>
 
 <!-- ===== BOOK ===== -->
@@ -141,13 +129,12 @@
   <div id="convertCards"></div>
 </div>
 
-<script src="game.js"></script>
-
 <!-- Bottom Menu -->
 <div class="bottomMenu">
   <button id="btnBattle"  onclick="show('battle')"><span class="icon">⚔️</span>ボス戦</button>
   <button id="btnPack"    onclick="show('pack')"><span class="icon">🎴</span>ガチャ</button>
   <button id="btnDeck"    onclick="show('deck')"><span class="icon">🃏</span>デッキ</button>
+  <button id="btnVersus"  onclick="show('versus')"><span class="icon">🆚</span>対戦</button>
   <button id="btnBook"    onclick="show('book')"><span class="icon">📖</span>図鑑</button>
   <button id="btnConvert" onclick="show('convert')"><span class="icon">🔄</span>交換</button>
 </div>
@@ -159,10 +146,13 @@
 </div>
 
 <!-- ===== DEBUG MODE: 配布時は false に変更 ===== -->
-<script>const DEBUG = false;</script>
+<script>const DEBUG = true;</script>
 
 <button id="dbgDiamonds" onclick="addDiamondsDebug()" style="position:fixed;bottom:75px;right:8px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">💎 DBG</button>
 <button id="dbgAllCards" onclick="getAllCardsDebug()" style="position:fixed;bottom:75px;right:60px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">🃏 全カード</button>
+
+<!-- game.jsは全DOM要素の後に読み込む -->
+<script src="game.js"></script>
 
 <script>
   if(!DEBUG){
