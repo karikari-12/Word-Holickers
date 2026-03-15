@@ -2878,33 +2878,6 @@ let slashResultCards = [];
 let slashIs10 = false;
 let slashDone = false;
 
-function startSlashOverlay(){
-  slashDone = false;
-  const overlay = document.getElementById("slashOverlay");
-  const hint    = document.getElementById("slashHint");
-  overlay.classList.add("active");
-  hint.textContent = "👆 横にスライド！";
-  document.getElementById("slashRemain").textContent = slashIs10 ? "10連" : "1回";
-
-  // UR確定チェック → 虹色パック演出
-  const hasUR = slashResultCards.some(c=>c.rarity==="UR");
-
-  // イベント登録（既存を消してから再登録）
-  const packEl = document.getElementById("slashPack0");
-  packEl.classList.remove("slashing","slashed","ur-rainbow");
-  packEl.replaceWith(packEl.cloneNode(true));
-  const newPack = document.getElementById("slashPack0");
-
-  if(hasUR){
-    setTimeout(()=>{
-      document.querySelectorAll(".slash-pack").forEach(p=>p.classList.add("ur-rainbow"));
-      spawnRainbowParticles();
-    }, 600);
-  }
-
-  setupSlashInput(newPack);
-}
-
 function spawnRainbowParticles(){
   const colors = ["#FF6B6B","#FFD93D","#6BCB77","#4D96FF","#C77DFF","#FF9500","#fff"];
   for(let i=0;i<20;i++){
@@ -2958,6 +2931,7 @@ function startSlashOverlay(){
   slashDone = false;
   const overlay = document.getElementById("slashOverlay");
   const hint    = document.getElementById("slashHint");
+  overlay.style.display = "flex";
   overlay.classList.add("active");
   hint.textContent = "👆 横にスライド！";
   document.getElementById("slashRemain").textContent = slashIs10 ? "10連" : "1回";
@@ -3044,14 +3018,14 @@ function doSlash(x, y){
   setTimeout(()=>{ top.remove(); bot.remove(); }, 500);
 
   setTimeout(()=>{
-    document.getElementById("slashOverlay").classList.remove("active");
+    const so=document.getElementById("slashOverlay"); so.classList.remove("active"); so.style.display="none";
     showSlashResults();
   }, 460);
 }
 
 function skipSlash(){
   slashDone = true;
-  document.getElementById("slashOverlay").classList.remove("active");
+  const so=document.getElementById("slashOverlay"); so.classList.remove("active"); so.style.display="none";
   showSlashResults();
 }
 
