@@ -50,7 +50,9 @@
     <button onclick="openPack()" style="background:linear-gradient(135deg,#FFD93D,#FF6B6B);font-size:1.1rem;padding:14px 28px">🎁 パックを開ける！</button>
   </div>
   <div id="kobunGachaSection" style="display:none">
-    <p style="color:rgba(255,255,255,0.6);font-size:13px;margin:4px 0 10px">💎5で1回 ／ 💎50で10連</p>
+    <p style="color:rgba(255,255,255,0.6);font-size:13px;margin:4px 0 6px">💎5で1回 ／ 💎50で10連</p>
+    <div style="display:inline-block;background:linear-gradient(135deg,rgba(255,217,61,0.2),rgba(199,125,255,0.2));border:1px solid rgba(255,217,61,0.5);border-radius:20px;padding:4px 16px;font-family:'Fredoka One',cursive;font-size:0.85rem;color:#FFD93D;margin-bottom:10px">⭐ 10連はSSR確定！</div>
+    <br>
     <button onclick="openKobunGacha1()" style="background:linear-gradient(135deg,#C77DFF,#4D96FF);font-size:1.1rem;padding:14px 24px">💎×5 1回引く</button>
     <button onclick="openKobunGacha10()" style="background:linear-gradient(135deg,#FF6B6B,#C77DFF);font-size:1.1rem;padding:14px 24px">💎×50 10連！</button>
   </div>
@@ -66,6 +68,9 @@
     <span>❤️ <span id="deckHP">0</span></span>
   </div>
   <div id="deckCards"></div>
+
+  <!-- デイリーミッション -->
+  <div id="missionPanel" style="margin:16px auto;max-width:340px"></div>
 </div>
 
 <!-- ===== BATTLE ===== -->
@@ -94,6 +99,7 @@
     </div>
   </div>
   <div id="bossQuizArea"></div>
+  <div id="prevWordArea"></div>
 </div>
 
 <!-- ===== VERSUS ===== -->
@@ -116,17 +122,72 @@
   <button onclick="filterRarity('R')" style="background:var(--pop3)">R</button>
   <button onclick="filterRarity('SR')" style="background:var(--pop4)">SR</button>
   <button onclick="filterRarity('SSR')" style="background:linear-gradient(135deg,var(--pop1),var(--pop2))">SSR</button>
+  <button onclick="filterRarity('UR')" style="background:linear-gradient(135deg,#ff9500,#ff0050);box-shadow:0 0 10px rgba(255,149,0,0.5)">⚡ UR</button>
   <div id="collection"></div>
 </div>
+
 
 <!-- ===== CONVERT ===== -->
 <div id="convert" class="screen">
   <h2>🔄 カード変換所</h2>
   <div>コイン: <span id="convertCoins">0</span>　素材: <span id="convertMaterials">0</span></div>
-  <h3>変換モード</h3>
-  <button onclick="setConvertMode('coin')">🪙 コインに変換</button>
-  <button onclick="setConvertMode('material')">🔧 素材に変換</button>
+
+  <div style="margin:8px 0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px">
+    <button onclick="setConvertMode('coin')">🪙 コインに変換</button>
+    <button onclick="setConvertMode('material')">🔧 素材に変換</button>
+    <button onclick="toggleBulkMode()" id="bulkModeBtn" style="background:rgba(255,255,255,0.12);box-shadow:none">☑️ まとめて選択</button>
+    <button onclick="showConvertRates()" style="background:rgba(255,255,255,0.08);box-shadow:none;font-size:12px;color:rgba(255,255,255,0.6)">📊 変換レートを見る</button>
+  </div>
+
+  <!-- まとめて変換ボタン（まとめて選択モード時のみ表示） -->
+  <div id="bulkActions" style="display:none;margin:6px 0">
+    <button onclick="bulkConvertSelected()" style="background:linear-gradient(135deg,#FFD93D,#FF6B6B)">✅ 選択したカードを変換</button>
+    <button onclick="selectAllBulk()" style="background:rgba(255,255,255,0.1);box-shadow:none;font-size:13px">全選択</button>
+    <button onclick="clearBulkSelect()" style="background:rgba(255,255,255,0.1);box-shadow:none;font-size:13px">選択解除</button>
+  </div>
+
   <div id="convertCards"></div>
+</div>
+
+<!-- 変換レートモーダル -->
+<div id="convertRateModal" onclick="if(event.target===this)closeConvertRates()" style="display:none;position:fixed;inset:0;background:rgba(10,8,25,0.85);backdrop-filter:blur(8px);z-index:6000;align-items:center;justify-content:center">
+  <div style="background:linear-gradient(160deg,#1e1040,#0f0c2a);border:1px solid rgba(199,125,255,0.35);border-radius:24px;padding:28px 24px;max-width:320px;width:90%;position:relative;box-shadow:0 0 40px rgba(199,125,255,0.2)">
+    <button onclick="closeConvertRates()" style="position:absolute;top:14px;right:14px;background:rgba(255,255,255,0.1);box-shadow:none;border-radius:50%;width:34px;height:34px;padding:0;font-size:14px;color:rgba(255,255,255,0.7);line-height:34px;margin:0">✕</button>
+    <div style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--pop2);margin-bottom:16px;text-align:center">📊 変換レート表</div>
+    <table style="width:100%;border-collapse:collapse;font-size:14px;text-align:center">
+      <tr style="color:rgba(255,255,255,0.5);font-size:12px;border-bottom:1px solid rgba(255,255,255,0.1)">
+        <th style="padding:6px">レア</th>
+        <th style="padding:6px">🪙 コイン</th>
+        <th style="padding:6px">🔧 素材</th>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
+        <td style="padding:8px;color:#aaa;font-weight:700">N</td>
+        <td style="padding:8px">10</td>
+        <td style="padding:8px">1</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
+        <td style="padding:8px;color:var(--pop3);font-weight:700">R</td>
+        <td style="padding:8px">10</td>
+        <td style="padding:8px">2</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
+        <td style="padding:8px;color:var(--pop4);font-weight:700">SR</td>
+        <td style="padding:8px">50</td>
+        <td style="padding:8px">5</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
+        <td style="padding:8px;color:var(--pop2);font-weight:700">SSR</td>
+        <td style="padding:8px">300</td>
+        <td style="padding:8px">30</td>
+      </tr>
+      <tr>
+        <td style="padding:8px;color:#ff9500;font-weight:700">UR</td>
+        <td style="padding:8px">1000</td>
+        <td style="padding:8px">100</td>
+      </tr>
+    </table>
+    <p style="font-size:11px;color:rgba(255,255,255,0.35);text-align:center;margin-top:12px">※重複カード（2枚目以降）のみ変換可能</p>
+  </div>
 </div>
 
 <!-- Bottom Menu -->
@@ -139,6 +200,18 @@
   <button id="btnConvert" onclick="show('convert')"><span class="icon">🔄</span>交換</button>
 </div>
 
+<!-- 10連スライド演出オーバーレイ -->
+<div id="slashOverlay">
+  <div id="slashCount"><span id="slashRemain">10連</span></div>
+  <div id="slashPackStack">
+    <div class="slash-pack" id="slashPack0">📜<br>古文<br>PACK</div>
+    <div class="slash-pack">📜<br>古文<br>PACK</div>
+    <div class="slash-pack">📜<br>古文<br>PACK</div>
+  </div>
+  <div id="slashHint">👆 横にスライド！</div>
+  <button id="slashSkipBtn" onclick="skipSlash()">スキップ ▶</button>
+</div>
+
 <!-- 10連アニメーション -->
 <div id="gacha10Overlay" style="display:none">
   <div id="gacha10Stage"></div>
@@ -146,7 +219,7 @@
 </div>
 
 <!-- ===== DEBUG MODE: 配布時は false に変更 ===== -->
-<script>const DEBUG = false;</script>
+<script>const DEBUG = true;</script>
 
 <button id="dbgDiamonds" onclick="addDiamondsDebug()" style="position:fixed;bottom:75px;right:8px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">💎 DBG</button>
 <button id="dbgAllCards" onclick="getAllCardsDebug()" style="position:fixed;bottom:75px;right:60px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">🃏 全カード</button>
