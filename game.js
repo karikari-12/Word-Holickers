@@ -3973,7 +3973,7 @@ function revealCards(){
 
       const cardEl = document.createElement("div");
       cardEl.className = `card ${card.rarity.toLowerCase()} pack-reveal-card${isUR?" pack-reveal-ur":""}`;
-      cardEl.style.animation = "pack-card-appear 0.4s cubic-bezier(0.175,0.885,0.32,1.275)";
+      cardEl.style.cssText = "min-width:130px;max-width:160px;width:140px;flex-shrink:0;animation:pack-card-appear 0.4s cubic-bezier(0.175,0.885,0.32,1.275)";
       cardEl.innerHTML = `
         ${isNewCard?'<div class="pack-new-badge">New!</div>':''}
         ${isUR?'<div class="kobun-hint">📖 詳細</div>':''}
