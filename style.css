@@ -306,6 +306,35 @@ button:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
   opacity: 0;
 }
 
+/* UR金色パック演出 */
+.packWrapper.pack-ur-gold .packTop {
+  background: linear-gradient(135deg, #FFD93D, #FF9500) !important;
+  animation: gold-pulse 0.8s ease-in-out infinite;
+}
+.packWrapper.pack-ur-gold .packBottom {
+  background: linear-gradient(180deg, #FF9500, #FFD93D, #FF6B6B) !important;
+  animation: gold-pulse 0.8s ease-in-out infinite;
+}
+.packWrapper.pack-ur-gold {
+  filter: drop-shadow(0 0 20px rgba(255,217,61,0.9)) drop-shadow(0 0 40px rgba(255,149,0,0.6)) !important;
+  animation: gold-shake 0.6s ease-in-out infinite;
+}
+.packWrapper.pack-ur-gold .packLogo {
+  color: #1a1a2e !important;
+  text-shadow: 0 0 10px rgba(255,217,61,0.8) !important;
+}
+
+@keyframes gold-pulse {
+  0%,100% { filter: brightness(1); }
+  50%      { filter: brightness(1.3); }
+}
+
+@keyframes gold-shake {
+  0%,100% { transform: rotate(-1deg) scale(1.02); }
+  25%      { transform: rotate(1.5deg) scale(1.04); }
+  75%      { transform: rotate(-1.5deg) scale(1.03); }
+}
+
 /* ===== BATTLE SCREEN ===== */
 #battle {
   max-width: 600px;
@@ -909,8 +938,6 @@ body.kobun-theme .bottomMenu button.active {
   overflow: hidden;
 }
 
-#slashOverlay.active { display: flex; }
-
 #slashPackStack {
   position: relative;
   width: 180px;
@@ -1150,6 +1177,52 @@ body.kobun-theme .bottomMenu button.active {
   font-size: 14px;
   height: 16px;
   margin-bottom: 2px;
+}
+
+/* ===== PACK REVEAL ONE BY ONE ===== */
+.pack-reveal-card {
+  position: relative;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.pack-reveal-ur {
+  box-shadow: 0 0 30px rgba(255,149,0,0.7), 0 0 60px rgba(255,50,50,0.4) !important;
+  animation: ur-glow 1.2s ease-in-out infinite, pack-ur-appear 0.6s cubic-bezier(0.175,0.885,0.32,1.275) !important;
+}
+
+@keyframes pack-ur-appear {
+  0%   { transform: scale(0.3) rotate(-10deg); opacity: 0; }
+  60%  { transform: scale(1.15) rotate(3deg); opacity: 1; }
+  80%  { transform: scale(0.95) rotate(-1deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.pack-new-badge {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  background: linear-gradient(135deg, #FF6B6B, #FFD93D);
+  color: #1a1a2e;
+  font-family: 'Fredoka One', cursive;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 3px 8px;
+  border-radius: 10px;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(255,107,107,0.5);
+  animation: new-badge-pop 0.4s cubic-bezier(0.175,0.885,0.32,1.275) forwards;
+}
+
+@keyframes pack-card-appear {
+  0%   { opacity: 0; transform: scale(0.6) translateY(30px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes new-badge-pop {
+  0%   { transform: scale(0) rotate(-15deg); }
+  70%  { transform: scale(1.2) rotate(5deg); }
+  100% { transform: scale(1) rotate(0deg); }
 }
 
 /* ===== KOBUN DETAIL MODAL ===== */
