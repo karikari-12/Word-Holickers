@@ -2164,7 +2164,7 @@ const kobunCards=[
   rarity:"UR", atk:95, hp:230,
   skill:"critical",
   reading:"ものす", hinshi:"動詞（サ行変格活用）",
-  detail:"英語の「DO」のような働きを持つ最重要多義動詞。文脈によって「いる・ある・行く・来る・書く・言う」など様々な動作を代替する。補助動詞では「〜（で）ある」の意。古典読解の鍵となる語。",
+  detail:"英語の「DO」のような働きを持つ最重要多義動詞。文脈によって「いる・ある・行く・来る・書く・言う」など様々な動作を代替する。補助動詞では「〜（で）ある」の意。古典読解の鍵となる語。デッキに入れると20%の確率でクリティカル（ATK×2）が発動する。",
   example:"かかる所にものしたまふ。",
   exampleMeaning:"こんな所においでになる（来る・いる）。",
   source:"源氏物語",
@@ -2241,14 +2241,14 @@ function switchMode(mode){
   if(mode==="english"){
     document.getElementById("packTitle").textContent    = "🎴 英語ガチャ";
     document.getElementById("deckTitle").textContent    = "🃏 英語デッキ（5枚）";
-    document.getElementById("battleTitle").textContent  = "⚔️ ボス戦（英語）";
+    document.getElementById("battleTitle").textContent  = "⚔️ バトル（英語）";
     document.getElementById("versusTitle").textContent  = "🆚 プレイヤー対戦（英語）";
     document.getElementById("englishGachaSection").style.display = "block";
     document.getElementById("kobunGachaSection").style.display   = "none";
   } else {
     document.getElementById("packTitle").textContent    = "🎴 古文ガチャ";
     document.getElementById("deckTitle").textContent    = "🃏 古文デッキ（5枚）";
-    document.getElementById("battleTitle").textContent  = "⚔️ ボス戦（古文）";
+    document.getElementById("battleTitle").textContent  = "⚔️ バトル（古文）";
     document.getElementById("versusTitle").textContent  = "🆚 プレイヤー対戦（古文）";
     document.getElementById("englishGachaSection").style.display = "none";
     document.getElementById("kobunGachaSection").style.display   = "block";
@@ -2268,16 +2268,13 @@ function switchMode(mode){
     if(d.length < 5){
       show("deck");
     } else {
-      inBattle = true;
-      const state = ms();
-      document.getElementById("bossLevel").textContent      = state.bossLevel;
-      document.getElementById("bossATKDisplay").textContent = state.bossATK;
-      updateBossVisual();
-      startBattle();
-      calcDeckStats();
-      updateHPBars();
-      document.getElementById("bossQuizArea").innerHTML = ""; const pwa=document.getElementById("prevWordArea"); if(pwa) pwa.innerHTML="";
-      generateQuiz();
+      // モード切り替え時はメニューに戻す
+      inBattle = false;
+      document.getElementById("battleMenu").style.display = "block";
+      document.getElementById("battleMain").style.display = "none";
+      document.getElementById("bossQuizArea").innerHTML = "";
+      const pwa=document.getElementById("prevWordArea"); if(pwa) pwa.innerHTML="";
+      update();
     }
   } else {
     update();
@@ -2353,7 +2350,11 @@ function updateBossVisual(){
   const el = document.getElementById("bossVisual");
   if(!el) return;
   const pool = currentMode==="english" ? bossEmojisEnglish : bossEmojisKobun;
-  el.textContent = pool[(ms().bossLevel-1) % pool.length];
+  const emoji = pool[(ms().bossLevel-1) % pool.length];
+  el.textContent = emoji;
+  // ボタンのアイコンも同期
+  const btnIcon = document.getElementById("battleBtnIcon");
+  if(btnIcon) btnIcon.textContent = emoji;
 }
 
 function shakeBoss(){
@@ -2457,7 +2458,7 @@ function answerQuiz(choice, btn){
     btn.classList.add("correct");
     // 正解→ATK等倍
 
-    // URカードのクリティカル（10%）
+    // URカードのクリティカル（20%）
     const hasUR = state.deck.some(c=>c.rarity==="UR");
     if(hasUR && Math.random() < 0.2){
       atk = atk * 2;
@@ -2593,6 +2594,9 @@ function calcDeckStats(){
 //  UPDATE (render)
 // =============================================
 function update(){
+  // バトル画面のスクロール位置を保存
+  const savedScroll = inBattle ? window.scrollY : 0;
+
   // Deck cards
   const deckArea = document.getElementById("deckCards");
   deckArea.innerHTML = "";
@@ -2627,8 +2631,8 @@ function update(){
       <div class="stat">ATK ${c.atk}</div>
       <div class="stat">HP ${c.hp}</div>
       <div class="stat">×${c.count}</div>
-      <div class="stat">強化 ${c.upgrade||0}/10</div>
-      ${isUR?'<div class="ur-skill-badge">⚡ CRITICAL 10%</div>':''}
+      <div class="stat">強化 ${c.upgrade||0}/${getUpgradeMaxLevel(c.word)}</div>
+      ${isUR?'<div class="ur-skill-badge">⚡ CRITICAL 20%</div>':''}
       <button onclick="event.stopPropagation();addDeckFromBook('${c.word}')">デッキへ</button>
       <button onclick="event.stopPropagation();upgradeCard('${c.word}')">強化</button>
     </div>`;
@@ -2646,7 +2650,7 @@ function update(){
     const rarityOrder = ["N","R","SR","SSR","UR"];
     const rarityLabel = {N:"N",R:"R",SR:"SR",SSR:"SSR",UR:"⚡ UR"};
     const rarityColor = {N:"#888",R:"var(--pop3)",SR:"var(--pop4)",SSR:"var(--pop2)",UR:"#ff9500"};
-    const gain = {N:[10,1],R:[10,2],SR:[50,5],SSR:[300,30],UR:[1000,100]};
+    const gain = Object.fromEntries(['N','R','SR','SSR','UR'].map(r=>[r,getConvertGain(r,currentMode)]));
 
     rarityOrder.forEach(rarity=>{
       // そのレアリティの重複カードを集計
@@ -2701,6 +2705,9 @@ function update(){
   if(cc) cc.textContent = coins;
   if(cm) cm.textContent = materials;
   updateMissionUI();
+
+  // バトル中はスクロール位置を復元
+  if(inBattle && savedScroll > 0) window.scrollTo(0, savedScroll);
 }
 
 // =============================================
@@ -2724,16 +2731,11 @@ function show(id){
       show("deck");
       return;
     }
-    inBattle = true;
-    const state = ms();
-    document.getElementById("bossLevel").textContent      = state.bossLevel;
-    document.getElementById("bossATKDisplay").textContent = state.bossATK;
-    updateBossVisual();
-    startBattle();
-    calcDeckStats();
-    // クイズエリアをリセットしてから生成
+    // バトルメニューを表示（バトル本体は非表示）
+    inBattle = false;
+    document.getElementById("battleMenu").style.display = "block";
+    document.getElementById("battleMain").style.display = "none";
     document.getElementById("bossQuizArea").innerHTML = ""; const pwa=document.getElementById("prevWordArea"); if(pwa) pwa.innerHTML="";
-    generateQuiz();
   }
 
   document.getElementById(id).classList.add("active");
@@ -2746,8 +2748,308 @@ function show(id){
 }
 
 // =============================================
-//  SAVE / LOAD
+//  DAILY BOSS BATTLE
 // =============================================
+let dailyBossTab = "english"; // 表示中のタブ
+let dailyBossHP = { english: 0, kobun: 0 };
+let dailyBossMaxHP = { english: 0, kobun: 0 };
+let dailyBossATK = { english: 0, kobun: 0 };
+
+function initDailyBossStats(){
+  // 毎日同じ値になるようにその日の日付をシードに使う
+  const seed = new Date().toDateString();
+  const hash = s => s.split('').reduce((a,c)=>a+c.charCodeAt(0),0);
+  const rand = (min,max,offset) => min + ((hash(seed)+offset) % (max-min+1));
+  if(dailyBossMaxHP.english === 0){
+    dailyBossMaxHP.english = rand(3000,6000,0);
+    dailyBossATK.english   = rand(200,600,1);
+    dailyBossMaxHP.kobun   = rand(3000,6000,2);
+    dailyBossATK.kobun     = rand(200,600,3);
+  }
+}
+let dailyPlayerHP = 0;
+let dailyPlayerMaxHP = 0;
+let inDailyBattle = false;
+let dailyQuizAnswer = "";
+let dailyQuizCard = null;
+let dailyQuizLocked = false;
+
+const dailyBossEmojis = { english: "👾", kobun: "🔱" };
+
+function getDailyKey(type){ return `daily_${type}_${new Date().toDateString()}`; }
+
+function isDailyBossDefeated(type){
+  return localStorage.getItem(getDailyKey(type)) === "defeated";
+}
+
+function markDailyBossDefeated(type){
+  localStorage.setItem(getDailyKey(type), "defeated");
+}
+
+function showDailyBoss(){
+  initDailyBossStats();
+  document.getElementById("battleMenu").style.display = "none";
+  document.getElementById("dailyBossArea").style.display = "block";
+  switchDailyTab(dailyBossTab);
+}
+
+function switchDailyTab(type){
+  dailyBossTab = type;
+  const eb = document.getElementById("dailyTabEnglish");
+  const kb = document.getElementById("dailyTabKobun");
+  if(eb) eb.style.background = type==="english" ? "linear-gradient(135deg,#4D96FF,#6BCB77)" : "rgba(255,255,255,0.1)";
+  if(kb) kb.style.background = type==="kobun"   ? "linear-gradient(135deg,#C77DFF,#FF6B6B)" : "rgba(255,255,255,0.1)";
+  renderDailyBossContent(type);
+}
+
+function renderDailyBossContent(type){
+  const area = document.getElementById("dailyBossContent");
+  const defeated = isDailyBossDefeated(type);
+  const emoji = dailyBossEmojis[type];
+  const name = type==="english" ? "英語デイリーボス" : "古文デイリーボス";
+
+  if(defeated){
+    area.innerHTML=`
+      <div style="text-align:center;padding:20px">
+        <div style="font-size:3rem;filter:grayscale(1)">${emoji}</div>
+        <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;color:rgba(255,255,255,0.4);margin:10px 0">撃破済み！</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.3)">明日また挑戦できます</div>
+      </div>`;
+    return;
+  }
+
+  area.innerHTML=`
+    <div style="text-align:center;padding:12px">
+      <div style="font-size:3.5rem">${emoji}</div>
+      <div style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--pop2);margin:8px 0">${name}</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:12px">
+        HP: ${dailyBossMaxHP[type]} / ATK: ${dailyBossATK[type]}<br>
+        倒すと 💎×10 獲得！
+      </div>
+      <button onclick="startDailyBattle('${type}')" style="background:linear-gradient(135deg,#FFD93D,#FF6B6B);font-size:1rem;padding:14px 28px">
+        ⚔️ 挑戦する！
+      </button>
+    </div>`;
+}
+
+function startDailyBattle(type){
+  dailyBossTab = type;
+  inDailyBattle = true;
+
+  const deck = modeState[type].deck;
+  if(!deck || deck.length < 5){ alert("デッキを5枚編成してください！"); return; }
+  dailyPlayerMaxHP = 0;
+  deck.forEach(c=>{ dailyPlayerMaxHP += c.hp; });
+  dailyPlayerHP = dailyPlayerMaxHP;
+
+  dailyBossHP[type] = dailyBossMaxHP[type];
+
+  document.getElementById("dailyBossArea").style.display = "none";
+  document.getElementById("dailyBattleMain").style.display = "block";
+
+  document.getElementById("dailyBossEmoji").textContent = dailyBossEmojis[type];
+  document.getElementById("dailyBossLabel").textContent = `🌟 ${type==="english"?"英語":"古文"}デイリーボス`;
+
+  // デッキATK表示
+  let totalATK = 0;
+  deck.forEach(c=>{ totalATK += c.atk + (c.upgrade||0)*Math.floor(c.atk*0.05); });
+  document.getElementById("dailyBattleATK").textContent = totalATK;
+  document.getElementById("dailyBattleHP").textContent = dailyPlayerMaxHP;
+  document.getElementById("dailyBossATKDisplay").textContent = dailyBossATK[type];
+
+  // スキル表示
+  const skillArea = document.getElementById("dailySkillArea");
+  const hasUR = deck.some(c=>c.rarity==="UR");
+  skillArea.innerHTML = hasUR
+    ? `<div class="ur-skill-badge" style="font-size:11px">⚡ CRITICAL 20% 発動中</div>`
+    : "";
+
+  updateDailyHPBars();
+  generateDailyQuiz();
+}
+
+function updateDailyHPBars(){
+  const type = dailyBossTab;
+  const bossRatio = Math.max(0, dailyBossHP[type] / dailyBossMaxHP[type] * 100);
+  const playerRatio = Math.max(0, dailyPlayerHP / dailyPlayerMaxHP * 100);
+  document.getElementById("dailyBossHPBar").style.width = bossRatio + "%";
+  document.getElementById("dailyPlayerHPBar").style.width = playerRatio + "%";
+  document.getElementById("dailyBossHPNum").textContent = Math.max(0, dailyBossHP[type]);
+  document.getElementById("dailyPlayerHPNum").textContent = Math.max(0, dailyPlayerHP);
+}
+
+function generateDailyQuiz(){
+  if(!inDailyBattle) return;
+  dailyQuizLocked = false;
+  const type = dailyBossTab;
+  const pool = type==="english" ? allCards : kobunCards;
+  const card = pool[Math.floor(Math.random()*pool.length)];
+  dailyQuizCard = card;
+
+  let correct, wrongPool;
+  if(card.quizzes && card.quizzes.length > 0){
+    const q = card.quizzes[Math.floor(Math.random()*card.quizzes.length)];
+    correct = q.correct;
+    // 他のカードの正解から不正解選択肢を作る
+    wrongPool = pool.filter(c=>c.word!==card.word)
+      .map(c=> c.quizzes && c.quizzes.length>0 ? c.quizzes[0].correct : c.meaning)
+      .filter(m=>m!==correct);
+  } else {
+    correct = card.meaning;
+    wrongPool = pool.filter(c=>c.word!==card.word).map(c=>c.meaning).filter(m=>m!==correct);
+  }
+
+  // 他のカードの正解から3つ選ぶ
+  const wrongs = wrongPool.sort(()=>Math.random()-0.5).slice(0,3);
+  const choices = [...wrongs, correct].sort(()=>Math.random()-0.5);
+  dailyQuizAnswer = correct;
+
+  let html=`<h2>「${card.word}」の意味は？</h2><div class="quiz-options">`;
+  choices.forEach(opt=>{
+    html+=`<button class="quiz-btn" onclick="answerDailyQuiz('${opt.replace(/'/g,"\\'")}',this)">${opt}</button>`;
+  });
+  html+="</div>";
+  document.getElementById("dailyQuizArea").innerHTML=html;
+}
+
+function answerDailyQuiz(choice, btn){
+  if(dailyQuizLocked) return;
+  dailyQuizLocked = true;
+  const type = dailyBossTab;
+  document.querySelectorAll(".quiz-btn").forEach(b=>b.disabled=true);
+
+  const deck = modeState[type].deck;
+  let atk = 0;
+  deck.forEach(c=>{ atk += c.atk + (c.upgrade||0)*Math.floor(c.atk*0.05); });
+
+  if(choice===dailyQuizAnswer){
+    btn.classList.add("correct");
+    // クリティカル判定
+    const hasUR = deck.some(c=>c.rarity==="UR");
+    if(hasUR && Math.random() < 0.2){
+      atk = atk * 2;
+      showCritical();
+    }
+    dailyBossHP[type] -= atk;
+    showDailyDmgPopup(atk, false);
+  } else {
+    btn.classList.add("wrong");
+    document.querySelectorAll(".quiz-btn").forEach(b=>{ if(b.textContent===dailyQuizAnswer) b.classList.add("correct"); });
+    dailyPlayerHP -= dailyBossATK[type];
+    showDailyDmgPopup(dailyBossATK[type], true);
+  }
+
+  // 古文モードなら詳細ボタン
+  if(type==="kobun" && dailyQuizCard && dailyQuizCard.detail){
+    const area = document.getElementById("dailyPrevWordArea");
+    if(area) area.innerHTML=`<button onclick="showKobunDetail('${dailyQuizCard.word.replace(/'/g,"\\'")}') "
+      style="margin-top:8px;background:rgba(199,125,255,0.2);box-shadow:none;border:1px solid rgba(199,125,255,0.4);font-size:12px;color:var(--pop5);width:90%">
+      📖 前の問題「${dailyQuizCard.word}」の詳細</button>`;
+  }
+
+  updateDailyHPBars();
+
+  setTimeout(()=>{
+    if(dailyBossHP[type] <= 0){
+      // ボス撃破！
+      markDailyBossDefeated(type);
+      diamonds += 10;
+      saveGame();
+      const bothDefeated = isDailyBossDefeated("english") && isDailyBossDefeated("kobun");
+      inDailyBattle = false;
+      document.getElementById("dailyBattleMain").style.display = "none";
+      document.getElementById("dailyBossArea").style.display = "block";
+      renderDailyBossContent(type);
+      alert(bothDefeated
+        ? `🎉 ${type==="english"?"英語":"古文"}ボスを撃破！💎×10獲得！\n両方撃破！合計💎×20獲得！`
+        : `🎉 ${type==="english"?"英語":"古文"}ボスを撃破！💎×10獲得！`);
+      return;
+    }
+    if(dailyPlayerHP <= 0){
+      inDailyBattle = false;
+      document.getElementById("dailyBattleMain").style.display = "none";
+      document.getElementById("dailyBossArea").style.display = "block";
+      alert("敗北...もう一度挑戦できます！");
+      return;
+    }
+    setTimeout(generateDailyQuiz, 300);
+  }, 900);
+}
+
+function showDailyDmgPopup(dmg, isPlayer){
+  const bossEl = document.getElementById("dailyBossEmoji");
+  const ref = isPlayer ? document.getElementById("dailyPlayerHPNum") : bossEl;
+  if(!ref) return;
+  const rect = ref.getBoundingClientRect();
+  const popup = document.createElement("div");
+  popup.className = "dmg-popup";
+  popup.textContent = (isPlayer ? "-" : "-") + dmg;
+  popup.style.color = isPlayer ? "#FF6B6B" : "#FFD93D";
+  popup.style.left = rect.left + rect.width/2 + "px";
+  popup.style.top  = rect.top + window.scrollY - 10 + "px";
+  document.body.appendChild(popup);
+  setTimeout(()=>popup.remove(), 900);
+}
+
+function backToDailyBoss(){
+  inDailyBattle = false;
+  document.getElementById("dailyBattleMain").style.display = "none";
+  document.getElementById("dailyBossArea").style.display = "block";
+  document.getElementById("dailyQuizArea").innerHTML = "";
+  document.getElementById("dailyPrevWordArea").innerHTML = "";
+}
+
+// =============================================
+//  BATTLE MENU
+// =============================================
+function startNormalBattle(){
+  document.getElementById("battleMenu").style.display = "none";
+  document.getElementById("battleMain").style.display = "block";
+  inBattle = true;
+  const state = ms();
+  document.getElementById("bossLevel").textContent      = state.bossLevel;
+  document.getElementById("bossATKDisplay").textContent = state.bossATK;
+  updateBossVisual();
+  startBattle();
+  calcDeckStats();
+  document.getElementById("bossQuizArea").innerHTML = "";
+  const pwa = document.getElementById("prevWordArea"); if(pwa) pwa.innerHTML="";
+  generateQuiz();
+}
+
+function startEnhancedBattle(){
+  document.getElementById("battleMenu").style.display = "none";
+  document.getElementById("battleMain").style.display = "block";
+  inBattle = true;
+  const state = ms();
+  // 強化ボス：ATK×1.5（HPは通常のまま）
+  const enhancedATK = Math.floor(state.bossATK * 1.5);
+  document.getElementById("bossLevel").textContent      = state.bossLevel + "★";
+  document.getElementById("bossATKDisplay").textContent = enhancedATK;
+  updateBossVisual();
+  startBattle();
+  state.bossATK = enhancedATK;
+  calcDeckStats();
+  updateHPBars();
+  document.getElementById("bossQuizArea").innerHTML = "";
+  const pwa = document.getElementById("prevWordArea"); if(pwa) pwa.innerHTML="";
+  generateQuiz();
+}
+
+function backToBattleMenu(){
+  inBattle = false;
+  inDailyBattle = false;
+  document.getElementById("battleMenu").style.display = "block";
+  document.getElementById("battleMain").style.display = "none";
+  document.getElementById("dailyBossArea").style.display = "none";
+  document.getElementById("dailyBattleMain").style.display = "none";
+  document.getElementById("bossQuizArea").innerHTML = "";
+  const pwa = document.getElementById("prevWordArea"); if(pwa) pwa.innerHTML="";
+  // ボスのHP/ATKをリセット
+  const state = ms();
+  state.bossHP  = state.bossMaxHP;
+  state.bossATK = (currentMode==="english"?50:35) + (state.bossLevel-1)*15;
+}
 function saveGame(){
   const data={
     owned, coins, materials, diamonds,
@@ -2931,8 +3233,7 @@ function startSlashOverlay(){
   slashDone = false;
   const overlay = document.getElementById("slashOverlay");
   const hint    = document.getElementById("slashHint");
-  overlay.style.display = "flex";
-  overlay.classList.add("active");
+  overlay.style.cssText = "display:flex; position:fixed; inset:0; background:#0a0a18; z-index:7000; align-items:center; justify-content:center; flex-direction:column; overflow:hidden;";
   hint.textContent = "👆 横にスライド！";
   document.getElementById("slashRemain").textContent = slashIs10 ? "10連" : "1回";
 
@@ -3018,14 +3319,14 @@ function doSlash(x, y){
   setTimeout(()=>{ top.remove(); bot.remove(); }, 500);
 
   setTimeout(()=>{
-    const so=document.getElementById("slashOverlay"); so.classList.remove("active"); so.style.display="none";
+    const so=document.getElementById("slashOverlay"); so.style.display="none";
     showSlashResults();
   }, 460);
 }
 
 function skipSlash(){
   slashDone = true;
-  const so=document.getElementById("slashOverlay"); so.classList.remove("active"); so.style.display="none";
+  const so=document.getElementById("slashOverlay"); so.style.display="none";
   showSlashResults();
 }
 
@@ -3125,14 +3426,33 @@ function closeGacha10(){
 // =============================================
 //  UPGRADE / CONVERT
 // =============================================
-function getUpgradeCost(r){ return {N:3,R:3,SR:10,SSR:50}[r]||3; }
+function getUpgradeCost(r){ return {N:3,R:3,SR:10,SSR:50,UR:125}[r]||3; }
+
+function getConvertGain(rarity, mode){
+  if(mode==="kobun"){
+    return {N:[30,5],R:[50,12],SR:[100,30],SSR:[500,70],UR:[3000,300]}[rarity]||[30,5];
+  }
+  return {N:[10,1],R:[10,2],SR:[50,5],SSR:[300,30],UR:[1000,100]}[rarity]||[10,1];
+}
 
 function upgradeCard(word){
   const idx = owned.findIndex(c=>c.word===word && c.type===currentMode);
   if(idx===-1) return;
   const card = owned[idx];
   if(!card.upgrade) card.upgrade=0;
-  if(card.upgrade>=10){alert("最大強化です");return;}
+  const maxLevel = getUpgradeMaxLevel(word);
+  if(card.upgrade>=maxLevel){
+    // 上限拡張を提案
+    if(maxLevel < 30){
+      const cost = maxLevel === 10 ? 3000 : 6000;
+      if(confirm(`強化上限（${maxLevel}回）に達しました。\n🪙${cost}コインで上限を${maxLevel+10}回まで拡張しますか？`)){
+        expandUpgradeLimit(word);
+      }
+    } else {
+      alert("最大強化です（上限30回）");
+    }
+    return;
+  }
   if(materials<getUpgradeCost(card.rarity)){alert("素材が足りません");return;}
   materials -= getUpgradeCost(card.rarity);
   card.atk += Math.floor(card.atk*0.05);
@@ -3156,6 +3476,13 @@ function showConvertRates(){
 }
 function closeConvertRates(){
   document.getElementById("convertRateModal").style.display="none";
+}
+
+function showUpgradeRates(){
+  document.getElementById("upgradeRateModal").style.display="flex";
+}
+function closeUpgradeRates(){
+  document.getElementById("upgradeRateModal").style.display="none";
 }
 
 // ===== まとめて選択モード =====
@@ -3211,7 +3538,7 @@ function bulkConvertSelected(){
     if(cards.length<=1) return;
     const extra = cards.length-1;
     totalCards += extra;
-    const g = {N:[10,1],R:[10,2],SR:[50,5],SSR:[300,30],UR:[1000,100]}[cards[0].rarity]||[10,1];
+    const g = getConvertGain(cards[0].rarity, currentMode);
     totalCoins += g[0]*extra;
     totalMats  += g[1]*extra;
   });
@@ -3240,7 +3567,7 @@ function convertCard(word){
   owned = owned.filter(c=>{
     if(c.word===word && c.type===currentMode && cnt>0){
       cnt--;
-      const gain={N:[10,1],R:[10,2],SR:[50,5],SSR:[300,30],UR:[1000,100]}[c.rarity]||[10,1];
+      const gain=getConvertGain(c.rarity, currentMode);
       if(convertMode==="coin") coins+=gain[0]; else materials+=gain[1];
       return false;
     }
@@ -3250,7 +3577,7 @@ function convertCard(word){
 }
 
 function convertAllRarity(rarity){
-  const gain={N:[10,1],R:[10,2],SR:[50,5],SSR:[300,30],UR:[1000,100]}[rarity]||[10,1];
+  const gain=getConvertGain(rarity,currentMode);
   const grouped = {};
   owned.filter(c=>c.type===currentMode && c.rarity===rarity).forEach(c=>{
     if(!grouped[c.word]) grouped[c.word]=0;
@@ -3678,6 +4005,11 @@ function addDiamondsDebug(){
   diamonds+=1000; update(); saveGame(); alert("💎1000追加");
 }
 
+function addResourcesDebug(){
+  if(typeof DEBUG === "undefined" || !DEBUG) return;
+  coins+=10000; materials+=10000; update(); saveGame(); alert("🪙10000 + 🔧10000追加");
+}
+
 function getAllCardsDebug(){
   if(typeof DEBUG === "undefined" || !DEBUG) return;
   allCards.forEach(c=>{
@@ -3690,6 +4022,43 @@ function getAllCardsDebug(){
   });
   saveGame(); update();
   alert("✅ 全カード取得！英語 "+allCards.length+"枚 + 古文 "+kobunCards.length+"枚");
+}
+
+function resetDailyBossDebug(){
+  if(typeof DEBUG === "undefined" || !DEBUG) return;
+  localStorage.removeItem(getDailyKey("english"));
+  localStorage.removeItem(getDailyKey("kobun"));
+  // ボスステータスも再抽選
+  dailyBossMaxHP = { english: 0, kobun: 0 };
+  dailyBossATK   = { english: 0, kobun: 0 };
+  dailyBossHP    = { english: 0, kobun: 0 };
+  alert("🌟 日替わりボスをリセットしました！");
+  if(document.getElementById("dailyBossArea").style.display !== "none"){
+    initDailyBossStats();
+    switchDailyTab(dailyBossTab);
+  }
+}
+
+// =============================================
+//  UPGRADE LIMIT EXPANSION
+// =============================================
+// 強化上限拡張: 3000コインで+10回(max20)、6000コインで+10回(max30)
+function getUpgradeMaxLevel(word){
+  const key = `upgradeExpand_${word}`;
+  return parseInt(localStorage.getItem(key)||"10");
+}
+
+function expandUpgradeLimit(word){
+  const current = getUpgradeMaxLevel(word);
+  if(current >= 30){ alert("これ以上強化上限を拡張できません（最大30回）"); return; }
+  const cost = current === 10 ? 3000 : 6000;
+  const nextMax = current + 10;
+  if(coins < cost){ alert(`コインが足りません（必要: 🪙${cost}）`); return; }
+  if(!confirm(`🪙${cost}コインで強化上限を${nextMax}回まで拡張しますか？`)){ return; }
+  coins -= cost;
+  localStorage.setItem(`upgradeExpand_${word}`, String(nextMax));
+  saveGame(); update();
+  alert(`✅ 強化上限を${nextMax}回まで拡張しました！`);
 }
 
 // =============================================
