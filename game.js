@@ -2,51 +2,100 @@
 //  CARD DATA
 // =============================================
 const allCards=[
-{word:"genuine",meaning:"本物の",atk:20,hp:120,rarity:"R",choices:["古い","偽物の","新しい","大きい","速い"]},
-{word:"mania",meaning:"（過度の）熱中",atk:20,hp:120,rarity:"R",choices:["（普通の）好奇心","（穏やかな）関心","（軽い）興味","退屈","無関心"]},
-{word:"contempt",meaning:"軽蔑",atk:31,hp:140,rarity:"R",choices:["尊敬","愛情","賞賛","感謝","友情"]},
-{word:"exposure",meaning:"露出",atk:27,hp:130,rarity:"R",choices:["絶縁","拒否","隠蔽","保護","沈黙"]},
-{word:"onslaught",meaning:"激しい攻撃",atk:42,hp:180,rarity:"SR",choices:["穏やかな風","静かな場所","優しい言葉","平和な時間","穏やかな生活"]},
-{word:"frenzy",meaning:"逆上",atk:44,hp:170,rarity:"SR",choices:["安定","静寂","平穏","冷静","落ち着き"]},
-{word:"circuit",meaning:"回路",atk:28,hp:150,rarity:"R",choices:["時間","空間","道","建物","言葉"]},
-{word:"descendant",meaning:"子孫",atk:24,hp:160,rarity:"N",choices:["後継","親族","系譜","祖先","家系"]},
-{word:"exaltation",meaning:"有頂天",atk:37,hp:150,rarity:"R",choices:["静寂","平穏","悲哀","絶望","孤独"]},
-{word:"dedication",meaning:"献身",atk:34,hp:170,rarity:"R",choices:["不信","疑念","無関心","怠慢","裏切り"]},
-{word:"botanical",meaning:"植物の",atk:23,hp:140,rarity:"N",choices:["科学の","美術の","音楽の","歴史の","文学の"]},
-{word:"minister",meaning:"大臣",atk:36,hp:160,rarity:"R",choices:["教師","弁護士","医者","警察官","技師"]},
-{word:"merely",meaning:"単に",atk:18,hp:110,rarity:"N",choices:["ほんの","ただ","単純に","突然","完全に"]},
-{word:"revolution",meaning:"革命",atk:58,hp:200,rarity:"SSR",choices:["進展","改革","変革","安定","停滞"]},
-{word:"transform",meaning:"を変形させる",atk:41,hp:180,rarity:"SR",choices:["を保存する","を削除する","を固定させる","を修理する","を移動させる"]},
-{word:"inevitable",meaning:"避けられない",atk:38,hp:170,rarity:"R",choices:["不可能","選択肢","偶然","自由","希望"]},
-{word:"imply",meaning:"を示唆する",atk:33,hp:140,rarity:"R",choices:["を明言する","を隠す","を否定する","を説明する","を強調する"]},
-{word:"panorama",meaning:"広大な眺め",atk:29,hp:150,rarity:"R",choices:["静かな場所","おいしい料理","明るい未来","小さな部屋","古い建物"]},
-{word:"encyclopedia",meaning:"百科事典",atk:35,hp:190,rarity:"R",choices:["辞書","雑誌","カタログ","新聞","小説"]},
-{word:"legislature",meaning:"立法機関",atk:37,hp:180,rarity:"R",choices:["警察","行政機関","裁判所","軍隊","学校"]},
-{word:"abuse",meaning:"を悪用する",atk:27,hp:130,rarity:"R",choices:["を守る","を助ける","を避ける","を修理する","を改善する"]},
-{word:"subscriber",meaning:"購読者",atk:22,hp:140,rarity:"N",choices:["情報提供者","編集者","作家","販売員","広告主"]},
-{word:"forefinger",meaning:"人差し指",atk:19,hp:120,rarity:"N",choices:["薬指","小指","親指","中指","手首"]},
-{word:"peculiar",meaning:"奇妙な",atk:34,hp:150,rarity:"R",choices:["楽しい","素晴らしい","普通な","安全な","便利な"]},
-{word:"anguish",meaning:"激しい苦痛",atk:43,hp:190,rarity:"SR",choices:["穏やかな喜び","心の不安","軽い気分","安心","満足"]},
-{word:"comprehend",meaning:"理解する",atk:42,hp:180,rarity:"SR",choices:["聞く","考える","見る","覚える","知る"]},
-{word:"objective",meaning:"目的",atk:52,hp:190,rarity:"SSR",choices:["手段","結果","条件","計画","方法"]},
-{word:"reinforce",meaning:"を強化する",atk:48,hp:185,rarity:"SR",choices:["を弱める","を無視する","を破壊する","を減らす","を否定する"]},
-{word:"accuracy",meaning:"正確さ",atk:54,hp:200,rarity:"SSR",choices:["速さ","強さ","大きさ","長さ","重さ"]},
-{word:"enthusiasm",meaning:"熱意",atk:43,hp:180,rarity:"SR",choices:["無関心","冷静さ","不安","疑い","退屈"]},
-{word:"confident",meaning:"自信がある",atk:56,hp:210,rarity:"SSR",choices:["怒っている","不安な","恥ずかしい","緊張した","困った"]},
-{word:"consensus",meaning:"合意",atk:42,hp:180,rarity:"SR",choices:["対立","不確実性","疑念","反対","争い"]},
-{word:"salary",meaning:"給与",atk:58,hp:200,rarity:"SSR",choices:["収入","手当","報酬","賃金","利益"]},
-{word:"eclipse",meaning:"日食",atk:44,hp:180,rarity:"SR",choices:["星空","月明り","流星群","彗星","星座"]},
-{word:"emigrant",meaning:"（他国への）移住者",atk:44,hp:180,rarity:"SR",choices:["（移動手段の）旅行者","（特定地域の）居住者","（国内の）住民","観光客","通勤者"]},
-{word:"organic",meaning:"有機的な",atk:46,hp:185,rarity:"SR",choices:["無機的な","機械的な","科学的な","人工的な","技術的な"]},
-{word:"insult",meaning:"を侮辱する",atk:40,hp:175,rarity:"SR",choices:["を賞賛する","を称える","を助ける","を守る","を励ます"]},
-{word:"penetrate",meaning:"に侵入する",atk:41,hp:175,rarity:"SR",choices:["を避ける","を観察する","を修理する","を防ぐ","を無視する"]},
-{word:"intrusion",meaning:"（私生活への）侵害",atk:43,hp:180,rarity:"SR",choices:["（自由な）行動","（他人との）交流","（大声での）発言","参加","発表"]},
-{word:"withstand",meaning:"に耐える",atk:41,hp:175,rarity:"SR",choices:["に勝つ","に備える","に従う","に頼る","に避ける"]},
-{word:"revolution",meaning:"革命",atk:58,hp:200,rarity:"SSR",choices:["進展","改革","変革","安定","停滞"]},
-{word:"poverty",meaning:"貧困",atk:24,hp:140,rarity:"N",choices:["繁栄","富裕","豊かさ","裕福","成功"]},
-{word:"layman",meaning:"素人",atk:22,hp:135,rarity:"N",choices:["研究者","専門家","技術者","学者","教授"]},
-{word:"climate",meaning:"気候",atk:25,hp:135,rarity:"N",choices:["気温","環境","温暖化","天気","湿度"]},
-{word:"industrial",meaning:"産業の",atk:18,hp:100,rarity:"N",choices:["美しい","古い","静かな","自然の","文化の"]},
+{word:"abuse",meaning:"を悪用する",atk:27,hp:130,rarity:"R",choices:["を守る","を助ける","を避ける","を修理する","を改善する"],partOfSpeech:"動詞",example:"It is wrong to abuse power.",exampleJp:"権力を悪用することは間違っている。"},
+{word:"accuracy",meaning:"正確さ",atk:54,hp:200,rarity:"SSR",choices:["速さ","強さ","大きさ","長さ","重さ"],partOfSpeech:"名詞",example:"The accuracy of the data is important.",exampleJp:"データの正確さは重要だ。"},
+{word:"acquire",meaning:"を獲得する",atk:38,hp:170,rarity:"R",choices:["を失う","を借りる","を売る","を手放す","を捨てる"],partOfSpeech:"動詞",example:"She worked hard to acquire new skills.",exampleJp:"彼女は新しいスキルを獲得するために懸命に働いた。"},
+{word:"addicted",meaning:"癖になった",atk:32,hp:155,rarity:"R",choices:["明るい","静かな","新鮮な","無関心な","飽きた"],partOfSpeech:"形容詞",example:"He became addicted to coffee.",exampleJp:"彼はコーヒーに癖になった。"},
+{word:"administration",meaning:"管理",atk:40,hp:175,rarity:"SR",choices:["実行","協力","計画","運営","指導"],partOfSpeech:"名詞",example:"The administration of the hospital is efficient.",exampleJp:"病院の管理は効率的だ。"},
+{word:"affair",meaning:"出来事",atk:28,hp:145,rarity:"R",choices:["感情","約束","責任","状況","関係"],partOfSpeech:"名詞",example:"The whole affair was very confusing.",exampleJp:"その出来事全体がとても混乱していた。"},
+{word:"allegiance",meaning:"忠誠",atk:42,hp:178,rarity:"SR",choices:["信頼","責任","支援","服従","誠実"],partOfSpeech:"名詞",example:"Soldiers swear allegiance to their country.",exampleJp:"兵士は国への忠誠を誓う。"},
+{word:"anguish",meaning:"激しい苦痛",atk:43,hp:190,rarity:"SR",choices:["穏やかな喜び","心の不安","軽い気分","安心","満足"],partOfSpeech:"名詞",example:"She cried out in anguish.",exampleJp:"彼女は激しい苦痛で叫んだ。"},
+{word:"annex",meaning:"別館",atk:30,hp:148,rarity:"R",choices:["施設","部屋","校舎","本館","倉庫"],partOfSpeech:"名詞",example:"The library annex was built last year.",exampleJp:"図書館の別館は昨年建てられた。"},
+{word:"apparently",meaning:"どうやら〜のようだ",atk:33,hp:155,rarity:"R",choices:["絶対に〜だ","明らかに〜ではない","まったく〜ではない","おそらく〜だろう","確かに〜だ"],partOfSpeech:"副詞",example:"Apparently, she left early this morning.",exampleJp:"どうやら、彼女は今朝早く出発したようだ。"},
+{word:"applause",meaning:"拍手",atk:29,hp:148,rarity:"R",choices:["批判","叫び","静寂","歓声","抗議"],partOfSpeech:"名詞",example:"The audience broke into applause.",exampleJp:"聴衆は拍手を送り始めた。"},
+{word:"as follows",meaning:"次の通り",atk:27,hp:140,rarity:"R",choices:["これから","その後","例えば","以下の","上記の"],partOfSpeech:"熟語",example:"The rules are as follows.",exampleJp:"規則は次の通りだ。"},
+{word:"botanical",meaning:"植物の",atk:23,hp:140,rarity:"N",choices:["科学の","美術の","音楽の","歴史の","文学の"],partOfSpeech:"形容詞",example:"We visited the botanical garden.",exampleJp:"私たちは植物園を訪れた。"},
+{word:"bulge",meaning:"出っ張り",atk:31,hp:150,rarity:"R",choices:["面","棒","穴","くぼみ","平面"],partOfSpeech:"名詞",example:"There was a strange bulge in the wall.",exampleJp:"壁に奇妙な出っ張りがあった。"},
+{word:"by degrees",meaning:"徐々に",atk:28,hp:143,rarity:"R",choices:["急速に","一度に","完全に","突然に","急激に"],partOfSpeech:"熟語",example:"By degrees, she recovered from her illness.",exampleJp:"徐々に、彼女は病気から回復した。"},
+{word:"circuit",meaning:"回路",atk:28,hp:150,rarity:"R",choices:["時間","空間","道","建物","言葉"],partOfSpeech:"名詞",example:"The electric circuit was damaged.",exampleJp:"電気回路が損傷していた。"},
+{word:"climate",meaning:"気候",atk:25,hp:135,rarity:"N",choices:["気温","環境","温暖化","天気","湿度"],partOfSpeech:"名詞",example:"The climate here is very mild.",exampleJp:"ここの気候はとても穏やかだ。"},
+{word:"comprehend",meaning:"理解する",atk:42,hp:180,rarity:"SR",choices:["聞く","考える","見る","覚える","知る"],partOfSpeech:"動詞",example:"I couldn't comprehend what he said.",exampleJp:"彼が言ったことを理解できなかった。"},
+{word:"condemnation",meaning:"激しい非難",atk:43,hp:180,rarity:"SR",choices:["感謝","支援","賞賛","批評","指摘"],partOfSpeech:"名詞",example:"The decision met with widespread condemnation.",exampleJp:"その決定は広範な激しい非難を受けた。"},
+{word:"confident",meaning:"自信がある",atk:56,hp:210,rarity:"SSR",choices:["怒っている","不安な","恥ずかしい","緊張した","困った"],partOfSpeech:"形容詞",example:"He was confident in his abilities.",exampleJp:"彼は自分の能力に自信があった。"},
+{word:"conflict",meaning:"衝突",atk:36,hp:165,rarity:"R",choices:["一致","有効","契約","対立","争い"],partOfSpeech:"名詞",example:"The conflict between the two countries lasted for years.",exampleJp:"二国間の衝突は何年も続いた。"},
+{word:"conquer",meaning:"征服する",atk:41,hp:176,rarity:"SR",choices:["観察する","助ける","逃げる","守る","従う"],partOfSpeech:"動詞",example:"Alexander the Great conquered many lands.",exampleJp:"アレクサンドロス大王は多くの土地を征服した。"},
+{word:"consensus",meaning:"合意",atk:42,hp:180,rarity:"SR",choices:["対立","不確実性","疑念","反対","争い"],partOfSpeech:"名詞",example:"The team reached a consensus.",exampleJp:"チームは合意に達した。"},
+{word:"consider",meaning:"を考える",atk:25,hp:138,rarity:"N",choices:["を避ける","を忘れる","を閉じる","を無視する","を否定する"],partOfSpeech:"動詞",example:"Please consider all your options.",exampleJp:"すべての選択肢を考えてください。"},
+{word:"container",meaning:"容器",atk:22,hp:130,rarity:"N",choices:["袋","箱","瓶","ケース","入れ物"],partOfSpeech:"名詞",example:"Put the leftovers in a container.",exampleJp:"残り物を容器に入れてください。"},
+{word:"contempt",meaning:"軽蔑",atk:31,hp:140,rarity:"R",choices:["尊敬","愛情","賞賛","感謝","友情"],partOfSpeech:"名詞",example:"He looked at the mess with contempt.",exampleJp:"彼はその散らかりを軽蔑の目で見た。"},
+{word:"crucial",meaning:"重要な",atk:38,hp:170,rarity:"R",choices:["静かな","美しい","楽しい","緊急な","必要な"],partOfSpeech:"形容詞",example:"This decision is crucial for our future.",exampleJp:"この決断は私たちの未来にとって重要だ。"},
+{word:"cure",meaning:"治療",atk:35,hp:162,rarity:"R",choices:["診断","病気","運命","処置","薬"],partOfSpeech:"名詞",example:"Scientists are searching for a cure.",exampleJp:"科学者たちは治療法を探している。"},
+{word:"dedication",meaning:"献身",atk:34,hp:170,rarity:"R",choices:["不信","疑念","無関心","怠慢","裏切り"],partOfSpeech:"名詞",example:"Her dedication to work was admirable.",exampleJp:"仕事への彼女の献身は称賛に値した。"},
+{word:"demise",meaning:"消滅",atk:40,hp:174,rarity:"SR",choices:["成長","発展","繁栄","消失","終焉"],partOfSpeech:"名詞",example:"The demise of the company shocked everyone.",exampleJp:"会社の消滅は皆を驚かせた。"},
+{word:"deny",meaning:"を否定する",atk:34,hp:158,rarity:"R",choices:["を説明する","を強調する","を受け入れる","を認める","を証明する"],partOfSpeech:"動詞",example:"He denied stealing the money.",exampleJp:"彼はお金を盗んだことを否定した。"},
+{word:"descendant",meaning:"子孫",atk:24,hp:160,rarity:"N",choices:["後継","親族","系譜","祖先","家系"],partOfSpeech:"名詞",example:"She is a descendant of the royal family.",exampleJp:"彼女は王族の子孫だ。"},
+{word:"eclipse",meaning:"日食",atk:44,hp:180,rarity:"SR",choices:["星空","月明り","流星群","彗星","星座"],partOfSpeech:"名詞",example:"The solar eclipse lasted three minutes.",exampleJp:"日食は3分間続いた。"},
+{word:"emigrant",meaning:"（他国への）移住者",atk:44,hp:180,rarity:"SR",choices:["（移動手段の）旅行者","（特定地域の）居住者","（国内の）住民","観光客","通勤者"],partOfSpeech:"名詞",example:"Many emigrants left for a better life.",exampleJp:"多くの移住者がより良い生活を求めて出発した。"},
+{word:"encyclopedia",meaning:"百科事典",atk:35,hp:190,rarity:"R",choices:["辞書","雑誌","カタログ","新聞","小説"],partOfSpeech:"名詞",example:"I looked it up in the encyclopedia.",exampleJp:"私はそれを百科事典で調べた。"},
+{word:"enthusiasm",meaning:"熱意",atk:43,hp:180,rarity:"SR",choices:["無関心","冷静さ","不安","疑い","退屈"],partOfSpeech:"名詞",example:"She showed great enthusiasm for the project.",exampleJp:"彼女はプロジェクトに大きな熱意を示した。"},
+{word:"etiquette",meaning:"礼儀作法",atk:90,hp:220,rarity:"UR",skill:"critical33",choices:["習慣","マナー","規則","作法","慣習"],partOfSpeech:"名詞",example:"Proper etiquette is important at formal events.",exampleJp:"正式な場では適切な礼儀作法が重要だ。"},
+{word:"exaltation",meaning:"有頂天",atk:37,hp:150,rarity:"R",choices:["静寂","平穏","悲哀","絶望","孤独"],partOfSpeech:"名詞",example:"He felt a sense of exaltation after winning.",exampleJp:"勝利後、彼は有頂天の気持ちになった。"},
+{word:"exposure",meaning:"露出",atk:27,hp:130,rarity:"R",choices:["絶縁","拒否","隠蔽","保護","沈黙"],partOfSpeech:"名詞",example:"Long exposure to sunlight can damage your skin.",exampleJp:"長時間の日光露出は肌を傷める。"},
+{word:"favor",meaning:"好意",atk:26,hp:140,rarity:"N",choices:["拒絶","約束","契約","親切","援助"],partOfSpeech:"名詞",example:"Could you do me a favor?",exampleJp:"お願いがあるのですが、好意で助けてもらえますか？"},
+{word:"finesse",meaning:"手際の良さ",atk:38,hp:168,rarity:"R",choices:["難しさ","単純さ","急ぎ","器用さ","素早さ"],partOfSpeech:"名詞",example:"She handled the situation with great finesse.",exampleJp:"彼女は素晴らしい手際の良さで状況を処理した。"},
+{word:"forefinger",meaning:"人差し指",atk:19,hp:120,rarity:"N",choices:["薬指","小指","親指","中指","手首"],partOfSpeech:"名詞",example:"She pointed with her forefinger.",exampleJp:"彼女は人差し指で指さした。"},
+{word:"frenzy",meaning:"逆上",atk:44,hp:170,rarity:"SR",choices:["安定","静寂","平穏","冷静","落ち着き"],partOfSpeech:"名詞",example:"The crowd was in a frenzy of excitement.",exampleJp:"群衆は興奮して逆上していた。"},
+{word:"frequency",meaning:"頻度",atk:30,hp:148,rarity:"R",choices:["強度","状態","量","回数","周期"],partOfSpeech:"名詞",example:"The frequency of the meetings increased.",exampleJp:"会議の頻度が増えた。"},
+{word:"from time to time",meaning:"時々",atk:24,hp:135,rarity:"N",choices:["頻繁に","まれに","常に","しばしば","ときおり"],partOfSpeech:"熟語",example:"From time to time, I visit my grandparents.",exampleJp:"時々、祖父母を訪ねる。"},
+{word:"genuine",meaning:"本物の",atk:20,hp:120,rarity:"R",choices:["古い","偽物の","新しい","大きい","速い"],partOfSpeech:"形容詞",example:"This is a genuine leather bag.",exampleJp:"これは本物の革のバッグです。"},
+{word:"halve",meaning:"半分になる",atk:33,hp:155,rarity:"R",choices:["分かれる","合計する","増える","減る","倍になる"],partOfSpeech:"動詞",example:"We need to halve our expenses.",exampleJp:"費用を半分にする必要がある。"},
+{word:"imply",meaning:"を示唆する",atk:33,hp:140,rarity:"R",choices:["を明言する","を隠す","を否定する","を説明する","を強調する"],partOfSpeech:"動詞",example:"His silence seemed to imply agreement.",exampleJp:"彼の沈黙は同意を示唆するように見えた。"},
+{word:"in terms of",meaning:"に関して",atk:35,hp:160,rarity:"R",choices:["に対して","によって","について","に応じて","に比べて"],partOfSpeech:"熟語",example:"In terms of cost, this is the best option.",exampleJp:"費用に関して、これが最良の選択肢だ。"},
+{word:"inauguration",meaning:"就任式",atk:44,hp:180,rarity:"SR",choices:["記者会見","退任式","投票日","選挙戦","宣誓式"],partOfSpeech:"名詞",example:"The inauguration ceremony was broadcast live.",exampleJp:"就任式の式典はライブ中継された。"},
+{word:"industrial",meaning:"産業の",atk:18,hp:100,rarity:"N",choices:["美しい","古い","静かな","自然の","文化の"],partOfSpeech:"形容詞",example:"The industrial revolution changed society.",exampleJp:"産業の革命は社会を変えた。"},
+{word:"inevitable",meaning:"避けられない",atk:38,hp:170,rarity:"R",choices:["不可能","選択肢","偶然","自由","希望"],partOfSpeech:"形容詞",example:"Change is inevitable.",exampleJp:"変化は避けられない。"},
+{word:"institution",meaning:"公共機関",atk:39,hp:172,rarity:"R",choices:["家族","会社","個人","団体","組織"],partOfSpeech:"名詞",example:"The university is a respected institution.",exampleJp:"その大学は尊敬される公共機関だ。"},
+{word:"insult",meaning:"を侮辱する",atk:40,hp:175,rarity:"SR",choices:["を賞賛する","を称える","を助ける","を守る","を励ます"],partOfSpeech:"動詞",example:"Don't insult your colleagues.",exampleJp:"同僚を侮辱しないこと。"},
+{word:"interpretation",meaning:"解釈",atk:37,hp:167,rarity:"R",choices:["意見","説明","分析","理解","見解"],partOfSpeech:"名詞",example:"Her interpretation of the poem was unique.",exampleJp:"詩の彼女の解釈は独特だった。"},
+{word:"intestine",meaning:"腸",atk:28,hp:145,rarity:"R",choices:["心臓","肝臓","肺","胃","腎臓"],partOfSpeech:"名詞",example:"The small intestine absorbs nutrients.",exampleJp:"小腸は栄養素を吸収する。"},
+{word:"intrusion",meaning:"（私生活への）侵害",atk:43,hp:180,rarity:"SR",choices:["（自由な）行動","（他人との）交流","（大声での）発言","参加","発表"],partOfSpeech:"名詞",example:"The intrusion of privacy is illegal.",exampleJp:"プライバシーへの侵害は違法だ。"},
+{word:"layman",meaning:"素人",atk:22,hp:135,rarity:"N",choices:["研究者","専門家","技術者","学者","教授"],partOfSpeech:"名詞",example:"He explained it in terms a layman could understand.",exampleJp:"彼は素人にも理解できる言葉で説明した。"},
+{word:"legislature",meaning:"立法機関",atk:37,hp:180,rarity:"R",choices:["警察","行政機関","裁判所","軍隊","学校"],partOfSpeech:"名詞",example:"The legislature passed a new law.",exampleJp:"立法機関が新しい法律を可決した。"},
+{word:"mania",meaning:"（過度の）熱中",atk:20,hp:120,rarity:"R",choices:["（普通の）好奇心","（穏やかな）関心","（軽い）興味","退屈","無関心"],partOfSpeech:"名詞",example:"There was a mania for collecting stamps in the 1980s.",exampleJp:"1980年代には切手収集への熱中があった。"},
+{word:"merely",meaning:"単に",atk:18,hp:110,rarity:"N",choices:["ほんの","ただ","単純に","突然","完全に"],partOfSpeech:"副詞",example:"I merely wanted to help.",exampleJp:"私は単に助けたかっただけだ。"},
+{word:"minister",meaning:"大臣",atk:36,hp:160,rarity:"R",choices:["教師","弁護士","医者","警察官","技師"],partOfSpeech:"名詞",example:"The prime minister gave a speech.",exampleJp:"首相がスピーチをした。"},
+{word:"navy",meaning:"海軍",atk:36,hp:163,rarity:"R",choices:["船舶","海洋","海賊","艦隊","水兵"],partOfSpeech:"名詞",example:"He served in the navy for ten years.",exampleJp:"彼は10年間海軍に勤めた。"},
+{word:"negotiation",meaning:"交渉",atk:40,hp:174,rarity:"SR",choices:["料理","勉強","旅行","協議","話し合い"],partOfSpeech:"名詞",example:"The negotiation took several weeks.",exampleJp:"交渉には数週間かかった。"},
+{word:"objective",meaning:"目的",atk:52,hp:190,rarity:"SSR",choices:["手段","結果","条件","計画","方法"],partOfSpeech:"名詞",example:"Our main objective is to win.",exampleJp:"私たちの主な目的は勝つことだ。"},
+{word:"occupant",meaning:"占有者",atk:34,hp:158,rarity:"R",choices:["旅行者","借主","通行人","居住者","入居者"],partOfSpeech:"名詞",example:"The occupant of the house moved in last month.",exampleJp:"家の占有者は先月引っ越してきた。"},
+{word:"on the contrary",meaning:"その反対で",atk:35,hp:160,rarity:"R",choices:["もちろん","同様に","その結果","それどころか","むしろ"],partOfSpeech:"熟語",example:"I don't dislike it; on the contrary, I love it.",exampleJp:"嫌いではない。その反対で、大好きだ。"},
+{word:"onslaught",meaning:"激しい攻撃",atk:42,hp:180,rarity:"SR",choices:["穏やかな風","静かな場所","優しい言葉","平和な時間","穏やかな生活"],partOfSpeech:"名詞",example:"The army faced a fierce onslaught.",exampleJp:"軍は激しい攻撃に直面した。"},
+{word:"organic",meaning:"有機的な",atk:46,hp:185,rarity:"SR",choices:["無機的な","機械的な","科学的な","人工的な","技術的な"],partOfSpeech:"形容詞",example:"We buy organic vegetables.",exampleJp:"私たちは有機的な野菜を買う。"},
+{word:"out of place",meaning:"場違いで",atk:32,hp:153,rarity:"R",choices:["適切で","普通で","自然で","ふさわしく","相応しく"],partOfSpeech:"熟語",example:"He felt out of place at the formal party.",exampleJp:"彼は正式なパーティーで場違いだと感じた。"},
+{word:"panorama",meaning:"広大な眺め",atk:29,hp:150,rarity:"R",choices:["静かな場所","おいしい料理","明るい未来","小さな部屋","古い建物"],partOfSpeech:"名詞",example:"The mountain offered a beautiful panorama.",exampleJp:"山は美しい広大な眺めを提供した。"},
+{word:"peculiar",meaning:"奇妙な",atk:34,hp:150,rarity:"R",choices:["楽しい","素晴らしい","普通な","安全な","便利な"],partOfSpeech:"形容詞",example:"There was a peculiar smell in the room.",exampleJp:"部屋の中に奇妙な匂いがした。"},
+{word:"penetrate",meaning:"に侵入する",atk:41,hp:175,rarity:"SR",choices:["を避ける","を観察する","を修理する","を防ぐ","を無視する"],partOfSpeech:"動詞",example:"The rain managed to penetrate the roof.",exampleJp:"雨が屋根に侵入した。"},
+{word:"poverty",meaning:"貧困",atk:24,hp:140,rarity:"N",choices:["繁栄","富裕","豊かさ","裕福","成功"],partOfSpeech:"名詞",example:"Many people live in poverty.",exampleJp:"多くの人々が貧困の中で生活している。"},
+{word:"punishment",meaning:"罰",atk:34,hp:157,rarity:"R",choices:["報酬","助け","支援","制裁","刑罰"],partOfSpeech:"名詞",example:"The punishment for the crime was severe.",exampleJp:"その罪に対する罰は厳しかった。"},
+{word:"pupil",meaning:"生徒",atk:20,hp:122,rarity:"N",choices:["教師","学生","教室","児童","受講生"],partOfSpeech:"名詞",example:"The pupil studied hard for the exam.",exampleJp:"その生徒は試験のために懸命に勉強した。"},
+{word:"reinforce",meaning:"を強化する",atk:48,hp:185,rarity:"SR",choices:["を弱める","を無視する","を破壊する","を減らす","を否定する"],partOfSpeech:"動詞",example:"We need to reinforce the walls.",exampleJp:"壁を強化する必要がある。"},
+{word:"revolution",meaning:"革命",atk:58,hp:200,rarity:"SSR",choices:["進展","改革","変革","安定","停滞"],partOfSpeech:"名詞",example:"The French Revolution changed history.",exampleJp:"フランス革命は歴史を変えた。"},
+{word:"salary",meaning:"給与",atk:58,hp:200,rarity:"SSR",choices:["収入","手当","報酬","賃金","利益"],partOfSpeech:"名詞",example:"Her salary increased this year.",exampleJp:"彼女の給与は今年増えた。"},
+{word:"sanity",meaning:"正気",atk:38,hp:169,rarity:"R",choices:["勇気","悲しみ","喜び","理性","冷静"],partOfSpeech:"名詞",example:"She began to question her own sanity.",exampleJp:"彼女は自分の正気を疑い始めた。"},
+{word:"spiritual",meaning:"精神の",atk:36,hp:164,rarity:"R",choices:["物理の","具体の","現実の","肉体の","物質の"],partOfSpeech:"形容詞",example:"He went on a spiritual journey.",exampleJp:"彼は精神の旅に出た。"},
+{word:"subscriber",meaning:"購読者",atk:22,hp:140,rarity:"N",choices:["情報提供者","編集者","作家","販売員","広告主"],partOfSpeech:"名詞",example:"The magazine has one million subscribers.",exampleJp:"その雑誌には100万人の購読者がいる。"},
+{word:"substitute",meaning:"代用品",atk:31,hp:151,rarity:"R",choices:["基本品","原材料","最適品","代替品","交換品"],partOfSpeech:"名詞",example:"Margarine is a substitute for butter.",exampleJp:"マーガリンはバターの代用品だ。"},
+{word:"suicide",meaning:"自殺",atk:42,hp:177,rarity:"SR",choices:["冒険","幸福","希望","犯罪","事故"],partOfSpeech:"名詞",example:"Prevention of suicide is a public health priority.",exampleJp:"自殺の防止は公衆衛生の優先事項だ。"},
+{word:"therapy",meaning:"治療",atk:33,hp:156,rarity:"R",choices:["食事","運動","休息","処置","診断"],partOfSpeech:"名詞",example:"She underwent therapy for anxiety.",exampleJp:"彼女は不安のための治療を受けた。"},
+{word:"transform",meaning:"を変形させる",atk:41,hp:180,rarity:"SR",choices:["を保存する","を削除する","を固定させる","を修理する","を移動させる"],partOfSpeech:"動詞",example:"Music can transform your mood.",exampleJp:"音楽は気分を変形させることができる。"},
+{word:"trend",meaning:"傾向",atk:29,hp:147,rarity:"R",choices:["冒険","知識","友情","動向","流れ"],partOfSpeech:"名詞",example:"There is a growing trend toward healthy eating.",exampleJp:"健康的な食事への傾向が高まっている。"},
+{word:"utilize",meaning:"を活用する",atk:36,hp:163,rarity:"R",choices:["を捨てる","を壊す","を隠す","を使用する","を応用する"],partOfSpeech:"動詞",example:"We should utilize all available resources.",exampleJp:"利用可能なすべてのリソースを活用すべきだ。"},
+{word:"vague",meaning:"曖昧な",atk:31,hp:150,rarity:"R",choices:["詳しい","正確な","明確な","不明瞭な","不確かな"],partOfSpeech:"形容詞",example:"His answer was vague and unsatisfying.",exampleJp:"彼の答えは曖昧で不満足だった。"},
+{word:"vanity",meaning:"虚栄心",atk:39,hp:171,rarity:"R",choices:["友情","幸福","勇気","自尊心","自惚れ"],partOfSpeech:"名詞",example:"His vanity prevented him from admitting mistakes.",exampleJp:"虚栄心が彼に過ちを認めさせなかった。"},
+{word:"vogue",meaning:"流行",atk:35,hp:160,rarity:"R",choices:["旅行","映画","料理","ブーム","トレンド"],partOfSpeech:"名詞",example:"Yoga is in vogue these days.",exampleJp:"ヨガは最近流行だ。"},
+{word:"ward",meaning:"区画",atk:27,hp:143,rarity:"R",choices:["整形","決定","声明","地区","病棟"],partOfSpeech:"名詞",example:"She works in the children's ward.",exampleJp:"彼女は小児科区画で働いている。"},
+{word:"withstand",meaning:"に耐える",atk:41,hp:175,rarity:"SR",choices:["に勝つ","に備える","に従う","に頼る","に避ける"],partOfSpeech:"動詞",example:"The bridge can withstand heavy loads.",exampleJp:"その橋は重い荷物に耐えることができる。"},
+{word:"work out",meaning:"うまくいく",atk:30,hp:148,rarity:"R",choices:["運動する","組み合わせる","計算する","解決する","実現する"],partOfSpeech:"熟語",example:"Everything will work out in the end.",exampleJp:"最終的にはすべてうまくいくだろう。"}
 ];
 allCards.forEach(c=>c.type="english");
 
@@ -2178,6 +2227,702 @@ const kobunCards=[
     {correct:"〜（で）ある", choices:["〜（で）ある","〜ではない","〜でなくなる","〜を否定する","〜から外れる","〜に反する"]},
   ]
 },
+{
+  word:"おぼゆ", meaning:"（自然と）思われる / 似る",
+  rarity:"R", atk:28, hp:142,
+  reading:"おぼゆ", hinshi:"動詞（ヤ行下二段活用）",
+  detail:"思ふ＋ゆ（自然とそうなる）→おもはゆ→おもほゆ→おぼゆ。自分の意志とは関係なく自然と心に浮かぶ感覚が核心。「おぼす（お思いになる）」とは別語。",
+  example:"昔のことのみおぼえて。",
+  exampleMeaning:"昔のことばかり自然と思い出されて。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"（自然と）思われる", choices:["（自然と）思われる","意図的に考える","無理やり思い込む","強制的に覚える","意識して記憶する","わざと気にする"]},
+    {correct:"似る",               choices:["似る","異なる","かけ離れる","全く違う","似ても似つかない","正反対だ"]},
+  ]
+},
+{
+  word:"すまふ", meaning:"抵抗する / 辞退する / 住む",
+  rarity:"R", atk:30, hp:148,
+  reading:"すまふ", hinshi:"動詞（ハ行四段活用）",
+  detail:"１抵抗するは「争ふ」、２辞退するは「辞ふ」、３住むは「住まふ」と漢字で区別する。文脈によって全く異なる意味になる重要多義語。",
+  example:"かたくすまひたまひて。",
+  exampleMeaning:"固く辞退なさって。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"抵抗する", choices:["抵抗する","従う","服従する","受け入れる","甘んじる","屈する"]},
+    {correct:"辞退する", choices:["辞退する","引き受ける","快諾する","喜んで受ける","進んで行う","承諾する"]},
+    {correct:"住む",     choices:["住む","旅立つ","去る","放浪する","流浪する","さすらう"]},
+  ]
+},
+{
+  word:"しのぶ", meaning:"我慢する / 懐かしく思う / 秘密にする",
+  rarity:"R", atk:31, hp:150,
+  reading:"しのぶ", hinshi:"動詞（バ行四段活用）",
+  detail:"忍は我慢する、偲ぶは懐かしく思う、と漢字で意味を区別する。感情を内に秘める・過去を思う・隠すという核心が共通する語。",
+  example:"袖をしほりてしのびける。",
+  exampleMeaning:"袖を濡らして（涙を）こらえていた。",
+  source:"古今和歌集",
+  quizzes:[
+    {correct:"我慢する",     choices:["我慢する","取り乱す","感情をあらわにする","怒りをぶつける","嘆き叫ぶ","堪えられない"]},
+    {correct:"懐かしく思う", choices:["懐かしく思う","忘れ去る","思い出したくない","過去を振り返らない","記憶から消す","気にも留めない"]},
+    {correct:"秘密にする",   choices:["秘密にする","公言する","吹聴する","言いふらす","隠さずに話す","明かしてしまう"]},
+  ]
+},
+{
+  word:"さる", meaning:"避ける / （その時に）なる / もっともな / そういう / しかるべき",
+  rarity:"SR", atk:44, hp:181,
+  reading:"さる", hinshi:"動詞・形容動詞・連体詞",
+  detail:"１避るは「避る」、２去るは「去る」、３然るは「然る」と漢字から判断する。特に「さること（もっともなこと）」「さる人（しかるべき人）」の用法が重要。",
+  example:"さることもあらむ。",
+  exampleMeaning:"もっともなこともあるだろう。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"避ける",       choices:["避ける","向かっていく","真正面から立ち向かう","あえて近づく","飛び込む","受け入れる"]},
+    {correct:"（その時に）なる", choices:["（その時に）なる","永遠に続く","変わらずにいる","時が止まる","過去に戻る","いつまでも同じだ"]},
+    {correct:"もっともな",   choices:["もっともな","理不尽だ","筋が通らない","でたらめだ","言いがかりだ","不条理だ"]},
+    {correct:"そういう",     choices:["そういう","まったく違う","正反対の","あり得ない","とんでもない","見当違いの"]},
+    {correct:"しかるべき",   choices:["しかるべき","不適切な","場違いな","ふさわしくない","分不相応な","あるまじき"]},
+  ]
+},
+{
+  word:"かる", meaning:"離れる / 疎遠になる / かすれる / 干上がる",
+  rarity:"R", atk:29, hp:144,
+  reading:"かる", hinshi:"動詞（ラ行四段／下二段活用）",
+  detail:"１離れるは「離る」、２枯れるは「枯る」、３かすれるは「嗄る」、４干上がるは「涸る」と漢字で区別する。いずれも何かが失われていく状態が共通する核心。",
+  example:"人のこころのかれにければ。",
+  exampleMeaning:"人の心が離れてしまったので。",
+  source:"古今和歌集",
+  quizzes:[
+    {correct:"離れる",     choices:["離れる","近づく","引き寄せられる","密接になる","くっつく","一体となる"]},
+    {correct:"疎遠になる", choices:["疎遠になる","親しくなる","仲が深まる","絆が強まる","打ち解ける","心が通う"]},
+    {correct:"かすれる",   choices:["かすれる","鮮明になる","はっきりする","くっきりと出る","声が通る","澄み渡る"]},
+    {correct:"干上がる",   choices:["干上がる","潤う","満ちあふれる","みなぎる","水が湧く","豊かに流れる"]},
+  ]
+},
+{
+  word:"わたる", meaning:"通る / 行く / ある / 〜（で）ある / 通じる / 一面に〜する",
+  rarity:"SR", atk:46, hp:184,
+  reading:"わたる", hinshi:"動詞（ラ行四段活用）",
+  detail:"現代語の「渡る」よりも意味が広い。空間的な移動から存在・継続・広がりまで幅広く使われる重要多義語。補助動詞では「一面に〜する・ずっと〜する」の意。",
+  example:"都にわたりたまひぬ。",
+  exampleMeaning:"都においでになった。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"通る",       choices:["通る","止まる","行き止まりになる","遮られる","塞がれる","引き返す"]},
+    {correct:"行く",       choices:["行く","留まる","動かずにいる","足止めされる","引き返す","戻る"]},
+    {correct:"ある",       choices:["ある","ない","存在しない","消えてしまう","見当たらない","なくなる"]},
+    {correct:"〜（で）ある",  choices:["〜（で）ある","〜ではない","〜でなくなる","〜から外れる","〜に反する","〜を否定する"]},
+    {correct:"通じる",     choices:["通じる","遮断される","途切れる","伝わらない","閉ざされる","行き詰まる"]},
+    {correct:"一面に〜する", choices:["一面に〜する","一点だけ〜する","ところどころ〜する","まばらに〜する","部分的に〜する","ちらほら〜する"]},
+  ]
+},
+{
+  word:"さかし", meaning:"賢い / 気丈だ / こざかしい",
+  rarity:"R", atk:32, hp:153,
+  reading:"さかし", hinshi:"形容詞（ク活用）",
+  detail:"理性的に判断する様が核心。賢い・しっかりしているという褒め言葉にもなるが、「こざかしい」という批判的な意味でも使われる両義的な語。",
+  example:"さかしき人も、愚かになる。",
+  exampleMeaning:"賢い人も、愚かになる。",
+  source:"徒然草",
+  quizzes:[
+    {correct:"賢い",       choices:["賢い","愚かだ","思慮がない","浅はかだ","無分別だ","考えが足りない"]},
+    {correct:"気丈だ",     choices:["気丈だ","気弱だ","ひるむ","取り乱す","心細い","意気地がない"]},
+    {correct:"こざかしい", choices:["こざかしい","素直だ","謙虚だ","控えめだ","おとなしい","従順だ"]},
+  ]
+},
+{
+  word:"いみじ", meaning:"ひどい / はなはだしい / すばらしい / たいそう",
+  rarity:"SR", atk:45, hp:183,
+  reading:"いみじ", hinshi:"形容詞（シク活用）",
+  detail:"良い意味だけでなく、時に悪い意味も表す重要語。程度のはなはだしさが核心で、文脈によってプラス・マイナス両方に使われる。「いみじくも」は現代語でも使われる。",
+  example:"いみじくをかしき御有様かな。",
+  exampleMeaning:"たいそう趣深いご様子よなあ。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"ひどい",       choices:["ひどい","申し分ない","すばらしい","完璧だ","見事だ","申し訳ない"]},
+    {correct:"はなはだしい", choices:["はなはだしい","ほんの少し","わずかに","かすかに","ちょっとした","さほどでもない"]},
+    {correct:"すばらしい",   choices:["すばらしい","つまらない","凡庸だ","取るに足らない","平凡だ","価値がない"]},
+    {correct:"たいそう",     choices:["たいそう","少しも","全く","さほど","それほどでも","あまり"]},
+  ]
+},
+{
+  word:"いたし", meaning:"はなはだしい / ひどい / すばらしい / たいして",
+  rarity:"R", atk:35, hp:162,
+  reading:"いたし", hinshi:"形容詞（ク活用）",
+  detail:"痛いほどにたいそう素晴らしい、が核心。「いみじ」と同様にプラス・マイナス両方の程度のはなはだしさを表す語。副詞「いたく」の形でも頻出。",
+  example:"いたく泣きたまひて。",
+  exampleMeaning:"ひどく泣かれて。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"はなはだしい", choices:["はなはだしい","ほんの少し","わずかに","かすかに","ちょっとした","さほどでもない"]},
+    {correct:"ひどい",       choices:["ひどい","申し分ない","すばらしい","完璧だ","見事だ","立派だ"]},
+    {correct:"すばらしい",   choices:["すばらしい","つまらない","凡庸だ","取るに足らない","平凡だ","価値がない"]},
+    {correct:"たいして",     choices:["たいして","全く","少しも","まったく","さほど","これっぽっちも"]},
+  ]
+},
+{
+  word:"しどけなし", meaning:"だらしない / 無造作だ",
+  rarity:"N", atk:21, hp:118,
+  reading:"しどけなし", hinshi:"形容詞（ク活用）",
+  detail:"型にとらわれない様子が核心。きちんとしていない・くつろいだ様子を表す語で、批判的な意味と自然体でいいという肯定的なニュアンスの両方がある。",
+  example:"しどけなき御姿にて。",
+  exampleMeaning:"だらしない（くつろいだ）お姿で。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"だらしない", choices:["だらしない","きちんとしている","きっちりした","整然としている","几帳面だ","きびきびしている"]},
+    {correct:"無造作だ",   choices:["無造作だ","丁寧だ","念入りだ","慎重だ","入念だ","手を抜かない"]},
+  ]
+},
+{
+  word:"ゆゆし", meaning:"不吉だ / すばらしい / 恐れ多い",
+  rarity:"R", atk:33, hp:156,
+  reading:"ゆゆし", hinshi:"形容詞（シク活用）",
+  detail:"神聖なものなどを恐れはばかるが原義。「いみ（忌み）」と同じく神聖・禁忌に関わる感覚が核心。恐れ多い崇高さから、素晴らしさや不吉さまで幅広く使われる。",
+  example:"ゆゆしき御ありさまかな。",
+  exampleMeaning:"恐れ多いほどすばらしいご様子よなあ。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"不吉だ",   choices:["不吉だ","縁起が良い","めでたい","吉兆だ","幸先が良い","おめでたい"]},
+    {correct:"すばらしい", choices:["すばらしい","つまらない","凡庸だ","取るに足らない","平凡だ","価値がない"]},
+    {correct:"恐れ多い", choices:["恐れ多い","気安い","親しみやすい","遠慮がない","気兼ねしない","臆せず向き合える"]},
+  ]
+},
+{
+  word:"ゆかし", meaning:"見たい / 聞きたい / 知りたい / 心が惹かれる / 懐かしい",
+  rarity:"SR", atk:43, hp:179,
+  reading:"ゆかし", hinshi:"形容詞（シク活用）",
+  detail:"「〜したい」と心が惹かれる気持ちが核心。好奇心・憧れ・慕情など前向きな欲求を幅広く表す語。現代語の「ゆかしい（上品で趣がある）」とは異なる。",
+  example:"いとゆかしき御有様かな。",
+  exampleMeaning:"たいそう心惹かれるご様子よなあ。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"見たい",     choices:["見たい","目を背けたい","見たくない","直視できない","目に入れたくない","遠ざけたい"]},
+    {correct:"聞きたい",   choices:["聞きたい","聞きたくない","耳を塞ぎたい","聞き流したい","無視したい","知りたくない"]},
+    {correct:"知りたい",   choices:["知りたい","知りたくない","興味がない","どうでもよい","関心がない","気にも留めない"]},
+    {correct:"心が惹かれる", choices:["心が惹かれる","心が離れる","興味が失せる","遠ざかりたい","関わりたくない","気が向かない"]},
+    {correct:"懐かしい",   choices:["懐かしい","忘れたい","思い出したくない","過去を振り返らない","記憶から消したい","縁を切りたい"]},
+  ]
+},
+{
+  word:"すごし", meaning:"もの寂しい / ぞっとするほどすばらしい",
+  rarity:"R", atk:30, hp:147,
+  reading:"すごし", hinshi:"形容詞（ク活用）",
+  detail:"見てぞっとするような状況が原義。もの寂しく荒涼とした景色や、背筋がぞっとするほどの美しさ・迫力を表す語。現代語の「すごい」の語源。",
+  example:"すごき山の中に入りぬ。",
+  exampleMeaning:"もの寂しい山の中に入った。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"もの寂しい",         choices:["もの寂しい","賑やかだ","活気がある","楽しくてたまらない","心が弾む","生き生きしている"]},
+    {correct:"ぞっとするほどすばらしい", choices:["ぞっとするほどすばらしい","平凡だ","ありきたりだ","取るに足らない","印象が薄い","目立たない"]},
+  ]
+},
+{
+  word:"めざまし", meaning:"心外だ / 気に食わない / すばらしい",
+  rarity:"R", atk:29, hp:145,
+  reading:"めざまし", hinshi:"形容詞（シク活用）",
+  detail:"「目覚む」が変化してできた語。目が覚めるほどの驚きが核心で、予想外の事態への不満・驚き、または目を見張るほどの素晴らしさを表す。",
+  example:"めざましき御ことかな。",
+  exampleMeaning:"心外なことよなあ。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"心外だ",     choices:["心外だ","思った通りだ","予想どおりだ","当然だ","もっともだ","納得できる"]},
+    {correct:"気に食わない", choices:["気に食わない","気に入った","好ましい","心惹かれる","好きだ","気に入っている"]},
+    {correct:"すばらしい", choices:["すばらしい","つまらない","凡庸だ","取るに足らない","平凡だ","価値がない"]},
+  ]
+},
+{
+  word:"ところせし", meaning:"窮屈だ / いばっている / 大げさだ",
+  rarity:"N", atk:22, hp:122,
+  reading:"ところせし", hinshi:"形容詞（シク活用）",
+  detail:"場所が狭いという原義から転じ窮屈だの意味に。身動きが取れないほど窮屈な様子から、いばった態度や大げさな振る舞いまで幅広く使われる。",
+  example:"ところせき御いでたちにて。",
+  exampleMeaning:"大げさな（いばった）お出かけの支度で。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"窮屈だ",       choices:["窮屈だ","のびのびしている","余裕がある","広々としている","開放的だ","自由だ"]},
+    {correct:"いばっている", choices:["いばっている","謙虚だ","控えめだ","慎み深い","腰が低い","へりくだっている"]},
+    {correct:"大げさだ",     choices:["大げさだ","さりげない","控えめだ","ひっそりしている","地味だ","目立たない"]},
+  ]
+},
+{
+  word:"かどかどし", meaning:"才気がある / とげとげしい",
+  rarity:"N", atk:23, hp:125,
+  reading:"かどかどし", hinshi:"形容詞（シク活用）",
+  detail:"才気があるは「才々し」、とげとげしいは「角々し」で本来別の語。どちらも鋭さ・尖りが核心で、知性の鋭さとしてプラスにも、人当たりの悪さとしてマイナスにも使われる。",
+  example:"かどかどしく、をかしき人。",
+  exampleMeaning:"才気があって、趣ある人。",
+  source:"枕草子",
+  quizzes:[
+    {correct:"才気がある",   choices:["才気がある","鈍い","才能がない","凡庸だ","のろまだ","頭が回らない"]},
+    {correct:"とげとげしい", choices:["とげとげしい","穏やかだ","柔和だ","温厚だ","丸みがある","角が取れている"]},
+  ]
+},
+{
+  word:"さうなし", meaning:"たぐいない / たやすい / あれこれ考えない",
+  rarity:"R", atk:27, hp:139,
+  reading:"さうなし", hinshi:"形容詞（ク活用）",
+  detail:"たぐいなしは「双なし」、たやすいは「左右無し」と漢字で区別する。「双のないほど優れている」「左右（あれこれ）考えない気軽さ」という二つの核心を持つ。",
+  example:"さうなき御有様かな。",
+  exampleMeaning:"たぐいないご様子よなあ。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"たぐいない",     choices:["たぐいない","ありふれている","よく見かける","どこにでもある","平凡だ","当たり前だ"]},
+    {correct:"たやすい",       choices:["たやすい","難しい","困難だ","手間がかかる","骨が折れる","一筋縄ではいかない"]},
+    {correct:"あれこれ考えない", choices:["あれこれ考えない","思い悩む","あれこれ迷う","くよくよする","熟考する","深く考え込む"]},
+  ]
+},
+{
+  word:"あなづらはし", meaning:"軽んじやすい / 気が置けない",
+  rarity:"N", atk:20, hp:114,
+  reading:"あなづらはし", hinshi:"形容詞（シク活用）",
+  detail:"現代語の「あなどる（侮る）」から類推できる語。相手が軽く見やすい存在であること、または気を遣わずに付き合える親しみやすさを表す。",
+  example:"あなづらはしと思ひて。",
+  exampleMeaning:"軽んじてよいと思って。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"軽んじやすい", choices:["軽んじやすい","敬いたくなる","尊重したい","大切にしたい","崇めたくなる","重んじたい"]},
+    {correct:"気が置けない", choices:["気が置けない","遠慮がある","気を遣う","よそよそしい","打ち解けられない","他人行儀だ"]},
+  ]
+},
+{
+  word:"ねたし", meaning:"癪だ / ねたましくなるほどすばらしい",
+  rarity:"N", atk:22, hp:120,
+  reading:"ねたし", hinshi:"形容詞（ク活用）",
+  detail:"相手に引け目を感じたり反感を持つ気持ちが核心。悔しい・腹立たしいというマイナスの感情と、羨ましいほど素晴らしいというプラスの評価の両方を持つ。",
+  example:"ねたく、悔しく思ひけり。",
+  exampleMeaning:"癪で、悔しく思った。",
+  source:"竹取物語",
+  quizzes:[
+    {correct:"癪だ",                   choices:["癪だ","清々しい","晴れやかだ","すっきりする","胸が躍る","嬉しい"]},
+    {correct:"ねたましくなるほどすばらしい", choices:["ねたましくなるほどすばらしい","取るに足らない","凡庸だ","つまらない","平凡だ","どこにでもある"]},
+  ]
+},
+{
+  word:"うし", meaning:"つらい / つれない",
+  rarity:"N", atk:21, hp:117,
+  reading:"うし", hinshi:"形容詞（ク活用）",
+  detail:"自分がつらいと相手がつれないの両方の意味を持つ語。「憂し」と書き、心が沈む辛さと相手の冷たさへの恨みが核心。",
+  example:"うき世には、かかることのみ。",
+  exampleMeaning:"つらいこの世には、こんなことばかり。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"つらい",   choices:["つらい","楽しい","心地よい","幸せだ","充実している","満ち足りている"]},
+    {correct:"つれない", choices:["つれない","思いやりがある","情け深い","優しい","心温かい","親切だ"]},
+  ]
+},
+{
+  word:"こころもとなし", meaning:"気がかりだ / 待ち遠しい / ぼんやりしている",
+  rarity:"R", atk:28, hp:141,
+  reading:"こころもとなし", hinshi:"形容詞（ク活用）",
+  detail:"心がむやみに急き立てられる→不安・待ち遠しいの意味に。心が落ち着かずにそわそわする状態と、物がはっきり見えないぼんやりとした状態の両方を表す。",
+  example:"いとこころもとなく思ひたまへて。",
+  exampleMeaning:"たいそう気がかりに思っておりまして。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"気がかりだ",     choices:["気がかりだ","安心だ","気にならない","問題ない","心配いらない","のんきだ"]},
+    {correct:"待ち遠しい",     choices:["待ち遠しい","待つのが苦でない","早く来てほしくない","興味がない","どうでもよい","急いでいない"]},
+    {correct:"ぼんやりしている", choices:["ぼんやりしている","はっきりしている","明確だ","くっきりしている","鮮明だ","明白だ"]},
+  ]
+},
+{
+  word:"こまやかなり", meaning:"（色が）濃い / ねんごろだ / 親密だ / 上品だ",
+  rarity:"R", atk:31, hp:150,
+  reading:"こまやかなり", hinshi:"形容動詞（ナリ活用）",
+  detail:"きめ細かく細部にまで行き届いている様が核心。色の濃さ・感情の深さ・人間関係の親密さ・品の良さまで、細やかさ・密度の高さを表す語。",
+  example:"こまやかなる御心ざしかな。",
+  exampleMeaning:"念入りなお気持ちよなあ。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"（色が）濃い", choices:["（色が）濃い","色あせている","薄い","くすんでいる","淡い","色が飛んでいる"]},
+    {correct:"ねんごろだ",   choices:["ねんごろだ","いい加減だ","おざなりだ","投げやりだ","手を抜く","大雑把だ"]},
+    {correct:"親密だ",       choices:["親密だ","よそよそしい","疎遠だ","他人行儀だ","冷たい","打ち解けない"]},
+    {correct:"上品だ",       choices:["上品だ","下品だ","がさつだ","粗野だ","無骨だ","品がない"]},
+  ]
+},
+{
+  word:"あながちなり", meaning:"一途だ / むやみだ / 無理だ / 必ずしも",
+  rarity:"R", atk:29, hp:146,
+  reading:"あながちなり", hinshi:"形容動詞（ナリ活用）",
+  detail:"自分勝手に強引に何かをするが原義。一筋に突き進む一途さ・分別のないむやみな行動・道理に合わない無理さが核心。副詞では「必ずしも（〜でない）」の意。",
+  example:"あながちにやみがたく思ひて。",
+  exampleMeaning:"むやみに忘れられないと思って。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"一途だ",   choices:["一途だ","気まぐれだ","移り気だ","優柔不断だ","ふらふらしている","定まらない"]},
+    {correct:"むやみだ", choices:["むやみだ","慎重だ","計画的だ","節度がある","思慮深い","程よい"]},
+    {correct:"無理だ",   choices:["無理だ","たやすい","造作もない","朝飯前だ","難なくできる","簡単だ"]},
+    {correct:"必ずしも", choices:["必ずしも","絶対に","確実に","間違いなく","必ず","例外なく"]},
+  ]
+},
+{
+  word:"ねんごろなり", meaning:"一途だ / 丁寧だ / 念入りだ / 親密だ",
+  rarity:"R", atk:32, hp:153,
+  reading:"ねんごろなり", hinshi:"形容動詞（ナリ活用）",
+  detail:"「懇」の字を当てる。熱心で一途な様子が核心。誠実に丁寧に物事に向き合う態度、または人間関係の親密さを表す語。「こまやかなり」と意味が近い。",
+  example:"ねんごろにあひ語らひて。",
+  exampleMeaning:"親密に語り合って。",
+  source:"伊勢物語",
+  quizzes:[
+    {correct:"一途だ",   choices:["一途だ","気まぐれだ","移り気だ","優柔不断だ","ふらふらしている","定まらない"]},
+    {correct:"丁寧だ",   choices:["丁寧だ","いい加減だ","ぞんざいだ","おざなりだ","粗雑だ","手を抜く"]},
+    {correct:"念入りだ", choices:["念入りだ","大雑把だ","おおざっぱだ","ざっくりしている","適当だ","手を抜く"]},
+    {correct:"親密だ",   choices:["親密だ","よそよそしい","疎遠だ","他人行儀だ","冷たい","打ち解けない"]},
+  ]
+},
+{
+  word:"なほざりなり", meaning:"いい加減だ / 何気ない / あっさりしている",
+  rarity:"N", atk:20, hp:113,
+  reading:"なほざりなり", hinshi:"形容動詞（ナリ活用）",
+  detail:"深く考えず、何気なく何かをする様子が核心。真剣味がなく軽い態度・わざとらしくない自然な様子・さっぱりした性格を表す語。",
+  example:"なほざりにはあらで。",
+  exampleMeaning:"いい加減ではなくて。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"いい加減だ",   choices:["いい加減だ","誠実だ","真摯だ","丁寧だ","念入りだ","手を抜かない"]},
+    {correct:"何気ない",     choices:["何気ない","わざとらしい","意図的だ","計算している","わざわざする","改まっている"]},
+    {correct:"あっさりしている", choices:["あっさりしている","しつこい","執拗だ","くどい","粘り強い","諦めない"]},
+  ]
+},
+{
+  word:"うちつけなり", meaning:"とたんに / 突然だ / 露骨だ / ぶしつけだ",
+  rarity:"R", atk:26, hp:136,
+  reading:"うちつけなり", hinshi:"形容動詞（ナリ活用）",
+  detail:"突然・軽率・ぶしつけがキーワード。何の予告も配慮もなく突然何かをする様子が核心。急に・遠慮なく・見え透いたという意味合いを持つ。",
+  example:"うちつけに言ひ出でて。",
+  exampleMeaning:"突然言い出して。",
+  source:"枕草子",
+  quizzes:[
+    {correct:"とたんに", choices:["とたんに","じっくりと","少しずつ","徐々に","やがて","しばらくして"]},
+    {correct:"突然だ",   choices:["突然だ","予め分かっていた","予告通りだ","想定内だ","計画的だ","段階を踏んだ"]},
+    {correct:"露骨だ",   choices:["露骨だ","さりげない","控えめだ","奥ゆかしい","遠回しだ","婉曲だ"]},
+    {correct:"ぶしつけだ", choices:["ぶしつけだ","礼儀正しい","慎み深い","遠慮がある","気を遣う","控えめだ"]},
+  ]
+},
+{
+  word:"すくよかなり", meaning:"（心身が）しっかりしている / 無愛想だ",
+  rarity:"N", atk:21, hp:116,
+  reading:"すくよかなり", hinshi:"形容動詞（ナリ活用）",
+  detail:"マイナスイメージの意味に注意。「すぐよかなり」とも書く。心身がしっかりしているというプラスの意味と、愛嬌がなく堅苦しいというマイナスの意味を持つ。",
+  example:"すくよかにおはする人の。",
+  exampleMeaning:"無愛想でいらっしゃる人が。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"（心身が）しっかりしている", choices:["（心身が）しっかりしている","気弱だ","ひ弱だ","頼りない","意志が弱い","うろたえる"]},
+    {correct:"無愛想だ", choices:["無愛想だ","愛嬌がある","愛想がよい","感じがいい","親しみやすい","にこやかだ"]},
+  ]
+},
+{
+  word:"おいらかなり", meaning:"おっとりしている / あっさりしている / 率直だ",
+  rarity:"N", atk:19, hp:111,
+  reading:"おいらかなり", hinshi:"形容動詞（ナリ活用）",
+  detail:"感情が穏やかでおっとりとしている様子が核心。温和でさっぱりした性格、飾らない率直さを表す。「おっとりしている」はプラスにも、「あっさりしている」はやや物足りないニュアンスにもなる。",
+  example:"おいらかにのみおはして。",
+  exampleMeaning:"おっとりとしていらっしゃって。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"おっとりしている",   choices:["おっとりしている","せっかちだ","気が短い","落ち着きがない","あくせくしている","慌ただしい"]},
+    {correct:"あっさりしている",   choices:["あっさりしている","しつこい","執拗だ","くどい","粘り強い","諦めない"]},
+    {correct:"率直だ",             choices:["率直だ","回りくどい","婉曲だ","遠回しだ","隠しごとをする","本心を見せない"]},
+  ]
+},
+{
+  word:"かたくななり", meaning:"頑固だ / 情緒を解さない / 無骨だ",
+  rarity:"N", atk:22, hp:120,
+  reading:"かたくななり", hinshi:"形容動詞（ナリ活用）",
+  detail:"頑固の「頑」の字は現代語でもかたくなと読む。一度決めたことを曲げない頑固さと、風雅を理解しない野暮な様子が核心。",
+  example:"かたくなしく、心よからぬ人。",
+  exampleMeaning:"頑固で、気立てのよくない人。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"頑固だ",       choices:["頑固だ","柔軟だ","素直だ","従順だ","融通がきく","聞き分けがよい"]},
+    {correct:"情緒を解さない", choices:["情緒を解さない","風流を解する","情趣がある","感受性が豊かだ","風雅だ","趣を理解する"]},
+    {correct:"無骨だ",       choices:["無骨だ","洗練されている","優雅だ","上品だ","あか抜けている","品がある"]},
+  ]
+},
+{
+  word:"すずろなり", meaning:"むやみに / 思いがけない / いい加減だ",
+  rarity:"N", atk:20, hp:113,
+  reading:"すずろなり", hinshi:"形容動詞（ナリ活用）",
+  detail:"何となく・わけもなくがキーワード。「そぞろなり」とも書く。これといった理由もなく何かが起こる・する様子が核心。予期せぬ出来事や無目的な行動を表す。",
+  example:"すずろに涙おちて。",
+  exampleMeaning:"わけもなく涙が落ちて。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"むやみに",     choices:["むやみに","慎重に","計画的に","程よく","節度をもって","思慮深く"]},
+    {correct:"思いがけない", choices:["思いがけない","予想通りだ","当然だ","想定内だ","もっともだ","驚くほどでもない"]},
+    {correct:"いい加減だ",   choices:["いい加減だ","誠実だ","真摯だ","丁寧だ","念入りだ","手を抜かない"]},
+  ]
+},
+{
+  word:"たより", meaning:"よりどころ / 機会 / 具合",
+  rarity:"N", atk:18, hp:108,
+  reading:"たより", hinshi:"名詞",
+  detail:"「頼みになるもの・よりどころ」が原義。頼れる存在・ちょうどよい機会・物事の具合や手がかりを表す多義語。現代語の「便り（手紙）」の意味もある。",
+  example:"たよりあらば聞こえむとす。",
+  exampleMeaning:"機会があれば申し上げようとする。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"よりどころ", choices:["よりどころ","邪魔なもの","足かせ","障害","頼れないもの","重荷"]},
+    {correct:"機会",       choices:["機会","障害","邪魔","失敗","躓き","妨げ"]},
+    {correct:"具合",       choices:["具合","目的","理由","結果","動機","原因"]},
+  ]
+},
+{
+  word:"うたて・うたた", meaning:"ひどく / 嫌なことに / 情けなく / 見苦しく",
+  rarity:"R", atk:27, hp:139,
+  reading:"うたて・うたた", hinshi:"副詞",
+  detail:"ますますひどく→見苦しく→嫌なことにという意味の流れで覚える。程度がひどくなる方向性と、そのことへの嫌悪・情けなさが核心。",
+  example:"うたてあはれなることかな。",
+  exampleMeaning:"嫌なことに、しみじみとしたことよ。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"ひどく",     choices:["ひどく","わずかに","少しも","ほんの少し","かすかに","ちょっとだけ"]},
+    {correct:"嫌なことに", choices:["嫌なことに","嬉しいことに","喜ばしいことに","めでたいことに","幸いなことに","ありがたいことに"]},
+    {correct:"情けなく",   choices:["情けなく","誇らしく","堂々と","胸を張って","清々しく","晴れやかに"]},
+    {correct:"見苦しく",   choices:["見苦しく","見事に","立派に","堂々と","美しく","華やかに"]},
+  ]
+},
+{
+  word:"おのづから", meaning:"自然と / たまたま",
+  rarity:"N", atk:19, hp:112,
+  reading:"おのづから", hinshi:"副詞",
+  detail:"自然とそうなるの意味から「偶然たまたま」の意味に発展した語。意図せず自然に生じる状態と、偶然の一致を表す。「おのれでから（自分でから）」が語源。",
+  example:"おのづから人の聞くことも。",
+  exampleMeaning:"自然と人が聞くことも。",
+  source:"枕草子",
+  quizzes:[
+    {correct:"自然と",   choices:["自然と","わざわざ","意図的に","故意に","無理やり","計算して"]},
+    {correct:"たまたま", choices:["たまたま","必ず","いつも","常に","絶えず","例外なく"]},
+  ]
+},
+{
+  word:"いかで", meaning:"どのように〜か / どうして〜か、いや〜ない / 何とかして",
+  rarity:"R", atk:28, hp:143,
+  reading:"いかで", hinshi:"副詞",
+  detail:"〜か、または〜か、いや〜と訳す。疑問・反語・願望の三用法がある重要副詞。「何とかして」は強い願望を表す用法で、「いかでか」の形をとることが多い。",
+  example:"いかでかくしもおぼゆらむ。",
+  exampleMeaning:"どうしてこのように思われるのだろうか。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"どのように〜か",        choices:["どのように〜か","なぜ〜ない","絶対に〜する","当然〜する","〜に違いない","必ず〜だ"]},
+    {correct:"どうして〜か、いや〜ない", choices:["どうして〜か、いや〜ない","もちろん〜だ","当然〜する","間違いなく〜だ","必ず〜になる","確かに〜だ"]},
+    {correct:"何とかして",            choices:["何とかして","どうせ〜ない","絶対に無理だ","到底できない","諦めるしかない","不可能だ"]},
+  ]
+},
+{
+  word:"いかが", meaning:"どのように〜か / どうして〜か、いや〜ない / どうだろうか",
+  rarity:"R", atk:27, hp:140,
+  reading:"いかが", hinshi:"副詞",
+  detail:"〜か、または〜か、いや〜と訳す。反語ではいや〜を忘れないこと。「いかがはせむ（どうしようもない）」「いかがおぼす（どうお思いになりますか）」が典型的用例。",
+  example:"いかがおぼすらむ。",
+  exampleMeaning:"どうお思いになるだろうか。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"どのように〜か",           choices:["どのように〜か","絶対に〜する","当然〜する","〜に違いない","必ず〜だ","もちろん〜だ"]},
+    {correct:"どうして〜か、いや〜ない",  choices:["どうして〜か、いや〜ない","もちろん〜だ","当然〜する","間違いなく〜だ","必ず〜になる","確かに〜だ"]},
+    {correct:"どうだろうか",             choices:["どうだろうか","絶対にそうだ","間違いない","決まっている","疑いようがない","明らかだ"]},
+  ]
+},
+{
+  word:"など", meaning:"どうして〜か / どうして〜か、いや〜ない",
+  rarity:"N", atk:17, hp:106,
+  reading:"など", hinshi:"副詞",
+  detail:"「何＋と」→「なにと」→「など」と変化した語。疑問と反語の訳し分けに注意。「などか〜ぬ（どうして〜しないのか）」「などか〜む（どうして〜しようか、いや〜しない）」が典型的用例。",
+  example:"などかかるうき目を見るらむ。",
+  exampleMeaning:"どうしてこんなつらい目にあうのだろうか。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"どうして〜か",        choices:["どうして〜か","もちろん〜だ","当然〜する","間違いなく〜だ","必ず〜になる","確かに〜だ"]},
+    {correct:"どうして〜か、いや〜ない", choices:["どうして〜か、いや〜ない","絶対にそうだ","間違いない","決まっている","疑いようがない","そうに決まっている"]},
+  ]
+},
+{
+  word:"なでふ", meaning:"どうして〜か、いや〜ない / どれほどの〜か、いや〜ない / 何という",
+  rarity:"R", atk:29, hp:144,
+  reading:"なでふ", hinshi:"副詞・連体詞",
+  detail:"読み方は「ナジョー」。疑問と反語の訳し分けに注意。「何でふ（なにというの意）」が変化した語で、強い疑問・反語・感嘆を表す。",
+  example:"なでふことかは。",
+  exampleMeaning:"どうしてそんなことがあるか（いや、ない）。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"どうして〜か、いや〜ない",     choices:["どうして〜か、いや〜ない","もちろん〜だ","当然〜する","間違いなく〜だ","必ず〜になる","確かに〜だ"]},
+    {correct:"どれほどの〜か、いや〜ない",   choices:["どれほどの〜か、いや〜ない","たいそう〜だ","非常に〜だ","とても〜だ","疑いなく〜だ","まさに〜だ"]},
+    {correct:"何という",                     choices:["何という","どこの","いつの","誰の","どれほどの","いくつの"]},
+  ]
+},
+{
+  word:"おはす", meaning:"いらっしゃる / おいでになる / 〜（て）いらっしゃる",
+  rarity:"SR", atk:43, hp:178,
+  reading:"おはす", hinshi:"動詞（サ行変格活用）",
+  detail:"「いらっしゃる」も「〜（て）いらっしゃる」もいらっしゃると訳せばOK。「あり・居り・行く・来」の尊敬語で、貴人の存在・動作を表す最重要尊敬語。",
+  example:"いとをかしくおはします。",
+  exampleMeaning:"たいそう趣ある（趣のある様子で）いらっしゃいます。",
+  source:"枕草子",
+  quizzes:[
+    {correct:"いらっしゃる",       choices:["いらっしゃる","いらっしゃらない","おられない","おいでにならない","不在だ","立ち去る"]},
+    {correct:"おいでになる",       choices:["おいでになる","去っていく","離れる","立ち去る","遠ざかる","いなくなる"]},
+    {correct:"〜（て）いらっしゃる", choices:["〜（て）いらっしゃる","〜ていらっしゃらない","〜ておいでにならない","〜てはいけない","〜ていない","〜てしまった"]},
+  ]
+},
+{
+  word:"おほす", meaning:"おっしゃる / 命じる / 言いつける",
+  rarity:"R", atk:30, hp:147,
+  reading:"おほす", hinshi:"動詞（サ行四段活用）",
+  detail:"命令する・命じるの意味からおっしゃるの意味へ発展した尊敬語。上位者が言葉を発する・指示を与える行為を表す。「おおせ（仰せ）」の形で名詞的にも使われる。",
+  example:"かくなんおほせられける。",
+  exampleMeaning:"このようにおっしゃった。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"おっしゃる",   choices:["おっしゃる","黙る","口を閉ざす","沈黙する","言わない","口をつぐむ"]},
+    {correct:"命じる",       choices:["命じる","従う","服従する","言いなりになる","指示を受ける","従い奉る"]},
+    {correct:"言いつける",   choices:["言いつける","聞き流す","無視する","耳を貸さない","忘れる","放っておく"]},
+  ]
+},
+{
+  word:"きこしめす", meaning:"召し上がる / お治めになる",
+  rarity:"R", atk:34, hp:159,
+  reading:"きこしめす", hinshi:"動詞（サ行四段活用）",
+  detail:"聞く＋す＋めす。聞く・食ふ・飲むの最高敬語。天皇など最上位の方の聴く・飲食する・統治するという行為を表す最高敬語の動詞。",
+  example:"酒をきこしめして。",
+  exampleMeaning:"お酒を召し上がって。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"召し上がる",    choices:["召し上がる","粗末に扱う","捨てる","拒む","手をつけない","残す"]},
+    {correct:"お治めになる",  choices:["お治めになる","乱す","荒らす","捨て置く","顧みない","無秩序にする"]},
+  ]
+},
+{
+  word:"めす", meaning:"お呼びになる / お取り寄せになる / 召し上がる / お召しになる / お乗りになる",
+  rarity:"SR", atk:45, hp:182,
+  reading:"めす", hinshi:"動詞（サ行四段活用）",
+  detail:"お呼びになる・お取り寄せになるは呼ぶ・取り寄すの尊敬語、召し上がる・お召しになる・お乗りになるは食ふ・着る・乗るの尊敬語。「召す」一語で多様な動作を表す重要尊敬語。",
+  example:"車めしよせて。",
+  exampleMeaning:"車をお呼び寄せになって。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"お呼びになる",     choices:["お呼びになる","黙って去る","無視する","追い払う","拒絶する","遠ざける"]},
+    {correct:"お取り寄せになる", choices:["お取り寄せになる","お手放しになる","お捨てになる","お払いになる","お遠ざけになる","お見送りになる"]},
+    {correct:"召し上がる",       choices:["召し上がる","粗末に扱う","捨てる","拒む","手をつけない","残す"]},
+    {correct:"お召しになる",     choices:["お召しになる","お脱ぎになる","お捨てになる","裸でいらっしゃる","粗末に扱う","着替えをしない"]},
+    {correct:"お乗りになる",     choices:["お乗りになる","お降りになる","歩いていらっしゃる","お避けになる","お乗りにならない","徒歩でいらっしゃる"]},
+  ]
+},
+{
+  word:"おぼす", meaning:"お思いになる",
+  rarity:"N", atk:20, hp:114,
+  reading:"おぼす", hinshi:"動詞（サ行四段活用）",
+  detail:"思うの尊敬語。「おぼゆ（自然と思われる）」とは全くの別語。貴人が何かを考える・感じる・判断するという行為を表す。「おもほす」とも書く。",
+  example:"いかにおぼすらむ。",
+  exampleMeaning:"どのようにお思いになるだろうか。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"お思いになる", choices:["お思いになる","お忘れになる","気にも留めない","無関心でいらっしゃる","ご存知ない","おわかりにならない"]},
+  ]
+},
+{
+  word:"しろしめす", meaning:"ご存じである / お治めになる",
+  rarity:"R", atk:31, hp:149,
+  reading:"しろしめす", hinshi:"動詞（サ行四段活用）",
+  detail:"知る・領（し）る（治める・領有する意）の尊敬語。知識としてご存知である場合と、国土を支配・統治なさる場合の二つの意味を持つ。",
+  example:"この国のことをしろしめして。",
+  exampleMeaning:"この国のことをお治めになって。",
+  source:"竹取物語",
+  quizzes:[
+    {correct:"ご存じである",  choices:["ご存じである","ご存知でない","おわかりにならない","お気づきでない","ご承知でない","お知りにならない"]},
+    {correct:"お治めになる",  choices:["お治めになる","お乱しになる","お荒らしになる","お捨て置きになる","お顧みにならない","ないがしろにされる"]},
+  ]
+},
+{
+  word:"おほとのごもる", meaning:"おやすみになる",
+  rarity:"N", atk:19, hp:112,
+  reading:"おほとのごもる", hinshi:"動詞（ラ行四段活用）",
+  detail:"「大殿に籠る」＝寝るの尊敬語。天皇・貴人がお休みになる行為を表す最高敬語のひとつ。対義語は「おほとのごもりさます（お目覚めになる）」。",
+  example:"おほとのごもりたまひて。",
+  exampleMeaning:"おやすみになって。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"おやすみになる", choices:["おやすみになる","お起きになる","お目覚めになる","お立ちになる","お出かけになる","お目を覚ましになる"]},
+  ]
+},
+{
+  word:"あそばす", meaning:"（楽器などを）演奏なさる / お詠みになる / お作りになる / （歌舞伎・狩猟などを）なさる / 〜あられる / 〜なさる",
+  rarity:"SR", atk:47, hp:185,
+  reading:"あそばす", hinshi:"動詞（サ行四段活用）",
+  detail:"「あそぶ＋す」。現代語の遊ぶより意味が広い尊敬語。貴人が雅な遊び・芸術・創作などを行う行為全般を表す。補助動詞では「〜なさる」の意。",
+  example:"琴をあそばしたまひて。",
+  exampleMeaning:"琴を演奏なさって。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"（楽器などを）演奏なさる",    choices:["（楽器などを）演奏なさる","お聴きになる","演奏をお断りになる","お止めになる","お耳を塞ぎになる","そっぽを向かれる"]},
+    {correct:"お詠みになる",                choices:["お詠みになる","お読みにならない","お捨てになる","お無視になる","破り捨てられる","振り向かれない"]},
+    {correct:"お作りになる",                choices:["お作りになる","お壊しになる","お捨てになる","お手放しになる","放棄なさる","顧みられない"]},
+    {correct:"（歌舞伎・狩猟などを）なさる", choices:["（歌舞伎・狩猟などを）なさる","お避けになる","お断りになる","立ち去られる","お止めになる","関わりにならない"]},
+    {correct:"〜あられる",                  choices:["〜あられる","〜ていらっしゃらない","〜ておいでにならない","〜てはいけない","〜ていない","〜てしまった"]},
+    {correct:"〜なさる",                    choices:["〜なさる","〜なさらない","〜てはいけない","〜おやめになる","〜ご遠慮される","〜お断りになる"]},
+  ]
+},
+{
+  word:"ごらんず", meaning:"御覧になる",
+  rarity:"N", atk:21, hp:116,
+  reading:"ごらんず", hinshi:"動詞（サ行変格活用）",
+  detail:"見るの尊敬語。「見給ふ」よりも敬意が強い最高敬語のひとつ。天皇・上皇など最上位の方が見る行為に使われる。名詞「御覧」＋「ず（す）」の構成。",
+  example:"この文をごらんぜよ。",
+  exampleMeaning:"この手紙をご覧ください。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"御覧になる", choices:["御覧になる","目を背けられる","お見逃しになる","無視なさる","ご覧にならない","目に入れたくない"]},
+  ]
+},
+{
+  word:"きこゆ", meaning:"申し上げる / うわさされる / わかる / （お）〜申し上げる",
+  rarity:"R", atk:33, hp:156,
+  reading:"きこゆ", hinshi:"動詞（ヤ行下二段活用）",
+  detail:"貴人が話題中にあれば「申し上げる・（お）〜申し上げる」の敬語を疑ってみる。聞こえる・聞かせる→申し上げる→評判になるという意味の広がりが核心。",
+  example:"かくなんきこゆる。",
+  exampleMeaning:"このように申し上げる。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"申し上げる",          choices:["申し上げる","黙っている","口を閉ざす","言わずにおく","沈黙する","隠し通す"]},
+    {correct:"うわさされる",        choices:["うわさされる","忘れ去られる","話題にならない","誰にも知られない","世間に知れない","無名のままだ"]},
+    {correct:"わかる",              choices:["わかる","わからない","理解できない","見当もつかない","判断できない","謎のままだ"]},
+    {correct:"（お）〜申し上げる",  choices:["（お）〜申し上げる","〜申し上げない","〜ご遠慮する","〜お断り申し上げる","〜お控え申し上げる","〜申すまい"]},
+  ]
+},
+{
+  word:"そうす", meaning:"奏上する / 申し上げる / 演奏する",
+  rarity:"R", atk:31, hp:150,
+  reading:"そうす", hinshi:"動詞（サ行変格活用）",
+  detail:"天皇（または院）に申し上げる場合だけ使う最高の謙譲語。「啓す（皇后・東宮への謙譲語）」「申す（それ以外への謙譲語）」と使い分ける。演奏するの意味も持つ。",
+  example:"帝に奏したてまつりける。",
+  exampleMeaning:"天皇に奏上申し上げた。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"奏上する",   choices:["奏上する","黙って引き下がる","口を閉ざす","申し上げない","沈黙する","言わずにおく"]},
+    {correct:"申し上げる", choices:["申し上げる","黙っている","沈黙する","口をつぐむ","言わずにおく","隠し通す"]},
+    {correct:"演奏する",   choices:["演奏する","お聴きになる","演奏を断る","楽器を置く","音を止める","沈黙する"]},
+  ]
+},
+{
+  word:"ほど", meaning:"間 / 時間 / ころ / あたり / 身分 / 年齢 / 程度 / 〜くらい / 〜の限り",
+  rarity:"UR", atk:92, hp:225,
+  skill:"drain",
+  reading:"ほど", hinshi:"名詞・副助詞",
+  detail:"場面に応じた訳し分けが必要な最重要多義語。時間・空間・程度・身分・年齢など極めて広い意味を持つ。デッキに入れると正解時に与えたダメージの10%をHPとして回復する特殊スキルを持つ。",
+  example:"このほど都にをかしきことあり。",
+  exampleMeaning:"この頃、都に趣深いことがある。",
+  source:"徒然草",
+  quizzes:[
+    {correct:"間",      choices:["間","終わり","始まり","節目","区切り","終点"]},
+    {correct:"時間",    choices:["時間","場所","人物","理由","手段","結果"]},
+    {correct:"ころ",    choices:["ころ","場所","人物","手段","理由","動機"]},
+    {correct:"あたり",  choices:["あたり","遠く","彼方","別の場所","どこか遠い所","見知らぬ場所"]},
+    {correct:"身分",    choices:["身分","容姿","才能","財産","家族","職業"]},
+    {correct:"年齢",    choices:["年齢","身長","体重","容姿","声色","体力"]},
+    {correct:"程度",    choices:["程度","方向","手段","理由","動機","結果"]},
+    {correct:"〜くらい",  choices:["〜くらい","〜だけ","〜しか","〜ほかに","〜のみ","〜だけでなく"]},
+    {correct:"〜の限り", choices:["〜の限り","〜の始まり","〜の手前","〜の外側","〜を超えて","〜に至るまで"]},
+  ]
+},
 ];
 kobunCards.forEach(c=>c.type="kobun");
 
@@ -2310,23 +3055,37 @@ function closeKobunModal(){ document.getElementById("kobunModal").classList.remo
 
 function showEnglishDetail(card){
   const rarityColor = {N:"#aaa",R:"#6BCB77",SR:"#4D96FF",SSR:"#FFD93D",UR:"#ff9500"}[card.rarity]||"#fff";
-  document.getElementById("kobunModalContent").innerHTML=`
-    <div class="km-rarity" style="color:${rarityColor}">${card.rarity}</div>
-    <div class="km-word" style="font-size:2rem;letter-spacing:1px">${card.word}</div>
-    <hr class="km-hr">
-    <div class="km-meaning">意味：<span>${card.meaning}</span></div>
-    <hr class="km-hr">
-    <div class="km-section-title">❌ 間違えやすい選択肢</div>
-    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">
-      ${card.choices.map(c=>`<span style="background:rgba(255,107,107,0.15);border:1px solid rgba(255,107,107,0.3);border-radius:10px;padding:3px 10px;font-size:13px;color:rgba(255,255,255,0.7)">${c}</span>`).join("")}
+  const skillBadge = card.skill
+    ? `<div class="ur-skill-badge" style="margin:6px 0;display:inline-block">${card.skill==="critical33"?"⚡ 正解時CRITICAL 33%":card.skill==="critical"?"⚡ CRITICAL 20%":"💚 ドレイン10%"}</div>`
+    : "";
+  document.getElementById("englishModalContent").innerHTML=`
+    <div style="text-align:center;margin-bottom:12px">
+      <div style="font-family:'Fredoka One',cursive;font-size:1.8rem;color:#fff;margin-bottom:4px">${card.word.toUpperCase()}</div>
+      <div style="color:${rarityColor};font-weight:700;font-size:0.9rem;margin-bottom:2px">${card.rarity}</div>
+      ${skillBadge}
+      <div style="font-size:1.1rem;color:var(--pop2);font-weight:700;margin-top:6px">${card.meaning}</div>
     </div>
-    <hr class="km-hr">
-    <div class="km-stats">
+    <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:12px;margin-bottom:10px">
+      <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:4px">品詞</div>
+      <div style="font-size:14px;color:rgba(255,255,255,0.85)">${card.partOfSpeech||"—"}</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:12px;margin-bottom:10px">
+      <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:4px">例文</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.85);line-height:1.6">${card.example||"—"}</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:4px">${card.exampleJp||""}</div>
+    </div>
+    <div style="display:flex;justify-content:center;gap:16px;font-size:13px;color:rgba(255,255,255,0.5)">
       <span>⚔️ ATK ${card.atk}</span>
       <span>❤️ HP ${card.hp}</span>
-    </div>
-  `;
-  document.getElementById("kobunModal").classList.add("open");
+    </div>`;
+  document.getElementById("englishModal").style.display="flex";
+}
+function closeEnglishModal(){ document.getElementById("englishModal").style.display="none"; }
+
+function showEnglishDetailByWord(word){
+  const card = allCards.find(c=>c.word===word);
+  if(!card) return;
+  showEnglishDetail(card);
 }
 
 // =============================================
@@ -2458,11 +3217,16 @@ function answerQuiz(choice, btn){
     btn.classList.add("correct");
     // 正解→ATK等倍
 
-    // URカードのクリティカル（20%）
+    // URカードのクリティカル（20%：kobun ものす / 33%：english etiquette）
     const hasUR = state.deck.some(c=>c.rarity==="UR");
-    if(hasUR && Math.random() < 0.2){
-      atk = atk * 2;
-      showCritical();
+    if(hasUR){
+      const hasCrit33 = state.deck.some(c=>c.skill==="critical33");
+      const hasCrit20 = state.deck.some(c=>c.skill==="critical");
+      const rate = hasCrit33 ? 0.33 : hasCrit20 ? 0.2 : 0;
+      if(rate > 0 && Math.random() < rate){
+        atk = atk * 2;
+        showCritical();
+      }
     }
 
     state.missionCount++;
@@ -2478,20 +3242,39 @@ function answerQuiz(choice, btn){
   }
 
   // 正解・不正解どちらでも詳細ボタンを prevWordArea に表示（次の問題でも残る）
-  if(currentMode==="kobun" && quizCard && quizCard.detail){
+  if(quizCard){
     const area = document.getElementById("prevWordArea");
     if(area){
-      area.innerHTML=`
-        <button onclick="showKobunDetail('${quizCard.word.replace(/'/g,"\\'")}') "
-          style="margin-top:8px;background:rgba(199,125,255,0.2);box-shadow:none;border:1px solid rgba(199,125,255,0.4);font-size:12px;color:var(--pop5);width:90%">
-          📖 前の問題「${quizCard.word}」の詳細
-        </button>`;
+      if(currentMode==="kobun" && quizCard.detail){
+        area.innerHTML=`
+          <button onclick="showKobunDetail('${quizCard.word.replace(/'/g,"\\'")}') "
+            style="margin-top:8px;background:rgba(199,125,255,0.2);box-shadow:none;border:1px solid rgba(199,125,255,0.4);font-size:12px;color:var(--pop5);width:90%">
+            📖 前の問題「${quizCard.word}」の詳細
+          </button>`;
+      } else if(currentMode==="english"){
+        area.innerHTML=`
+          <button onclick="showEnglishDetailByWord('${quizCard.word.replace(/'/g,"\\'")}') "
+            style="margin-top:8px;background:rgba(77,150,255,0.2);box-shadow:none;border:1px solid rgba(77,150,255,0.4);font-size:12px;color:var(--pop4);width:90%">
+            📖 前の問題「${quizCard.word.toUpperCase()}」の詳細
+          </button>`;
+      }
     }
   }
 
   state.bossHP -= atk;
   const playerDmg = choice===quizAnswer ? Math.floor(state.bossATK/2) : state.bossATK;
   playerHP -= playerDmg;
+
+  // ドレインスキル：ほど（UR）がデッキにある場合、与えたダメージの10%を回復
+  if(choice===quizAnswer && atk > 0){
+    const hasDrain = state.deck.some(c=>c.skill==="drain");
+    if(hasDrain){
+      const heal = Math.floor(atk * 0.1);
+      playerHP = Math.min(playerHP + heal, playerMaxHP);
+      showHealPopup(heal);
+    }
+  }
+
   shakeBoss();
   if(atk > 0) showDmgPopup(atk, false);
   if(playerDmg > 0) showDmgPopup(playerDmg, true);
@@ -2588,6 +3371,25 @@ function calcDeckStats(){
   document.getElementById("deckHP").textContent = totalHP;
   document.getElementById("battleATK").textContent = totalATK;
   document.getElementById("battleHP").textContent = totalHP;
+
+  // スキル表示
+  updateSkillDisplay(d, "battleSkillArea");
+  updateSkillDisplay(d, "deckSkillArea");
+}
+
+function updateSkillDisplay(deck, areaId){
+  const area = document.getElementById(areaId);
+  if(!area) return;
+  const skills = [];
+  deck.forEach(c=>{
+    if(c.skill==="critical")    skills.push("⚡ CRITICAL 20% 発動中（ものす）");
+    if(c.skill==="critical33")  skills.push("⚡ 正解時CRITICAL 33% 発動中（etiquette）");
+    if(c.skill==="drain")       skills.push("💚 ドレイン10% 発動中（ほど）");
+  });
+  if(skills.length===0){ area.innerHTML=""; return; }
+  area.innerHTML = skills.map(s=>
+    `<div class="ur-skill-badge" style="font-size:11px;margin:2px 3px;display:inline-block">${s}</div>`
+  ).join("");
 }
 
 // =============================================
@@ -2609,6 +3411,7 @@ function update(){
       <button onclick="removeDeck(${i})">外す</button>
     </div>`;
   });
+  updateSkillDisplay(currentDeck(), "deckSkillArea");
 
   // Collection (book) - only current mode cards
   const col = document.getElementById("collection");
@@ -2623,16 +3426,23 @@ function update(){
     const c = grouped[key];
     if(rarityFilter!=="all" && c.rarity!==rarityFilter) continue;
     const isKobun = c.type==="kobun";
+    const isEnglish = c.type==="english";
     const isUR = c.rarity==="UR";
-    col.innerHTML+=`<div class="card ${c.rarity.toLowerCase()}${isKobun?" kobun-clickable":""}" ${isKobun?`onclick="showKobunDetail('${c.word}')"`:""}>
-      ${isKobun?'<div class="kobun-hint">📖 詳細</div>':''}
+    const clickable = isKobun
+      ? `onclick="showKobunDetail('${c.word.replace(/'/g,"\\'")}') "`
+      : isEnglish
+        ? `onclick="showEnglishDetailByWord('${c.word.replace(/'/g,"\\'")}') "`
+        : "";
+    const hint = (isKobun || isEnglish) ? '<div class="kobun-hint">📖 詳細</div>' : "";
+    col.innerHTML+=`<div class="card ${c.rarity.toLowerCase()}${(isKobun||isEnglish)?" kobun-clickable":""}" ${clickable}>
+      ${hint}
       <div class="word">${c.word}</div>
       <div class="meaning">${c.meaning}</div>
       <div class="stat">ATK ${c.atk}</div>
       <div class="stat">HP ${c.hp}</div>
       <div class="stat">×${c.count}</div>
       <div class="stat">強化 ${c.upgrade||0}/${getUpgradeMaxLevel(c.word)}</div>
-      ${isUR?'<div class="ur-skill-badge">⚡ CRITICAL 20%</div>':''}
+      ${isUR ? `<div class="ur-skill-badge">${c.skill==="drain"?"💚 ドレイン10%":c.skill==="critical33"?"⚡ 正解時CRITICAL 33%":"⚡ CRITICAL 20%"}</div>` : ''}
       <button onclick="event.stopPropagation();addDeckFromBook('${c.word}')">デッキへ</button>
       <button onclick="event.stopPropagation();upgradeCard('${c.word}')">強化</button>
     </div>`;
@@ -2859,10 +3669,7 @@ function startDailyBattle(type){
 
   // スキル表示
   const skillArea = document.getElementById("dailySkillArea");
-  const hasUR = deck.some(c=>c.rarity==="UR");
-  skillArea.innerHTML = hasUR
-    ? `<div class="ur-skill-badge" style="font-size:11px">⚡ CRITICAL 20% 発動中</div>`
-    : "";
+  updateSkillDisplay(deck, "dailySkillArea");
 
   updateDailyHPBars();
   generateDailyQuiz();
@@ -3090,47 +3897,107 @@ function loadGame(){
 // =============================================
 //  PACK / GACHA
 // =============================================
+let packCards = []; // 開封前に確定させたカード
+let urAnimating = false; // UR演出中フラグ
+
 function openPack(){
   if(packOpening) return;
   packOpening = true;
+  urAnimating = false;
   document.querySelectorAll("button").forEach(b=>b.disabled=true);
   document.getElementById("packResult").innerHTML="";
+
+  // 先にカードを確定
+  packCards = [];
+  for(let i=0;i<5;i++){
+    packCards.push(allCards[Math.floor(Math.random()*allCards.length)]);
+  }
+
+  const hasUR = packCards.some(c=>c.rarity==="UR");
+
   document.getElementById("packArea").innerHTML=`
-    <div class="packWrapper" id="packBox" onclick="openAnimation()" style="pointer-events:auto">
+    <div class="packWrapper" id="packBox" onclick="packTap()" style="pointer-events:auto">
       <div class="packTop"></div>
       <div class="packBottom"></div>
       <div class="packLogo">WORD<br>PACK</div>
     </div>`;
+
+  if(hasUR){
+    urAnimating = true;
+    setTimeout(()=>{
+      const box = document.getElementById("packBox");
+      if(!box) return;
+      box.classList.add("pack-ur-gold");
+      const logo = box.querySelector(".packLogo");
+      if(logo){ logo.innerHTML = "✨WORD<br>PACK✨"; }
+      setTimeout(()=>{ urAnimating = false; }, 1200);
+    }, 800);
+  }
 }
 
-function openAnimation(){
+function packTap(){
   if(!packOpening) return;
-  // パック自体のクリックを即座に無効化して連打防止
+  if(urAnimating) return; // 演出中はスキップ不可
   const packBox = document.getElementById("packBox");
-  if(packBox) packBox.style.pointerEvents = "none";
+  if(!packBox) return;
+
+  packBox.style.pointerEvents = "none";
   packBox.classList.add("open");
   setTimeout(revealCards, 700);
 }
 
 function revealCards(){
-  let html="";
-  for(let i=0;i<5;i++){
-    const card = allCards[Math.floor(Math.random()*allCards.length)];
-    owned.push({...card,type:"english"});
-    html+=`<div class="card ${card.rarity.toLowerCase()}">
-      <div class="word">${card.word}</div>
-      <div class="meaning">${card.meaning}</div>
-      <div class="stat">ATK ${card.atk}</div>
-      <div class="stat">HP ${card.hp}</div>
-      <div class="stat">${card.rarity}</div>
-      <button onclick="addDeck(${owned.length-1})">デッキへ</button>
-    </div>`;
-  }
-  document.getElementById("packArea").innerHTML="";
-  document.getElementById("packResult").innerHTML=html;
+  const isNew = card => !owned.some(o=>o.word===card.word && o.type==="english");
+  const newFlags = packCards.map(isNew);
+
+  packCards.forEach(card=>owned.push({...card,type:"english"}));
   saveGame(); update();
-  packOpening = false;
-  document.querySelectorAll("button").forEach(b=>b.disabled=false);
+
+  const area = document.getElementById("packArea");
+  const result = document.getElementById("packResult");
+  area.innerHTML = "";
+  result.innerHTML = `<div id="packRevealRow" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px"></div>`;
+
+  packCards.forEach((card, i)=>{
+    setTimeout(()=>{
+      const isUR = card.rarity==="UR";
+      const isNewCard = newFlags[i];
+
+      // URフラッシュ
+      if(isUR){
+        const flash = document.createElement("div");
+        flash.className = "ur-flash";
+        document.body.appendChild(flash);
+        setTimeout(()=>flash.remove(), 600);
+      }
+
+      const cardEl = document.createElement("div");
+      cardEl.className = `card ${card.rarity.toLowerCase()} pack-reveal-card${isUR?" pack-reveal-ur":""}`;
+      cardEl.style.animation = "pack-card-appear 0.4s cubic-bezier(0.175,0.885,0.32,1.275)";
+      cardEl.innerHTML = `
+        ${isNewCard?'<div class="pack-new-badge">New!</div>':''}
+        ${isUR?'<div class="kobun-hint">📖 詳細</div>':''}
+        <div class="word">${card.word}</div>
+        <div class="meaning">${card.meaning}</div>
+        <div class="stat">ATK ${card.atk}</div>
+        <div class="stat">HP ${card.hp}</div>
+        <div class="stat">${card.rarity}</div>
+        ${isUR?`<div class="ur-skill-badge" style="margin:4px 0">⚡ 正解時CRITICAL 33%</div>`:''}
+        <button onclick="addDeck(${owned.findIndex(o=>o.word===card.word&&o.type==='english')})">デッキへ</button>
+      `;
+      if(isUR) cardEl.onclick = (e)=>{ if(e.target.tagName!=='BUTTON') showEnglishDetailByWord(card.word); };
+
+      document.getElementById("packRevealRow").appendChild(cardEl);
+
+      // 最後の1枚が出たらボタン解放
+      if(i === packCards.length - 1){
+        setTimeout(()=>{
+          packOpening = false;
+          document.querySelectorAll("button").forEach(b=>b.disabled=false);
+        }, 400);
+      }
+    }, i * 500);
+  });
 }
 
 // 古文 1回ガチャ
@@ -3426,7 +4293,13 @@ function closeGacha10(){
 // =============================================
 //  UPGRADE / CONVERT
 // =============================================
-function getUpgradeCost(r){ return {N:3,R:3,SR:10,SSR:50,UR:125}[r]||3; }
+function getUpgradeCost(r, word){
+  const base = {N:3,R:3,SR:10,SSR:50,UR:125}[r]||3;
+  const maxLevel = getUpgradeMaxLevel(word||"");
+  if(maxLevel >= 30) return Math.floor(base * 2);
+  if(maxLevel >= 20) return Math.floor(base * 1.5);
+  return base;
+}
 
 function getConvertGain(rarity, mode){
   if(mode==="kobun"){
@@ -3453,8 +4326,8 @@ function upgradeCard(word){
     }
     return;
   }
-  if(materials<getUpgradeCost(card.rarity)){alert("素材が足りません");return;}
-  materials -= getUpgradeCost(card.rarity);
+  if(materials<getUpgradeCost(card.rarity, word)){alert("素材が足りません");return;}
+  materials -= getUpgradeCost(card.rarity, word);
   card.atk += Math.floor(card.atk*0.05);
   card.hp  += Math.floor(card.hp*0.10);
   card.upgrade++;
@@ -3920,6 +4793,20 @@ function checkMission(){
   const today=new Date().toDateString();
   if(missionDate!==today){ missionDate=today; modeState.english.missionCount=0; modeState.kobun.missionCount=0; }
   updateMissionUI();
+}
+
+function showHealPopup(heal){
+  const ref = document.getElementById("playerHPNum");
+  if(!ref) return;
+  const rect = ref.getBoundingClientRect();
+  const popup = document.createElement("div");
+  popup.className = "dmg-popup";
+  popup.textContent = "+" + heal;
+  popup.style.color = "#6BCB77";
+  popup.style.left = rect.left + rect.width/2 + "px";
+  popup.style.top  = rect.top + window.scrollY - 10 + "px";
+  document.body.appendChild(popup);
+  setTimeout(()=>popup.remove(), 900);
 }
 
 function showCritical(){
