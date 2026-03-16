@@ -2937,12 +2937,12 @@ const modeState = {
   english: {
     deck: [],
     bossHP: 150, bossMaxHP: 150, bossLevel: 1, bossATK: 50,
-    missionCount: 0
+    missionCount: 0, missionCount10: 0
   },
   kobun: {
     deck: [],
     bossHP: 100, bossMaxHP: 100, bossLevel: 1, bossATK: 35,
-    missionCount: 0
+    missionCount: 0, missionCount10: 0
   }
 };
 
@@ -2950,6 +2950,7 @@ const modeState = {
 let owned = [];
 let coins = 0, materials = 0, diamonds = 0;
 let lastLoginDate = "", missionDate = "";
+let sharedMissionCount10 = 0; // 英語・古文問わず共通
 
 // Runtime battle state
 let playerHP = 0, playerMaxHP = 0;
@@ -3233,7 +3234,13 @@ function answerQuiz(choice, btn){
     if(state.missionCount===3){
       diamonds+=5;
       saveGame();
-      showMissionComplete();
+      showMissionComplete("クイズ3問正解！ 💎×5");
+    }
+    sharedMissionCount10++;
+    if(sharedMissionCount10===10){
+      diamonds+=5;
+      saveGame();
+      showMissionComplete("クイズ10問正解！ 💎×5");
     }
     updateMissionUI();
   } else {
@@ -3300,7 +3307,7 @@ function checkBattle(){
 
     // ダイヤ報酬
     const isMillestone = state.bossLevel % 10 === 0;
-    const reward = isMillestone ? 10 : 3;
+    const reward = isMillestone ? 20 : 5;
     diamonds += reward;
     saveGame();
     update();
@@ -3634,7 +3641,7 @@ function renderDailyBossContent(type){
       <div style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--pop2);margin:8px 0">${name}</div>
       <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:12px">
         HP: ${dailyBossMaxHP[type]} / ATK: ${dailyBossATK[type]}<br>
-        倒すと 💎×10 獲得！
+        倒すと 💎×15 獲得！
       </div>
       <button onclick="startDailyBattle('${type}')" style="background:linear-gradient(135deg,#FFD93D,#FF6B6B);font-size:1rem;padding:14px 28px">
         ⚔️ 挑戦する！
@@ -3739,6 +3746,14 @@ function answerDailyQuiz(choice, btn){
     }
     dailyBossHP[type] -= atk;
     showDailyDmgPopup(atk, false);
+    // 共通ミッションカウント
+    sharedMissionCount10++;
+    if(sharedMissionCount10===10){
+      diamonds+=5;
+      saveGame();
+      showMissionComplete("クイズ10問正解！ 💎×5");
+    }
+    updateMissionUI();
   } else {
     btn.classList.add("wrong");
     document.querySelectorAll(".quiz-btn").forEach(b=>{ if(b.textContent===dailyQuizAnswer) b.classList.add("correct"); });
@@ -3758,9 +3773,8 @@ function answerDailyQuiz(choice, btn){
 
   setTimeout(()=>{
     if(dailyBossHP[type] <= 0){
-      // ボス撃破！
       markDailyBossDefeated(type);
-      diamonds += 10;
+      diamonds += 15;
       saveGame();
       const bothDefeated = isDailyBossDefeated("english") && isDailyBossDefeated("kobun");
       inDailyBattle = false;
@@ -3768,8 +3782,8 @@ function answerDailyQuiz(choice, btn){
       document.getElementById("dailyBossArea").style.display = "block";
       renderDailyBossContent(type);
       alert(bothDefeated
-        ? `🎉 ${type==="english"?"英語":"古文"}ボスを撃破！💎×10獲得！\n両方撃破！合計💎×20獲得！`
-        : `🎉 ${type==="english"?"英語":"古文"}ボスを撃破！💎×10獲得！`);
+        ? `🎉 ${type==="english"?"英語":"古文"}ボスを撃破！💎×15獲得！\n両方撃破！合計💎×30獲得！`
+        : `🎉 ${type==="english"?"英語":"古文"}ボスを撃破！💎×15獲得！`);
       return;
     }
     if(dailyPlayerHP <= 0){
@@ -3860,7 +3874,7 @@ function backToBattleMenu(){
 function saveGame(){
   const data={
     owned, coins, materials, diamonds,
-    lastLoginDate, missionDate,
+    lastLoginDate, missionDate, sharedMissionCount10,
     modeState
   };
   localStorage.setItem("wordCardGame_v2", JSON.stringify(data));
@@ -3877,6 +3891,7 @@ function loadGame(){
     diamonds = save.diamonds||0;
     lastLoginDate = save.lastLoginDate||"";
     missionDate = save.missionDate||"";
+    sharedMissionCount10 = save.sharedMissionCount10||0;
     if(save.modeState){
       ["english","kobun"].forEach(m=>{
         if(save.modeState[m]){
@@ -3886,7 +3901,8 @@ function loadGame(){
           modeState[m].bossMaxHP = s.bossMaxHP || modeState[m].bossMaxHP;
           modeState[m].bossLevel = s.bossLevel||1;
           modeState[m].bossATK = s.bossATK || modeState[m].bossATK;
-          modeState[m].missionCount = s.missionCount||0;
+          modeState[m].missionCount   = s.missionCount||0;
+          modeState[m].missionCount10 = s.missionCount10||0;
         }
       });
     }
@@ -4783,7 +4799,7 @@ function checkLoginBonus(){
 }
 function checkMission(){
   const today=new Date().toDateString();
-  if(missionDate!==today){ missionDate=today; modeState.english.missionCount=0; modeState.kobun.missionCount=0; }
+  if(missionDate!==today){ missionDate=today; modeState.english.missionCount=0; modeState.kobun.missionCount=0; modeState.english.missionCount10=0; modeState.kobun.missionCount10=0; sharedMissionCount10=0; }
   updateMissionUI();
 }
 
@@ -4847,21 +4863,31 @@ function updateMissionUI(){
   const el = document.getElementById("missionPanel");
   if(!el) return;
   const state = ms();
-  const count = Math.min(state.missionCount, 3);
-  const done = count >= 3;
-  const dots = [0,1,2].map(i=>
-    `<div class="mission-dot ${i < count ? 'filled' : ''}"></div>`
+  const count3  = Math.min(state.missionCount,   3);
+  const count10 = Math.min(sharedMissionCount10, 10);
+  const done3   = count3  >= 3;
+  const done10  = count10 >= 10;
+  const dots3 = [0,1,2].map(i=>
+    `<div class="mission-dot ${i < count3 ? 'filled' : ''}"></div>`
+  ).join("");
+  const dots10 = Array.from({length:10},(_,i)=>
+    `<div class="mission-dot ${i < count10 ? 'filled' : ''}" style="width:10px;height:10px"></div>`
   ).join("");
   el.innerHTML = `
     <div class="mission-title">📋 デイリーミッション</div>
     <div class="mission-desc">クイズに3問正解 → 💎×5</div>
     <div class="mission-progress">
-      <div class="mission-dots">${dots}</div>
-      <div class="mission-status ${done ? 'done' : ''}">${done ? '✅ 達成！' : `${count} / 3`}</div>
+      <div class="mission-dots">${dots3}</div>
+      <div class="mission-status ${done3 ? 'done' : ''}">${done3 ? '✅ 達成！' : `${count3} / 3`}</div>
+    </div>
+    <div class="mission-desc" style="margin-top:8px">クイズに10問正解 → 💎×5</div>
+    <div class="mission-progress">
+      <div class="mission-dots">${dots10}</div>
+      <div class="mission-status ${done10 ? 'done' : ''}">${done10 ? '✅ 達成！' : `${count10} / 10`}</div>
     </div>`;
 }
 
-function showMissionComplete(){
+function showMissionComplete(msg){
   const popup = document.createElement("div");
   popup.style.cssText = `
     position:fixed; top:80px; left:50%; transform:translateX(-50%);
@@ -4871,7 +4897,7 @@ function showMissionComplete(){
     box-shadow:0 4px 20px rgba(255,217,61,0.5);
     animation:mission-pop 2.5s ease forwards;
   `;
-  popup.textContent = "🎉 ミッション達成！ 💎×5";
+  popup.textContent = "🎉 " + (msg||"ミッション達成！ 💎×5");
   document.body.appendChild(popup);
   setTimeout(()=>popup.remove(), 2500);
 }
