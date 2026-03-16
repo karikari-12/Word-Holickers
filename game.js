@@ -3897,8 +3897,8 @@ function loadGame(){
 // =============================================
 //  PACK / GACHA
 // =============================================
-let packCards = []; // 開封前に確定させたカード
-let urAnimating = false; // UR演出中フラグ
+let packCards = [];
+let urAnimating = false;
 
 function openPack(){
   if(packOpening) return;
@@ -3907,10 +3907,9 @@ function openPack(){
   document.querySelectorAll("button").forEach(b=>b.disabled=true);
   document.getElementById("packResult").innerHTML="";
 
-  // 先にカードを確定
   packCards = [];
   for(let i=0;i<5;i++){
-    packCards.push(allCards[Math.floor(Math.random()*allCards.length)]);
+    packCards.push({...allCards[Math.floor(Math.random()*allCards.length)],type:"english"});
   }
 
   const hasUR = packCards.some(c=>c.rarity==="UR");
@@ -3929,7 +3928,7 @@ function openPack(){
       if(!box) return;
       box.classList.add("pack-ur-gold");
       const logo = box.querySelector(".packLogo");
-      if(logo){ logo.innerHTML = "✨WORD<br>PACK✨"; }
+      if(logo) logo.innerHTML = "✨WORD<br>PACK✨";
       setTimeout(()=>{ urAnimating = false; }, 1200);
     }, 800);
   }
@@ -3937,67 +3936,72 @@ function openPack(){
 
 function packTap(){
   if(!packOpening) return;
-  if(urAnimating) return; // 演出中はスキップ不可
+  if(urAnimating) return;
   const packBox = document.getElementById("packBox");
   if(!packBox) return;
-
   packBox.style.pointerEvents = "none";
   packBox.classList.add("open");
   setTimeout(revealCards, 700);
 }
 
 function revealCards(){
-  const isNew = card => !owned.some(o=>o.word===card.word && o.type==="english");
+  const isNew = card => !owned.filter(o=>o.type==="english").some(o=>o.word===card.word);
   const newFlags = packCards.map(isNew);
-
-  packCards.forEach(card=>owned.push({...card,type:"english"}));
+  packCards.forEach(card=>owned.push(card));
   saveGame(); update();
 
-  const area = document.getElementById("packArea");
-  const result = document.getElementById("packResult");
-  area.innerHTML = "";
-  result.innerHTML = `<div id="packRevealRow" class="pack-reveal-row"></div>`;
+  document.getElementById("packArea").innerHTML="";
+
+  const overlay  = document.getElementById("gacha10Overlay");
+  const stage    = document.getElementById("gacha10Stage");
+  const closeBtn = document.getElementById("gacha10CloseBtn");
+  stage.innerHTML = `<div id="gacha10Title">🇺🇸 英語ガチャ！</div>`;
+  closeBtn.style.display = "none";
+  closeBtn.disabled = false;
+  overlay.style.display = "flex";
 
   packCards.forEach((card, i)=>{
+    const wrap = document.createElement("div");
+    wrap.className = "gacha10-card-wrap";
+    const isNewCard = newFlags[i];
+    const isUR = card.rarity==="UR";
+    wrap.innerHTML = `<div class="gacha10-card ${card.rarity.toLowerCase()}" onclick="showEnglishDetailByWord('${card.word}')" style="cursor:pointer">
+      ${isNewCard?'<div class="pack-new-badge">New!</div>':''}
+      <div class="g-word">${card.word}</div>
+      <div class="g-meaning">${card.meaning}</div>
+      <div class="stat" style="font-size:10px">ATK ${card.atk} / HP ${card.hp}</div>
+      <div class="g-rarity">${card.rarity}</div>
+      <div style="font-size:9px;color:#888;margin-top:3px">📖 詳細</div>
+      ${isUR?`<div class="ur-skill-badge" style="font-size:9px;margin-top:3px">⚡ 正解時CRITICAL 33%</div>`:''}
+    </div>`;
+    stage.appendChild(wrap);
     setTimeout(()=>{
-      const isUR = card.rarity==="UR";
-      const isNewCard = newFlags[i];
-
-      // URフラッシュ
-      if(isUR){
+      if(card.rarity==="SSR"){
+        const flash = document.createElement("div");
+        flash.className = "ssr-flash";
+        document.body.appendChild(flash);
+        setTimeout(()=>flash.remove(), 500);
+        wrap.classList.add("ssr-reveal");
+        spawnGachaParticles(wrap);
+      } else if(card.rarity==="UR"){
         const flash = document.createElement("div");
         flash.className = "ur-flash";
         document.body.appendChild(flash);
         setTimeout(()=>flash.remove(), 600);
+        wrap.classList.add("ssr-reveal");
+        spawnGachaParticles(wrap);
+      } else {
+        wrap.classList.add("flip");
       }
-
-      const cardEl = document.createElement("div");
-      cardEl.className = `card ${card.rarity.toLowerCase()} pack-reveal-card${isUR?" pack-reveal-ur":""}`;
-      cardEl.style.cssText = "flex-shrink:0;animation:pack-card-appear 0.4s cubic-bezier(0.175,0.885,0.32,1.275)";
-      cardEl.innerHTML = `
-        ${isNewCard?'<div class="pack-new-badge">New!</div>':''}
-        ${isUR?'<div class="kobun-hint">📖 詳細</div>':''}
-        <div class="word">${card.word}</div>
-        <div class="meaning">${card.meaning}</div>
-        <div class="stat">ATK ${card.atk}</div>
-        <div class="stat">HP ${card.hp}</div>
-        <div class="stat">${card.rarity}</div>
-        ${isUR?`<div class="ur-skill-badge" style="margin:4px 0">⚡ 正解時CRITICAL 33%</div>`:''}
-        <button onclick="addDeck(${owned.findIndex(o=>o.word===card.word&&o.type==='english')})">デッキへ</button>
-      `;
-      if(isUR) cardEl.onclick = (e)=>{ if(e.target.tagName!=='BUTTON') showEnglishDetailByWord(card.word); };
-
-      document.getElementById("packRevealRow").appendChild(cardEl);
-
-      // 最後の1枚が出たらボタン解放
-      if(i === packCards.length - 1){
-        setTimeout(()=>{
-          packOpening = false;
-          document.querySelectorAll("button").forEach(b=>b.disabled=false);
-        }, 400);
-      }
-    }, i * 500);
+    }, 150 + i*220);
   });
+
+  setTimeout(()=>{
+    closeBtn.style.display = "block";
+    closeBtn.disabled = false;
+    packOpening = false;
+    document.querySelectorAll("button").forEach(b=>b.disabled=false);
+  }, 150 + 5*220 + 500);
 }
 
 // 古文 1回ガチャ
@@ -4010,10 +4014,9 @@ function openKobunGacha1(){
   const card = kobunCards[Math.floor(Math.random()*kobunCards.length)];
   owned.push({...card,type:"kobun"});
   saveGame(); update();
-
-  // スライド演出（1枚）
   slashResultCards = [card];
   slashIs10 = false;
+  slashMode = "kobun";
   startSlashOverlay();
 }
 
@@ -4022,10 +4025,8 @@ function openKobunGacha10(){
   if(packOpening) return;
   if(diamonds<50){alert("💎が足りません（必要: 50）");return;}
   packOpening = true;
-  // 即座に全ボタン無効化してダブルクリック防止
   document.querySelectorAll("button").forEach(b=>b.disabled=true);
   diamonds-=50;
-
   slashResultCards = [];
   for(let i=0;i<9;i++){
     const card={...kobunCards[Math.floor(Math.random()*kobunCards.length)],type:"kobun"};
@@ -4034,18 +4035,18 @@ function openKobunGacha10(){
   const ssrPool = kobunCards.filter(c=>c.rarity==="SSR");
   const ssrCard = {...ssrPool[Math.floor(Math.random()*ssrPool.length)],type:"kobun"};
   owned.push(ssrCard); slashResultCards.push(ssrCard);
-
   saveGame(); update();
-
   slashIs10 = true;
-  // 少し遅延してオーバーレイ表示（update()完了を待つ）
+  slashMode = "kobun";
   setTimeout(startSlashOverlay, 50);
 }
 
+// 英語 1回ガチャ
 // ===== スライド演出 =====
 let slashResultCards = [];
 let slashIs10 = false;
 let slashDone = false;
+let slashMode = "kobun"; // "kobun" or "english"
 
 function spawnRainbowParticles(){
   const colors = ["#FF6B6B","#FFD93D","#6BCB77","#4D96FF","#C77DFF","#FF9500","#fff"];
@@ -4102,7 +4103,7 @@ function startSlashOverlay(){
   const hint    = document.getElementById("slashHint");
   overlay.style.cssText = "display:flex; position:fixed; inset:0; background:#0a0a18; z-index:7000; align-items:center; justify-content:center; flex-direction:column; overflow:hidden;";
   hint.textContent = "👆 横にスライド！";
-  document.getElementById("slashRemain").textContent = slashIs10 ? "10連" : "1回";
+  document.getElementById("slashRemain").textContent = slashIs10 ? (slashMode==="english" ? "5連" : "10連") : "1回";
 
   const hasUR = slashResultCards.some(c=>c.rarity==="UR");
 
@@ -4198,70 +4199,61 @@ function skipSlash(){
 }
 
 function showSlashResults(){
-  if(slashIs10){
-    // 10連：既存のガチャ10オーバーレイ
-    const overlay  = document.getElementById("gacha10Overlay");
-    const stage    = document.getElementById("gacha10Stage");
-    const closeBtn = document.getElementById("gacha10CloseBtn");
-    stage.innerHTML = `<div id="gacha10Title">📜 古文 10連ガチャ！</div>`;
-    closeBtn.style.display = "none";
-    closeBtn.disabled = false;
-    overlay.style.display = "flex";
+  const overlay  = document.getElementById("gacha10Overlay");
+  const stage    = document.getElementById("gacha10Stage");
+  const closeBtn = document.getElementById("gacha10CloseBtn");
+  const title = slashMode==="english"
+    ? (slashIs10 ? "🇺🇸 英語 5連ガチャ！" : "🇺🇸 英語ガチャ！")
+    : (slashIs10 ? "📜 古文 10連ガチャ！" : "📜 古文ガチャ！");
+  stage.innerHTML = `<div id="gacha10Title">${title}</div>`;
+  closeBtn.style.display = "none";
+  closeBtn.disabled = false;
+  overlay.style.display = "flex";
 
-    slashResultCards.forEach((card,i)=>{
-      const wrap = document.createElement("div");
-      wrap.className = "gacha10-card-wrap";
-      wrap.innerHTML = `<div class="gacha10-card ${card.rarity.toLowerCase()}" onclick="showKobunDetail('${card.word}')" style="cursor:pointer">
-        <div class="g-word">${card.word}</div>
-        <div class="g-meaning">${card.meaning}</div>
-        <div class="stat" style="font-size:10px">ATK ${card.atk} / HP ${card.hp}</div>
-        <div class="g-rarity">${card.rarity}</div>
-        <div style="font-size:9px;color:#888;margin-top:3px">📖 詳細</div>
-      </div>`;
-      stage.appendChild(wrap);
-      setTimeout(()=>{
-        if(card.rarity==="SSR"){
-          const flash = document.createElement("div");
-          flash.className = "ssr-flash";
-          document.body.appendChild(flash);
-          setTimeout(()=>flash.remove(), 500);
-          wrap.classList.add("ssr-reveal");
-          spawnGachaParticles(wrap);
-        } else if(card.rarity==="UR"){
-          // 虹色フラッシュ
-          const flash = document.createElement("div");
-          flash.className = "ur-flash";
-          document.body.appendChild(flash);
-          setTimeout(()=>flash.remove(), 600);
-          wrap.classList.add("ssr-reveal");
-          spawnGachaParticles(wrap);
-          spawnRainbowParticles();
-        } else {
-          wrap.classList.add("flip");
-        }
-      }, 150 + i*220);
-    });
-
+  slashResultCards.forEach((card,i)=>{
+    const wrap = document.createElement("div");
+    wrap.className = "gacha10-card-wrap";
+    const isEng = slashMode==="english";
+    const clickHandler = isEng
+      ? `onclick="showEnglishDetailByWord('${card.word}')" style="cursor:pointer"`
+      : `onclick="showKobunDetail('${card.word}')" style="cursor:pointer"`;
+    wrap.innerHTML = `<div class="gacha10-card ${card.rarity.toLowerCase()}" ${clickHandler}>
+      <div class="g-word">${card.word}</div>
+      <div class="g-meaning">${card.meaning}</div>
+      <div class="stat" style="font-size:10px">ATK ${card.atk} / HP ${card.hp}</div>
+      <div class="g-rarity">${card.rarity}</div>
+      <div style="font-size:9px;color:#888;margin-top:3px">📖 詳細</div>
+    </div>`;
+    stage.appendChild(wrap);
     setTimeout(()=>{
-      closeBtn.style.display = "block";
-      closeBtn.disabled = false;
-    }, 150 + 10*220 + 500);
+      if(card.rarity==="SSR"){
+        const flash = document.createElement("div");
+        flash.className = "ssr-flash";
+        document.body.appendChild(flash);
+        setTimeout(()=>flash.remove(), 500);
+        wrap.classList.add("ssr-reveal");
+        spawnGachaParticles(wrap);
+      } else if(card.rarity==="UR"){
+        const flash = document.createElement("div");
+        flash.className = "ur-flash";
+        document.body.appendChild(flash);
+        setTimeout(()=>flash.remove(), 600);
+        wrap.classList.add("ssr-reveal");
+        spawnGachaParticles(wrap);
+        spawnRainbowParticles();
+      } else {
+        wrap.classList.add("flip");
+      }
+    }, 150 + i*220);
+  });
 
-  } else {
-    // 1枚：packResultに表示
-    const card = slashResultCards[0];
-    document.getElementById("packResult").innerHTML = `
-      <div class="card ${card.rarity.toLowerCase()} kobun-clickable" onclick="showKobunDetail('${card.word}')">
-        <div class="kobun-hint">📖 詳細</div>
-        <div class="word">${card.word}</div>
-        <div class="meaning">${card.meaning}</div>
-        <div class="stat">ATK ${card.atk}</div>
-        <div class="stat">HP ${card.hp}</div>
-        <div class="stat">${card.rarity}</div>
-      </div>`;
+  const totalCards = slashResultCards.length;
+  setTimeout(()=>{
+    closeBtn.style.display = "block";
+    closeBtn.disabled = false;
     packOpening = false;
     document.querySelectorAll("button").forEach(b=>b.disabled=false);
-  }
+  }, 150 + totalCards*220 + 500);
 }
 
 function spawnGachaParticles(wrap){
