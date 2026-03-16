@@ -3956,7 +3956,7 @@ function revealCards(){
   const area = document.getElementById("packArea");
   const result = document.getElementById("packResult");
   area.innerHTML = "";
-  result.innerHTML = `<div id="packRevealRow" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px"></div>`;
+  result.innerHTML = `<div id="packRevealRow" style="display:flex;flex-direction:column;align-items:center;gap:12px"></div>`;
 
   packCards.forEach((card, i)=>{
     setTimeout(()=>{
