@@ -1184,9 +1184,50 @@ body.kobun-theme .bottomMenu button.active {
   position: relative;
   display: inline-block;
   margin: 0 auto;
-  min-width: 130px;
+  width: 100%;
+}
+
+/* 縦画面：2列グリッド（上2・中2・下1中央） */
+.pack-reveal-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 8px;
+}
+
+.pack-reveal-row .card:nth-child(5) {
+  grid-column: 1 / -1;
   max-width: 160px;
-  width: 140px;
+  justify-self: center;
+  width: 160px;
+}
+
+/* 横画面：上3・下2中央 */
+@media (orientation: landscape) {
+  .pack-reveal-row {
+    grid-template-columns: 1fr 1fr 1fr;
+    max-width: 520px;
+  }
+  .pack-reveal-row .card:nth-child(5) {
+    grid-column: auto;
+    max-width: none;
+    justify-self: auto;
+    width: 100%;
+  }
+  /* 4枚目・5枚目を中央2列に */
+  .pack-reveal-row .card:nth-child(4) {
+    grid-column: 1 / 2;
+    justify-self: end;
+    max-width: 160px;
+  }
+  .pack-reveal-row .card:nth-child(5) {
+    grid-column: 2 / 3;
+    justify-self: start;
+    max-width: 160px;
+    width: 100%;
+  }
 }
 
 .pack-reveal-ur {
