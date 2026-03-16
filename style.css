@@ -1184,6 +1184,9 @@ body.kobun-theme .bottomMenu button.active {
   position: relative;
   display: inline-block;
   margin: 0 auto;
+  min-width: 130px;
+  max-width: 160px;
+  width: 140px;
 }
 
 .pack-reveal-ur {
@@ -1200,18 +1203,19 @@ body.kobun-theme .bottomMenu button.active {
 
 .pack-new-badge {
   position: absolute;
-  top: -8px;
-  left: -8px;
+  top: -12px;
+  left: -10px;
   background: linear-gradient(135deg, #FF6B6B, #FFD93D);
   color: #1a1a2e;
   font-family: 'Fredoka One', cursive;
   font-size: 12px;
   font-weight: 900;
-  padding: 3px 8px;
-  border-radius: 10px;
+  padding: 3px 10px;
+  border-radius: 12px;
   z-index: 10;
   box-shadow: 0 2px 8px rgba(255,107,107,0.5);
   animation: new-badge-pop 0.4s cubic-bezier(0.175,0.885,0.32,1.275) forwards;
+  transform-origin: left top;
 }
 
 @keyframes pack-card-appear {
