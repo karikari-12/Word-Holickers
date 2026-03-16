@@ -75,31 +75,86 @@
 
 <!-- ===== BATTLE ===== -->
 <div id="battle" class="screen">
-  <h2 id="battleTitle">⚔️ ボス戦（英語）</h2>
-  <div id="bossArea">
-    <div id="bossVisual">👹</div>
-    <div style="text-align:center">
-      <div class="hp-label">
-        <span>👹 BOSS Lv.<span id="bossLevel">1</span></span>
-        <span>HP <span id="bossHPNum">150</span></span>
-      </div>
-      <div class="hp-bar-wrap"><div class="hp-bar boss" id="bossHPBar" style="width:100%"></div></div>
-    </div>
-    <div style="text-align:center;margin-top:8px">
-      <div class="hp-label">
-        <span>🧑 あなた</span>
-        <span>HP <span id="playerHPNum">0</span></span>
-      </div>
-      <div class="hp-bar-wrap"><div class="hp-bar player" id="playerHPBar" style="width:100%"></div></div>
-    </div>
-    <div class="battle-stats" style="margin-top:12px">
-      <div class="stat-chip">⚔️ ATK <span id="battleATK">0</span></div>
-      <div class="stat-chip">❤️ HP <span id="battleHP">0</span></div>
-      <div class="stat-chip">💀 敵ATK <span id="bossATKDisplay">50</span></div>
-    </div>
+  <h2 id="battleTitle">⚔️ バトル（英語）</h2>
+
+  <!-- バトルメニュー -->
+  <div id="battleMenu">
+    <button onclick="showDailyBoss()" style="background:linear-gradient(135deg,#FFD93D,#FF6B6B);font-size:1.1rem;padding:16px 28px;width:80%;margin:8px auto;display:block">
+      🌟 日替わりボスバトル
+    </button>
+    <button onclick="startEnhancedBattle()" style="background:linear-gradient(135deg,#FF6B6B,#C77DFF);font-size:1.1rem;padding:16px 28px;width:80%;margin:8px auto;display:block">
+      💀 強化ボスバトル
+    </button>
   </div>
-  <div id="bossQuizArea"></div>
-  <div id="prevWordArea"></div>
+
+  <!-- 日替わりボスバトル -->
+  <div id="dailyBossArea" style="display:none">
+    <div style="display:flex;justify-content:center;gap:8px;margin-bottom:12px">
+      <button id="dailyTabEnglish" onclick="switchDailyTab('english')" style="font-size:13px;padding:8px 18px">🇺🇸 英語ボス</button>
+      <button id="dailyTabKobun"   onclick="switchDailyTab('kobun')"   style="font-size:13px;padding:8px 18px">📜 古文ボス</button>
+    </div>
+    <div id="dailyBossContent"></div>
+    <button onclick="backToBattleMenu()" style="background:rgba(255,255,255,0.08);box-shadow:none;font-size:12px;margin-top:12px;color:rgba(255,255,255,0.5)">← 戻る</button>
+  </div>
+
+  <!-- バトル本体（強化ボス戦） -->
+  <div id="battleMain" style="display:none">
+    <div id="bossArea">
+      <div id="bossVisual">👹</div>
+      <div style="text-align:center">
+        <div class="hp-label">
+          <span>👹 BOSS Lv.<span id="bossLevel">1</span></span>
+          <span>HP <span id="bossHPNum">150</span></span>
+        </div>
+        <div class="hp-bar-wrap"><div class="hp-bar boss" id="bossHPBar" style="width:100%"></div></div>
+      </div>
+      <div style="text-align:center;margin-top:8px">
+        <div class="hp-label">
+          <span>🧑 あなた</span>
+          <span>HP <span id="playerHPNum">0</span></span>
+        </div>
+        <div class="hp-bar-wrap"><div class="hp-bar player" id="playerHPBar" style="width:100%"></div></div>
+      </div>
+      <div class="battle-stats" style="margin-top:12px">
+        <div class="stat-chip">⚔️ ATK <span id="battleATK">0</span></div>
+        <div class="stat-chip">❤️ HP <span id="battleHP">0</span></div>
+        <div class="stat-chip">💀 敵ATK <span id="bossATKDisplay">50</span></div>
+      </div>
+    </div>
+    <div id="bossQuizArea"></div>
+    <div id="prevWordArea"></div>
+    <button onclick="backToBattleMenu()" style="background:rgba(255,255,255,0.08);box-shadow:none;font-size:12px;margin-top:12px;color:rgba(255,255,255,0.5)">← 戻る</button>
+  </div>
+
+  <!-- 日替わりボスのクイズエリア -->
+  <div id="dailyBattleMain" style="display:none">
+    <div id="dailyBossVisualArea" style="text-align:center;margin-bottom:8px">
+      <div id="dailyBossEmoji" style="font-size:4rem"></div>
+      <div class="hp-label" style="margin-top:4px">
+        <span id="dailyBossLabel">🌟 日替わりボス</span>
+        <span>HP <span id="dailyBossHPNum">0</span></span>
+      </div>
+      <div class="hp-bar-wrap"><div class="hp-bar boss" id="dailyBossHPBar" style="width:100%"></div></div>
+      <div style="margin-top:6px">
+        <div class="hp-label">
+          <span>🧑 あなた</span>
+          <span>HP <span id="dailyPlayerHPNum">0</span></span>
+        </div>
+        <div class="hp-bar-wrap"><div class="hp-bar player" id="dailyPlayerHPBar" style="width:100%"></div></div>
+      </div>
+      <!-- デッキステータス -->
+      <div class="battle-stats" style="margin-top:10px">
+        <div class="stat-chip">⚔️ ATK <span id="dailyBattleATK">0</span></div>
+        <div class="stat-chip">❤️ HP <span id="dailyBattleHP">0</span></div>
+        <div class="stat-chip">💀 敵ATK <span id="dailyBossATKDisplay">0</span></div>
+      </div>
+      <!-- 発動中スキル -->
+      <div id="dailySkillArea" style="margin-top:6px;min-height:22px"></div>
+    </div>
+    <div id="dailyQuizArea"></div>
+    <div id="dailyPrevWordArea"></div>
+    <button onclick="backToDailyBoss()" style="background:rgba(255,255,255,0.08);box-shadow:none;font-size:12px;margin-top:12px;color:rgba(255,255,255,0.5)">← 戻る</button>
+  </div>
 </div>
 
 <!-- ===== VERSUS ===== -->
@@ -123,7 +178,49 @@
   <button onclick="filterRarity('SR')" style="background:var(--pop4)">SR</button>
   <button onclick="filterRarity('SSR')" style="background:linear-gradient(135deg,var(--pop1),var(--pop2))">SSR</button>
   <button onclick="filterRarity('UR')" style="background:linear-gradient(135deg,#ff9500,#ff0050);box-shadow:0 0 10px rgba(255,149,0,0.5)">⚡ UR</button>
+  <button onclick="showUpgradeRates()" style="background:rgba(255,255,255,0.08);box-shadow:none;font-size:12px;color:rgba(255,255,255,0.6)">🔧 強化素材レートを見る</button>
   <div id="collection"></div>
+</div>
+
+<!-- 強化素材レートモーダル -->
+<div id="upgradeRateModal" onclick="if(event.target===this)closeUpgradeRates()" style="display:none;position:fixed;inset:0;background:rgba(10,8,25,0.85);backdrop-filter:blur(8px);z-index:6000;align-items:center;justify-content:center">
+  <div style="background:linear-gradient(160deg,#1e1040,#0f0c2a);border:1px solid rgba(107,203,119,0.35);border-radius:24px;padding:28px 24px;max-width:320px;width:90%;position:relative;box-shadow:0 0 40px rgba(107,203,119,0.2)">
+    <button onclick="closeUpgradeRates()" style="position:absolute;top:14px;right:14px;background:rgba(255,255,255,0.1);box-shadow:none;border-radius:50%;width:34px;height:34px;padding:0;font-size:14px;color:rgba(255,255,255,0.7);line-height:34px;margin:0">✕</button>
+    <div style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--pop3);margin-bottom:16px;text-align:center">🔧 強化素材レート表</div>
+    <table style="width:100%;border-collapse:collapse;font-size:14px;text-align:center">
+      <tr style="color:rgba(255,255,255,0.5);font-size:12px;border-bottom:1px solid rgba(255,255,255,0.1)">
+        <th style="padding:6px">レア</th>
+        <th style="padding:6px">🔧 必要素材</th>
+        <th style="padding:6px">上限</th>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
+        <td style="padding:8px;color:#aaa;font-weight:700">N</td>
+        <td style="padding:8px">3</td>
+        <td style="padding:8px;color:rgba(255,255,255,0.4)">10回</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
+        <td style="padding:8px;color:var(--pop3);font-weight:700">R</td>
+        <td style="padding:8px">3</td>
+        <td style="padding:8px;color:rgba(255,255,255,0.4)">10回</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
+        <td style="padding:8px;color:var(--pop4);font-weight:700">SR</td>
+        <td style="padding:8px">10</td>
+        <td style="padding:8px;color:rgba(255,255,255,0.4)">10回</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
+        <td style="padding:8px;color:var(--pop2);font-weight:700">SSR</td>
+        <td style="padding:8px">50</td>
+        <td style="padding:8px;color:rgba(255,255,255,0.4)">10回</td>
+      </tr>
+      <tr>
+        <td style="padding:8px;color:#ff9500;font-weight:700">UR</td>
+        <td style="padding:8px">125</td>
+        <td style="padding:8px;color:rgba(255,255,255,0.4)">10回</td>
+      </tr>
+    </table>
+    <p style="font-size:11px;color:rgba(255,255,255,0.35);text-align:center;margin-top:12px">※🪙3000で上限20回、🪙6000で上限30回まで拡張可能</p>
+  </div>
 </div>
 
 
@@ -151,40 +248,32 @@
 
 <!-- 変換レートモーダル -->
 <div id="convertRateModal" onclick="if(event.target===this)closeConvertRates()" style="display:none;position:fixed;inset:0;background:rgba(10,8,25,0.85);backdrop-filter:blur(8px);z-index:6000;align-items:center;justify-content:center">
-  <div style="background:linear-gradient(160deg,#1e1040,#0f0c2a);border:1px solid rgba(199,125,255,0.35);border-radius:24px;padding:28px 24px;max-width:320px;width:90%;position:relative;box-shadow:0 0 40px rgba(199,125,255,0.2)">
+  <div style="background:linear-gradient(160deg,#1e1040,#0f0c2a);border:1px solid rgba(199,125,255,0.35);border-radius:24px;padding:28px 24px;max-width:360px;width:90%;position:relative;box-shadow:0 0 40px rgba(199,125,255,0.2);max-height:90vh;overflow-y:auto">
     <button onclick="closeConvertRates()" style="position:absolute;top:14px;right:14px;background:rgba(255,255,255,0.1);box-shadow:none;border-radius:50%;width:34px;height:34px;padding:0;font-size:14px;color:rgba(255,255,255,0.7);line-height:34px;margin:0">✕</button>
-    <div style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--pop2);margin-bottom:16px;text-align:center">📊 変換レート表</div>
-    <table style="width:100%;border-collapse:collapse;font-size:14px;text-align:center">
-      <tr style="color:rgba(255,255,255,0.5);font-size:12px;border-bottom:1px solid rgba(255,255,255,0.1)">
-        <th style="padding:6px">レア</th>
-        <th style="padding:6px">🪙 コイン</th>
-        <th style="padding:6px">🔧 素材</th>
+    <div style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--pop2);margin-bottom:12px;text-align:center">📊 変換レート表</div>
+
+    <div style="font-size:12px;color:rgba(255,255,255,0.5);text-align:center;margin-bottom:6px">🇺🇸 英語カード</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;text-align:center;margin-bottom:14px">
+      <tr style="color:rgba(255,255,255,0.5);font-size:11px;border-bottom:1px solid rgba(255,255,255,0.1)">
+        <th style="padding:5px">レア</th><th style="padding:5px">🪙</th><th style="padding:5px">🔧</th>
       </tr>
-      <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
-        <td style="padding:8px;color:#aaa;font-weight:700">N</td>
-        <td style="padding:8px">10</td>
-        <td style="padding:8px">1</td>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px;color:#aaa;font-weight:700">N</td><td>10</td><td>1</td></tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px;color:var(--pop3);font-weight:700">R</td><td>10</td><td>2</td></tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px;color:var(--pop4);font-weight:700">SR</td><td>50</td><td>5</td></tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px;color:var(--pop2);font-weight:700">SSR</td><td>300</td><td>30</td></tr>
+      <tr><td style="padding:6px;color:#ff9500;font-weight:700">UR</td><td>1000</td><td>100</td></tr>
+    </table>
+
+    <div style="font-size:12px;color:rgba(255,255,255,0.5);text-align:center;margin-bottom:6px">📜 古文カード</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;text-align:center">
+      <tr style="color:rgba(255,255,255,0.5);font-size:11px;border-bottom:1px solid rgba(255,255,255,0.1)">
+        <th style="padding:5px">レア</th><th style="padding:5px">🪙</th><th style="padding:5px">🔧</th>
       </tr>
-      <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
-        <td style="padding:8px;color:var(--pop3);font-weight:700">R</td>
-        <td style="padding:8px">10</td>
-        <td style="padding:8px">2</td>
-      </tr>
-      <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
-        <td style="padding:8px;color:var(--pop4);font-weight:700">SR</td>
-        <td style="padding:8px">50</td>
-        <td style="padding:8px">5</td>
-      </tr>
-      <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
-        <td style="padding:8px;color:var(--pop2);font-weight:700">SSR</td>
-        <td style="padding:8px">300</td>
-        <td style="padding:8px">30</td>
-      </tr>
-      <tr>
-        <td style="padding:8px;color:#ff9500;font-weight:700">UR</td>
-        <td style="padding:8px">1000</td>
-        <td style="padding:8px">100</td>
-      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px;color:#aaa;font-weight:700">N</td><td>30</td><td>5</td></tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px;color:var(--pop3);font-weight:700">R</td><td>50</td><td>12</td></tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px;color:var(--pop4);font-weight:700">SR</td><td>100</td><td>30</td></tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px;color:var(--pop2);font-weight:700">SSR</td><td>500</td><td>70</td></tr>
+      <tr><td style="padding:6px;color:#ff9500;font-weight:700">UR</td><td>3000</td><td>300</td></tr>
     </table>
     <p style="font-size:11px;color:rgba(255,255,255,0.35);text-align:center;margin-top:12px">※重複カード（2枚目以降）のみ変換可能</p>
   </div>
@@ -192,7 +281,7 @@
 
 <!-- Bottom Menu -->
 <div class="bottomMenu">
-  <button id="btnBattle"  onclick="show('battle')"><span class="icon">⚔️</span>ボス戦</button>
+  <button id="btnBattle"  onclick="show('battle')"><span class="icon" id="battleBtnIcon">👹</span>バトル</button>
   <button id="btnPack"    onclick="show('pack')"><span class="icon">🎴</span>ガチャ</button>
   <button id="btnDeck"    onclick="show('deck')"><span class="icon">🃏</span>デッキ</button>
   <button id="btnVersus"  onclick="show('versus')"><span class="icon">🆚</span>対戦</button>
@@ -201,7 +290,7 @@
 </div>
 
 <!-- 10連スライド演出オーバーレイ -->
-<div id="slashOverlay" style="display:none">
+<div id="slashOverlay">
   <div id="slashCount"><span id="slashRemain">10連</span></div>
   <div id="slashPackStack">
     <div class="slash-pack" id="slashPack0">📜<br>古文<br>PACK</div>
@@ -223,6 +312,8 @@
 
 <button id="dbgDiamonds" onclick="addDiamondsDebug()" style="position:fixed;bottom:75px;right:8px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">💎 DBG</button>
 <button id="dbgAllCards" onclick="getAllCardsDebug()" style="position:fixed;bottom:75px;right:60px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">🃏 全カード</button>
+<button id="dbgResources" onclick="addResourcesDebug()" style="position:fixed;bottom:95px;right:8px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">🪙🔧 DBG</button>
+<button id="dbgDailyReset" onclick="resetDailyBossDebug()" style="position:fixed;bottom:75px;left:8px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">🌟 日替わりリセット</button>
 
 <!-- game.jsは全DOM要素の後に読み込む -->
 <script src="game.js"></script>
@@ -231,6 +322,8 @@
   if(!DEBUG){
     document.getElementById("dbgDiamonds").style.display = "none";
     document.getElementById("dbgAllCards").style.display = "none";
+    document.getElementById("dbgDailyReset").style.display = "none";
+    document.getElementById("dbgResources").style.display = "none";
   }
 </script>
 
