@@ -4443,6 +4443,9 @@ function bulkConvertSelected(){
 
 function convertCard(word){
   let cards = owned.filter(c=>c.word===word && c.type===currentMode);
+
+  cards.sort((a,b)=>(a.upgrade||0)-(b.upgrade||0));
+  
   if(cards.length<=1){alert("変換できるカードがありません");return;}
   let cnt = cards.length-1;
   owned = owned.filter(c=>{
