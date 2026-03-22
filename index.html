@@ -398,6 +398,8 @@
 <button id="dbgAllCards" onclick="getAllCardsDebug()" style="position:fixed;bottom:75px;right:60px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">🃏 全カード</button>
 <button id="dbgResources" onclick="addResourcesDebug()" style="position:fixed;bottom:95px;right:8px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">🪙🔧 DBG</button>
 <button id="dbgTickets" onclick="addTicketsDebug()" style="position:fixed;bottom:115px;right:8px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">🎰 DBG</button>
+<button id="dbgResetUpgrade" onclick="resetUpgradeDebug()" style="position:fixed;bottom:135px;right:8px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">🔧 リセット</button>
+<button id="dbgMaxUpgrade" onclick="maxUpgradeDebug()" style="position:fixed;bottom:155px;right:8px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">🔧 MAX</button>
 <button id="dbgDailyReset" onclick="resetDailyBossDebug()" style="position:fixed;bottom:75px;left:8px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">🌟 日替わりリセット</button>
 
 <!-- game.jsは全DOM要素の後に読み込む -->
@@ -410,6 +412,8 @@
     document.getElementById("dbgDailyReset").style.display = "none";
     document.getElementById("dbgResources").style.display = "none";
     document.getElementById("dbgTickets").style.display = "none";
+    document.getElementById("dbgResetUpgrade").style.display = "none";
+    document.getElementById("dbgMaxUpgrade").style.display = "none";
   }
 </script>
 
