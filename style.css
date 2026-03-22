@@ -1579,3 +1579,10 @@ body.kobun-theme .bottomMenu button.active {
   .quiz-options { grid-template-columns: 1fr 1fr; }
   h1 { font-size: 1.8rem; }
 }
+
+#resultGrid{
+  display:grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap:10px;
+  margin-top:10px;
+}
