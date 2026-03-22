@@ -3633,6 +3633,7 @@ let coins = 0, materials = 0, diamonds = 0;
 let lastLoginDate = "", missionDate = "";
 let sharedMissionCount10 = 0; // 英語・古文問わず共通
 let missionPackDone = false;  // 英単語ガチャ1回引くミッション
+let fukubikiTickets = 0;      // 福引チケット枚数
 
 // Runtime battle state
 let playerHP = 0, playerMaxHP = 0;
@@ -3673,6 +3674,10 @@ function switchMode(mode){
     document.getElementById("versusTitle").textContent  = "🆚 プレイヤー対戦（英語）";
     document.getElementById("englishGachaSection").style.display = "block";
     document.getElementById("kobunGachaSection").style.display   = "none";
+    document.getElementById("fukubikiSection").style.display     = "none";
+    document.getElementById("gachaTab-english").className = "modeTab active-english";
+    document.getElementById("gachaTab-kobun").className   = "modeTab";
+    document.getElementById("gachaTab-fukubiki").className = "modeTab";
   } else {
     document.getElementById("packTitle").textContent    = "🎴 古文ガチャ";
     document.getElementById("deckTitle").textContent    = "🃏 古文デッキ（5枚）";
@@ -3680,6 +3685,10 @@ function switchMode(mode){
     document.getElementById("versusTitle").textContent  = "🆚 プレイヤー対戦（古文）";
     document.getElementById("englishGachaSection").style.display = "none";
     document.getElementById("kobunGachaSection").style.display   = "block";
+    document.getElementById("fukubikiSection").style.display     = "none";
+    document.getElementById("gachaTab-english").className = "modeTab";
+    document.getElementById("gachaTab-kobun").className   = "modeTab active-kobun";
+    document.getElementById("gachaTab-fukubiki").className = "modeTab";
   }
 
   // Clear quiz area to avoid stale quiz from old mode
@@ -3700,6 +3709,7 @@ function switchMode(mode){
       inBattle = false;
       document.getElementById("battleMenu").style.display = "block";
       document.getElementById("battleMain").style.display = "none";
+      document.getElementById("rarityBattleMenu").style.display = "none";
       document.getElementById("bossQuizArea").innerHTML = "";
       const pwa=document.getElementById("prevWordArea"); if(pwa) pwa.innerHTML="";
       update();
@@ -3867,7 +3877,6 @@ function generateQuiz(){
   if(!inBattle) return;
   quizLocked = false;
 
-  // モードに応じた全カードから出題
   const pool = cardPool();
   const card = pool[Math.floor(Math.random()*pool.length)];
   quizCard = card;
@@ -3885,12 +3894,16 @@ function generateQuiz(){
   }
   quizAnswer = correct;
 
-  let html=`<h2>「${card.word}」の意味は？</h2><div class="quiz-options">`;
-  choices.forEach(opt=>{
-    html+=`<button class="quiz-btn" onclick="answerQuiz('${opt.replace(/'/g,"\\'")}',this)">${opt}</button>`;
-  });
-  html+="</div>";
-  document.getElementById("bossQuizArea").innerHTML=html;
+  // 4択はボタンを押してから表示
+  const choicesHtml = choices.map(opt=>
+    `<button class="quiz-btn" onclick="answerQuiz('${opt.replace(/'/g,"\\'")}',this)">${opt}</button>`
+  ).join("");
+  document.getElementById("bossQuizArea").innerHTML=`
+    <h2>「${card.word}」の意味は？</h2>
+    <button onclick="showQuizChoices(this,'${card.word}')" style="background:rgba(77,150,255,0.3);box-shadow:none;border:1px solid rgba(77,150,255,0.5);margin:8px auto;display:block">
+      📋 4択を表示
+    </button>
+    <div class="quiz-options" id="quizChoicesArea" style="display:none">${choicesHtml}</div>`;
 }
 
 function answerQuiz(choice, btn){
@@ -3903,6 +3916,7 @@ function answerQuiz(choice, btn){
 
   if(choice===quizAnswer){
     btn.classList.add("correct");
+    showCorrectCircle();
     // 正解→ATK等倍
 
     // URカードのクリティカル（20%：kobun ものす / 33%：english etiquette）
@@ -4429,12 +4443,15 @@ function generateDailyQuiz(){
   const choices = [...wrongs, correct].sort(()=>Math.random()-0.5);
   dailyQuizAnswer = correct;
 
-  let html=`<h2>「${card.word}」の意味は？</h2><div class="quiz-options">`;
-  choices.forEach(opt=>{
-    html+=`<button class="quiz-btn" onclick="answerDailyQuiz('${opt.replace(/'/g,"\\'")}',this)">${opt}</button>`;
-  });
-  html+="</div>";
-  document.getElementById("dailyQuizArea").innerHTML=html;
+  const choicesHtml = choices.map(opt=>
+    `<button class="quiz-btn" onclick="answerDailyQuiz('${opt.replace(/'/g,"\\'")}',this)">${opt}</button>`
+  ).join("");
+  document.getElementById("dailyQuizArea").innerHTML=`
+    <h2>「${card.word}」の意味は？</h2>
+    <button onclick="showQuizChoices(this,'daily')" style="background:rgba(77,150,255,0.3);box-shadow:none;border:1px solid rgba(77,150,255,0.5);margin:8px auto;display:block">
+      📋 4択を表示
+    </button>
+    <div class="quiz-options" id="quizChoicesArea" style="display:none">${choicesHtml}</div>`;
 }
 
 function answerDailyQuiz(choice, btn){
@@ -4449,6 +4466,7 @@ function answerDailyQuiz(choice, btn){
 
   if(choice===dailyQuizAnswer){
     btn.classList.add("correct");
+    showCorrectCircle();
     // クリティカル判定
     const hasUR = deck.some(c=>c.rarity==="UR");
     if(hasUR && Math.random() < 0.2){
@@ -4535,6 +4553,7 @@ function backToDailyBoss(){
 //  BATTLE MENU
 // =============================================
 function startNormalBattle(){
+  rarityBattleFilter = "ALL";
   document.getElementById("battleMenu").style.display = "none";
   document.getElementById("battleMain").style.display = "block";
   inBattle = true;
@@ -4550,6 +4569,7 @@ function startNormalBattle(){
 }
 
 function startEnhancedBattle(){
+  rarityBattleFilter = "ALL";
   document.getElementById("battleMenu").style.display = "none";
   document.getElementById("battleMain").style.display = "block";
   inBattle = true;
@@ -4568,6 +4588,317 @@ function startEnhancedBattle(){
   generateQuiz();
 }
 
+function showRarityBattleMenu(){
+  document.getElementById("battleMenu").style.display = "none";
+  document.getElementById("rarityBattleMenu").style.display = "block";
+}
+
+// レアリティ別ボスレベル（モードごと独立）
+const rarityBossState = {
+  english: { N:{level:1,hp:150,maxHP:150,atk:30}, R:{level:1,hp:200,maxHP:200,atk:45}, SR:{level:1,hp:250,maxHP:250,atk:60}, SSR:{level:1,hp:300,maxHP:300,atk:80} },
+  kobun:   { N:{level:1,hp:150,maxHP:150,atk:30}, R:{level:1,hp:200,maxHP:200,atk:45}, SR:{level:1,hp:250,maxHP:250,atk:60}, SSR:{level:1,hp:300,maxHP:300,atk:80} }
+};
+
+let rarityBattleFilter = "ALL";
+let raritySelectedDeck = [];
+let rarityPoolCards = [];
+
+function startRarityBattle(rarity){
+  rarityBattleFilter = rarity;
+  document.getElementById("rarityBattleMenu").style.display = "none";
+  document.getElementById("rarityDeckSelect").style.display = "block";
+
+  // 他のボタンを無効化
+  document.querySelectorAll("button").forEach(b=>b.disabled=true);
+  // 戻るボタンだけ有効
+  document.querySelector("#rarityDeckSelect button[onclick='backToRarityMenu()']").disabled = false;
+  document.querySelectorAll("#rarityDeckSelect button[onclick^='sortRarityPool']").forEach(b=>b.disabled=false);
+
+  const labelMap = {N:"N のみ", R:"R のみ", SR:"SR のみ", SSR:"SSR のみ"};
+  const colorMap = {N:"#888", R:"var(--pop3)", SR:"var(--pop4)", SSR:"var(--pop2)"};
+  document.getElementById("rarityDeckTitle").innerHTML =
+    `<span style="color:${colorMap[rarity]}">⭐ ${labelMap[rarity]} バトル</span>`;
+
+  raritySelectedDeck = [];
+
+  const pool = cardPool();
+  const uniqueOwned = {};
+  owned.filter(c=>c.type===currentMode && c.rarity===rarity).forEach(c=>{
+    if(!uniqueOwned[c.word]){
+      const base = pool.find(p=>p.word===c.word);
+      uniqueOwned[c.word] = base ? {...base, upgrade:c.upgrade||0, atk:c.atk, hp:c.hp} : c;
+    }
+  });
+  rarityPoolCards = Object.values(uniqueOwned);
+
+  if(rarityPoolCards.length < 5){
+    document.getElementById("rarityCardPool").innerHTML =
+      `<div style="color:rgba(255,100,100,0.8);font-size:14px;text-align:center;padding:20px">${rarity}カードが5枚未満です。<br>もっとガチャを引いてください！</div>`;
+    return;
+  }
+  renderRarityPool();
+}
+
+function sortRarityPool(by){
+  if(by==="atk")  rarityPoolCards.sort((a,b)=>b.atk-a.atk);
+  if(by==="hp")   rarityPoolCards.sort((a,b)=>b.hp-a.hp);
+  if(by==="name") rarityPoolCards.sort((a,b)=>a.word.localeCompare(b.word, "ja"));
+  renderRarityPool();
+}
+
+function renderRarityPool(){
+  const container = document.getElementById("rarityCardPool");
+  container.innerHTML = "";
+  rarityPoolCards.forEach(card=>{
+    const el = document.createElement("div");
+    el.className = `card ${card.rarity.toLowerCase()}`;
+    const isSelected = raritySelectedDeck.some(c=>c.word===card.word);
+    el.style.cssText = `cursor:pointer;position:relative;min-width:110px;max-width:130px;transition:transform 0.15s;${isSelected?"outline:2px solid #FFD93D;transform:scale(1.05)":""}`;
+    el.innerHTML = `
+      <div class="word">${card.word}</div>
+      <div class="meaning" style="font-size:10px">${card.meaning}</div>
+      <div class="stat">ATK ${card.atk}</div>
+      <div class="stat">HP ${card.hp}</div>
+    `;
+    el.onclick = ()=>toggleRarityCard(card, el);
+    container.appendChild(el);
+  });
+}
+
+function toggleRarityCard(card, el){
+  const idx = raritySelectedDeck.findIndex(c=>c.word===card.word);
+  if(idx !== -1){
+    raritySelectedDeck.splice(idx, 1);
+    el.style.outline = "";
+    el.style.transform = "";
+  } else {
+    if(raritySelectedDeck.length >= 5) return;
+    raritySelectedDeck.push(card);
+    el.style.outline = "2px solid #FFD93D";
+    el.style.transform = "scale(1.05)";
+    // 5枚選んだら即確認
+    if(raritySelectedDeck.length === 5){
+      updateRaritySelectUI();
+      setTimeout(()=>{
+        if(confirm(`この5枚でバトルしますか？`)){
+          confirmRarityDeck();
+        }
+      }, 50);
+      return;
+    }
+  }
+  updateRaritySelectUI();
+}
+
+function updateRaritySelectUI(){
+  const cnt = raritySelectedDeck.length;
+  document.getElementById("raritySelectedInfo").textContent = `選択: ${cnt} / 5`;
+}
+
+function confirmRarityDeck(){
+  if(raritySelectedDeck.length < 5) return;
+
+  // ボタンを再有効化
+  document.querySelectorAll("button").forEach(b=>b.disabled=false);
+
+  document.getElementById("rarityDeckSelect").style.display = "none";
+  document.getElementById("battleMain").style.display = "block";
+  inBattle = true;
+
+  // レアリティ別ボスステータス
+  const bs = rarityBossState[currentMode][rarityBattleFilter];
+
+  // プレイヤーHP = 選択デッキのHP合計
+  playerMaxHP = raritySelectedDeck.reduce((s,c)=>s+c.hp, 0);
+  playerHP = playerMaxHP;
+
+  // ボス表示
+  document.getElementById("bossLevel").textContent = bs.level;
+  document.getElementById("bossATKDisplay").textContent = bs.atk;
+  document.getElementById("bossHPBar").style.width = "100%";
+  document.getElementById("bossHPNum").textContent = bs.hp;
+  document.getElementById("playerHPBar").style.width = "100%";
+  document.getElementById("playerHPNum").textContent = playerHP;
+  updateBossVisual();
+
+  // デッキATK表示
+  const totalATK = raritySelectedDeck.reduce((s,c)=>s+c.atk+(c.upgrade||0)*Math.floor(c.atk*0.05),0);
+  document.getElementById("battleATK").textContent = totalATK;
+  document.getElementById("battleHP").textContent = playerMaxHP;
+
+  // スキル表示
+  updateSkillDisplay(raritySelectedDeck, "battleSkillArea");
+
+  document.getElementById("bossQuizArea").innerHTML = "";
+  const pwa = document.getElementById("prevWordArea"); if(pwa) pwa.innerHTML="";
+  generateRarityQuiz();
+}
+
+function generateRarityQuiz(){
+  if(!inBattle) return;
+  quizLocked = false;
+  const pool = cardPool(); // レアリティ問わず全カードから出題
+  const card = pool[Math.floor(Math.random()*pool.length)];
+  quizCard = card;
+
+  let correct, choices;
+  if(card.quizzes && card.quizzes.length > 0){
+    const q = card.quizzes[Math.floor(Math.random()*card.quizzes.length)];
+    correct = q.correct;
+    const wrongs = q.choices.filter(c=>c!==correct).sort(()=>Math.random()-0.5).slice(0,3);
+    choices = [...wrongs, correct].sort(()=>Math.random()-0.5);
+  } else {
+    correct = card.meaning;
+    const wrongs = [...card.choices].sort(()=>Math.random()-0.5).slice(0,3);
+    choices = [...wrongs, correct].sort(()=>Math.random()-0.5);
+  }
+  quizAnswer = correct;
+
+  const choicesHtml = choices.map(opt=>
+    `<button class="quiz-btn" onclick="answerRarityQuiz('${opt.replace(/'/g,"\\'")}',this)">${opt}</button>`
+  ).join("");
+  document.getElementById("bossQuizArea").innerHTML=`
+    <h2>「${card.word}」の意味は？</h2>
+    <button onclick="showQuizChoices(this,'${card.word}')" style="background:rgba(77,150,255,0.3);box-shadow:none;border:1px solid rgba(77,150,255,0.5);margin:8px auto;display:block">
+      📋 4択を表示
+    </button>
+    <div class="quiz-options" id="quizChoicesArea" style="display:none">${choicesHtml}</div>`;
+}
+
+function answerRarityQuiz(choice, btn){
+  if(quizLocked) return;
+  quizLocked = true;
+  document.querySelectorAll(".quiz-btn").forEach(b=>b.disabled=true);
+
+  const bs = rarityBossState[currentMode][rarityBattleFilter];
+  let atk = raritySelectedDeck.reduce((s,c)=>s+c.atk+(c.upgrade||0)*Math.floor(c.atk*0.05),0);
+
+  if(choice===quizAnswer){
+    btn.classList.add("correct");
+    showCorrectCircle();
+    // クリティカル判定
+    const hasUR = raritySelectedDeck.some(c=>c.rarity==="UR");
+    const hasCrit33 = raritySelectedDeck.some(c=>c.skill==="critical33");
+    const hasCrit20 = raritySelectedDeck.some(c=>c.skill==="critical");
+    const rate = hasCrit33?0.33:hasCrit20?0.2:0;
+    if(hasUR && rate > 0 && Math.random()<rate){ atk*=2; showCritical(); }
+
+    bs.hp -= atk;
+    showDmgPopup(atk, false);
+
+    // ドレイン
+    if(raritySelectedDeck.some(c=>c.skill==="drain")){
+      const heal = Math.floor(atk*0.1);
+      playerHP = Math.min(playerHP+heal, playerMaxHP);
+      showHealPopup(heal, -50);
+    }
+    // リジェネ
+    if(raritySelectedDeck.some(c=>c.skill==="regen")){
+      playerHP = Math.min(playerHP+150, playerMaxHP);
+      showHealPopup(150, 50);
+    }
+
+    // ミッションカウント
+    sharedMissionCount10++;
+    if(sharedMissionCount10===10){ diamonds+=5; saveGame(); showMissionComplete("クイズ10問正解！ 💎×5"); }
+    updateMissionUI();
+  } else {
+    btn.classList.add("wrong");
+    document.querySelectorAll(".quiz-btn").forEach(b=>{ if(b.textContent===quizAnswer) b.classList.add("correct"); });
+    playerHP -= bs.atk;
+    showDmgPopup(bs.atk, true);
+  }
+
+  // 詳細ボタン
+  if(currentMode==="kobun" && quizCard && quizCard.detail){
+    const area = document.getElementById("prevWordArea");
+    if(area) area.innerHTML=`<button onclick="showKobunDetail('${quizCard.word.replace(/'/g,"\\'")}') "
+      style="margin-top:8px;background:rgba(199,125,255,0.2);box-shadow:none;border:1px solid rgba(199,125,255,0.4);font-size:12px;color:var(--pop5);width:90%">
+      📖 前の問題「${quizCard.word}」の詳細</button>`;
+  } else if(currentMode==="english"){
+    const area = document.getElementById("prevWordArea");
+    if(area) area.innerHTML=`<button onclick="showEnglishDetailByWord('${quizCard.word.replace(/'/g,"\\'")}') "
+      style="margin-top:8px;background:rgba(77,150,255,0.2);box-shadow:none;border:1px solid rgba(77,150,255,0.4);font-size:12px;color:var(--pop4);width:90%">
+      📖 前の問題「${quizCard.word.toUpperCase()}」の詳細</button>`;
+  }
+
+  // HPバー更新
+  document.getElementById("bossHPBar").style.width = Math.max(0, bs.hp/bs.maxHP*100)+"%";
+  document.getElementById("bossHPNum").textContent = Math.max(0, bs.hp);
+  document.getElementById("playerHPBar").style.width = Math.max(0, playerHP/playerMaxHP*100)+"%";
+  document.getElementById("playerHPNum").textContent = Math.max(0, playerHP);
+
+  setTimeout(()=>{
+    if(bs.hp <= 0){
+      // ボス撃破
+      bs.level++;
+      const baseHP  = {N:150,R:200,SR:250,SSR:300}[rarityBattleFilter]||150;
+      const baseATK = {N:30, R:45, SR:60, SSR:80}[rarityBattleFilter]||30;
+      bs.maxHP = baseHP + bs.level*50;
+      bs.hp    = bs.maxHP;
+      bs.atk   = baseATK + (bs.level-1)*15;
+      const isMillestone = bs.level % 10 === 0;
+      const reward = isMillestone ? 20 : 5;
+      diamonds += reward;
+      saveGame();
+      const msg = isMillestone ? `Lv.${bs.level} 達成！💎×${reward}！` : `ボスを倒した！💎×${reward}！`;
+      showBattleOverlay("victory", msg);
+      // HP回復して継続
+      playerHP = playerMaxHP;
+      document.getElementById("bossLevel").textContent = bs.level;
+      document.getElementById("bossATKDisplay").textContent = bs.atk;
+      document.getElementById("bossHPBar").style.width = "100%";
+      document.getElementById("bossHPNum").textContent = bs.hp;
+      document.getElementById("playerHPBar").style.width = "100%";
+      document.getElementById("playerHPNum").textContent = playerHP;
+      updateBossVisual();
+      setTimeout(generateRarityQuiz, 2000);
+      return;
+    }
+    if(playerHP <= 0){
+      showBattleOverlay("defeat");
+      bs.hp = bs.maxHP; // ボスHP全回復
+      playerHP = playerMaxHP;
+      document.getElementById("bossHPBar").style.width = "100%";
+      document.getElementById("bossHPNum").textContent = bs.hp;
+      document.getElementById("playerHPBar").style.width = "100%";
+      document.getElementById("playerHPNum").textContent = playerHP;
+      setTimeout(generateRarityQuiz, 2000);
+      return;
+    }
+    setTimeout(generateRarityQuiz, 300);
+  }, 900);
+}
+
+function backToRarityMenu(){
+  document.getElementById("rarityDeckSelect").style.display = "none";
+  document.getElementById("rarityBattleMenu").style.display = "block";
+  raritySelectedDeck = [];
+  document.querySelectorAll("button").forEach(b=>b.disabled=false);
+}
+
+function showQuizChoices(btn, word){
+  btn.style.display = "none";
+  const area = document.getElementById("quizChoicesArea");
+  if(area) area.style.display = "";
+}
+
+function showCorrectCircle(){
+  const circle = document.createElement("div");
+  circle.style.cssText = `
+    position:fixed; top:50%; left:50%;
+    transform:translate(-50%,-50%) scale(0);
+    width:220px; height:220px;
+    border-radius:50%;
+    background:rgba(107,203,119,0.25);
+    border:6px solid #6BCB77;
+    pointer-events:none; z-index:9998;
+    animation:correct-circle 0.6s ease forwards;
+  `;
+  document.body.appendChild(circle);
+  setTimeout(()=>circle.remove(), 600);
+}
+
 function backToBattleMenu(){
   inBattle = false;
   inDailyBattle = false;
@@ -4575,6 +4906,8 @@ function backToBattleMenu(){
   document.getElementById("battleMain").style.display = "none";
   document.getElementById("dailyBossArea").style.display = "none";
   document.getElementById("dailyBattleMain").style.display = "none";
+  document.getElementById("rarityBattleMenu").style.display = "none";
+  document.getElementById("rarityDeckSelect").style.display = "none";
   document.getElementById("bossQuizArea").innerHTML = "";
   const pwa = document.getElementById("prevWordArea"); if(pwa) pwa.innerHTML="";
   // ボスのHP/ATKをリセット
@@ -4585,7 +4918,7 @@ function backToBattleMenu(){
 function saveGame(){
   const data={
     owned, coins, materials, diamonds,
-    lastLoginDate, missionDate, sharedMissionCount10, missionPackDone,
+    lastLoginDate, missionDate, sharedMissionCount10, missionPackDone, fukubikiTickets,
     modeState
   };
   localStorage.setItem("wordCardGame_v2", JSON.stringify(data));
@@ -4604,6 +4937,7 @@ function loadGame(){
     missionDate = save.missionDate||"";
     sharedMissionCount10 = save.sharedMissionCount10||0;
     missionPackDone = save.missionPackDone||false;
+    fukubikiTickets = save.fukubikiTickets||0;
     if(save.modeState){
       ["english","kobun"].forEach(m=>{
         if(save.modeState[m]){
@@ -5491,6 +5825,7 @@ function answerVersusQuiz(choice, btn){
 
   if(choice===quizAnswer){
     btn.classList.add("correct");
+    showCorrectCircle();
     // 正解：相手に半分ダメージ
     if(isP1) p2HP-=Math.floor(atk/2);
     else     p1HP-=Math.floor(atk/2);
@@ -5602,6 +5937,262 @@ function showCritical(){
 // =============================================
 //  MISSION UI
 // =============================================
+function switchGachaTab(tab){
+  document.getElementById("englishGachaSection").style.display = tab==="english" ? "block" : "none";
+  document.getElementById("kobunGachaSection").style.display   = tab==="kobun"   ? "block" : "none";
+  document.getElementById("fukubikiSection").style.display     = tab==="fukubiki"? "block" : "none";
+  document.getElementById("packArea").innerHTML   = "";
+  document.getElementById("packResult").innerHTML = "";
+  document.getElementById("gachaTab-english").className  = "modeTab" + (tab==="english"  ? " active-english" : "");
+  document.getElementById("gachaTab-kobun").className    = "modeTab" + (tab==="kobun"    ? " active-kobun"   : "");
+  document.getElementById("gachaTab-fukubiki").className = "modeTab" + (tab==="fukubiki" ? " active-english" : "");
+  if(tab==="fukubiki"){
+    document.getElementById("packTitle").textContent = "🎰 福引";
+    updateFukubikiUI();
+  } else if(tab==="english"){
+    document.getElementById("packTitle").textContent = "🎴 英語ガチャ";
+  } else {
+    document.getElementById("packTitle").textContent = "🎴 古文ガチャ";
+  }
+}
+
+function updateFukubikiUI(){
+  const el = document.getElementById("fukubikiTicketCount");
+  if(el) el.textContent = fukubikiTickets;
+}
+
+const FUKUBIKI_TABLE = [
+  { name:"白", color:"#f0f0f0", border:"#bbb",    prob:0.60, mats:500,   coins:500,   dias:0    },
+  { name:"緑", color:"#48bb78", border:"#2f855a",  prob:0.20, mats:800,   coins:1000,  dias:0    },
+  { name:"青", color:"#4299e1", border:"#2b6cb0",  prob:0.10, mats:2000,  coins:4000,  dias:50   },
+  { name:"黄", color:"#ecc94b", border:"#b7791f",  prob:0.06, mats:3000,  coins:9000,  dias:150  },
+  { name:"赤", color:"#fc8181", border:"#c53030",  prob:0.03, mats:4000,  coins:10000, dias:400  },
+  { name:"虹", color:"rainbow", border:"#b794f4",  prob:0.01, mats:10000, coins:18000, dias:1000 },
+];
+
+function drawFukubiki(){
+  if(fukubikiTickets <= 0){
+    alert("福引チケットがありません！\nデイリーミッションを全て達成するともらえます。");
+    return;
+  }
+  fukubikiTickets--;
+
+  // 抽選
+  const r = Math.random();
+  let cum = 0, result = FUKUBIKI_TABLE[0];
+  for(const tier of FUKUBIKI_TABLE){
+    cum += tier.prob;
+    if(r < cum){ result = tier; break; }
+  }
+
+  // 報酬付与
+  materials += result.mats;
+  coins     += result.coins;
+  diamonds  += result.dias;
+  saveGame(); update();
+  updateFukubikiUI();
+
+  // ガラガラアニメーション
+  showFukubikiAnimation(result);
+}
+
+function showFukubikiAnimation(result){
+  const overlay = document.createElement("div");
+  overlay.style.cssText = `
+    position:fixed;inset:0;background:rgba(10,8,25,0.92);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    z-index:9000;backdrop-filter:blur(8px);touch-action:none;
+  `;
+
+  const isRainbow = result.name === "虹";
+  const ballBg = isRainbow
+    ? "background:linear-gradient(135deg,#fc8181,#ecc94b,#48bb78,#4299e1,#b794f4)"
+    : `background:${result.color}`;
+  const ballBorder = isRainbow ? "#b794f4" : (result.border||result.color);
+
+  const rewardText = [
+    result.dias  ? `💎×${result.dias.toLocaleString()}` : "",
+    `🔧×${result.mats.toLocaleString()}`,
+    `🪙×${result.coins.toLocaleString()}`,
+  ].filter(Boolean).join("　");
+
+  overlay.innerHTML = `
+    <div id="gHint" style="font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:10px">ハンドルを時計回りに1回転させてください</div>
+    <div style="position:relative;width:260px;height:300px">
+      <svg id="garaponSvg" viewBox="0 0 260 300" width="260" height="300" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+        <defs>
+          <clipPath id="drumClip">
+            <polygon points="80,60 180,60 220,100 220,180 180,220 80,220 40,180 40,100"/>
+          </clipPath>
+          ${isRainbow ? `<linearGradient id="rainbowGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fc8181"/><stop offset="33%" stop-color="#ecc94b"/><stop offset="66%" stop-color="#48bb78"/><stop offset="100%" stop-color="#4299e1"/></linearGradient>` : ""}
+        </defs>
+        <!-- base -->
+        <rect x="20" y="235" width="220" height="22" rx="4" fill="#C8A96E"/>
+        <rect x="30" y="231" width="200" height="8" rx="3" fill="#B8966A"/>
+        <!-- tray (red) -->
+        <rect x="148" y="233" width="72" height="16" rx="3" fill="#c53030"/>
+        <rect x="150" y="235" width="68" height="12" rx="2" fill="#fc8181"/>
+        <!-- drum body -->
+        <polygon points="80,60 180,60 220,100 220,180 180,220 80,220 40,180 40,100" fill="#D4A96A" stroke="#B8966A" stroke-width="2"/>
+        <polygon points="90,72 170,72 205,107 205,173 170,208 90,208 55,173 55,107" fill="#DDB87A" stroke="#C8A96E" stroke-width="1"/>
+        <!-- drum center -->
+        <circle cx="130" cy="140" r="18" fill="#8B6914" stroke="#6B4F0E" stroke-width="2"/>
+        <circle cx="130" cy="140" r="10" fill="#5A3E0A" stroke="#4A2E06" stroke-width="1.5"/>
+        <!-- axle -->
+        <rect x="118" y="130" width="24" height="20" rx="4" fill="#999" stroke="#777" stroke-width="1"/>
+        <!-- handle (rotates around 130,140) -->
+        <g id="gHandle" style="transform-origin:130px 140px">
+          <rect x="128" y="82" width="8" height="58" rx="4" fill="#888" stroke="#666" stroke-width="1"/>
+          <ellipse cx="132" cy="80" rx="10" ry="7" fill="#D4A96A" stroke="#B8966A" stroke-width="1.5"/>
+          <ellipse cx="132" cy="78" rx="7" ry="4" fill="#DDB87A"/>
+        </g>
+        <!-- support frame -->
+        <rect x="95" y="214" width="12" height="30" rx="3" fill="#999" stroke="#777" stroke-width="1"/>
+        <rect x="153" y="214" width="12" height="30" rx="3" fill="#999" stroke="#777" stroke-width="1"/>
+        <rect x="95" y="232" width="70" height="8" rx="3" fill="#aaa" stroke="#888" stroke-width="1"/>
+        <ellipse cx="110" cy="236" rx="6" ry="5" fill="#888"/>
+        <ellipse cx="130" cy="236" rx="6" ry="5" fill="#888"/>
+        <ellipse cx="150" cy="236" rx="6" ry="5" fill="#888"/>
+        <!-- chute -->
+        <path d="M148 220 Q155 232 155 237" stroke="#B8966A" stroke-width="3" fill="none"/>
+        <!-- ball (hidden initially, starts at drum center) -->
+        <circle id="gBall" cx="130" cy="140" r="10"
+          fill="${isRainbow ? "url(#rainbowGrad)" : result.color}" stroke="${ballBorder}" stroke-width="2"
+          opacity="0"/>
+      </svg>
+    </div>
+    <div id="gResult" style="margin-top:8px;min-height:50px;text-align:center"></div>
+    <button id="gCloseBtn" style="margin-top:10px;font-size:13px;padding:8px 20px;cursor:pointer;display:none;background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:8px">閉じる</button>
+  `;
+
+  document.body.appendChild(overlay);
+
+  const handle   = overlay.querySelector("#gHandle");
+  const hint     = overlay.querySelector("#gHint");
+  const gResult  = overlay.querySelector("#gResult");
+  const closeBtn = overlay.querySelector("#gCloseBtn");
+  const ball     = overlay.querySelector("#gBall");
+  const svg      = overlay.querySelector("#garaponSvg");
+
+  closeBtn.onclick = ()=>overlay.remove();
+
+  // ---- drag rotation logic ----
+  let tracking = false;
+  let totalAngle = 0;
+  let lastAngle = null;
+  let accumulatedDeg = 0;
+  let fired = false;
+  let handleAngle = 0;
+
+  function getAngle(e){
+    const rect = svg.getBoundingClientRect();
+    const cx = rect.left + rect.width*(130/260);
+    const cy = rect.top  + rect.height*(140/300);
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    return Math.atan2(clientY - cy, clientX - cx) * 180 / Math.PI;
+  }
+
+  function onStart(e){
+    if(fired) return;
+    e.preventDefault();
+    tracking = true;
+    lastAngle = getAngle(e);
+  }
+
+  function onMove(e){
+    if(!tracking || fired) return;
+    e.preventDefault();
+    const a = getAngle(e);
+    let delta = a - lastAngle;
+    // normalize to [-180, 180]
+    if(delta > 180)  delta -= 360;
+    if(delta < -180) delta += 360;
+    // only accumulate clockwise (positive delta)
+    if(delta > 0){
+      accumulatedDeg += delta;
+      handleAngle += delta;
+      handle.style.transform = `rotate(${handleAngle}deg)`;
+    }
+    lastAngle = a;
+    const pct = Math.min(accumulatedDeg / 360, 1);
+    hint.textContent = pct < 0.3 ? "ハンドルを時計回りに1回転させてください"
+                     : pct < 0.7 ? "もう少し..."
+                     : pct < 1   ? "あと少し！"
+                     : "";
+    if(accumulatedDeg >= 360 && !fired){
+      fired = true;
+      tracking = false;
+      finishSpin();
+    }
+  }
+
+  function onEnd(){ tracking = false; }
+
+  overlay.addEventListener("mousedown",  onStart, {passive:false});
+  overlay.addEventListener("mousemove",  onMove,  {passive:false});
+  overlay.addEventListener("mouseup",    onEnd);
+  overlay.addEventListener("touchstart", onStart, {passive:false});
+  overlay.addEventListener("touchmove",  onMove,  {passive:false});
+  overlay.addEventListener("touchend",   onEnd);
+
+  // ---- spin finish + ball drop ----
+  function finishSpin(){
+    hint.textContent = "ガラガラ回転中...";
+    // spin handle fast 2 more rotations
+    const spinDuration = 800;
+    const startAngle = handleAngle;
+    const targetAngle = startAngle + 720;
+    const t0 = performance.now();
+    function spinStep(now){
+      const p = Math.min((now-t0)/spinDuration, 1);
+      const e = 1 - Math.pow(1-p, 2);
+      handle.style.transform = `rotate(${startAngle + e*720}deg)`;
+      if(p < 1){ requestAnimationFrame(spinStep); } else { dropBall(); }
+    }
+    requestAnimationFrame(spinStep);
+  }
+
+  function dropBall(){
+    hint.textContent = "玉が出てきた！";
+    // 玉をドラム中心から始める
+    ball.setAttribute("cx", "130");
+    ball.setAttribute("cy", "140");
+    ball.setAttribute("r",  "10");
+    ball.style.opacity = "1";
+
+    // ドラム中心 → 下 → チュート出口 → トレイ
+    const frames = [
+      {cx:130, cy:140, r:10},
+      {cx:130, cy:170, r:11},
+      {cx:135, cy:195, r:11},
+      {cx:143, cy:212, r:12},
+      {cx:150, cy:222, r:12},
+      {cx:158, cy:232, r:11},
+      {cx:168, cy:240, r:11},
+      {cx:178, cy:242, r:11},
+      {cx:184, cy:241, r:11},
+    ];
+    let fi = 0;
+    function nextFrame(){
+      if(fi >= frames.length){ showResult(); return; }
+      const f = frames[fi++];
+      ball.setAttribute("cx", f.cx);
+      ball.setAttribute("cy", f.cy);
+      ball.setAttribute("r",  f.r);
+      setTimeout(nextFrame, fi < 3 ? 120 : 70);
+    }
+    nextFrame();
+  }
+
+  function showResult(){
+    gResult.innerHTML = `
+      <div style="color:#fff;font-family:'Fredoka One',cursive;font-size:1.6rem;margin-bottom:6px">${result.name}玉！</div>
+      <div style="font-size:1rem;color:rgba(255,255,255,0.85)">${rewardText}</div>`;
+    closeBtn.style.display = "block";
+  }
+}
+
 function updateMissionUI(){
   const el = document.getElementById("missionPanel");
   if(!el) return;
@@ -5633,6 +6224,18 @@ function updateMissionUI(){
       <div class="mission-dots"><div class="mission-dot ${missionPackDone ? 'filled' : ''}"></div></div>
       <div class="mission-status ${missionPackDone ? 'done' : ''}">${missionPackDone ? '✅ 達成！' : '0 / 1'}</div>
     </div>`;
+
+  // 全ミッション達成でチケット付与
+  if(done3 && done10 && missionPackDone){
+    const allDoneKey = "allMissionDone_" + missionDate;
+    if(!localStorage.getItem(allDoneKey)){
+      localStorage.setItem(allDoneKey, "1");
+      fukubikiTickets++;
+      saveGame();
+      updateFukubikiUI();
+      showMissionComplete("全ミッション達成！🎰 福引チケット×1");
+    }
+  }
 }
 
 function showMissionComplete(msg){
@@ -5690,6 +6293,11 @@ function resetDailyBossDebug(){
     initDailyBossStats();
     switchDailyTab(dailyBossTab);
   }
+}
+
+function addTicketsDebug(){
+  if(typeof DEBUG === "undefined" || !DEBUG) return;
+  fukubikiTickets+=1000; updateFukubikiUI(); saveGame(); alert("🎰 チケット1000枚追加");
 }
 
 // =============================================
