@@ -55,18 +55,65 @@
 <div id="pack" class="screen active">
   <h2 id="packTitle">🎴 英語ガチャ</h2>
 
-  <!-- 英語ガチャ -->
-  <div id="englishGachaSection">
-    <button onclick="openPack()" style="background:linear-gradient(135deg,#FFD93D,#FF6B6B);font-size:1.1rem;padding:14px 28px">🎁 パックを開ける！（無料）</button>
+  <!-- ガチャタブ -->
+  <div style="display:flex;justify-content:center;gap:6px;margin-bottom:12px">
+    <button id="gachaTab-english" onclick="switchGachaTab('english')" class="modeTab active-english" style="font-size:12px;padding:6px 14px">🇺🇸 英語</button>
+    <button id="gachaTab-kobun"   onclick="switchGachaTab('kobun')"   class="modeTab"                style="font-size:12px;padding:6px 14px">📜 古文</button>
+    <button id="gachaTab-fukubiki" onclick="switchGachaTab('fukubiki')" class="modeTab"              style="font-size:12px;padding:6px 14px">🎰 福引</button>
   </div>
 
-  <!-- 古文ガチャ -->
+  <div id="englishGachaSection">
+    <button onclick="openPack()" style="background:linear-gradient(135deg,#FFD93D,#FF6B6B);font-size:1.1rem;padding:14px 28px">🎁 パックを開ける！</button>
+  </div>
   <div id="kobunGachaSection" style="display:none">
     <p style="color:rgba(255,255,255,0.6);font-size:13px;margin:4px 0 6px">💎5で1回 ／ 💎50で10連</p>
     <div style="display:inline-block;background:linear-gradient(135deg,rgba(255,217,61,0.2),rgba(199,125,255,0.2));border:1px solid rgba(255,217,61,0.5);border-radius:20px;padding:4px 16px;font-family:'Fredoka One',cursive;font-size:0.85rem;color:#FFD93D;margin-bottom:10px">⭐ 10連はSSR確定！</div>
     <br>
     <button onclick="openKobunGacha1()" style="background:linear-gradient(135deg,#C77DFF,#4D96FF);font-size:1.1rem;padding:14px 24px">💎×5 1回引く</button>
     <button onclick="openKobunGacha10()" style="background:linear-gradient(135deg,#FF6B6B,#C77DFF);font-size:1.1rem;padding:14px 24px">💎×50 10連！</button>
+  </div>
+
+  <!-- 福引セクション -->
+  <div id="fukubikiSection" style="display:none;text-align:center">
+    <div style="font-family:'Fredoka One',cursive;font-size:1.4rem;color:var(--pop2);margin-bottom:4px">🎰 福引</div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:12px">福引チケット: <span id="fukubikiTicketCount" style="color:#FFD93D;font-weight:700">0</span> 枚</div>
+    <button onclick="drawFukubiki()" style="background:linear-gradient(135deg,#FFD93D,#FF6B6B);font-size:1.1rem;padding:14px 32px;margin-bottom:16px">🎰 福引を引く（チケット×1）</button>
+    <div id="fukubikiResult" style="min-height:60px"></div>
+    <!-- 確率表 -->
+    <div style="background:rgba(255,255,255,0.05);border-radius:16px;padding:16px;max-width:320px;margin:12px auto;text-align:left">
+      <div style="font-family:'Fredoka One',cursive;font-size:1rem;color:var(--pop3);margin-bottom:10px;text-align:center">📊 景品一覧</div>
+      <table style="width:100%;border-collapse:collapse;font-size:12px">
+        <tr style="color:rgba(255,255,255,0.4);font-size:11px;border-bottom:1px solid rgba(255,255,255,0.1)">
+          <th style="padding:4px">色</th><th style="padding:4px">確率</th><th style="padding:4px">景品</th>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
+          <td style="padding:6px;color:#ddd">⚪ 白</td><td style="padding:6px;color:rgba(255,255,255,0.5)">60%</td>
+          <td style="padding:6px;color:rgba(255,255,255,0.7)">🔧×500 🪙×500</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
+          <td style="padding:6px;color:#6BCB77">🟢 緑</td><td style="padding:6px;color:rgba(255,255,255,0.5)">20%</td>
+          <td style="padding:6px;color:rgba(255,255,255,0.7)">🔧×800 🪙×1000</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
+          <td style="padding:6px;color:#4D96FF">🔵 青</td><td style="padding:6px;color:rgba(255,255,255,0.5)">10%</td>
+          <td style="padding:6px;color:rgba(255,255,255,0.7)">💎×50 🔧×2000 🪙×4000</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
+          <td style="padding:6px;color:#FFD93D">🟡 黄</td><td style="padding:6px;color:rgba(255,255,255,0.5)">6%</td>
+          <td style="padding:6px;color:rgba(255,255,255,0.7)">💎×150 🔧×3000 🪙×9000</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
+          <td style="padding:6px;color:#FF6B6B">🔴 赤</td><td style="padding:6px;color:rgba(255,255,255,0.5)">3%</td>
+          <td style="padding:6px;color:rgba(255,255,255,0.7)">💎×400 🔧×4000 🪙×10000</td>
+        </tr>
+        <tr>
+          <td style="padding:6px;background:linear-gradient(90deg,#FF6B6B,#FFD93D,#6BCB77,#4D96FF,#C77DFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700">🌈 虹</td>
+          <td style="padding:6px;color:rgba(255,255,255,0.5)">1%</td>
+          <td style="padding:6px;color:rgba(255,255,255,0.7)">💎×1000 🔧×10000 🪙×18000</td>
+        </tr>
+      </table>
+      <p style="font-size:11px;color:rgba(255,255,255,0.3);text-align:center;margin-top:10px">※デイリーミッション全達成でチケット1枚獲得</p>
+    </div>
   </div>
 
   <div id="packArea"></div>
@@ -82,6 +129,7 @@
   </div>
   <div id="deckCards"></div>
   <div id="deckSkillArea" style="margin:8px auto;max-width:340px;min-height:22px;text-align:center"></div>
+  <!-- デイリーミッション -->
   <div id="missionPanel" style="margin:16px auto;max-width:340px"></div>
 </div>
 
@@ -89,6 +137,7 @@
 <div id="battle" class="screen">
   <h2 id="battleTitle">⚔️ バトル（英語）</h2>
 
+  <!-- バトルメニュー -->
   <div id="battleMenu">
     <button onclick="showDailyBoss()" style="background:linear-gradient(135deg,#FFD93D,#FF6B6B);font-size:1.1rem;padding:16px 28px;width:80%;margin:8px auto;display:block">
       🌟 日替わりボスバトル
@@ -96,8 +145,22 @@
     <button onclick="startEnhancedBattle()" style="background:linear-gradient(135deg,#FF6B6B,#C77DFF);font-size:1.1rem;padding:16px 28px;width:80%;margin:8px auto;display:block">
       💀 強化ボスバトル
     </button>
+    <button onclick="showRarityBattleMenu()" style="background:linear-gradient(135deg,#4D96FF,#6BCB77);font-size:1.1rem;padding:16px 28px;width:80%;margin:8px auto;display:block">
+      ⭐ レアリティ別バトル
+    </button>
   </div>
 
+  <!-- レアリティ別バトル選択 -->
+  <div id="rarityBattleMenu" style="display:none">
+    <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;color:var(--pop2);text-align:center;margin-bottom:12px">⭐ レアリティを選択</div>
+    <button onclick="startRarityBattle('N')"   style="background:#888;font-size:1rem;padding:12px 24px;width:80%;margin:6px auto;display:block">N のみ</button>
+    <button onclick="startRarityBattle('R')"   style="background:var(--pop3);font-size:1rem;padding:12px 24px;width:80%;margin:6px auto;display:block">R のみ</button>
+    <button onclick="startRarityBattle('SR')"  style="background:var(--pop4);font-size:1rem;padding:12px 24px;width:80%;margin:6px auto;display:block">SR のみ</button>
+    <button onclick="startRarityBattle('SSR')" style="background:linear-gradient(135deg,var(--pop1),var(--pop2));font-size:1rem;padding:12px 24px;width:80%;margin:6px auto;display:block">SSR のみ</button>
+    <button onclick="backToBattleMenu()" style="background:rgba(255,255,255,0.08);box-shadow:none;font-size:12px;margin-top:8px;color:rgba(255,255,255,0.5)">← 戻る</button>
+  </div>
+
+  <!-- 日替わりボスバトル -->
   <div id="dailyBossArea" style="display:none">
     <div style="display:flex;justify-content:center;gap:8px;margin-bottom:12px">
       <button id="dailyTabEnglish" onclick="switchDailyTab('english')" style="font-size:13px;padding:8px 18px">🇺🇸 英語ボス</button>
@@ -107,6 +170,21 @@
     <button onclick="backToBattleMenu()" style="background:rgba(255,255,255,0.08);box-shadow:none;font-size:12px;margin-top:12px;color:rgba(255,255,255,0.5)">← 戻る</button>
   </div>
 
+  <!-- レアリティ別デッキ選択 -->
+  <div id="rarityDeckSelect" style="display:none">
+    <div id="rarityDeckTitle" style="font-family:'Fredoka One',cursive;font-size:1.1rem;color:var(--pop2);text-align:center;margin-bottom:8px"></div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.5);text-align:center;margin-bottom:8px">5枚選んでください</div>
+    <div style="display:flex;justify-content:center;gap:6px;margin-bottom:10px">
+      <button onclick="sortRarityPool('atk')" style="font-size:11px;padding:5px 12px;background:rgba(255,255,255,0.1);box-shadow:none">⚔️ ATK順</button>
+      <button onclick="sortRarityPool('hp')"  style="font-size:11px;padding:5px 12px;background:rgba(255,255,255,0.1);box-shadow:none">❤️ HP順</button>
+      <button onclick="sortRarityPool('name')" style="font-size:11px;padding:5px 12px;background:rgba(255,255,255,0.1);box-shadow:none">あ 五十音順</button>
+    </div>
+    <div id="raritySelectedInfo" style="text-align:center;font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:6px">選択: 0 / 5</div>
+    <div id="rarityCardPool" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:12px"></div>
+    <button onclick="backToRarityMenu()" style="background:rgba(255,255,255,0.08);box-shadow:none;font-size:12px;margin-top:4px;color:rgba(255,255,255,0.5)">← 戻る</button>
+  </div>
+
+  <!-- バトル本体（強化ボス戦） -->
   <div id="battleMain" style="display:none">
     <div id="bossArea">
       <div id="bossVisual">👹</div>
@@ -136,6 +214,7 @@
     <button onclick="backToBattleMenu()" style="background:rgba(255,255,255,0.08);box-shadow:none;font-size:12px;margin-top:12px;color:rgba(255,255,255,0.5)">← 戻る</button>
   </div>
 
+  <!-- 日替わりボスのクイズエリア -->
   <div id="dailyBattleMain" style="display:none">
     <div id="dailyBossVisualArea" style="text-align:center;margin-bottom:8px">
       <div id="dailyBossEmoji" style="font-size:4rem"></div>
@@ -151,11 +230,13 @@
         </div>
         <div class="hp-bar-wrap"><div class="hp-bar player" id="dailyPlayerHPBar" style="width:100%"></div></div>
       </div>
+      <!-- デッキステータス -->
       <div class="battle-stats" style="margin-top:10px">
         <div class="stat-chip">⚔️ ATK <span id="dailyBattleATK">0</span></div>
         <div class="stat-chip">❤️ HP <span id="dailyBattleHP">0</span></div>
         <div class="stat-chip">💀 敵ATK <span id="dailyBossATKDisplay">0</span></div>
       </div>
+      <!-- 発動中スキル -->
       <div id="dailySkillArea" style="margin-top:6px;min-height:22px"></div>
     </div>
     <div id="dailyQuizArea"></div>
@@ -226,6 +307,7 @@
   </div>
 </div>
 
+
 <!-- ===== CONVERT ===== -->
 <div id="convert" class="screen">
   <h2>🔄 カード変換所</h2>
@@ -238,6 +320,7 @@
     <button onclick="showConvertRates()" style="background:rgba(255,255,255,0.08);box-shadow:none;font-size:12px;color:rgba(255,255,255,0.6)">📊 変換レートを見る</button>
   </div>
 
+  <!-- まとめて変換ボタン（まとめて選択モード時のみ表示） -->
   <div id="bulkActions" style="display:none;margin:6px 0">
     <button onclick="bulkConvertSelected()" style="background:linear-gradient(135deg,#FFD93D,#FF6B6B)">✅ 選択したカードを変換</button>
     <button onclick="selectAllBulk()" style="background:rgba(255,255,255,0.1);box-shadow:none;font-size:13px">全選択</button>
@@ -294,9 +377,9 @@
 <div id="slashOverlay">
   <div id="slashCount"><span id="slashRemain">10連</span></div>
   <div id="slashPackStack">
-    <div class="slash-pack" id="slashPack0">📜<br>PACK</div>
-    <div class="slash-pack">📜<br>PACK</div>
-    <div class="slash-pack">📜<br>PACK</div>
+    <div class="slash-pack" id="slashPack0">📜<br>古文<br>PACK</div>
+    <div class="slash-pack">📜<br>古文<br>PACK</div>
+    <div class="slash-pack">📜<br>古文<br>PACK</div>
   </div>
   <div id="slashHint">👆 横にスライド！</div>
   <button id="slashSkipBtn" onclick="skipSlash()">スキップ ▶</button>
@@ -308,14 +391,16 @@
   <button id="gacha10CloseBtn" onclick="closeGacha10()" style="display:none;margin-top:16px;background:linear-gradient(135deg,#FFD93D,#FF6B6B)">結果を確認する ✨</button>
 </div>
 
-<!-- ===== DEBUG MODE ===== -->
+<!-- ===== DEBUG MODE: 配布時は false に変更 ===== -->
 <script>const DEBUG = false;</script>
 
 <button id="dbgDiamonds" onclick="addDiamondsDebug()" style="position:fixed;bottom:75px;right:8px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">💎 DBG</button>
 <button id="dbgAllCards" onclick="getAllCardsDebug()" style="position:fixed;bottom:75px;right:60px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">🃏 全カード</button>
 <button id="dbgResources" onclick="addResourcesDebug()" style="position:fixed;bottom:95px;right:8px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">🪙🔧 DBG</button>
+<button id="dbgTickets" onclick="addTicketsDebug()" style="position:fixed;bottom:115px;right:8px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">🎰 DBG</button>
 <button id="dbgDailyReset" onclick="resetDailyBossDebug()" style="position:fixed;bottom:75px;left:8px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">🌟 日替わりリセット</button>
 
+<!-- game.jsは全DOM要素の後に読み込む -->
 <script src="game.js"></script>
 
 <script>
@@ -324,6 +409,7 @@
     document.getElementById("dbgAllCards").style.display = "none";
     document.getElementById("dbgDailyReset").style.display = "none";
     document.getElementById("dbgResources").style.display = "none";
+    document.getElementById("dbgTickets").style.display = "none";
   }
 </script>
 
