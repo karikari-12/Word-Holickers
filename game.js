@@ -3604,6 +3604,652 @@ const kobunCards=[
     {correct:"とんでもない", choices:["とんでもない","もっともだ","当然だ","当たり前だ","理にかなっている","納得できる"]},
   ]
 },
+{
+  word:"あやにくなり", meaning:"あいにくだ / 厳しい",
+  rarity:"SR", atk:40, hp:174,
+  reading:"あやにくなり", hinshi:"形容動詞（ナリ活用）",
+  detail:"「あやにく」は「あいにく」と覚える。折悪しく都合が悪いことや、意地悪で厳しいさまを表す語。",
+  example:"あやにくなる雨にて。",
+  exampleMeaning:"あいにくの雨で。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"あいにくだ", choices:["あいにくだ","都合がよい","タイミングが良い","ちょうどよい","好都合だ","うまくいく"]},
+    {correct:"厳しい",     choices:["厳しい","優しい","穏やかだ","甘い","寛大だ","寛容だ"]},
+  ]
+},
+{
+  word:"せちなり", meaning:"ひどい / しきりに / 重要だ / 大切だ",
+  rarity:"SR", atk:41, hp:176,
+  reading:"せちなり", hinshi:"形容動詞（ナリ活用）",
+  detail:"現代語の「切に」（ひたすら）に相当する語。「せつなり」とも書く。程度のはなはだしさと重要さが核心。",
+  example:"せちに思ひたまへて。",
+  exampleMeaning:"ひどく（しきりに）思っておりまして。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"ひどい",   choices:["ひどい","穏やかだ","優しい","申し分ない","すばらしい","たいしたことない"]},
+    {correct:"しきりに", choices:["しきりに","たまに","めったに","ほとんど","わずかに","少しだけ"]},
+    {correct:"重要だ",   choices:["重要だ","どうでもよい","取るに足らない","些細だ","無意味だ","関係ない"]},
+    {correct:"大切だ",   choices:["大切だ","どうでもよい","無価値だ","些細だ","無関係だ","捨て置いてよい"]},
+  ]
+},
+{
+  word:"そのかみ", meaning:"その当時",
+  rarity:"N", atk:19, hp:111,
+  reading:"そのかみ", hinshi:"名詞・副詞",
+  detail:"「其の上」の字を当てる。「その当時」が原義。過去のある時点を指す語で、現代語の「昔」より具体的な時点を指すことが多い。",
+  example:"そのかみのことをぞ思ひ出でける。",
+  exampleMeaning:"その当時のことを思い出した。",
+  source:"伊勢物語",
+  quizzes:[
+    {correct:"その当時", choices:["その当時","現在","今現在","これから先","将来","未来のこと"]},
+  ]
+},
+{
+  word:"よろこび", meaning:"叙位や昇進などの慶事 / お礼",
+  rarity:"SR", atk:40, hp:174,
+  reading:"よろこび", hinshi:"名詞",
+  detail:"喜びごとを授かってお礼をするのは当たり前。叙位・任官などの慶事そのものと、それに対してするお礼参りの両方を表す語。",
+  example:"よろこびに参りたまひて。",
+  exampleMeaning:"お礼参りにいらっしゃって。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"叙位や昇進などの慶事", choices:["叙位や昇進などの慶事","不幸な出来事","喪に服すること","降格","謹慎","訃報"]},
+    {correct:"お礼",               choices:["お礼","お詫び","苦情","批判","文句","謝罪"]},
+  ]
+},
+{
+  word:"きは", meaning:"身分 / 程度 / そば / 限り",
+  rarity:"N", atk:21, hp:116,
+  reading:"きは", hinshi:"名詞",
+  detail:"「そば」がほぼ原義→「身分、程度」の意味に。端・際（きわ）の感覚から、身分や程度・限界を表すようになった重要多義語。",
+  example:"いとやむごとなききはにはあらぬが。",
+  exampleMeaning:"たいして高くない身分の人が。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"身分", choices:["身分","容姿","才能","財産","年齢","職業"]},
+    {correct:"程度", choices:["程度","方向","手段","理由","動機","結果"]},
+    {correct:"そば", choices:["そば","遠く","彼方","別の場所","遠い所","見知らぬ場所"]},
+    {correct:"限り", choices:["限り","始まり","手前","外側","超えて","至るまで"]},
+  ]
+},
+{
+  word:"しな", meaning:"身分 / 段 / 品位",
+  rarity:"N", atk:20, hp:113,
+  reading:"しな", hinshi:"名詞",
+  detail:"「階段」が原義→「身分」や「品位」の意味に。段階・順序から社会的地位・品格を表すようになった語。",
+  example:"しないやしき者は。",
+  exampleMeaning:"身分の低い者は。",
+  source:"枕草子",
+  quizzes:[
+    {correct:"身分", choices:["身分","容姿","才能","財産","年齢","職業"]},
+    {correct:"段",   choices:["段","平面","横幅","奥行き","面積","広さ"]},
+    {correct:"品位", choices:["品位","下品さ","粗野さ","がさつさ","品のなさ","無骨さ"]},
+  ]
+},
+{
+  word:"かたへ", meaning:"仲間 / 片方 / 一部分",
+  rarity:"N", atk:19, hp:110,
+  reading:"かたへ", hinshi:"名詞",
+  detail:"文字通り「片＋方」で「片方」の意味。同じ立場の仲間・グループの一方・物事の一部分を表す語。",
+  example:"かたへの人に見せたまひて。",
+  exampleMeaning:"仲間の人にお見せになって。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"仲間",   choices:["仲間","敵","対立者","競争相手","見知らぬ人","よそ者"]},
+    {correct:"片方",   choices:["片方","両方","全部","すべて","どちらも","全体"]},
+    {correct:"一部分", choices:["一部分","全体","すべて","全部","どれも","丸ごと"]},
+  ]
+},
+{
+  word:"あや", meaning:"波紋 / 理由 / 分別",
+  rarity:"N", atk:20, hp:113,
+  reading:"あや", hinshi:"名詞",
+  detail:"原義は「綾織物」だが「理由、分別」の意味が重要。模様・文様から転じて、物事の筋道・理屈・道理を表す語。",
+  example:"あやもなく泣きけり。",
+  exampleMeaning:"わけもなく泣いた。",
+  source:"古今和歌集",
+  quizzes:[
+    {correct:"波紋",  choices:["波紋","静水面","凪いだ水面","波のない状態","穏やかな水面","揺れのない面"]},
+    {correct:"理由",  choices:["理由","結果","目的","手段","結論","影響"]},
+    {correct:"分別",  choices:["分別","無分別","思慮のなさ","無思慮","軽率さ","考えなし"]},
+  ]
+},
+{
+  word:"はらから", meaning:"兄弟姉妹",
+  rarity:"N", atk:19, hp:110,
+  reading:"はらから", hinshi:"名詞",
+  detail:"「腹族」が語源。現代語の「同胞」より意味が広く、同じ母から生まれた兄弟姉妹を指す。転じて親族全般を指すこともある。",
+  example:"はらからの君達の中にも。",
+  exampleMeaning:"兄弟姉妹の君たちの中にも。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"兄弟姉妹", choices:["兄弟姉妹","赤の他人","敵","友人","主従","夫婦"]},
+  ]
+},
+{
+  word:"ほだし", meaning:"足手まとい",
+  rarity:"N", atk:20, hp:113,
+  reading:"ほだし", hinshi:"名詞",
+  detail:"「ほだす」（束縛するの意）の名詞形。自由な行動を妨げる存在・もの・しがらみを表す語。",
+  example:"ほだしとなりにける。",
+  exampleMeaning:"足手まといになってしまった。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"足手まとい", choices:["足手まとい","頼もしい存在","心強い味方","大きな助け","なくてはならない存在","頼りになる人"]},
+  ]
+},
+{
+  word:"すべ", meaning:"方法 / 手段",
+  rarity:"N", atk:19, hp:110,
+  reading:"すべ", hinshi:"名詞",
+  detail:"「術」の字を当てる。「ずち」の読み方もある。物事を解決するための手段・方法が核心。「すべなし（どうしようもない）」の形で頻出。",
+  example:"すべなくて泣き臥したまひぬ。",
+  exampleMeaning:"どうしようもなくて泣き伏してしまわれた。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"方法", choices:["方法","目的","結果","理由","動機","原因"]},
+    {correct:"手段", choices:["手段","目標","結末","動機","理由","目的"]},
+  ]
+},
+{
+  word:"たづき", meaning:"手段 / 頼る所",
+  rarity:"N", atk:20, hp:113,
+  reading:"たづき", hinshi:"名詞",
+  detail:"「手付き」→「手段、手掛かり」の意味に。物事を進めるよりどころ・頼れる手段が核心。「すべ」と意味が近い。",
+  example:"たづきもなく泣き惑ふ。",
+  exampleMeaning:"頼る所もなく泣き迷う。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"手段",   choices:["手段","目標","結末","動機","理由","目的"]},
+    {correct:"頼る所", choices:["頼る所","頼れない場所","行き場のない所","拠り所のない状態","孤立無援","頼みの綱が切れた"]},
+  ]
+},
+{
+  word:"よすが", meaning:"身を寄せる所 / 縁者",
+  rarity:"N", atk:20, hp:114,
+  reading:"よすが", hinshi:"名詞",
+  detail:"「寄す処」が語源で「身を寄せる所」が原義。頼りにできる場所・人・縁のある人を表す語。",
+  example:"よすがなくてものしたまふ。",
+  exampleMeaning:"頼る所なくていらっしゃる。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"身を寄せる所", choices:["身を寄せる所","身を隠す所","逃げ場のない所","孤立した場所","頼れない場所","立ち入れない場所"]},
+    {correct:"縁者",         choices:["縁者","赤の他人","敵","見知らぬ人","無関係の人","よそ者"]},
+  ]
+},
+{
+  word:"せうそこ・せうそく", meaning:"手紙 / 来意（を告げること） / 取次ぎ（を頼むこと）",
+  rarity:"SSR", atk:62, hp:195,
+  reading:"せうそこ・せうそく", hinshi:"名詞・動詞",
+  detail:"「消」は「死」、「息」は「生」の意味。「安否、動静」が原義→それを問う手紙。来意を伝えること・取次ぎを頼むことも表す重要多義語。",
+  example:"せうそこばかり聞こえたまふ。",
+  exampleMeaning:"お手紙だけ申し上げなさる。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"手紙",           choices:["手紙","口頭での伝言","直接の訪問","使者を立てること","沈黙","知らせを絶つこと"]},
+    {correct:"来意（を告げること）",     choices:["来意（を告げること）","立ち去ること","帰還を告げること","訪問を断ること","音信を絶つこと","姿を消すこと"]},
+    {correct:"取次ぎ（を頼むこと）",    choices:["取次ぎ（を頼むこと）","直接押し入ること","取次ぎを断ること","無断で通り過ぎること","知らせずに立ち去ること","門前払いにすること"]},
+  ]
+},
+{
+  word:"とが", meaning:"罰 / 欠点",
+  rarity:"N", atk:20, hp:113,
+  reading:"とが", hinshi:"名詞",
+  detail:"「とがめる」（古語では「とがむ」）の「とが」。罪・過ちに対する罰と、人の欠点・短所の両方を表す語。",
+  example:"とがもなき人を。",
+  exampleMeaning:"罰を受けるいわれのない人を。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"罰",  choices:["罰","褒美","報酬","ご褒美","称賛","恩賞"]},
+    {correct:"欠点", choices:["欠点","長所","美点","取り柄","優れた点","得意なこと"]},
+  ]
+},
+{
+  word:"れい", meaning:"いつも",
+  rarity:"N", atk:18, hp:108,
+  reading:"れい", hinshi:"名詞・副詞",
+  detail:"「いつも～」の意の連想が大切。「例」の字を当て、いつもの通り・例によってという意味を表す。「れいの」の形で頻出。",
+  example:"れいのごとく参りたまひて。",
+  exampleMeaning:"いつものように参上なさって。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"いつも", choices:["いつも","特別に","今回に限り","例外的に","滅多にない","初めて"]},
+  ]
+},
+{
+  word:"い", meaning:"眠り",
+  rarity:"N", atk:17, hp:106,
+  reading:"い", hinshi:"名詞",
+  detail:"「寝（い）ぬ」の「寝（い）」と同根。「寝」の漢字で覚える。眠ること・睡眠を表す語。「いをし寝（眠りをする）」の形で使われる。",
+  example:"いも寝られずなりにけり。",
+  exampleMeaning:"眠ることもできなくなってしまった。",
+  source:"古今和歌集",
+  quizzes:[
+    {correct:"眠り", choices:["眠り","目覚め","覚醒","起き上がること","夜明け","朝の始まり"]},
+  ]
+},
+{
+  word:"うつつ", meaning:"現実 / 正気",
+  rarity:"N", atk:21, hp:117,
+  reading:"うつつ", hinshi:"名詞",
+  detail:"「夢」の対義語。「夢か、うつつか」と覚える。目が覚めている現実の状態と、正常な精神状態の両方を表す語。",
+  example:"夢かうつつかと思ひたまふ。",
+  exampleMeaning:"夢か現実かとお思いになる。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"現実", choices:["現実","夢","幻","まぼろし","非現実","空想の世界"]},
+    {correct:"正気", choices:["正気","錯乱","狂気","夢心地","うわの空","正気を失った状態"]},
+  ]
+},
+{
+  word:"あるじ・あるじす", meaning:"客をもてなす（こと） / ご馳走する（こと） / 主人",
+  rarity:"N", atk:22, hp:120,
+  reading:"あるじ・あるじす", hinshi:"名詞・動詞（サ行変格活用）",
+  detail:"「御馳走する」は「あるじまうけ・あるじまうけす」の略。宴席を設けて客をもてなすこと・その場の主人という両方の意味を持つ。",
+  example:"あるじしたまひけり。",
+  exampleMeaning:"おもてなしをなさった。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"客をもてなす（こと）",  choices:["客をもてなす（こと）","客を追い返す（こと）","門前払いにする（こと）","客を無視する（こと）","もてなしを断る（こと）","冷遇する（こと）"]},
+    {correct:"ご馳走する（こと）",    choices:["ご馳走する（こと）","粗末にもてなす（こと）","食事を出さない（こと）","客を断る（こと）","空腹のまま帰す（こと）","振る舞いを拒む（こと）"]},
+    {correct:"主人",                  choices:["主人","客人","訪問者","使用人","下男","召し使い"]},
+  ]
+},
+{
+  word:"ふるさと", meaning:"旧都 / 昔馴染みの地",
+  rarity:"N", atk:20, hp:114,
+  reading:"ふるさと", hinshi:"名詞",
+  detail:"「古い里」＝「旧都、昔馴染みの土地」の意味。現代語のふるさと（生まれ故郷）とは異なり、かつて都があった場所・かつて住んでいた土地を指す。",
+  example:"ふるさとになりにたるを。",
+  exampleMeaning:"旧都（廃都）になってしまったのを。",
+  source:"土佐日記",
+  quizzes:[
+    {correct:"旧都",       choices:["旧都","新都","現在の都","今の都","新しい首都","最新の都"]},
+    {correct:"昔馴染みの地", choices:["昔馴染みの地","初めて訪れる土地","見知らぬ場所","縁もゆかりもない土地","初めての地","未知の場所"]},
+  ]
+},
+{
+  word:"をこ・をこなり", meaning:"愚か（だ）",
+  rarity:"N", atk:19, hp:110,
+  reading:"をこ・をこなり", hinshi:"名詞・形容動詞（ナリ活用）",
+  detail:"「をこ」＝「愚か」のニュアンス。思慮がなく間抜けな様子を表す語。現代語の「おこがましい」の語源とも言われる。",
+  example:"をこなることかな。",
+  exampleMeaning:"愚かなことよなあ。",
+  source:"枕草子",
+  quizzes:[
+    {correct:"愚か（だ）", choices:["愚か（だ）","賢い","思慮深い","分別がある","聡明だ","判断力がある"]},
+  ]
+},
+{
+  word:"むべ・うべ", meaning:"なるほど",
+  rarity:"N", atk:19, hp:110,
+  reading:"むべ・うべ", hinshi:"副詞",
+  detail:"「得可（うべ）」が語源。納得してうなずく様子を表す語。「なるほど・もっともだ」という深い同意・納得の感覚が核心。",
+  example:"むべ山風をあらしといふらむ。",
+  exampleMeaning:"なるほど山風を嵐というのだろう。",
+  source:"古今和歌集",
+  quizzes:[
+    {correct:"なるほど", choices:["なるほど","まさか","信じられない","とんでもない","納得できない","そんなはずはない"]},
+  ]
+},
+{
+  word:"やをら・やはら", meaning:"そっと静かに / おもむろに",
+  rarity:"N", atk:19, hp:110,
+  reading:"やをら・やはら", hinshi:"副詞",
+  detail:"「柔ら」が語源。ゆっくりと行う動作を表す語。音を立てずに静かに・ゆっくり落ち着いて動作するさまが核心。",
+  example:"やをらかき消つやうにて。",
+  exampleMeaning:"そっと静かに消えるように（消えてしまった）。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"そっと静かに", choices:["そっと静かに","激しく","乱暴に","大声で","荒々しく","勢いよく"]},
+    {correct:"おもむろに",   choices:["おもむろに","突然に","いきなり","急に","慌てて","あわただしく"]},
+  ]
+},
+{
+  word:"いとど", meaning:"ますます",
+  rarity:"N", atk:19, hp:110,
+  reading:"いとど", hinshi:"副詞",
+  detail:"「いと」と混同しない。「いと」は「たいそう」だが「いとど」は「ますます」。程度が更に加わっていくさまが核心。",
+  example:"いとど心細さまされど。",
+  exampleMeaning:"ますます心細さが増すけれど。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"ますます", choices:["ますます","少しだけ","わずかに","だんだん減る","次第に薄れる","もはや"]},
+  ]
+},
+{
+  word:"まだき", meaning:"まだその時期でないうちに",
+  rarity:"N", atk:19, hp:110,
+  reading:"まだき", hinshi:"副詞",
+  detail:"まだその時期ではない状態（時期尚早）が核心。早すぎる・時機が来ていないのにもう、というニュアンスを表す。",
+  example:"まだきに起き出でたまひて。",
+  exampleMeaning:"まだその時期でないうちに（早くも）起き出していらっしゃって。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"まだその時期でないうちに", choices:["まだその時期でないうちに","ちょうどよい時に","時機を得て","満を持して","頃合いを見計らって","絶好の時に"]},
+  ]
+},
+{
+  word:"あまた", meaning:"たくさん / たいそう",
+  rarity:"N", atk:20, hp:113,
+  reading:"あまた", hinshi:"副詞",
+  detail:"「数多」という漢字表記を覚えれば意味は明らか。数量のたくさんと程度のはなはだしさの両方を表す語。",
+  example:"あまたの人を引き連れて。",
+  exampleMeaning:"たくさんの人を引き連れて。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"たくさん", choices:["たくさん","わずかに","ほんの少し","数えるほど","ほとんどない","ひとつだけ"]},
+    {correct:"たいそう", choices:["たいそう","少しも","全く","さほど","それほどでも","あまり"]},
+  ]
+},
+{
+  word:"かたみに", meaning:"互いに",
+  rarity:"N", atk:19, hp:110,
+  reading:"かたみに", hinshi:"副詞",
+  detail:"「互に」という字を当てる。形見ではない。双方が同じことをし合う・お互いに、という相互性が核心。",
+  example:"かたみに袖を濡らして。",
+  exampleMeaning:"互いに袖を濡らして（泣いて）。",
+  source:"古今和歌集",
+  quizzes:[
+    {correct:"互いに", choices:["互いに","一方的に","どちらか一方が","片方だけが","一人で","独りよがりに"]},
+  ]
+},
+{
+  word:"さがなし", meaning:"意地が悪い / （口）やかましい / いたずらだ",
+  rarity:"SR", atk:41, hp:176,
+  reading:"さがなし", hinshi:"形容詞（ク活用）",
+  detail:"「さが（性）」（性質・性分の意）が形容詞化した語。もとの性質が悪いという核心から、意地悪・口うるさい・いたずらな様子を表す。",
+  example:"さがなき童べどもの。",
+  exampleMeaning:"いたずらな子供たちが。",
+  source:"枕草子",
+  quizzes:[
+    {correct:"意地が悪い",     choices:["意地が悪い","心優しい","親切だ","思いやりがある","温かい","気立てが良い"]},
+    {correct:"（口）やかましい", choices:["（口）やかましい","口数が少ない","無口だ","寡黙だ","物静かだ","黙っている"]},
+    {correct:"いたずらだ",     choices:["いたずらだ","おとなしい","従順だ","品行方正だ","真面目だ","礼儀正しい"]},
+  ]
+},
+{
+  word:"びんなし", meaning:"不都合だ / つまらない",
+  rarity:"N", atk:20, hp:113,
+  reading:"びんなし", hinshi:"形容詞（ク活用）",
+  detail:"「便」（具合の意）＋「無し」→「具合が悪い」の意味に。都合が悪い・間が悪いという核心から、つまらない・情けないの意味にも。",
+  example:"びんなき折にぞ来たりける。",
+  exampleMeaning:"不都合な時に来てしまった。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"不都合だ",   choices:["不都合だ","都合がよい","好都合だ","うまくいく","申し分ない","ちょうどよい"]},
+    {correct:"つまらない", choices:["つまらない","面白い","興味深い","趣がある","楽しい","心惹かれる"]},
+  ]
+},
+{
+  word:"かひなし", meaning:"むだだ / つまらない",
+  rarity:"N", atk:19, hp:110,
+  reading:"かひなし", hinshi:"形容詞（ク活用）",
+  detail:"「甲斐がない」→「むだだ」の意味に。努力や行為に見合う効果・価値がないという核心から、つまらない・意味がないの意味にも。",
+  example:"かひなき嘆きをのみして。",
+  exampleMeaning:"むだな嘆きばかりして。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"むだだ",     choices:["むだだ","意味がある","価値がある","甲斐がある","効果的だ","有益だ"]},
+    {correct:"つまらない", choices:["つまらない","面白い","興味深い","趣がある","楽しい","心惹かれる"]},
+  ]
+},
+{
+  word:"いふかひなし", meaning:"どうしようもない / 言いようがない / つまらない",
+  rarity:"SR", atk:42, hp:177,
+  reading:"いふかひなし", hinshi:"形容詞（ク活用）",
+  detail:"かひ（甲斐）は「価値」「効果」。言う価値がない→どうしようもない。言葉では表現できないほどひどい状態、または取るに足らないさまを表す。",
+  example:"いふかひなき有様にて。",
+  exampleMeaning:"どうしようもない有様で。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"どうしようもない", choices:["どうしようもない","解決できる","なんとかなる","打開できる","うまくいく","方法がある"]},
+    {correct:"言いようがない",   choices:["言いようがない","いくらでも言える","言葉に事欠かない","雄弁だ","語り尽くせる","うまく表現できる"]},
+    {correct:"つまらない",       choices:["つまらない","面白い","興味深い","趣がある","楽しい","心惹かれる"]},
+  ]
+},
+{
+  word:"あり", meaning:"いる / 住む",
+  rarity:"N", atk:17, hp:106,
+  reading:"あり", hinshi:"動詞（ラ行変格活用）",
+  detail:"現代語では「ある」。「いる」は人・動物に、「住む」は居住に使う。関連語「あらむ・あらば・あれど」などの形で頻出。",
+  example:"都にありし時。",
+  exampleMeaning:"都にいた時。",
+  source:"土佐日記",
+  quizzes:[
+    {correct:"いる",  choices:["いる","いない","去る","立ち去る","消える","いなくなる"]},
+    {correct:"住む",  choices:["住む","旅立つ","去る","放浪する","流浪する","さすらう"]},
+  ]
+},
+{
+  word:"さり", meaning:"そうだ",
+  rarity:"N", atk:18, hp:108,
+  reading:"さり", hinshi:"動詞（ラ行変格活用）",
+  detail:"指示の副詞「さ」＋ラ変動詞「あり」→さあり→さり。「そのようだ・その通りだ」という同意・確認の意を表す。",
+  example:"さりとも、かかるをりに。",
+  exampleMeaning:"そうはいっても、こんな折に。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"そうだ", choices:["そうだ","そうではない","違う","まったく異なる","見当違いだ","全然違う"]},
+  ]
+},
+{
+  word:"かづく", meaning:"褒美として頂戴する / 褒美として与える / かぶる / かぶせる / 水中にもぐる",
+  rarity:"UR", atk:93, hp:228,
+  skill:"firstTurn",
+  reading:"かづく", hinshi:"動詞（カ行四段／下二段活用）",
+  detail:"「褒美を頂戴する」（四段活用）と「褒美を与える」（下二段活用）。活用の種類で意味が変わる重要多義語。デッキに入れると最初のターンのみATKが2倍になる特殊スキルを持つ。",
+  example:"御衣かづけたまひて。",
+  exampleMeaning:"お召し物を褒美として与えなさって。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"褒美として頂戴する", choices:["褒美として頂戴する","褒美を辞退する","褒美を断る","褒美を返す","褒美を拒む","褒美を捨てる"]},
+    {correct:"褒美として与える",   choices:["褒美として与える","褒美を取り上げる","褒美を剥奪する","褒美を没収する","褒美を惜しむ","褒美を与えない"]},
+    {correct:"かぶる",             choices:["かぶる","脱ぐ","はずす","取り除く","外す","はぎ取る"]},
+    {correct:"かぶせる",           choices:["かぶせる","脱がせる","はずさせる","取り除く","外させる","はぎ取る"]},
+    {correct:"水中にもぐる",       choices:["水中にもぐる","水面に浮かぶ","水上に出る","陸に上がる","浮き上がる","岸に戻る"]},
+  ]
+},
+{
+  word:"わく", meaning:"区別する / 分配する",
+  rarity:"N", atk:20, hp:113,
+  reading:"わく", hinshi:"動詞（カ行四段／下二段活用）",
+  detail:"四段活用は「区別する」、下二段活用は「分配する」。活用の種類で意味が変わる語。物事を分けて扱うという核心が共通。",
+  example:"わきても思はぬ心かな。",
+  exampleMeaning:"区別して特別に思わない心よ。",
+  source:"古今和歌集",
+  quizzes:[
+    {correct:"区別する", choices:["区別する","混同する","一緒にする","区別しない","ごちゃまぜにする","同一視する"]},
+    {correct:"分配する", choices:["分配する","独り占めする","集める","まとめる","奪う","独占する"]},
+  ]
+},
+{
+  word:"ふる", meaning:"古びる / 老いる",
+  rarity:"N", atk:19, hp:110,
+  reading:"ふる", hinshi:"動詞（ラ行上二段活用）",
+  detail:"「古」の字を当てる。活用に注意。時間が経って古くなる・年を取るという時間の経過による変化が核心。",
+  example:"年ふりにけるかな。",
+  exampleMeaning:"年老いてしまったことよ。",
+  source:"古今和歌集",
+  quizzes:[
+    {correct:"古びる", choices:["古びる","新しくなる","生まれ変わる","新鮮になる","若返る","刷新される"]},
+    {correct:"老いる", choices:["老いる","若返る","幼くなる","若くなる","生まれ変わる","青春を取り戻す"]},
+  ]
+},
+{
+  word:"あらまほし", meaning:"好ましい",
+  rarity:"N", atk:21, hp:116,
+  reading:"あらまほし", hinshi:"形容詞（シク活用）",
+  detail:"組成は「あり」＋願望の助動詞「まほし」。「あってほしい・そうであってほしい」という願望から「好ましい・理想的だ」の意味に。",
+  example:"あらまほしき御有様かな。",
+  exampleMeaning:"好ましいご様子よなあ。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"好ましい", choices:["好ましい","好ましくない","望ましくない","あってほしくない","忌まわしい","不快だ"]},
+  ]
+},
+{
+  word:"かたし", meaning:"むずかしい / まれだ / ～（し）にくい / 堅固だ",
+  rarity:"SSR", atk:61, hp:193,
+  skill:"guard",
+  reading:"かたし", hinshi:"形容詞（ク活用）",
+  detail:"「難し」の字から「難しい」の意味に。難しい・めったにない・しにくい・固いという幅広い意味を持つ重要語。デッキに入れると受けるダメージを20%軽減する特殊スキルを持つ。",
+  example:"かたき世の中かな。",
+  exampleMeaning:"難しい（生きにくい）世の中よなあ。",
+  source:"徒然草",
+  quizzes:[
+    {correct:"むずかしい",    choices:["むずかしい","たやすい","造作もない","朝飯前だ","難なくできる","簡単だ"]},
+    {correct:"まれだ",        choices:["まれだ","ありふれている","よく見かける","どこにでもある","平凡だ","当たり前だ"]},
+    {correct:"～（し）にくい", choices:["～（し）にくい","～（し）やすい","～（し）放題だ","～（し）てもよい","難なく～できる","いくらでも～できる"]},
+    {correct:"堅固だ",        choices:["堅固だ","もろい","崩れやすい","脆弱だ","頼りない","すぐ壊れる"]},
+  ]
+},
+{
+  word:"さらなり", meaning:"言うまでもない",
+  rarity:"N", atk:18, hp:108,
+  reading:"さらなり", hinshi:"形容動詞（ナリ活用）",
+  detail:"さらに繰り返して「言うまでもない」の意に。「更なり」の字を当て、今さら言うまでもない・当然のことだという意味を表す。",
+  example:"さらなり、夜昼の空は。",
+  exampleMeaning:"言うまでもなく、昼夜の空は（美しい）。",
+  source:"枕草子",
+  quizzes:[
+    {correct:"言うまでもない", choices:["言うまでもない","言わなければならない","説明が必要だ","言いにくい","口に出せない","言葉にならない"]},
+  ]
+},
+{
+  word:"いかなり", meaning:"どうだ / どんなだ",
+  rarity:"N", atk:19, hp:110,
+  reading:"いかなり", hinshi:"形容動詞（ナリ活用）",
+  detail:"「いか」が語頭につくと多く疑問または反語の意味。「どのような」「どうした」という状態・様子への疑問が核心。",
+  example:"いかなる心ちするらむ。",
+  exampleMeaning:"どのような気持ちがするだろうか。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"どうだ",   choices:["どうだ","決まっている","明らかだ","疑いようがない","当然だ","言うまでもない"]},
+    {correct:"どんなだ", choices:["どんなだ","決まっている","明らかだ","疑いようがない","当然だ","言うまでもない"]},
+  ]
+},
+{
+  word:"つゆ", meaning:"わずか / 全く",
+  rarity:"N", atk:19, hp:110,
+  reading:"つゆ", hinshi:"副詞",
+  detail:"「露」は、わずかではかないもの。少量の露のようなわずかさから、打消しを伴って「全く～ない」の意味にも使われる。",
+  example:"つゆ思はずなりにけり。",
+  exampleMeaning:"全く（少しも）思わなくなってしまった。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"わずか", choices:["わずか","たくさん","大量に","あり余るほど","潤沢に","いくらでも"]},
+    {correct:"全く",   choices:["全く","少し","わずかに","かすかに","ほんの少し","多少"]},
+  ]
+},
+{
+  word:"よろづ", meaning:"すべて / 何事につけて",
+  rarity:"N", atk:20, hp:113,
+  reading:"よろづ", hinshi:"名詞・副詞",
+  detail:"「万」の字から「すべて、様々なこと」を連想。名詞では「あらゆること・万事」、副詞では「何事につけても」の意味を表す。",
+  example:"よろづのことよりも。",
+  exampleMeaning:"すべてのことよりも（何事よりも）。",
+  source:"枕草子",
+  quizzes:[
+    {correct:"すべて",     choices:["すべて","一部","ひとつだけ","限られた","わずか","ほんの少し"]},
+    {correct:"何事につけて", choices:["何事につけて","何事も無視して","ひとつのことだけに","限られた場合に","特定のことのみ","例外的に"]},
+  ]
+},
+{
+  word:"おほかた", meaning:"だいたい / 全然 / そもそも",
+  rarity:"SSR", atk:62, hp:197,
+  reading:"おほかた", hinshi:"名詞・副詞・接続詞",
+  detail:"「だいたい」は名詞、「全然」と「だいたい」は副詞、「そもそも」は接続詞。特に「全然」と「そもそも」の用法に注意。",
+  example:"おほかたいかがはすべき。",
+  exampleMeaning:"そもそもどうすればよいのか。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"だいたい",   choices:["だいたい","細かく","詳細に","一つ一つ","ことごとく","余すところなく"]},
+    {correct:"全然",       choices:["全然","少し","わずかに","かすかに","多少","ある程度"]},
+    {correct:"そもそも",   choices:["そもそも","結局","最終的に","ようやく","ついに","いよいよ"]},
+  ]
+},
+{
+  word:"あらまし", meaning:"予定 / 予想",
+  rarity:"N", atk:20, hp:113,
+  reading:"あらまし", hinshi:"名詞",
+  detail:"ラ変動詞「あり」＋「まし」→「あればなあ」が原義。現実にはなっていないが、なるはずのこと・予想されることを表す語。",
+  example:"あらましのことを語りて。",
+  exampleMeaning:"予定のことを話して。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"予定", choices:["予定","結果","現実","実際の出来事","成り行き","結末"]},
+    {correct:"予想", choices:["予想","事実","現実","確定したこと","実際の結果","既に起きたこと"]},
+  ]
+},
+{
+  word:"ただ・ただなり", meaning:"直接 / すぐに / ちょうど / 普通だ",
+  rarity:"SR", atk:40, hp:175,
+  reading:"ただ・ただなり", hinshi:"副詞・形容動詞（ナリ活用）",
+  detail:"「直接」「すぐに」は「直」。「ちょうど」「普通だ」は「只、徒、唯」を当てる。漢字で意味を判断する重要多義語。",
+  example:"ただならぬ御けしきにて。",
+  exampleMeaning:"普通でないご様子で。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"直接",   choices:["直接","間接的に","遠回しに","人を介して","回り道して","婉曲に"]},
+    {correct:"すぐに", choices:["すぐに","じっくりと","ゆっくりと","時間をかけて","徐々に","少しずつ"]},
+    {correct:"ちょうど", choices:["ちょうど","まったく違う","ほど遠い","かけ離れている","全然異なる","似ても似つかない"]},
+    {correct:"普通だ", choices:["普通だ","際立っている","格別だ","並外れている","特別だ","異様だ"]},
+  ]
+},
+{
+  word:"さ", meaning:"そう",
+  rarity:"N", atk:17, hp:106,
+  reading:"さ", hinshi:"副詞",
+  detail:"指示の副詞。関連語・連語が大切。「さあり→さり（そうだ）」「さもあらば（そうならば）」「さすがに（そうはいっても）」など多くの連語の基となる語。",
+  example:"さも思はれけむ。",
+  exampleMeaning:"そう思われたことだろう。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"そう", choices:["そう","違う","そうではない","まったく異なる","見当違いだ","全然違う"]},
+  ]
+},
+{
+  word:"かく・かう", meaning:"このように",
+  rarity:"N", atk:18, hp:108,
+  reading:"かく・かう", hinshi:"副詞",
+  detail:"指示する内容の把握が大事。「かく」は直接的に「このように」と示す語。「かかり（このようだ）」「かかる（このような）」の語源。",
+  example:"かく思ひたまへても。",
+  exampleMeaning:"このように思っておりましても。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"このように", choices:["このように","あのように","そのように","全く別の方法で","違うやり方で","正反対に"]},
+  ]
+},
+{
+  word:"さて", meaning:"そのまま / それ以外 / ところで",
+  rarity:"N", atk:19, hp:110,
+  reading:"さて", hinshi:"副詞・接続詞",
+  detail:"「そのまま、それ以外」という副詞の用法が大切。そのままの状態で継続する意と、話題を転換する接続詞の用法がある。",
+  example:"さてもかくてもあらむ。",
+  exampleMeaning:"そのままでも（それ以外で）もあるだろう。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"そのまま",   choices:["そのまま","変えて","改めて","やり直して","別の方法で","一から始めて"]},
+    {correct:"それ以外",   choices:["それ以外","それだけ","そのみ","それに限って","それのみ","それ以上でも以下でもない"]},
+    {correct:"ところで",   choices:["ところで","したがって","それゆえ","だから","その結果","以上のことから"]},
+  ]
+},
+{
+  word:"さも", meaning:"いかにも / そのように / それほど / そうも",
+  rarity:"N", atk:20, hp:113,
+  reading:"さも", hinshi:"副詞",
+  detail:"指示の副詞「さ」＋係助詞「も」。そのように・いかにもという強い同意・肯定の意と、それほど・そうもという程度を表す用法がある。",
+  example:"さもあらばあれ。",
+  exampleMeaning:"そうであれ（そうなら仕方ない）。",
+  source:"源氏物語",
+  quizzes:[
+    {correct:"いかにも",   choices:["いかにも","まったく違う","そうではない","見当違いだ","全然違う","そんなはずはない"]},
+    {correct:"そのように", choices:["そのように","まったく別の方法で","違うやり方で","正反対に","あのように","全然異なる形で"]},
+    {correct:"それほど",   choices:["それほど","少しも","全く","さほど","これっぽっちも","まったく"]},
+    {correct:"そうも",     choices:["そうも","そうでもなく","違う形で","別の意味で","そうとは限らず","まったく逆に"]},
+  ]
+},
 ];
 kobunCards.forEach(c=>c.type="kobun");
 
@@ -3637,6 +4283,7 @@ let fukubikiTickets = 0;      // 福引チケット枚数
 
 // Runtime battle state
 let playerHP = 0, playerMaxHP = 0;
+let firstTurnUsed = false; // かづくのファーストターンスキル管理
 let inBattle = false;
 let quizAnswer = "", quizLocked = false, quizCard = null;
 let versusMode = false, versusCode = "", enemyDeck = [];
@@ -3727,7 +4374,7 @@ function showKobunDetail(word){
   const card = kobunCards.find(c=>c.word===word);
   if(!card) return;
   const rarityColor = {N:"#aaa",R:"#6BCB77",SR:"#4D96FF",SSR:"#FFD93D",UR:"#ff9500"}[card.rarity]||"#fff";
-  const skillLabels = {critical:"⚡ CRITICAL 20%", critical33:"⚡ 正解時CRITICAL 33%", drain:"💚 ドレイン10%", regen:"💛 毎ターンHP+150"};
+  const skillLabels = {critical:"⚡ CRITICAL 20%", critical33:"⚡ 正解時CRITICAL 33%", drain:"💚 ドレイン10%", regen:"💛 毎ターンHP+150", firstTurn:"⚡ 初回ATK×2", guard:"🛡 ダメージ20%軽減"};
   const skillBadge = card.skill
     ? `<div class="ur-skill-badge" style="margin:4px 0;display:inline-block">${skillLabels[card.skill]||""}</div>`
     : "";
@@ -3914,12 +4561,26 @@ function answerQuiz(choice, btn){
   state.deck.forEach(c=>atk+=c.atk+(c.upgrade||0)*Math.floor(c.atk*0.05));
   document.querySelectorAll(".quiz-btn").forEach(b=>b.disabled=true);
 
+  // ファーストターンスキル（かづく）：最初のターンのみATK×2（正解・不正解問わず）
+  const hasFirstTurn = state.deck.some(c=>c.skill==="firstTurn");
+  if(hasFirstTurn && !firstTurnUsed){
+    atk = atk * 2;
+    firstTurnUsed = true;
+    const txt = document.createElement("div");
+    txt.style.cssText = `position:fixed;top:calc(50% + 60px);left:50%;transform:translateX(-50%);
+      font-family:'Fredoka One',cursive;font-size:1.1rem;color:#FFD93D;
+      text-shadow:0 0 10px rgba(255,217,61,0.8);pointer-events:none;z-index:9999;
+      animation:critical-flash 1.4s ease forwards;white-space:nowrap`;
+    txt.textContent = "⚡ 初回ATK×2";
+    document.body.appendChild(txt);
+    setTimeout(()=>txt.remove(), 1400);
+  }
+
   if(choice===quizAnswer){
     btn.classList.add("correct");
     showCorrectCircle();
-    // 正解→ATK等倍
 
-    // URカードのクリティカル（20%：kobun ものす / 33%：english etiquette）
+    // URカードのクリティカル（正解時のみ）- firstTurnと重なると4倍
     const hasUR = state.deck.some(c=>c.rarity==="UR");
     if(hasUR){
       const hasCrit33 = state.deck.some(c=>c.skill==="critical33");
@@ -3970,7 +4631,12 @@ function answerQuiz(choice, btn){
   }
 
   state.bossHP -= atk;
-  const playerDmg = choice===quizAnswer ? Math.floor(state.bossATK/2) : state.bossATK;
+  let playerDmg = choice===quizAnswer ? Math.floor(state.bossATK/2) : state.bossATK;
+
+  // ガードスキル（かたし）：ダメージ20%軽減
+  const hasGuard = state.deck.some(c=>c.skill==="guard");
+  if(hasGuard) playerDmg = Math.floor(playerDmg * 0.8);
+
   playerHP -= playerDmg;
 
   // ドレインスキル：ほど（UR）がデッキにある場合、与えたダメージの10%を回復
@@ -4044,6 +4710,7 @@ function startBattle(){
   state.deck.forEach(c=>hp+=c.hp);
   playerHP = hp;
   playerMaxHP = hp;
+  firstTurnUsed = false;
   updateHPBars();
 }
 
@@ -4058,7 +4725,9 @@ function addDeck(ownedIndex){
   const card = owned[ownedIndex];
   if(card.type !== currentMode){alert(`このカードは${currentMode==="english"?"英語":"古文"}モード専用です`);return;}
   if(d.some(c=>c.word===card.word)){alert("同じカードは入れられません！");return;}
-  d.push(card);
+  const base = (card.type==="english" ? allCards : kobunCards).find(b=>b.word===card.word);
+  const skill = card.skill || (base ? base.skill : undefined);
+  d.push({...card, skill});
   saveGame(); update();
 }
 
@@ -4068,7 +4737,10 @@ function addDeckFromBook(word){
   const card = owned.find(c=>c.word===word && c.type===currentMode);
   if(!card) return;
   if(d.some(c=>c.word===word)){alert("同じカードは入れられません！");return;}
-  d.push(card);
+  // baseカードからskillを補完
+  const base = (currentMode==="english" ? allCards : kobunCards).find(b=>b.word===word);
+  const skill = card.skill || (base ? base.skill : undefined);
+  d.push({...card, skill});
   saveGame(); update();
 }
 
@@ -4103,6 +4775,8 @@ function updateSkillDisplay(deck, areaId){
     if(c.skill==="critical33")  skills.push("⚡ 正解時CRITICAL 33% 発動中（etiquette）");
     if(c.skill==="drain")       skills.push("💚 ドレイン10% 発動中（ほど）");
     if(c.skill==="regen")       skills.push("💛 毎ターンHP+150 発動中（たまふ）");
+    if(c.skill==="firstTurn")   skills.push("⚡ 初回ATK×2 発動中（かづく）");
+    if(c.skill==="guard")       skills.push("🛡 ダメージ20%軽減 発動中（かたし）");
   });
   if(skills.length===0){ area.innerHTML=""; return; }
   area.innerHTML = skills.map(s=>
@@ -4123,7 +4797,10 @@ function update(){
       const matches = owned.filter(o=>o.word===dc.word && o.type===dc.type);
       if(!matches.length) return dc;
       const best = matches.reduce((a,b)=>(a.upgrade||0)>=(b.upgrade||0)?a:b);
-      return {...best};
+      // skillフィールドがない場合はベースカードから補完
+      const base = (dc.type==="english" ? allCards : kobunCards).find(b=>b.word===dc.word);
+      const skill = best.skill || (base ? base.skill : undefined);
+      return {...best, skill};
     });
   });
 
@@ -4174,7 +4851,7 @@ function update(){
       <div class="stat">HP ${c.hp}</div>
       <div class="stat">×${c.count}</div>
       <div class="stat">強化 ${c.upgrade||0}/${getUpgradeMaxLevel(c.word)}</div>
-      ${isUR ? `<div class="ur-skill-badge">${c.skill==="drain"?"💚 ドレイン10%":c.skill==="critical33"?"⚡ 正解時CRITICAL 33%":c.skill==="regen"?"💛 毎ターンHP+150":"⚡ CRITICAL 20%"}</div>` : ''}
+      ${c.skill ? `<div class="ur-skill-badge">${{critical:"⚡ CRITICAL 20%",critical33:"⚡ 正解時CRITICAL 33%",drain:"💚 ドレイン10%",regen:"💛 毎ターンHP+150",firstTurn:"⚡ 初回ATK×2",guard:"🛡 ダメージ20%軽減"}[c.skill]||""}</div>` : ''}
       <button onclick="event.stopPropagation();addDeckFromBook('${c.word}')">デッキへ</button>
       <button onclick="event.stopPropagation();upgradeCard('${c.word}')">強化</button>
     </div>`;
@@ -4945,7 +5622,9 @@ function loadGame(){
           // デッキカードをownedの最新データで同期（upgrade情報を保持）
           modeState[m].deck = (s.deck||[]).map(dc=>{
             const latest = owned.find(o=>o.word===dc.word && o.type===dc.type);
-            return latest ? {...latest} : dc;
+            const base = (dc.type==="english" ? allCards : kobunCards).find(b=>b.word===dc.word);
+            const skill = (latest&&latest.skill) || (dc.skill) || (base ? base.skill : undefined);
+            return latest ? {...latest, skill} : dc;
           });
           modeState[m].bossHP = s.bossHP || modeState[m].bossHP;
           modeState[m].bossMaxHP = s.bossMaxHP || modeState[m].bossMaxHP;
@@ -5395,6 +6074,8 @@ function upgradeCard(word){
   }
   if(materials<getUpgradeCost(card.rarity, word)){alert("素材が足りません");return;}
   materials -= getUpgradeCost(card.rarity, word);
+  card.atk = Math.floor(card.atk * 1.05);
+  card.hp  = Math.floor(card.hp  * 1.10);
   card.upgrade++;
   owned[idx]=card;
 
@@ -6298,6 +6979,41 @@ function resetDailyBossDebug(){
 function addTicketsDebug(){
   if(typeof DEBUG === "undefined" || !DEBUG) return;
   fukubikiTickets+=1000; updateFukubikiUI(); saveGame(); alert("🎰 チケット1000枚追加");
+}
+
+function resetUpgradeDebug(){
+  if(typeof DEBUG === "undefined" || !DEBUG) return;
+  owned.forEach(c=>{ c.upgrade=0; });
+  // allCardsとkobunCardsの元の値に戻す
+  owned.forEach(c=>{
+    const base = (c.type==="english" ? allCards : kobunCards).find(b=>b.word===c.word);
+    if(base){ c.atk=base.atk; c.hp=base.hp; }
+  });
+  ["english","kobun"].forEach(m=>{
+    modeState[m].deck = modeState[m].deck.map(dc=>{
+      const base = (dc.type==="english" ? allCards : kobunCards).find(b=>b.word===dc.word);
+      return base ? {...base, type:dc.type, upgrade:0} : dc;
+    });
+  });
+  saveGame(); update(); alert("🔧 全カード強化リセット！");
+}
+
+function maxUpgradeDebug(){
+  if(typeof DEBUG === "undefined" || !DEBUG) return;
+  owned.forEach(c=>{
+    const base = (c.type==="english" ? allCards : kobunCards).find(b=>b.word===c.word);
+    if(!base) return;
+    c.upgrade = 10;
+    c.atk = Math.floor(base.atk * Math.pow(1.05, 10));
+    c.hp  = Math.floor(base.hp  * Math.pow(1.10, 10));
+  });
+  ["english","kobun"].forEach(m=>{
+    modeState[m].deck = modeState[m].deck.map(dc=>{
+      const latest = owned.find(o=>o.word===dc.word && o.type===dc.type);
+      return latest ? {...latest} : dc;
+    });
+  });
+  saveGame(); update(); alert("🔧 全カード強化MAX（10回）！");
 }
 
 // =============================================
