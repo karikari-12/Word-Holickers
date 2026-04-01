@@ -5889,6 +5889,7 @@ let lastLoginDate = "", missionDate = "";
 let sharedMissionCount10 = 0;
 let missionPackDone = false;
 let fukubikiTickets = 0;
+let resetTickets = 1;
 
 // Runtime battle state
 let playerHP = 0, playerMaxHP = 0;
@@ -6560,6 +6561,7 @@ function update(){
 
   // missionPanel
   updateMissionUI();
+  updateItemUI();
 
   if(inBattle && savedScroll > 0) window.scrollTo(0, savedScroll);
 }
@@ -6597,7 +6599,7 @@ function show(id){
   update();
 
   document.querySelectorAll(".bottomMenu button").forEach(b=>b.classList.remove("active"));
-  const map={battle:"btnBattle",pack:"btnPack",deckbook:"btnDeckBook",convert:"btnConvert"};
+  const map={battle:"btnBattle",pack:"btnPack",deckbook:"btnDeckBook",convert:"btnConvert",gamemenu:"btnGameMenu"};
   if(map[id]) document.getElementById(map[id]).classList.add("active");
 }
 
@@ -7083,7 +7085,7 @@ function backToBattleMenu(){
 }
 
 function saveGame(){
-  const data={owned,coins,materials,diamonds,lastLoginDate,missionDate,sharedMissionCount10,missionPackDone,fukubikiTickets,modeState};
+  const data={owned,coins,materials,diamonds,lastLoginDate,missionDate,sharedMissionCount10,missionPackDone,fukubikiTickets,resetTickets,modeState};
   localStorage.setItem("wordCardGame_v2", JSON.stringify(data));
 }
 
@@ -7101,6 +7103,7 @@ function loadGame(){
     sharedMissionCount10 = save.sharedMissionCount10||0;
     missionPackDone = save.missionPackDone||false;
     fukubikiTickets = save.fukubikiTickets||0;
+    resetTickets = save.resetTickets !== undefined ? save.resetTickets : 1;
     if(save.modeState){
       ["english","kobun"].forEach(m=>{
         if(save.modeState[m]){
@@ -7804,6 +7807,145 @@ function upgradeCard(word){
   owned[idx]=card;
   ["english","kobun"].forEach(m=>{ modeState[m].deck.forEach((dc,di)=>{ if(dc.word===word&&dc.type===currentMode)modeState[m].deck[di]={...card}; }); });
   saveGame();update();
+}
+
+function updateItemUI(){
+  const area = document.getElementById("itemArea");
+  if(!area) return;
+  area.innerHTML = `
+    <div class="item-card">
+      <div class="item-icon">🎰</div>
+      <div class="item-info">
+        <div class="item-name">福引チケット</div>
+        <div class="item-desc">ガチャ画面の福引で使用できます</div>
+        <div class="item-count">×${fukubikiTickets}</div>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="item-icon">🔄</div>
+      <div class="item-info">
+        <div class="item-name">カードリセットチケット</div>
+        <div class="item-desc">所持カード1枚の強化をリセットします<br>強化素材は返却されません</div>
+        <div class="item-count">×${resetTickets}</div>
+      </div>
+      <button onclick="openResetTicketModal()"
+        style="margin-top:8px;background:linear-gradient(135deg,#FF6B6B,#C77DFF);font-size:13px;padding:8px 18px;width:100%;${resetTickets<=0?'opacity:0.4;cursor:not-allowed':''}"
+        ${resetTickets<=0?'disabled':''}>
+        使用する
+      </button>
+    </div>`;
+}
+ 
+function openResetTicketModal(){
+  if(resetTickets <= 0){ alert("リセットチケットがありません！"); return; }
+  document.getElementById("resetTicketModal").style.display = "flex";
+  selectedResetWord = null;
+  selectedResetType = null;
+  const confirmBtn = document.getElementById("resetConfirmBtn");
+  confirmBtn.disabled = true;
+  confirmBtn.style.opacity = "0.4";
+  confirmBtn.style.cursor = "not-allowed";
+  renderResetCardList();
+}
+ 
+function closeResetTicketModal(){
+  document.getElementById("resetTicketModal").style.display = "none";
+  selectedResetWord = null;
+  selectedResetType = null;
+}
+ 
+function renderResetCardList(){
+  const list = document.getElementById("resetCardList");
+  const mode = document.getElementById("resetModeToggle").value;
+  const upgradedCards = owned.filter(c=>(c.upgrade||0) > 0 && c.type === mode);
+  const grouped = {};
+  upgradedCards.forEach(c=>{
+    if(!grouped[c.word] || (c.upgrade||0) > (grouped[c.word].upgrade||0)){
+      grouped[c.word] = c;
+    }
+  });
+  const cards = Object.values(grouped).sort((a,b)=>(b.upgrade||0)-(a.upgrade||0));
+  if(cards.length === 0){
+    list.innerHTML = `<div style="color:rgba(255,255,255,0.4);font-size:14px;padding:20px;text-align:center">強化済みのカードがありません</div>`;
+    return;
+  }
+  const rarityColor = {N:"#aaa",R:"#6BCB77",SR:"#4D96FF",SSR:"#FFD93D",UR:"#ff9500"};
+  list.innerHTML = cards.map(c=>`
+    <div class="reset-card-item" onclick="selectResetCard('${c.word.replace(/'/g,"\\'")}','${c.type}')" id="resetItem-${c.word.replace(/[^a-zA-Z0-9]/g,'_')}">
+      <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0">
+        <div style="width:8px;height:8px;border-radius:50%;background:${rarityColor[c.rarity]||'#fff'};flex-shrink:0"></div>
+        <div style="min-width:0">
+          <div style="font-weight:700;font-size:14px;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.word}</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.5)">${c.meaning}</div>
+        </div>
+      </div>
+      <div style="text-align:right;flex-shrink:0;margin-left:8px">
+        <div style="font-size:12px;color:var(--pop2);font-weight:700">強化 ${c.upgrade||0}回</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.4)">ATK ${c.atk} / HP ${c.hp}</div>
+      </div>
+    </div>`).join("");
+}
+ 
+let selectedResetWord = null;
+let selectedResetType = null;
+ 
+function selectResetCard(word, type){
+  selectedResetWord = word;
+  selectedResetType = type;
+  document.querySelectorAll(".reset-card-item").forEach(el=>{
+    el.style.background = "rgba(255,255,255,0.05)";
+    el.style.border = "1px solid rgba(255,255,255,0.1)";
+  });
+  const safeId = word.replace(/[^a-zA-Z0-9]/g,'_');
+  const el = document.getElementById(`resetItem-${safeId}`);
+  if(el){
+    el.style.background = "rgba(255,107,107,0.2)";
+    el.style.border = "1px solid rgba(255,107,107,0.5)";
+  }
+  const btn = document.getElementById("resetConfirmBtn");
+  btn.disabled = false;
+  btn.style.opacity = "1";
+  btn.style.cursor = "pointer";
+}
+ 
+function confirmResetCard(){
+  if(!selectedResetWord || !selectedResetType){ alert("カードを選んでください"); return; }
+  if(resetTickets <= 0){ alert("リセットチケットがありません"); return; }
+  const card = owned.find(c=>c.word===selectedResetWord && c.type===selectedResetType);
+  if(!card){ alert("カードが見つかりません"); return; }
+  if(!confirm(`「${card.word}」の強化をリセットしますか？\n強化回数: ${card.upgrade||0}回\n⚠️ 強化素材は返却されません。`)) return;
+  const base = (selectedResetType==="english"?allCards:kobunCards).find(b=>b.word===selectedResetWord);
+  if(base){
+    owned.forEach(c=>{
+      if(c.word===selectedResetWord && c.type===selectedResetType){
+        c.atk = base.atk;
+        c.hp  = base.hp;
+        c.upgrade = 0;
+      }
+    });
+    localStorage.removeItem(`upgradeExpand_${selectedResetWord}`);
+    ["english","kobun"].forEach(m=>{
+      modeState[m].deck = modeState[m].deck.map(dc=>{
+        if(dc.word===selectedResetWord && dc.type===selectedResetType){
+          return {...dc, atk:base.atk, hp:base.hp, upgrade:0};
+        }
+        return dc;
+      });
+    });
+  }
+  resetTickets--;
+  selectedResetWord = null;
+  selectedResetType = null;
+  saveGame();
+  update();
+  closeResetTicketModal();
+  updateItemUI();
+  // 完了エフェクト
+  const popup = document.createElement("div");
+  popup.style.cssText = `position:fixed;top:80px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#FF6B6B,#C77DFF);color:#fff;font-family:'Fredoka One',cursive;font-size:1.1rem;padding:12px 24px;border-radius:20px;z-index:9999;box-shadow:0 4px 20px rgba(255,107,107,0.5);animation:mission-pop 2.5s ease forwards;white-space:nowrap;`;
+  popup.textContent = "🔄 カードリセット完了！";
+  document.body.appendChild(popup);
+  setTimeout(()=>popup.remove(), 2500);
 }
 
 // =============================================
