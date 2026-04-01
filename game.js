@@ -7593,16 +7593,42 @@ function showCritical(){
 //  MISSION UI
 // =============================================
 function switchGachaTab(tab){
-  document.getElementById("englishGachaSection").style.display=tab==="english"?"block":"none";
-  document.getElementById("kobunGachaSection").style.display=tab==="kobun"?"block":"none";
-  document.getElementById("fukubikiSection").style.display=tab==="fukubiki"?"block":"none";
-  document.getElementById("packArea").innerHTML=""; document.getElementById("packResult").innerHTML="";
-  document.getElementById("gachaTab-english").className="modeTab"+(tab==="english"?" active-english":"");
-  document.getElementById("gachaTab-kobun").className="modeTab"+(tab==="kobun"?" active-kobun":"");
-  document.getElementById("gachaTab-fukubiki").className="modeTab"+(tab==="fukubiki"?" active-english":"");
-  if(tab==="fukubiki"){ document.getElementById("packTitle").textContent="🎰 福引"; updateFukubikiUI(); }
-  else if(tab==="english"){ document.getElementById("packTitle").textContent="🎴 英語ガチャ"; }
-  else { document.getElementById("packTitle").textContent="🎴 古文ガチャ"; }
+  // 全セクション非表示
+  document.getElementById("englishGachaSection").style.display   = "none";
+  document.getElementById("kobunGachaSection").style.display     = "none";
+  document.getElementById("fukubikiSection").style.display       = "none";
+  document.getElementById("target1900GachaSection").style.display = "none";
+
+  // 対象セクション表示
+  if(tab === "english")     document.getElementById("englishGachaSection").style.display   = "block";
+  if(tab === "kobun")       document.getElementById("kobunGachaSection").style.display     = "block";
+  if(tab === "fukubiki")    document.getElementById("fukubikiSection").style.display       = "block";
+  if(tab === "target1900")  document.getElementById("target1900GachaSection").style.display = "block";
+
+  // タイトル
+  const titles = {
+    english:    "🎴 英語ガチャ",
+    kobun:      "🎴 古文ガチャ",
+    fukubiki:   "🎰 福引",
+    target1900: "🎯 ターゲット1900ガチャ"
+  };
+  document.getElementById("packTitle").textContent = titles[tab] || "🎴 ガチャ";
+
+  // タブのスタイル更新
+  ["english","kobun","fukubiki","target1900"].forEach(t=>{
+    const btn = document.getElementById(`gachaTab-${t}`);
+    if(!btn) return;
+    if(t === tab){
+      btn.className = t === "kobun" ? "modeTab active-kobun" : "modeTab active-english";
+    } else {
+      btn.className = "modeTab";
+    }
+  });
+
+  document.getElementById("packArea").innerHTML   = "";
+  document.getElementById("packResult").innerHTML = "";
+
+  if(tab === "fukubiki") updateFukubikiUI();
 }
 
 function updateFukubikiUI(){ const el=document.getElementById("fukubikiTicketCount"); if(el)el.textContent=fukubikiTickets; }
@@ -7946,6 +7972,1742 @@ function confirmResetCard(){
   popup.textContent = "🔄 カードリセット完了！";
   document.body.appendChild(popup);
   setTimeout(()=>popup.remove(), 2500);
+}
+
+// =============================================
+//  CHALLENGE BATTLE STATE
+// =============================================
+let challengeBossHP    = 50000;
+let challengeBossMaxHP = 50000;
+let challengeBossATK   = 2000;
+let challengeBossDEF   = 1000;
+let challengePlayerHP  = 0;
+let challengePlayerMaxHP = 0;
+let inChallengeBattle  = false;
+let challengeQuizLocked = false;
+let challengeCurrentLetters = [];
+let challengeTargetLetter   = null;
+let challengeQuizAnswer     = "";
+let challengeQuizCard       = null;
+let challengePenaltyActive  = false;
+let challengeFirstTurnUsed  = false;
+let challengeReviveUsed     = false;
+
+function getChallengeWeekKey(){
+  const now = new Date();
+  const day = now.getDay();
+  const diff = now.getDate() - day;
+  const sunday = new Date(now);
+  sunday.setDate(diff);
+  sunday.setHours(0,0,0,0);
+  return `challenge_defeated_${sunday.getTime()}`;
+}
+
+function isChallengeDefeated(){
+  return localStorage.getItem(getChallengeWeekKey()) === "defeated";
+}
+
+function markChallengeDefeated(){
+  localStorage.setItem(getChallengeWeekKey(), "defeated");
+}
+
+const ALPHABET = "abcdefghijklmnopqrstuvwxyz".split("");
+const HIRAGANA = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん".split("");
+
+// =============================================
+//  UI LOCK
+// =============================================
+function lockBattleUI(){
+  document.querySelectorAll(".bottomMenu button").forEach(b=>{
+    b.disabled = true;
+    b.style.opacity = "0.3";
+    b.style.pointerEvents = "none";
+  });
+  document.querySelectorAll(".modeTab, .modeTabBar button").forEach(b=>{
+    b.disabled = true;
+    b.style.opacity = "0.3";
+    b.style.pointerEvents = "none";
+  });
+}
+
+function unlockBattleUI(){
+  document.querySelectorAll(".bottomMenu button").forEach(b=>{
+    b.disabled = false;
+    b.style.opacity = "";
+    b.style.pointerEvents = "";
+  });
+  document.querySelectorAll(".modeTab, .modeTabBar button").forEach(b=>{
+    b.disabled = false;
+    b.style.opacity = "";
+    b.style.pointerEvents = "";
+  });
+  document.querySelectorAll(".bottomMenu button").forEach(b=>b.classList.remove("active"));
+  document.getElementById("btnBattle").classList.add("active");
+}
+
+// =============================================
+//  CHALLENGE BATTLE ENTRY
+// =============================================
+function showChallengeBattle(){
+  document.getElementById("battleMenu").style.display = "none";
+  document.getElementById("challengeBattleArea").style.display = "block";
+  renderChallengeMenu();
+}
+
+function renderChallengeMenu(){
+  const area = document.getElementById("challengeBattleArea");
+  const defeated = isChallengeDefeated();
+  const now = new Date();
+  const daysUntilSunday = (7 - now.getDay()) % 7 || 7;
+  const nextSunday = new Date(now);
+  nextSunday.setDate(now.getDate() + daysUntilSunday);
+  nextSunday.setHours(0,0,0,0);
+  const timeStr = nextSunday.toLocaleDateString("ja-JP",{month:"numeric",day:"numeric"}) + " 日曜0時";
+
+  area.innerHTML = `
+    <div style="text-align:center;padding:12px">
+      <div style="font-size:3.5rem;margin-bottom:8px">${defeated?"💀":"🔥"}</div>
+      <div style="font-family:'Fredoka One',cursive;font-size:1.3rem;
+        background:linear-gradient(90deg,#FF6B6B,#FFD93D,#C77DFF);
+        -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+        margin-bottom:6px">週間チャレンジバトル</div>
+      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
+        border-radius:16px;padding:14px;margin:12px auto;max-width:320px;text-align:left">
+        <div style="font-family:'Fredoka One',cursive;font-size:0.9rem;color:var(--pop2);
+          margin-bottom:8px;text-align:center">⚠️ ボス情報</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:2">
+          ❤️ HP: <b style="color:#FF6B6B">50,000</b><br>
+          ⚔️ ATK: <b style="color:#FF6B6B">2,000</b><br>
+          🛡 DEF: <b style="color:#4D96FF">1,000</b>（ダメージを1,000軽減）<br>
+          💎 報酬: <b style="color:#FFD93D">300個</b><br>
+          🔄 リセット: ${timeStr}
+        </div>
+      </div>
+      <div style="background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.3);
+        border-radius:14px;padding:12px;margin:10px auto;max-width:320px;font-size:12px;
+        color:rgba(255,255,255,0.65);text-align:left;line-height:1.8">
+        ⚡ <b>特殊ルール</b><br>
+        毎ターン（ボス攻撃後）、ランダムな文字が出現。<br>
+        その文字がデッキの単語に含まれると<b style="color:#FF6B6B">ATKが1/4</b>に！<br>
+        全文字を破壊するとペナルティ解除。正解するとボスの反撃なし。<br>
+        ボス絵をタップ → ボス狙いに戻す。
+      </div>
+      ${defeated
+        ? `<div style="font-family:'Fredoka One',cursive;font-size:1rem;
+            color:rgba(255,255,255,0.4);margin:16px 0">
+            ✅ 今週は撃破済み！<br>
+            <span style="font-size:12px">${timeStr}にリセット</span></div>`
+        : `<button onclick="startChallengeBattle()"
+            style="background:linear-gradient(135deg,#FF6B6B,#FFD93D,#C77DFF);
+              font-size:1.1rem;padding:16px 32px;margin-top:8px">
+            🔥 挑戦する！</button>`
+      }
+      <br>
+      <button onclick="backToBattleMenu()"
+        style="background:rgba(255,255,255,0.08);box-shadow:none;font-size:12px;
+          margin-top:12px;color:rgba(255,255,255,0.5)">← 戻る</button>
+    </div>`;
+}
+
+function startChallengeBattle(){
+  const deck = ms().deck;
+  if(!deck || deck.length < 5){ alert("デッキを5枚編成してください！"); return; }
+
+  challengeBossHP         = 50000;
+  challengeBossMaxHP      = 50000;
+  challengeBossATK        = 2000;
+  challengeBossDEF        = 1000;
+  challengePlayerMaxHP    = deck.reduce((s,c)=>s+c.hp, 0);
+  challengePlayerHP       = challengePlayerMaxHP;
+  challengeCurrentLetters = [];
+  challengePenaltyActive  = false;
+  challengeTargetLetter   = null;
+  challengeFirstTurnUsed  = false;
+  challengeReviveUsed     = false;
+  inChallengeBattle       = true;
+
+  lockBattleUI();
+
+  document.getElementById("challengeBattleArea").style.display = "none";
+  document.getElementById("challengeMainArea").style.display   = "block";
+
+  updateChallengeStatsDisplay();
+  updateChallengeHPBars();
+  renderChallengeLetters();
+  updateChallengeTargetDisplay();
+  generateChallengeQuiz();
+}
+
+// =============================================
+//  PENALTY STATE (全破壊で即解除)
+// =============================================
+function updatePenaltyState(){
+  // 未破壊かつデッキの単語に含まれる文字があるか判定
+  const penaltyLetters = challengeCurrentLetters.filter(l=>!l.destroyed && l.inDeck);
+  challengePenaltyActive = penaltyLetters.length > 0;
+
+  const penaltyEl = document.getElementById("challengePenaltyBadge");
+  if(penaltyEl){
+    penaltyEl.style.display = challengePenaltyActive ? "block" : "none";
+    if(challengePenaltyActive){
+      penaltyEl.textContent =
+        `⚠️ ATK 1/4ペナルティ中（${penaltyLetters.map(l=>currentMode==="english"?l.char.toUpperCase():l.char).join("・")}がデッキに含まれています）`;
+    }
+  }
+}
+
+// =============================================
+//  LETTERS
+// =============================================
+function generateChallengeLetters(){
+  const deck = ms().deck;
+  const pool = currentMode === "english" ? ALPHABET : HIRAGANA;
+
+  const deckChars = new Set();
+  deck.forEach(c=>{
+    const word = c.word.toLowerCase();
+    for(const ch of word) deckChars.add(ch);
+  });
+
+  const shuffled = [...pool].sort(()=>Math.random()-0.5);
+  const count = Math.floor(Math.random() * 4) + 3;
+  challengeCurrentLetters = shuffled.slice(0, count).map(ch=>({
+    char: ch,
+    destroyed: false,
+    inDeck: deckChars.has(ch)
+  }));
+
+  challengeTargetLetter = null;
+  updatePenaltyState();
+
+  if(document.getElementById("challengeLettersArea")) renderChallengeLetters();
+  updateChallengeTargetDisplay();
+  updateChallengeStatsDisplay();
+}
+
+function tapChallengeLetterAt(idx){
+  if(challengeQuizLocked) return;
+  const letter = challengeCurrentLetters[idx];
+  if(!letter || letter.destroyed) return;
+  challengeTargetLetter = (challengeTargetLetter === idx) ? null : idx;
+  renderChallengeLetters();
+  updateChallengeTargetDisplay();
+  refreshChallengeQuizHeader();
+}
+
+function targetBoss(){
+  if(challengeQuizLocked) return;
+  challengeTargetLetter = null;
+  renderChallengeLetters();
+  updateChallengeTargetDisplay();
+  refreshChallengeQuizHeader();
+}
+
+function refreshChallengeQuizHeader(){
+  const headerEl = document.getElementById("challengeQuizHeader");
+  if(!headerEl) return;
+  if(challengeTargetLetter !== null){
+    const l = challengeCurrentLetters[challengeTargetLetter];
+    if(l && !l.destroyed){
+      const char = currentMode==="english" ? l.char.toUpperCase() : l.char;
+      headerEl.innerHTML = `
+        <div style="background:rgba(107,203,119,0.15);border:1px solid rgba(107,203,119,0.4);
+          border-radius:12px;padding:8px 12px;margin-bottom:8px;font-size:12px;
+          color:#6BCB77;font-weight:700;text-align:center">
+          🎯 「${char}」を破壊するクイズ！正解で破壊・ボスの反撃なし、不正解でダメージ小
+        </div>`;
+      return;
+    }
+  }
+  headerEl.innerHTML = `
+    <div style="background:rgba(255,107,107,0.12);border:1px solid rgba(255,107,107,0.3);
+      border-radius:12px;padding:8px 12px;margin-bottom:8px;font-size:12px;
+      color:#FF6B6B;font-weight:700;text-align:center">
+      👹 ボスへ通常攻撃！正解でダメージ（反撃なし）、不正解でボスの反撃あり
+    </div>`;
+}
+
+function updateChallengeTargetDisplay(){
+  const el = document.getElementById("challengeTargetBadge");
+  if(!el) return;
+  if(challengeTargetLetter === null){
+    el.innerHTML = `
+      <span style="color:#FF6B6B">👹 ボスを狙っています</span>
+      <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px">
+        ボス絵または文字をタップして切り替え
+      </div>`;
+    el.style.borderColor = "rgba(255,107,107,0.5)";
+    el.style.background  = "rgba(255,107,107,0.1)";
+  } else {
+    const l = challengeCurrentLetters[challengeTargetLetter];
+    const char = currentMode==="english" ? l.char.toUpperCase() : l.char;
+    el.innerHTML = `
+      <span style="color:#6BCB77">🎯 「${char}」を狙っています</span>
+      <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px">
+        ボス絵をタップするとボス狙いに戻る
+      </div>`;
+    el.style.borderColor = "rgba(107,203,119,0.5)";
+    el.style.background  = "rgba(107,203,119,0.1)";
+  }
+}
+
+function renderChallengeLetters(){
+  const area = document.getElementById("challengeLettersArea");
+  if(!area) return;
+
+  updatePenaltyState();
+
+  if(challengeCurrentLetters.length === 0){
+    area.innerHTML = `
+      <div style="color:rgba(255,255,255,0.3);font-size:13px;
+        text-align:center;width:100%;padding:8px">
+        ボスへ攻撃すると文字が出現します
+      </div>`;
+    return;
+  }
+
+  area.innerHTML = challengeCurrentLetters.map((l,i)=>{
+    if(l.destroyed) return `
+      <div style="width:52px;height:52px;border-radius:12px;
+        background:rgba(107,203,119,0.15);border:2px solid rgba(107,203,119,0.3);
+        display:flex;align-items:center;justify-content:center;font-size:1.3rem">✅</div>`;
+
+    const isInDeck   = l.inDeck;
+    const isSelected = challengeTargetLetter === i;
+    const char = currentMode==="english" ? l.char.toUpperCase() : l.char;
+
+    let bg     = isInDeck ? "rgba(255,107,107,0.25)" : "rgba(255,255,255,0.08)";
+    let border = isInDeck ? "rgba(255,107,107,0.7)"  : "rgba(255,255,255,0.2)";
+    let shadow = isInDeck ? "0 0 12px rgba(255,107,107,0.4)" : "none";
+    let scale  = "scale(1)";
+
+    if(isSelected){
+      bg = "rgba(107,203,119,0.35)"; border = "rgba(107,203,119,0.9)";
+      shadow = "0 0 16px rgba(107,203,119,0.6)"; scale = "scale(1.12)";
+    }
+
+    return `
+      <div onclick="tapChallengeLetterAt(${i})"
+        style="width:52px;height:52px;border-radius:12px;cursor:pointer;
+          background:${bg};border:2px solid ${border};
+          display:flex;align-items:center;justify-content:center;
+          font-family:'Fredoka One',cursive;font-size:1.4rem;color:#fff;
+          box-shadow:${shadow};transform:${scale};transition:all 0.15s;position:relative">
+        ${char}
+        ${isSelected?`<div style="position:absolute;top:-6px;right:-6px;background:#6BCB77;
+          border-radius:50%;width:14px;height:14px;font-size:9px;
+          display:flex;align-items:center;justify-content:center">🎯</div>`:""}
+      </div>`;
+  }).join("");
+}
+
+// =============================================
+//  CHALLENGE QUIZ 生成
+// =============================================
+function generateChallengeQuiz(){
+  if(!inChallengeBattle) return;
+  const quizArea = document.getElementById("challengeQuizArea");
+  if(!quizArea) return;
+
+  challengeQuizLocked = false;
+  const pool = cardPool();
+  const card = pool[Math.floor(Math.random()*pool.length)];
+  challengeQuizCard = card;
+
+  let correct, choices;
+  if(card.quizzes && card.quizzes.length > 0){
+    const q = card.quizzes[Math.floor(Math.random()*card.quizzes.length)];
+    correct = q.correct;
+    const wrongs = q.choices.filter(c=>c!==correct).sort(()=>Math.random()-0.5).slice(0,3);
+    choices = [...wrongs, correct].sort(()=>Math.random()-0.5);
+  } else {
+    correct = card.meaning;
+    const wrongs = [...card.choices].sort(()=>Math.random()-0.5).slice(0,3);
+    choices = [...wrongs, correct].sort(()=>Math.random()-0.5);
+  }
+  challengeQuizAnswer = correct;
+
+  // ヘッダー
+  let headerHtml = "";
+  const targetingLetter = challengeTargetLetter !== null
+    && challengeCurrentLetters[challengeTargetLetter]
+    && !challengeCurrentLetters[challengeTargetLetter].destroyed;
+
+  if(targetingLetter){
+    const l = challengeCurrentLetters[challengeTargetLetter];
+    const char = currentMode==="english" ? l.char.toUpperCase() : l.char;
+    headerHtml = `
+      <div style="background:rgba(107,203,119,0.15);border:1px solid rgba(107,203,119,0.4);
+        border-radius:12px;padding:8px 12px;margin-bottom:8px;font-size:12px;
+        color:#6BCB77;font-weight:700;text-align:center">
+        🎯 「${char}」を破壊するクイズ！正解で破壊・反撃なし、不正解でダメージ小
+      </div>`;
+  } else {
+    headerHtml = `
+      <div style="background:rgba(255,107,107,0.12);border:1px solid rgba(255,107,107,0.3);
+        border-radius:12px;padding:8px 12px;margin-bottom:8px;font-size:12px;
+        color:#FF6B6B;font-weight:700;text-align:center">
+        👹 ボスへ通常攻撃！正解でダメージ（反撃なし）、不正解でボスの反撃あり
+      </div>`;
+  }
+
+  quizArea.innerHTML = `
+    <div id="challengeQuizHeader">${headerHtml}</div>
+    <h2>「${card.word}」の意味は？</h2>
+    <button onclick="showChallengeChoices(this)"
+      style="background:rgba(77,150,255,0.3);box-shadow:none;
+        border:1px solid rgba(77,150,255,0.5);margin:8px auto;display:block">
+      📋 4択を表示
+    </button>
+    <div class="quiz-options" id="challengeChoicesArea" style="display:none">
+      ${choices.map(opt=>`
+        <button class="quiz-btn"
+          onclick="answerChallengeQuiz('${opt.replace(/'/g,"\\'")}',this)">
+          ${opt}
+        </button>`).join("")}
+    </div>`;
+}
+
+function showChallengeChoices(btn){
+  btn.style.display = "none";
+  const area = document.getElementById("challengeChoicesArea");
+  if(area) area.style.display = "";
+}
+
+// =============================================
+//  CHALLENGE QUIZ 回答
+// =============================================
+function answerChallengeQuiz(choice, btn){
+  if(challengeQuizLocked) return;
+  challengeQuizLocked = true;
+  document.querySelectorAll(".quiz-btn").forEach(b=>b.disabled=true);
+
+  const deck = ms().deck;
+
+  // ATK計算（ペナルティは現時点のchallengePenaltyActiveで判定）
+  let atk = deck.reduce((s,c)=>s+c.atk+(c.upgrade||0)*Math.floor(c.atk*0.05), 0);
+
+  // firstTurnスキル
+  const hasFirstTurn = deck.some(c=>c.skill==="firstTurn");
+  if(hasFirstTurn && !challengeFirstTurnUsed){
+    atk = atk * 2;
+    challengeFirstTurnUsed = true;
+    const txt = document.createElement("div");
+    txt.style.cssText = `position:fixed;top:calc(50% + 60px);left:50%;transform:translateX(-50%);
+      font-family:'Fredoka One',cursive;font-size:1.1rem;color:#FFD93D;
+      text-shadow:0 0 10px rgba(255,217,61,0.8);pointer-events:none;z-index:9999;
+      animation:critical-flash 1.4s ease forwards;white-space:nowrap`;
+    txt.textContent = "⚡ 初回ATK×2";
+    document.body.appendChild(txt);
+    setTimeout(()=>txt.remove(), 1400);
+  }
+
+  // halfHPスキル
+  const hasHalfHP = deck.some(c=>c.skill==="halfHP");
+  if(hasHalfHP && challengePlayerHP <= challengePlayerMaxHP * 0.5){
+    atk = atk * 2;
+    const txt = document.createElement("div");
+    txt.style.cssText = `position:fixed;top:calc(50% + 80px);left:50%;transform:translateX(-50%);
+      font-family:'Fredoka One',cursive;font-size:1.1rem;color:#FF6B6B;
+      text-shadow:0 0 10px rgba(255,107,107,0.8);pointer-events:none;z-index:9999;
+      animation:critical-flash 1.4s ease forwards;white-space:nowrap`;
+    txt.textContent = "🔥 HP50%以下ATK×2";
+    document.body.appendChild(txt);
+    setTimeout(()=>txt.remove(), 1400);
+  }
+
+  // ペナルティ適用
+  if(challengePenaltyActive) atk = Math.floor(atk / 4);
+
+  const rawAtk = atk;
+  const atkAfterDef = Math.max(0, atk - challengeBossDEF);
+
+  const isCorrect = (choice === challengeQuizAnswer);
+  const targetingLetter = challengeTargetLetter !== null
+    && challengeCurrentLetters[challengeTargetLetter]
+    && !challengeCurrentLetters[challengeTargetLetter].destroyed;
+
+  if(isCorrect){
+    btn.classList.add("correct");
+    showCorrectCircle();
+
+    if(targetingLetter){
+      // ===== 文字狙い 正解 → 文字破壊、反撃なし =====
+      challengeCurrentLetters[challengeTargetLetter].destroyed = true;
+      challengeTargetLetter = null;
+
+      // 破壊後にペナルティ状態を即更新
+      updatePenaltyState();
+      updateChallengeStatsDisplay(); // ATK表示を即座に更新
+
+      // ボスにも半分ダメージ
+      const dmg = Math.floor(atkAfterDef / 2);
+      if(dmg > 0){
+        challengeBossHP -= dmg;
+        showDmgPopup(dmg, false);
+      }
+      // プレイヤーへの反撃なし
+
+    } else {
+      // ===== ボス狙い 正解 → 通常攻撃、反撃なし、新文字生成 =====
+
+      // クリティカル判定
+      let finalAtk = atkAfterDef;
+      const hasUR     = deck.some(c=>c.rarity==="UR");
+      const hasCrit33 = deck.some(c=>c.skill==="critical33");
+      const hasCrit20 = deck.some(c=>c.skill==="critical");
+      const critRate  = hasCrit33 ? 0.33 : hasCrit20 ? 0.2 : 0;
+      if(hasUR && critRate > 0 && Math.random() < critRate){
+        finalAtk = finalAtk * 2;
+        showCritical(); // 通常バトルと同じクリティカル演出
+      }
+
+      challengeBossHP -= finalAtk;
+      if(finalAtk > 0) showDmgPopup(finalAtk, false);
+
+      // 正解なのでプレイヤーへの反撃なし
+
+      // ドレイン
+      if(deck.some(c=>c.skill==="drain") && rawAtk > 0){
+        const heal = Math.floor(rawAtk * 0.1);
+        challengePlayerHP = Math.min(challengePlayerHP + heal, challengePlayerMaxHP);
+        showHealPopup(heal, -50);
+      }
+
+      // ボスへ攻撃したので新しい文字を生成
+      generateChallengeLetters();
+    }
+
+    // ミッション
+    sharedMissionCount10++;
+    if(sharedMissionCount10 === 10){
+      diamonds += 5; saveGame();
+      showMissionComplete("クイズ10問正解！ 💎×5");
+    }
+    updateMissionUI();
+
+  } else {
+    // ===== 不正解 =====
+    btn.classList.add("wrong");
+    document.querySelectorAll(".quiz-btn").forEach(b=>{
+      if(b.textContent === challengeQuizAnswer) b.classList.add("correct");
+    });
+
+    if(targetingLetter){
+      // 文字狙い不正解 → ボスATKの1/4ダメージ
+      let playerDmg = Math.floor(challengeBossATK / 4);
+      if(deck.some(c=>c.skill==="guard"))   playerDmg = Math.floor(playerDmg * 0.8);
+      if(deck.some(c=>c.skill==="guard30")) playerDmg = Math.floor(playerDmg * 0.7);
+      challengePlayerHP -= playerDmg;
+      if(playerDmg > 0) showDmgPopup(playerDmg, true);
+    } else {
+      // ボス狙い不正解 → 通常ダメージ
+      let playerDmg = challengeBossATK;
+      if(deck.some(c=>c.skill==="guard"))   playerDmg = Math.floor(playerDmg * 0.8);
+      if(deck.some(c=>c.skill==="guard30")) playerDmg = Math.floor(playerDmg * 0.7);
+      challengePlayerHP -= playerDmg;
+      if(playerDmg > 0) showDmgPopup(playerDmg, true);
+    }
+  }
+
+  // リジェネ（毎ターン）
+  if(deck.some(c=>c.skill==="regen")){
+    challengePlayerHP = Math.min(challengePlayerHP + 150, challengePlayerMaxHP);
+    showHealPopup(150, 50);
+  }
+
+  // 復活スキル
+  if(challengePlayerHP <= 0 && deck.some(c=>c.skill==="revive") && !challengeReviveUsed){
+    challengeReviveUsed = true;
+    challengePlayerHP = Math.floor(challengePlayerMaxHP * 0.5);
+    showReviveEffect();
+  }
+
+  updateChallengeHPBars();
+  showChallengePrevWord();
+
+  setTimeout(()=>{
+    // 勝利
+    if(challengeBossHP <= 0){
+      inChallengeBattle = false;
+      unlockBattleUI();
+      markChallengeDefeated();
+      diamonds += 300; saveGame();
+      document.getElementById("challengeMainArea").style.display = "none";
+      document.getElementById("challengeBattleArea").style.display = "block";
+      spawnStars();
+      showChallengeClearEffect();
+      renderChallengeMenu();
+      return;
+    }
+    // 敗北
+    if(challengePlayerHP <= 0){
+      inChallengeBattle = false;
+      unlockBattleUI();
+      document.getElementById("challengeMainArea").style.display = "none";
+      document.getElementById("challengeBattleArea").style.display = "block";
+      alert("💀 敗北…！もう一度挑戦しよう！");
+      renderChallengeMenu();
+      return;
+    }
+    updateChallengeTargetDisplay();
+    setTimeout(generateChallengeQuiz, 300);
+  }, 900);
+}
+
+// =============================================
+//  前の問題の詳細
+// =============================================
+function showChallengePrevWord(){
+  const area = document.getElementById("challengePrevWordArea");
+  if(!area || !challengeQuizCard) return;
+  const card = challengeQuizCard;
+  if(currentMode === "kobun" && card.detail){
+    area.innerHTML = `
+      <button onclick="showKobunDetail('${card.word.replace(/'/g,"\\'")}') "
+        style="margin-top:8px;background:rgba(199,125,255,0.2);box-shadow:none;
+          border:1px solid rgba(199,125,255,0.4);font-size:12px;color:var(--pop5);width:90%">
+        📖 前の問題「${card.word}」の詳細
+      </button>`;
+  } else if(currentMode === "english"){
+    area.innerHTML = `
+      <button onclick="showEnglishDetailByWord('${card.word.replace(/'/g,"\\'")}') "
+        style="margin-top:8px;background:rgba(77,150,255,0.2);box-shadow:none;
+          border:1px solid rgba(77,150,255,0.4);font-size:12px;color:var(--pop4);width:90%">
+        📖 前の問題「${card.word.toUpperCase()}」の詳細
+      </button>`;
+  }
+}
+
+// =============================================
+//  HP BARS & STATS
+// =============================================
+function updateChallengeHPBars(){
+  const bossRatio   = Math.max(0, challengeBossHP / challengeBossMaxHP * 100);
+  const playerRatio = Math.max(0, challengePlayerHP / challengePlayerMaxHP * 100);
+  const bossBar   = document.getElementById("challengeBossHPBar");
+  const playerBar = document.getElementById("challengePlayerHPBar");
+  if(bossBar)   bossBar.style.width   = bossRatio + "%";
+  if(playerBar) playerBar.style.width = playerRatio + "%";
+  const bossNum   = document.getElementById("challengeBossHPNum");
+  const playerNum = document.getElementById("challengePlayerHPNum");
+  if(bossNum)   bossNum.textContent   = Math.max(0, challengeBossHP).toLocaleString();
+  if(playerNum) playerNum.textContent = Math.max(0, challengePlayerHP).toLocaleString();
+
+  updateChallengeStatsDisplay();
+  renderChallengeLetters();
+}
+
+function updateChallengeStatsDisplay(){
+  const deck = ms().deck;
+  let totalATK = 0;
+  deck.forEach(c=>{ totalATK += c.atk + (c.upgrade||0)*Math.floor(c.atk*0.05); });
+
+  // ペナルティは現在のchallengePenaltyActiveで判定
+  const displayATK = challengePenaltyActive ? Math.floor(totalATK / 4) : totalATK;
+
+  const atkEl = document.getElementById("challengePlayerATK");
+  const hpEl  = document.getElementById("challengePlayerHPStat");
+  if(atkEl){
+    atkEl.innerHTML = challengePenaltyActive
+      ? `<span style="color:#FF6B6B">${displayATK}</span>
+         <span style="font-size:10px;color:rgba(255,255,255,0.35)">
+           (本来${totalATK} ペナルティ中)
+         </span>`
+      : `${totalATK}`;
+  }
+  if(hpEl) hpEl.textContent = challengePlayerMaxHP;
+  updateSkillDisplay(deck, "challengeSkillArea");
+}
+
+// =============================================
+//  CLEAR EFFECT
+// =============================================
+function showChallengeClearEffect(){
+  const overlay = document.createElement("div");
+  overlay.style.cssText = `
+    position:fixed;inset:0;
+    background:radial-gradient(circle,rgba(255,217,61,0.9),rgba(26,26,46,0.97));
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    z-index:8000;animation:overlay-in 0.4s ease;font-family:'Fredoka One',cursive;`;
+  overlay.innerHTML = `
+    <div style="font-size:80px;animation:overlay-bounce 0.6s ease">🏆</div>
+    <div style="font-size:2.5rem;color:#fff;margin:10px 0">CHALLENGE CLEAR!</div>
+    <div style="font-size:1.2rem;color:rgba(255,255,255,0.8);margin-bottom:8px">週間ボスを撃破！</div>
+    <div style="font-size:1.5rem;color:#FFD93D">💎×300 獲得！</div>
+    <button onclick="this.parentElement.remove()"
+      style="margin-top:20px;background:rgba(255,255,255,0.2)">閉じる</button>`;
+  document.body.appendChild(overlay);
+  spawnStars();
+  setTimeout(()=>{ if(overlay.parentElement) overlay.remove(); }, 5000);
+}
+
+function backFromChallenge(){
+  inChallengeBattle = false;
+  unlockBattleUI();
+  document.getElementById("challengeMainArea").style.display = "none";
+  document.getElementById("challengeBattleArea").style.display = "none";
+  backToBattleMenu();
+}
+
+// =============================================
+//  TARGET 1900 CARD DATA
+// =============================================
+const target1900Cards = [
+  {
+    word: "CREATE",
+    meaning: "を創り出す",
+    atk: 280, hp: 1200,
+    rarity: "R",
+    element: "fire",
+    elementLabel: "🔥 火属性",
+    elementColor: "#FF4444",
+    type: "target1900",
+    choices: ["を壊す", "を観察する", "を記録する", "を批判する", "を修正する"],
+    example: "Scientists create new medicines every year.",
+    exampleJp: "科学者たちは毎年新しい薬を創り出す。"
+  },
+  {
+    word: "INCREASE",
+    meaning: "増加する",
+    atk: 200, hp: 2000,
+    rarity: "R",
+    element: "ice",
+    elementLabel: "❄️ 氷属性",
+    elementColor: "#00BFFF",
+    type: "target1900",
+    choices: ["減少する", "維持する", "変化する", "停止する", "分散する"],
+    example: "The population continues to increase rapidly.",
+    exampleJp: "人口は急速に増加し続けている。"
+  },
+  {
+    word: "IMPROVE",
+    meaning: "を向上させる",
+    atk: 250, hp: 1500,
+    rarity: "R",
+    element: "thunder",
+    elementLabel: "⚡ 雷属性",
+    elementColor: "#FFD700",
+    type: "target1900",
+    choices: ["を悪化させる", "を維持する", "を評価する", "を観察する", "を破壊する"],
+    example: "Regular practice can improve your skills.",
+    exampleJp: "定期的な練習でスキルを向上させることができる。"
+  },
+  {
+    word: "MEAN THAT",
+    meaning: "ということを意味する",
+    atk: 150, hp: 2800,
+    rarity: "SR",
+    element: "wind",
+    elementLabel: "🌿 風属性",
+    elementColor: "#98FFD0",
+    type: "target1900",
+    choices: [
+      "ということを否定する",
+      "ということを証明する",
+      "ということを疑う",
+      "ということを無視する",
+      "ということを想像する"
+    ],
+    example: "This data means that the plan is working.",
+    exampleJp: "このデータは計画がうまくいっているということを意味する。"
+  },
+  {
+    word: "OWN",
+    meaning: "を所有している",
+    atk: 300, hp: 1000,
+    rarity: "R",
+    element: "earth",
+    elementLabel: "🪨 地属性",
+    elementColor: "#C8A96E",
+    type: "target1900",
+    choices: ["を借りている", "を売っている", "を失っている", "を譲っている", "を返している"],
+    example: "She owns three houses in the city.",
+    exampleJp: "彼女は都市に3つの家を所有している。"
+  },
+];
+
+// =============================================
+//  TARGET 1900 GACHA FUNCTIONS
+// =============================================
+function openTarget1900Gacha1(){
+  if(packOpening) return;
+  if(diamonds < 5){ alert("💎が足りません（必要: 5）"); return; }
+  packOpening = true;
+  document.querySelectorAll("button").forEach(b=>b.disabled=true);
+  diamonds -= 5;
+
+  const card = { ...target1900Cards[Math.floor(Math.random()*target1900Cards.length)] };
+  owned.push(card);
+  saveGame(); update();
+
+  showTarget1900Result([card]);
+}
+
+function openTarget1900Gacha11(){
+  if(packOpening) return;
+  if(diamonds < 50){ alert("💎が足りません（必要: 50）"); return; }
+  packOpening = true;
+  document.querySelectorAll("button").forEach(b=>b.disabled=true);
+  diamonds -= 50;
+
+  const results = [];
+  // 10枚ランダム
+  for(let i = 0; i < 10; i++){
+    results.push({ ...target1900Cards[Math.floor(Math.random()*target1900Cards.length)] });
+  }
+  // 11枚目はSR以上確定（現状SRは1枚なのでSR固定）
+  const srPool = target1900Cards.filter(c=>c.rarity==="SR"||c.rarity==="SSR"||c.rarity==="UR");
+  results.push({ ...(srPool[Math.floor(Math.random()*srPool.length)]) });
+
+  results.forEach(c=>owned.push(c));
+  saveGame(); update();
+
+  showTarget1900Result(results);
+}
+
+function showTarget1900Result(cards){
+  const overlay = document.getElementById("gacha10Overlay");
+  const stage   = document.getElementById("gacha10Stage");
+  const closeBtn = document.getElementById("gacha10CloseBtn");
+
+  const title = cards.length === 1
+    ? "🎯 ターゲット1900ガチャ！"
+    : "🎯 ターゲット1900 11連ガチャ！";
+
+  stage.innerHTML = `<div id="gacha10Title">${title}</div>`;
+  closeBtn.style.display = "none";
+  closeBtn.disabled = false;
+  overlay.style.display = "flex";
+
+  cards.forEach((card, i)=>{
+    const wrap = document.createElement("div");
+    wrap.className = "gacha10-card-wrap";
+
+    const rarityColor = {N:"#aaa",R:"#6BCB77",SR:"#4D96FF",SSR:"#FFD93D",UR:"#ff9500"}[card.rarity]||"#fff";
+
+    wrap.innerHTML = `
+      <div class="target1900-card t1900-${card.element}"
+        onclick="showTarget1900Detail('${card.word}')"
+        style="cursor:pointer;width:110px;padding:12px 8px;border-radius:14px;
+          text-align:center;color:#fff;position:relative;overflow:hidden;
+          border:2px solid ${card.elementColor};
+          box-shadow:0 0 14px ${card.elementColor}66;">
+        <div style="font-size:1.2rem;margin-bottom:4px">${card.elementLabel}</div>
+        <div style="font-family:'Fredoka One',cursive;font-size:1rem;
+          margin-bottom:3px;color:#fff">${card.word}</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.8);margin-bottom:4px">
+          ${card.meaning}
+        </div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.5)">
+          ⚔️${card.atk} ❤️${card.hp}
+        </div>
+        <div style="font-size:11px;font-weight:700;color:${rarityColor};margin-top:3px">
+          ${card.rarity}
+        </div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.4);margin-top:2px">📖 詳細</div>
+      </div>`;
+
+    stage.appendChild(wrap);
+
+    setTimeout(()=>{
+      if(card.rarity==="SR"||card.rarity==="SSR"||card.rarity==="UR"){
+        const flash = document.createElement("div");
+        flash.className = "ssr-flash";
+        document.body.appendChild(flash);
+        setTimeout(()=>flash.remove(), 600);
+        wrap.classList.add("ssr-reveal");
+        spawnGachaParticles(wrap);
+      } else {
+        wrap.classList.add("flip");
+      }
+    }, 150 + i * 220);
+  });
+
+  setTimeout(()=>{
+    closeBtn.style.display = "block";
+    closeBtn.disabled = false;
+    packOpening = false;
+    document.querySelectorAll("button").forEach(b=>b.disabled=false);
+  }, 150 + cards.length * 220 + 500);
+}
+
+function showTarget1900Detail(word){
+  const card = target1900Cards.find(c=>c.word===word);
+  if(!card) return;
+
+  const elementBg = {
+    fire:    "linear-gradient(160deg,#3a0a0a,#1a0505)",
+    ice:     "linear-gradient(160deg,#0a1a3a,#050f1a)",
+    thunder: "linear-gradient(160deg,#2a2a0a,#1a1a05)",
+    wind:    "linear-gradient(160deg,#0a2a1a,#051a0f)",
+    earth:   "linear-gradient(160deg,#2a1a0a,#1a0f05)",
+  }[card.element] || "linear-gradient(160deg,#1e1040,#0f0c2a)";
+
+  document.getElementById("englishModalContent").innerHTML = `
+    <div style="text-align:center;margin-bottom:12px">
+      <div style="font-size:1.5rem;margin-bottom:4px">${card.elementLabel}</div>
+      <div style="font-family:'Fredoka One',cursive;font-size:2rem;color:#fff;
+        text-shadow:0 0 16px ${card.elementColor};margin-bottom:4px">
+        ${card.word}
+      </div>
+      <div style="font-size:1.1rem;color:${card.elementColor};
+        font-weight:700;margin-bottom:6px">${card.meaning}</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:8px">
+        ${card.rarity}
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:12px;margin-bottom:10px">
+      <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:4px">例文</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.85);line-height:1.6">
+        ${card.example}
+      </div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:4px">
+        ${card.exampleJp}
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:10px;margin-bottom:10px">
+      <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:6px">間違えやすい選択肢</div>
+      ${card.choices.map(c=>`
+        <div style="background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.2);
+          border-radius:8px;padding:5px 10px;margin:3px 0;font-size:12px;color:rgba(255,255,255,0.7)">
+          ✗ ${c}
+        </div>`).join("")}
+    </div>
+    <div style="display:flex;justify-content:center;gap:20px;font-size:13px;
+      color:rgba(255,255,255,0.6)">
+      <span>⚔️ ATK <b style="color:#FFD93D">${card.atk}</b></span>
+      <span>❤️ HP <b style="color:#6BCB77">${card.hp}</b></span>
+    </div>`;
+
+  document.getElementById("englishModal").style.display = "flex";
+}
+
+// 排出カード一覧をJSで描画
+function renderTarget1900CardList(){
+  const inner = document.getElementById("target1900CardListInner");
+  if(!inner) return;
+  inner.innerHTML = target1900Cards.map(c=>`
+    <div onclick="showTarget1900Detail('${c.word}')"
+      style="cursor:pointer;background:rgba(255,255,255,0.06);
+        border:1px solid ${c.elementColor}66;border-radius:10px;
+        padding:6px 10px;text-align:center;min-width:80px;
+        transition:transform 0.15s">
+      <div style="font-size:0.8rem">${c.elementLabel}</div>
+      <div style="font-family:'Fredoka One',cursive;font-size:0.85rem;color:#fff">
+        ${c.word}
+      </div>
+      <div style="font-size:10px;color:rgba(255,255,255,0.5)">${c.meaning}</div>
+      <div style="font-size:10px;color:${c.elementColor}">⚔️${c.atk} ❤️${c.hp}</div>
+    </div>`).join("");
+}
+
+// =============================================
+//  SHOOTING GAME
+// =============================================
+let shootingGameActive = false;
+let shootingAnimFrame = null;
+let shootingDeck = [];
+let shootingCurrentCard = 0;
+let shootingPlayerHP = 0;
+let shootingPlayerMaxHP = 0;
+let shootingPlayerATK = 0;
+let shootingBossHP = 0;
+let shootingBossMaxHP = 6000;
+let shootingBossActive = false;
+let shootingPhase = "survival"; // "survival" | "boss" | "gameover" | "clear"
+let shootingTime = 60;
+let shootingTimerInterval = null;
+let shootingStage1Cleared = false;
+
+// プレイヤー
+let ship = { x:0, y:0, w:50, h:70, dragging:false };
+let shipBullets = [];
+let bulletTimer = 0;
+
+// 隕石
+let meteors = [];
+let meteorTimer = 0;
+
+// ボス
+let boss = { x:0, y:80, w:100, h:100, vx:1.5, hp:6000, bullets:[] };
+let bossTimer = 0;
+
+// キャンバス
+let shootCanvas = null;
+let shootCtx = null;
+let lastTouchX = 0, lastTouchY = 0;
+let touchActive = false;
+let lastFrameTime = 0;
+
+const STAGE1_CLEAR_KEY = "shootingStage1Cleared";
+
+function isStage1Cleared(){
+  return localStorage.getItem(STAGE1_CLEAR_KEY) === "cleared";
+}
+
+function markStage1Cleared(){
+  localStorage.setItem(STAGE1_CLEAR_KEY, "cleared");
+}
+
+// =============================================
+//  SHOOTING UI
+// =============================================
+function showSpaceScreen(){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById("space").classList.add("active");
+  renderSpaceMenu();
+  document.querySelectorAll(".bottomMenu button").forEach(b=>b.classList.remove("active"));
+  document.getElementById("btnSpace").classList.add("active");
+}
+
+function renderSpaceMenu(){
+  const area = document.getElementById("spaceArea");
+  area.innerHTML = `
+    <div style="text-align:center;padding:16px">
+      <div style="font-size:4rem;margin-bottom:8px">🚀</div>
+      <div style="font-family:'Fredoka One',cursive;font-size:1.6rem;
+        background:linear-gradient(90deg,#4D96FF,#C77DFF,#FFD93D);
+        -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+        margin-bottom:16px">カードシューティング</div>
+      <button onclick="showNormalStageMenu()"
+        style="background:linear-gradient(135deg,#4D96FF,#C77DFF);
+          font-size:1.1rem;padding:16px 32px;width:80%;margin:8px auto;display:block">
+        🌌 ノーマルステージ
+      </button>
+    </div>`;
+}
+
+function showNormalStageMenu(){
+  const area = document.getElementById("spaceArea");
+  const cleared = isStage1Cleared();
+  area.innerHTML = `
+    <div style="text-align:center;padding:16px">
+      <div style="font-family:'Fredoka One',cursive;font-size:1.2rem;
+        color:var(--pop4);margin-bottom:16px">🌌 ノーマルステージ</div>
+      <button onclick="showStage1DeckSelect()"
+        style="background:linear-gradient(135deg,#FFD93D,#FF6B6B);
+          font-size:1.1rem;padding:14px 28px;width:80%;margin:8px auto;display:block">
+        ステージ１
+        ${cleared
+          ? '<span style="font-size:11px;color:#FFD93D;margin-left:6px">✅ クリア済</span>'
+          : '<span style="font-size:11px;color:rgba(255,255,255,0.5);margin-left:6px">💎×15 初回報酬</span>'}
+      </button>
+      <button onclick="renderSpaceMenu()"
+        style="background:rgba(255,255,255,0.08);box-shadow:none;
+          font-size:12px;margin-top:12px;color:rgba(255,255,255,0.5)">← 戻る</button>
+    </div>`;
+}
+
+function showStage1DeckSelect(){
+  // target1900カードのみ
+  const pool = owned.filter(c=>c.type==="target1900");
+  const grouped = {};
+  pool.forEach(c=>{
+    if(!grouped[c.word]) grouped[c.word] = c;
+  });
+  const cards = Object.values(grouped);
+
+  const area = document.getElementById("spaceArea");
+  area.innerHTML = `
+    <div style="text-align:center;padding:12px">
+      <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;
+        color:var(--pop2);margin-bottom:8px">🚀 ステージ１ デッキ選択</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:12px">
+        ターゲット1900カードを2枚選んでください<br>
+        1枚目がメイン機、2枚目が予備機
+      </div>
+      <div style="font-size:13px;color:var(--pop2);margin-bottom:8px">
+        選択: <span id="s1SelectedCount">0</span> / 2
+      </div>
+      <div id="s1CardPicker" style="display:flex;flex-wrap:wrap;
+        justify-content:center;gap:8px;margin-bottom:16px"></div>
+      <div id="s1SelectedDisplay" style="display:flex;justify-content:center;
+        gap:12px;margin-bottom:16px;min-height:60px"></div>
+      <button id="s1StartBtn" onclick="startStage1()" disabled
+        style="background:linear-gradient(135deg,#FFD93D,#FF6B6B);
+          font-size:1.1rem;padding:14px 28px;opacity:0.4;cursor:not-allowed">
+        🚀 スタート！
+      </button>
+      <br>
+      <button onclick="showNormalStageMenu()"
+        style="background:rgba(255,255,255,0.08);box-shadow:none;
+          font-size:12px;margin-top:10px;color:rgba(255,255,255,0.5)">← 戻る</button>
+    </div>`;
+
+  if(cards.length === 0){
+    document.getElementById("s1CardPicker").innerHTML =
+      `<div style="color:rgba(255,255,255,0.4);font-size:13px;padding:20px">
+        ターゲット1900カードがありません。先にガチャを引いてください！
+      </div>`;
+    return;
+  }
+
+  let selected = [];
+
+  function render(){
+    document.getElementById("s1SelectedCount").textContent = selected.length;
+    const picker = document.getElementById("s1CardPicker");
+    picker.innerHTML = cards.map(c=>{
+      const idx = selected.findIndex(s=>s.word===c.word);
+      const isSelected = idx !== -1;
+      return `
+        <div onclick="s1ToggleCard('${c.word}')"
+          style="cursor:pointer;width:90px;padding:10px 6px;border-radius:14px;
+            background:${isSelected?"rgba(255,217,61,0.2)":"rgba(255,255,255,0.06)"};
+            border:2px solid ${isSelected?c.elementColor:"rgba(255,255,255,0.15)"};
+            text-align:center;transition:all 0.15s;position:relative">
+          ${isSelected?`<div style="position:absolute;top:-6px;right:-6px;
+            background:#FFD93D;border-radius:50%;width:18px;height:18px;
+            font-size:10px;display:flex;align-items:center;justify-content:center;
+            color:#1a1a2e;font-weight:700">${idx+1}</div>`:""}
+          <div style="font-size:1rem">${c.elementLabel.split(" ")[0]}</div>
+          <div style="font-family:'Fredoka One',cursive;font-size:0.8rem;color:#fff">
+            ${c.word}
+          </div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.5)">${c.meaning}</div>
+          <div style="font-size:10px;color:${c.elementColor}">
+            ⚔️${c.atk} ❤️${c.hp}
+          </div>
+        </div>`;
+    }).join("");
+
+    // 選択済み表示
+    const disp = document.getElementById("s1SelectedDisplay");
+    disp.innerHTML = [0,1].map(i=>{
+      const c = selected[i];
+      return c
+        ? `<div style="background:rgba(255,255,255,0.08);border:1px solid ${c.elementColor};
+            border-radius:12px;padding:8px 14px;text-align:center;min-width:80px">
+            <div style="font-size:10px;color:rgba(255,255,255,0.4)">${i===0?"1枚目（メイン）":"2枚目（予備）"}</div>
+            <div style="font-family:'Fredoka One',cursive;font-size:0.85rem;color:#fff">${c.word}</div>
+            <div style="font-size:10px;color:${c.elementColor}">⚔️${c.atk} ❤️${c.hp}</div>
+          </div>`
+        : `<div style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.15);
+            border-radius:12px;padding:8px 14px;text-align:center;min-width:80px;
+            color:rgba(255,255,255,0.25);font-size:12px">
+            ${i===0?"1枚目":"2枚目"}<br>未選択
+          </div>`;
+    }).join("");
+
+    const btn = document.getElementById("s1StartBtn");
+    if(selected.length === 2){
+      btn.disabled = false;
+      btn.style.opacity = "1";
+      btn.style.cursor = "pointer";
+    } else {
+      btn.disabled = true;
+      btn.style.opacity = "0.4";
+      btn.style.cursor = "not-allowed";
+    }
+  }
+
+  // グローバルに公開
+  window.s1ToggleCard = function(word){
+    const c = cards.find(x=>x.word===word);
+    const idx = selected.findIndex(s=>s.word===word);
+    if(idx !== -1){
+      selected.splice(idx,1);
+    } else {
+      if(selected.length >= 2) return;
+      selected.push(c);
+    }
+    render();
+  };
+
+  window.startStage1 = function(){
+    if(selected.length < 2) return;
+    shootingDeck = selected;
+    beginShootingGame();
+  };
+
+  render();
+}
+
+// =============================================
+//  SHOOTING GAME ENGINE
+// =============================================
+function beginShootingGame(){
+  const area = document.getElementById("spaceArea");
+  area.innerHTML = `
+    <div style="position:relative;width:100%;max-width:420px;margin:0 auto">
+      <canvas id="shootCanvas"
+        style="display:block;width:100%;border-radius:16px;
+          background:#000010;touch-action:none"></canvas>
+      <div id="shootHUD" style="position:absolute;top:8px;left:8px;right:8px;
+        display:flex;justify-content:space-between;pointer-events:none">
+        <div id="shootHP" style="font-family:'Fredoka One',cursive;font-size:14px;
+          color:#6BCB77;text-shadow:0 0 8px rgba(107,203,119,0.8)">❤️ 0</div>
+        <div id="shootTimer" style="font-family:'Fredoka One',cursive;font-size:14px;
+          color:#FFD93D;text-shadow:0 0 8px rgba(255,217,61,0.8)">⏱ 60</div>
+        <div id="shootCard" style="font-family:'Fredoka One',cursive;font-size:12px;
+          color:#4D96FF">🚀 1枚目</div>
+      </div>
+      <div id="shootBossHUD" style="position:absolute;top:36px;left:8px;right:8px;
+        display:none;pointer-events:none">
+        <div style="font-family:'Fredoka One',cursive;font-size:11px;
+          color:#FF6B6B;text-align:center;margin-bottom:2px">🌕 BOSS</div>
+        <div style="background:rgba(0,0,0,0.4);border-radius:8px;height:10px;overflow:hidden">
+          <div id="shootBossHPBar"
+            style="height:100%;background:linear-gradient(90deg,#FF6B6B,#FFD93D);
+              border-radius:8px;transition:width 0.3s;width:100%"></div>
+        </div>
+      </div>
+      <div id="shootMessage" style="position:absolute;top:50%;left:50%;
+        transform:translate(-50%,-50%);font-family:'Fredoka One',cursive;
+        font-size:1.5rem;color:#fff;text-align:center;pointer-events:none;
+        text-shadow:0 0 20px rgba(255,255,255,0.8);display:none"></div>
+    </div>`;
+
+  shootCanvas = document.getElementById("shootCanvas");
+
+  // レスポンシブサイズ
+  const maxW = Math.min(420, window.innerWidth - 32);
+  shootCanvas.width  = maxW;
+  shootCanvas.height = Math.floor(maxW * 1.5);
+  shootCtx = shootCanvas.getContext("2d");
+
+  // 初期化
+  shootingCurrentCard  = 0;
+  shootingPhase        = "survival";
+  shootingTime         = 60;
+  shootingBossHP       = shootingBossMaxHP;
+  shipBullets          = [];
+  meteors              = [];
+  bulletTimer          = 0;
+  meteorTimer          = 0;
+  bossTimer            = 0;
+  boss.bullets         = [];
+  boss.hp              = shootingBossMaxHP;
+
+  const c = shootingDeck[0];
+  shootingPlayerMaxHP  = c.hp;
+  shootingPlayerHP     = c.hp;
+  shootingPlayerATK    = c.atk;
+  shootingBossActive   = false;
+
+  // 宇宙船の初期位置
+  ship.x = shootCanvas.width  / 2 - ship.w / 2;
+  ship.y = shootCanvas.height - ship.h - 20;
+
+  // タッチ操作
+  shootCanvas.addEventListener("touchstart", onShootTouchStart, {passive:false});
+  shootCanvas.addEventListener("touchmove",  onShootTouchMove,  {passive:false});
+  shootCanvas.addEventListener("touchend",   onShootTouchEnd,   {passive:false});
+  shootCanvas.addEventListener("mousedown",  onShootMouseDown);
+  shootCanvas.addEventListener("mousemove",  onShootMouseMove);
+  shootCanvas.addEventListener("mouseup",    onShootMouseUp);
+
+  // タイマー
+  shootingTimerInterval = setInterval(()=>{
+    if(shootingPhase !== "survival") return;
+    shootingTime--;
+    updateShootHUD();
+    if(shootingTime <= 0){
+      clearInterval(shootingTimerInterval);
+      startBossPhase();
+    }
+  }, 1000);
+
+  shootingGameActive = true;
+  updateShootHUD();
+  requestAnimationFrame(shootingLoop);
+}
+
+// タッチ操作
+function onShootTouchStart(e){
+  e.preventDefault();
+  const t = e.touches[0];
+  const rect = shootCanvas.getBoundingClientRect();
+  const scaleX = shootCanvas.width / rect.width;
+  const scaleY = shootCanvas.height / rect.height;
+  lastTouchX = (t.clientX - rect.left) * scaleX;
+  lastTouchY = (t.clientY - rect.top)  * scaleY;
+  touchActive = true;
+}
+
+function onShootTouchMove(e){
+  e.preventDefault();
+  if(!touchActive) return;
+  const t = e.touches[0];
+  const rect = shootCanvas.getBoundingClientRect();
+  const scaleX = shootCanvas.width / rect.width;
+  const scaleY = shootCanvas.height / rect.height;
+  const nx = (t.clientX - rect.left) * scaleX;
+  const ny = (t.clientY - rect.top)  * scaleY;
+  ship.x += nx - lastTouchX;
+  ship.y += ny - lastTouchY;
+  ship.x = Math.max(0, Math.min(shootCanvas.width  - ship.w, ship.x));
+  ship.y = Math.max(0, Math.min(shootCanvas.height - ship.h, ship.y));
+  lastTouchX = nx;
+  lastTouchY = ny;
+}
+
+function onShootTouchEnd(){ touchActive = false; }
+
+function onShootMouseDown(e){
+  const rect = shootCanvas.getBoundingClientRect();
+  const scaleX = shootCanvas.width / rect.width;
+  const scaleY = shootCanvas.height / rect.height;
+  lastTouchX = (e.clientX - rect.left) * scaleX;
+  lastTouchY = (e.clientY - rect.top)  * scaleY;
+  touchActive = true;
+}
+
+function onShootMouseMove(e){
+  if(!touchActive) return;
+  const rect = shootCanvas.getBoundingClientRect();
+  const scaleX = shootCanvas.width / rect.width;
+  const scaleY = shootCanvas.height / rect.height;
+  const nx = (e.clientX - rect.left) * scaleX;
+  const ny = (e.clientY - rect.top)  * scaleY;
+  ship.x += nx - lastTouchX;
+  ship.y += ny - lastTouchY;
+  ship.x = Math.max(0, Math.min(shootCanvas.width  - ship.w, ship.x));
+  ship.y = Math.max(0, Math.min(shootCanvas.height - ship.h, ship.y));
+  lastTouchX = nx;
+  lastTouchY = ny;
+}
+
+function onShootMouseUp(){ touchActive = false; }
+
+// =============================================
+//  GAME LOOP
+// =============================================
+function shootingLoop(timestamp){
+  if(!shootingGameActive) return;
+  const dt = Math.min((timestamp - (lastFrameTime||timestamp)) / 16.67, 3);
+  lastFrameTime = timestamp;
+
+  update_shoot(dt);
+  draw_shoot();
+  shootingAnimFrame = requestAnimationFrame(shootingLoop);
+}
+
+function update_shoot(dt){
+  const W = shootCanvas.width;
+  const H = shootCanvas.height;
+
+  if(shootingPhase === "gameover" || shootingPhase === "clear") return;
+
+  // 弾発射（1秒に1回）
+  bulletTimer += dt;
+  if(bulletTimer >= 60){
+    bulletTimer = 0;
+    shipBullets.push({
+      x: ship.x + ship.w/2 - 4,
+      y: ship.y - 10,
+      w: 8, h: 14,
+      hits: {}
+    });
+  }
+
+  // 自弾移動
+  shipBullets.forEach(b=>{ b.y -= 8 * dt; });
+  shipBullets = shipBullets.filter(b=>b.y > -20);
+
+  if(shootingPhase === "survival"){
+    // 隕石生成
+    meteorTimer += dt;
+    const spawnInterval = 60 + Math.random()*30;
+    if(meteorTimer >= spawnInterval){
+      meteorTimer = 0;
+      meteors.push({
+        x: Math.random() * (W - 40),
+        y: -40,
+        w: 36 + Math.random()*24,
+        h: 36 + Math.random()*24,
+        vy: 2 + Math.random()*2,
+        hp: 2, // 2発で破壊
+        id: Math.random()
+      });
+    }
+
+    // 隕石移動
+    meteors.forEach(m=>{ m.y += m.vy * dt; });
+    meteors = meteors.filter(m=>m.y < H + 50);
+
+    // 自弾 vs 隕石
+    shipBullets.forEach(b=>{
+      meteors.forEach(m=>{
+        if(m.hp <= 0) return;
+        if(!b.hits[m.id] && rectsOverlap(b,m)){
+          b.hits[m.id] = true;
+          m.hp--;
+        }
+      });
+    });
+    meteors = meteors.filter(m=>m.hp > 0);
+
+    // 隕石 vs プレイヤー
+    meteors.forEach((m,i)=>{
+      if(rectsOverlap(ship, m)){
+        meteors.splice(i,1);
+        shootingPlayerHP -= 300;
+        updateShootHUD();
+        if(shootingPlayerHP <= 0){
+          // 次のカードへ
+          if(shootingCurrentCard < shootingDeck.length - 1){
+            shootingCurrentCard++;
+            const nc = shootingDeck[shootingCurrentCard];
+            shootingPlayerMaxHP = nc.hp;
+            shootingPlayerHP    = nc.hp;
+            shootingPlayerATK   = nc.atk;
+            showShootMessage(`💥 ${nc.word} 出撃！`, 1500);
+            updateShootHUD();
+          } else {
+            gameOverShooting();
+          }
+        }
+      }
+    });
+
+  } else if(shootingPhase === "boss"){
+    // ボス移動
+    boss.x += boss.vx * dt;
+    if(boss.x <= 0 || boss.x + boss.w >= W) boss.vx *= -1;
+
+    // ボス弾発射（2〜3秒に1回）
+    bossTimer += dt;
+    const bossFireInterval = (120 + Math.random()*60);
+    if(bossTimer >= bossFireInterval){
+      bossTimer = 0;
+      boss.bullets.push({
+        x: boss.x + boss.w/2 - 6,
+        y: boss.y + boss.h,
+        w: 12, h: 12,
+        vy: 4
+      });
+    }
+
+    // ボス弾移動
+    boss.bullets.forEach(b=>{ b.y += b.vy * dt; });
+    boss.bullets = boss.bullets.filter(b=>b.y < H + 20);
+
+    // ボス弾 vs プレイヤー
+    boss.bullets.forEach((b,i)=>{
+      if(rectsOverlap(b, ship)){
+        boss.bullets.splice(i,1);
+        shootingPlayerHP -= 600;
+        updateShootHUD();
+        if(shootingPlayerHP <= 0){
+          if(shootingCurrentCard < shootingDeck.length - 1){
+            shootingCurrentCard++;
+            const nc = shootingDeck[shootingCurrentCard];
+            shootingPlayerMaxHP = nc.hp;
+            shootingPlayerHP    = nc.hp;
+            shootingPlayerATK   = nc.atk;
+            showShootMessage(`💥 ${nc.word} 出撃！`, 1500);
+            updateShootHUD();
+          } else {
+            gameOverShooting();
+          }
+        }
+      }
+    });
+
+    // 自弾 vs ボス
+    shipBullets.forEach(b=>{
+      if(!b.hits["boss"] && rectsOverlap(b,{x:boss.x,y:boss.y,w:boss.w,h:boss.h})){
+        b.hits["boss"] = true;
+        boss.hp -= shootingPlayerATK;
+        updateBossHUD();
+        if(boss.hp <= 0){
+          clearShooting();
+        }
+      }
+    });
+  }
+}
+
+function rectsOverlap(a, b){
+  return !(a.x + a.w < b.x || a.x > b.x + b.w ||
+           a.y + a.h < b.y || a.y > b.y + b.h);
+}
+
+// =============================================
+//  DRAW
+// =============================================
+function draw_shoot(){
+  const ctx = shootCtx;
+  const W = shootCanvas.width;
+  const H = shootCanvas.height;
+
+  // 背景（宇宙）
+  ctx.fillStyle = "#000010";
+  ctx.fillRect(0, 0, W, H);
+
+  // 星
+  ctx.fillStyle = "rgba(255,255,255,0.6)";
+  for(let i=0; i<60; i++){
+    const sx = (i * 137 + 50) % W;
+    const sy = (i * 97  + 30) % H;
+    ctx.fillRect(sx, sy, 1.5, 1.5);
+  }
+
+  if(shootingPhase === "gameover" || shootingPhase === "clear") return;
+
+  // 隕石
+  meteors.forEach(m=>{
+    ctx.save();
+    ctx.fillStyle = "#8B6914";
+    ctx.beginPath();
+    ctx.ellipse(m.x+m.w/2, m.y+m.h/2, m.w/2, m.h/2, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = "#6B4F10";
+    ctx.beginPath();
+    ctx.ellipse(m.x+m.w*0.35, m.y+m.h*0.35, m.w*0.15, m.h*0.12, 0.5, 0, Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+  });
+
+  // 自弾
+  shipBullets.forEach(b=>{
+    ctx.save();
+    const grad = ctx.createLinearGradient(b.x, b.y, b.x, b.y+b.h);
+    grad.addColorStop(0, "#fff");
+    grad.addColorStop(1, "#4D96FF");
+    ctx.fillStyle = grad;
+    ctx.shadowColor = "#4D96FF";
+    ctx.shadowBlur = 8;
+    ctx.beginPath();
+    ctx.roundRect(b.x, b.y, b.w, b.h, 4);
+    ctx.fill();
+    ctx.restore();
+  });
+
+  // ボス弾
+  if(shootingPhase === "boss"){
+    boss.bullets.forEach(b=>{
+      ctx.save();
+      ctx.fillStyle = "#FF6B6B";
+      ctx.shadowColor = "#FF6B6B";
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.arc(b.x+b.w/2, b.y+b.h/2, b.w/2, 0, Math.PI*2);
+      ctx.fill();
+      ctx.restore();
+    });
+
+    // ボス（月）
+    ctx.save();
+    ctx.fillStyle = "#C8C8A0";
+    ctx.shadowColor = "rgba(200,200,160,0.5)";
+    ctx.shadowBlur = 20;
+    ctx.beginPath();
+    ctx.arc(boss.x+boss.w/2, boss.y+boss.h/2, boss.w/2, 0, Math.PI*2);
+    ctx.fill();
+    // クレーター
+    ctx.fillStyle = "#A0A080";
+    [[0.3,0.3,0.12],[0.65,0.55,0.08],[0.45,0.7,0.06]].forEach(([rx,ry,rs])=>{
+      ctx.beginPath();
+      ctx.arc(boss.x+boss.w*rx, boss.y+boss.h*ry, boss.w*rs, 0, Math.PI*2);
+      ctx.fill();
+    });
+    ctx.restore();
+  }
+
+  // 宇宙船（スペースシャトル風）
+  drawSpaceShip(ctx, ship.x, ship.y, ship.w, ship.h);
+}
+
+function drawSpaceShip(ctx, x, y, w, h){
+  ctx.save();
+
+  // エンジン炎
+  const flame = ctx.createLinearGradient(x+w*0.4, y+h, x+w*0.4, y+h+20);
+  flame.addColorStop(0, "rgba(255,150,0,0.9)");
+  flame.addColorStop(1, "rgba(255,50,0,0)");
+  ctx.fillStyle = flame;
+  ctx.beginPath();
+  ctx.moveTo(x+w*0.35, y+h*0.92);
+  ctx.lineTo(x+w*0.5,  y+h+18);
+  ctx.lineTo(x+w*0.65, y+h*0.92);
+  ctx.fill();
+
+  // 本体（白いシャトル）
+  const bodyGrad = ctx.createLinearGradient(x, y, x+w, y);
+  bodyGrad.addColorStop(0, "#ddd");
+  bodyGrad.addColorStop(0.5, "#fff");
+  bodyGrad.addColorStop(1, "#bbb");
+  ctx.fillStyle = bodyGrad;
+  ctx.beginPath();
+  ctx.moveTo(x+w*0.5, y);
+  ctx.quadraticCurveTo(x+w*0.75, y+h*0.2, x+w*0.7, y+h*0.9);
+  ctx.lineTo(x+w*0.3, y+h*0.9);
+  ctx.quadraticCurveTo(x+w*0.25, y+h*0.2, x+w*0.5, y);
+  ctx.fill();
+
+  // 主翼（左）
+  ctx.fillStyle = "#ccc";
+  ctx.beginPath();
+  ctx.moveTo(x+w*0.3, y+h*0.65);
+  ctx.lineTo(x,       y+h*0.95);
+  ctx.lineTo(x+w*0.25,y+h*0.9);
+  ctx.closePath();
+  ctx.fill();
+
+  // 主翼（右）
+  ctx.beginPath();
+  ctx.moveTo(x+w*0.7, y+h*0.65);
+  ctx.lineTo(x+w,     y+h*0.95);
+  ctx.lineTo(x+w*0.75,y+h*0.9);
+  ctx.closePath();
+  ctx.fill();
+
+  // コックピット窓
+  ctx.fillStyle = "#4D96FF";
+  ctx.shadowColor = "#4D96FF";
+  ctx.shadowBlur = 8;
+  ctx.beginPath();
+  ctx.ellipse(x+w*0.5, y+h*0.28, w*0.12, h*0.1, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // 黒いライン（下部）
+  ctx.fillStyle = "#222";
+  ctx.fillRect(x+w*0.28, y+h*0.88, w*0.44, h*0.06);
+
+  ctx.restore();
+}
+
+// =============================================
+//  PHASE TRANSITIONS
+// =============================================
+function startBossPhase(){
+  shootingPhase    = "boss";
+  shootingBossActive = true;
+  boss.x = shootCanvas.width/2 - boss.w/2;
+  boss.y = 60;
+  boss.hp = shootingBossMaxHP;
+  boss.vx = 1.5;
+  boss.bullets = [];
+  meteors = [];
+
+  const bossHUD = document.getElementById("shootBossHUD");
+  if(bossHUD) bossHUD.style.display = "block";
+
+  showShootMessage("🌕 BOSS 出現！", 2000);
+  updateBossHUD();
+}
+
+function gameOverShooting(){
+  shootingPhase = "gameover";
+  shootingGameActive = false;
+  clearInterval(shootingTimerInterval);
+  cancelAnimationFrame(shootingAnimFrame);
+  removeShootListeners();
+
+  // 最後に1フレーム描画
+  draw_shoot();
+
+  const area = document.getElementById("spaceArea");
+  setTimeout(()=>{
+    area.innerHTML = `
+      <div style="text-align:center;padding:30px 16px">
+        <div style="font-size:4rem;margin-bottom:10px">💥</div>
+        <div style="font-family:'Fredoka One',cursive;font-size:2rem;
+          color:#FF6B6B;margin-bottom:8px">GAME OVER</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:20px">
+          宇宙船が全滅しました…
+        </div>
+        <button onclick="showStage1DeckSelect()"
+          style="background:linear-gradient(135deg,#FFD93D,#FF6B6B);
+            font-size:1rem;padding:14px 28px;margin:6px">
+          🔄 もう一度
+        </button>
+        <button onclick="showNormalStageMenu()"
+          style="background:rgba(255,255,255,0.08);box-shadow:none;
+            font-size:12px;margin-top:10px;color:rgba(255,255,255,0.5)">
+          ← ステージ選択へ
+        </button>
+      </div>`;
+  }, 500);
+}
+
+function clearShooting(){
+  shootingPhase = "clear";
+  shootingGameActive = false;
+  clearInterval(shootingTimerInterval);
+  cancelAnimationFrame(shootingAnimFrame);
+  removeShootListeners();
+
+  const firstClear = !isStage1Cleared();
+  if(firstClear){
+    markStage1Cleared();
+    diamonds += 15;
+    saveGame();
+  }
+
+  draw_shoot();
+
+  const area = document.getElementById("spaceArea");
+  setTimeout(()=>{
+    area.innerHTML = `
+      <div style="text-align:center;padding:30px 16px">
+        <div style="font-size:4rem;margin-bottom:10px">🏆</div>
+        <div style="font-family:'Fredoka One',cursive;font-size:2rem;
+          background:linear-gradient(90deg,#FFD93D,#6BCB77);
+          -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+          margin-bottom:8px">STAGE CLEAR!</div>
+        ${firstClear
+          ? `<div style="font-family:'Fredoka One',cursive;font-size:1.3rem;
+              color:#FFD93D;margin-bottom:8px">💎×15 獲得！</div>`
+          : `<div style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:8px">
+              ※2回目以降は報酬なし</div>`}
+        <div style="font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:20px">
+          🌕 月を撃破した！
+        </div>
+        <button onclick="showStage1DeckSelect()"
+          style="background:linear-gradient(135deg,#4D96FF,#6BCB77);
+            font-size:1rem;padding:14px 28px;margin:6px">
+          🔄 もう一度
+        </button>
+        <button onclick="showNormalStageMenu()"
+          style="background:rgba(255,255,255,0.08);box-shadow:none;
+            font-size:12px;margin-top:10px;color:rgba(255,255,255,0.5)">
+          ← ステージ選択へ
+        </button>
+      </div>`;
+    spawnStars();
+  }, 500);
+}
+
+function removeShootListeners(){
+  if(!shootCanvas) return;
+  shootCanvas.removeEventListener("touchstart", onShootTouchStart);
+  shootCanvas.removeEventListener("touchmove",  onShootTouchMove);
+  shootCanvas.removeEventListener("touchend",   onShootTouchEnd);
+  shootCanvas.removeEventListener("mousedown",  onShootMouseDown);
+  shootCanvas.removeEventListener("mousemove",  onShootMouseMove);
+  shootCanvas.removeEventListener("mouseup",    onShootMouseUp);
+}
+
+// =============================================
+//  HUD
+// =============================================
+function updateShootHUD(){
+  const hp  = document.getElementById("shootHP");
+  const tim = document.getElementById("shootTimer");
+  const crd = document.getElementById("shootCard");
+  if(hp)  hp.textContent  = `❤️ ${Math.max(0,shootingPlayerHP)}`;
+  if(tim) tim.textContent = `⏱ ${shootingTime}`;
+  if(crd){
+    const c = shootingDeck[shootingCurrentCard];
+    crd.textContent = `🚀 ${shootingCurrentCard+1}枚目 ${c?c.word:""}`;
+  }
+}
+
+function updateBossHUD(){
+  const bar = document.getElementById("shootBossHPBar");
+  if(bar) bar.style.width = Math.max(0, boss.hp/shootingBossMaxHP*100)+"%";
+}
+
+function showShootMessage(msg, duration){
+  const el = document.getElementById("shootMessage");
+  if(!el) return;
+  el.textContent = msg;
+  el.style.display = "block";
+  setTimeout(()=>{ el.style.display = "none"; }, duration);
 }
 
 // =============================================
