@@ -1677,3 +1677,39 @@ body.kobun-theme .bottomMenu button.active {
   margin: 0 auto;
   text-align: center;
 }
+
+#challengeLettersArea > div:active {
+  transform: scale(0.92);
+}
+ 
+/* チャレンジバトル専用HPバー（ボスが長いので細く） */
+#challengeBossHPBar {
+  background: linear-gradient(90deg, #ff0050, #FF6B6B, #FFD93D);
+}
+
+/* ===== TARGET 1900 CARDS ===== */
+.target1900-card {
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.target1900-card:hover {
+  transform: translateY(-4px) scale(1.05);
+}
+
+.t1900-fire    { background: linear-gradient(160deg,#3a0a0a,#1a0505); }
+.t1900-ice     { background: linear-gradient(160deg,#051828,#0a2040); }
+.t1900-thunder { background: linear-gradient(160deg,#1a1a00,#2a2a05); }
+.t1900-wind    { background: linear-gradient(160deg,#051a10,#0a2818); }
+.t1900-earth   { background: linear-gradient(160deg,#1a1005,#2a1a08); }
+
+/* ===== SHOOTING GAME ===== */
+#shootCanvas {
+  display: block;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(77,150,255,0.4);
+}
+
+#space {
+  max-width: 460px;
+  margin: 0 auto;
+  text-align: center;
+}
