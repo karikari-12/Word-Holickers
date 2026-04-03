@@ -8702,65 +8702,65 @@ const target1900Cards = [
   {word:"suggest that", meaning:"を提案する", atk:241, hp:1623, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"She suggested that we take a break.", exampleJp:"彼女は休憩することを提案した。", quizzes:[{correct:"を提案する", choices:["を否定する","を要求する","を反対する","を報告する","を証明する"]}]},
   {word:"produce", meaning:"を生産する", atk:317, hp:1089, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"This factory produces thousands of cars a year.", exampleJp:"この工場は年間何千台もの車を生産する。", quizzes:[{correct:"を生産する", choices:["を消費する","を輸入する","を破壊する","を販売する","を保管する"]}]},
   {word:"decide to do", meaning:"～することに決める", atk:198, hp:2089, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"He decided to study abroad.", exampleJp:"彼は留学することに決めた。", quizzes:[{correct:"～することに決める", choices:["～することを諦める","～することを迷う","～することを禁止する","～することを忘れる","～することを恐れる"]}]},
-,{word:"require to do", meaning:"～に～することを要求する", atk:234, hp:1567, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"The law requires companies to report their earnings.", exampleJp:"法律は企業に収益を報告することを要求する。", quizzes:[{correct:"～に～することを要求する", choices:["～に～することを禁止する","～に～することを許可する","～に～することを勧める","～に～することを頼む","～に～することを教える"]}]},
-  ,{word:"share A with B", meaning:"AをBと分かち合う", atk:178, hp:2234, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"She shared her lunch with her friend.", exampleJp:"彼女は友達と昼食を分かち合った。", quizzes:[{correct:"AをBと分かち合う", choices:["AをBから奪う","AをBに売る","AをBから隠す","AをBと交換する","AをBに押しつける"]}]},
-  ,{word:"store", meaning:"を保存する", atk:289, hp:1123, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"You can store data on the cloud.", exampleJp:"データをクラウドに保存することができる。", quizzes:[{correct:"を保存する", choices:["を削除する","を公開する","を転送する","を破棄する","を変換する"]}]},
-  ,{word:"tend to do", meaning:"～する傾向にある", atk:156, hp:2456, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"People tend to forget names easily.", exampleJp:"人は名前を忘れやすい傾向にある。", quizzes:[{correct:"～する傾向にある", choices:["～することを避ける傾向にある","～することが得意である","～することを強制される","～することができない","～することを好まない"]}]},
-  ,{word:"be concerned about", meaning:"～を心配している", atk:167, hp:2678, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"She is concerned about her health.", exampleJp:"彼女は自分の健康を心配している。", quizzes:[{correct:"～を心配している", choices:["～に満足している","～に興味を持っている","～を楽しんでいる","～に怒っている","～を無視している"]}]},
-  ,{word:"describe", meaning:"～について述べる、を説明する", atk:245, hp:1489, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"Please describe what you saw.", exampleJp:"見たことについて述べてください。", quizzes:[{correct:"～について述べる", choices:["～について黙っている","～について質問する","～について否定する","～について調査する","～について批判する"]},{correct:"を説明する", choices:["を誤魔化す","を省略する","を否定する","を複雑にする","を隠す"]}]},
-  ,{word:"be involved in", meaning:"～にかかわる", atk:198, hp:2123, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"He is involved in the project.", exampleJp:"彼はそのプロジェクトにかかわっている。", quizzes:[{correct:"～にかかわる", choices:["～から離れる","～を無視する","～に反対する","～を批判する","～から逃げる"]}]},
-  ,{word:"reduce", meaning:"を減らす", atk:267, hp:1345, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"We need to reduce waste.", exampleJp:"私たちは廃棄物を減らす必要がある。", quizzes:[{correct:"を減らす", choices:["を増やす","を維持する","を分散する","を強化する","を拡大する"]}]},
-  ,{word:"design", meaning:"を設計する", atk:312, hp:1078, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"She designed a new building.", exampleJp:"彼女は新しい建物を設計した。", quizzes:[{correct:"を設計する", choices:["を解体する","を模倣する","を修理する","を評価する","を破壊する"]}]},
-  ,{word:"force to do", meaning:"～に～することを強いる", atk:289, hp:1234, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"They forced him to sign the contract.", exampleJp:"彼らは彼に契約書に署名することを強いた。", quizzes:[{correct:"～に～することを強いる", choices:["～に～することを許可する","～に～することを勧める","～に～することを禁止する","～に～することを頼む","～に～することを教える"]}]},
-  ,{word:"A is limited to B", meaning:"AはBに限られる", atk:223, hp:1789, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"Access is limited to members only.", exampleJp:"アクセスは会員のみに限られる。", quizzes:[{correct:"AはBに限られる", choices:["AはBに含まれる","AはBに関係する","AはBを超える","AはBに反する","AはBに依存する"]}]},
-  ,{word:"bear", meaning:"に耐える", atk:256, hp:1678, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"She could not bear the pain.", exampleJp:"彼女はその痛みに耐えられなかった。", quizzes:[{correct:"に耐える", choices:["に屈する","から逃げる","を拒否する","を無視する","に怒る"]}]},
-  ,{word:"affect", meaning:"に影響を及ぼす", atk:278, hp:1345, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"The weather affects our mood.", exampleJp:"天気は私たちの気分に影響を及ぼす。", quizzes:[{correct:"に影響を及ぼす", choices:["に無関係である","から切り離す","を無視する","に従う","を観察する"]}]},
-  ,{word:"deal with", meaning:"を処理する", atk:301, hp:1123, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"He knows how to deal with problems.", exampleJp:"彼は問題を処理する方法を知っている。", quizzes:[{correct:"を処理する", choices:["を放置する","を悪化させる","を無視する","を複雑にする","を先延ばしにする"]}]},
-  ,{word:"avoid doing", meaning:"～することを避ける", atk:189, hp:2234, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"You should avoid eating too much sugar.", exampleJp:"砂糖を食べすぎることを避けるべきだ。", quizzes:[{correct:"～することを避ける", choices:["～することを楽しむ","～することを続ける","～することを決める","～することを好む","～することを目指す"]}]},
-  ,{word:"be related to", meaning:"～に関連している", atk:212, hp:1890, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"This issue is related to climate change.", exampleJp:"この問題は気候変動に関連している。", quizzes:[{correct:"～に関連している", choices:["～に反対している","～から独立している","～を無視している","～に矛盾している","～から切り離されている"]}]},
-  ,{word:"realize", meaning:"に気づく", atk:234, hp:1567, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"I realized that I had made a mistake.", exampleJp:"私は間違いを犯したことに気づいた。", quizzes:[{correct:"に気づく", choices:["を無視する","を誤解する","を忘れる","を否定する","を見落とす"]}]},
-  ,{word:"encourage to do", meaning:"～を～するように奨励する", atk:198, hp:2123, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"The teacher encouraged students to read more.", exampleJp:"先生は生徒たちにもっと読書するように奨励した。", quizzes:[{correct:"～を～するように奨励する", choices:["～を～するように強制する","～を～することから止める","～を～することを禁止する","～を～することを批判する","～を～することを無視する"]}]},
-  ,{word:"compare A with B", meaning:"AをBと比較する", atk:267, hp:1456, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"Compare this product with others.", exampleJp:"この製品を他のものと比較してください。", quizzes:[{correct:"AをBと比較する", choices:["AをBと混同する","AをBに変える","AをBから区別する","AをBと交換する","AをBに組み合わせる"]}]},
-  ,{word:"measure", meaning:"を測る", atk:234, hp:1789, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"We need to measure the temperature.", exampleJp:"温度を測る必要がある。", quizzes:[{correct:"を測る", choices:["を推測する","を記録する","を観察する","を計算する","を評価する"]}]},
-  ,{word:"exist", meaning:"存在する", atk:245, hp:1567, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"Do aliens exist?", exampleJp:"宇宙人は存在するのか？", quizzes:[{correct:"存在する", choices:["消滅する","変化する","隠れる","移動する","停止する"]}]},
-  ,{word:"mark", meaning:"に印をつける", atk:278, hp:1234, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"Mark the correct answer.", exampleJp:"正しい答えに印をつけなさい。", quizzes:[{correct:"に印をつける", choices:["に色を塗る","を消去する","を切り取る","に書き込む","を貼り付ける"]}]},
-  ,{word:"challenge", meaning:"に異議を唱える", atk:312, hp:1089, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"She challenged the court's decision.", exampleJp:"彼女は裁判所の決定に異議を唱えた。", quizzes:[{correct:"に異議を唱える", choices:["に同意する","を支持する","を称賛する","を無視する","に従う"]}]},
-  ,{word:"depend on", meaning:"～に頼る", atk:189, hp:2345, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"Children depend on their parents.", exampleJp:"子供たちは親に頼る。", quizzes:[{correct:"～に頼る", choices:["～から独立する","～を無視する","～に反抗する","～を批判する","～から離れる"]}]},
-  ,{word:"object to", meaning:"～に反対する", atk:223, hp:1890, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"He objected to the new policy.", exampleJp:"彼は新しい政策に反対した。", quizzes:[{correct:"～に反対する", choices:["～に賛成する","～を支持する","～に従う","～を称賛する","～を受け入れる"]}]},
-  ,{word:"demand that A do", meaning:"Aが～するように要求する", atk:267, hp:1345, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"She demanded that he apologize.", exampleJp:"彼女は彼が謝罪するように要求した。", quizzes:[{correct:"Aが～するように要求する", choices:["Aが～するように許可する","Aが～するように勧める","Aが～するように頼む","Aが～しないように禁止する","Aが～するように教える"]}]},
-  ,{word:"found", meaning:"を設立する", atk:289, hp:1456, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"He founded the company in 1990.", exampleJp:"彼は1990年に会社を設立した。", quizzes:[{correct:"を設立する", choices:["を解散する","を買収する","を管理する","を改名する","を移転する"]}]},
-  ,{word:"complete", meaning:"を完成させる、仕上げる", atk:256, hp:1678, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"He completed the project on time.", exampleJp:"彼はプロジェクトを時間通りに完成させた。", quizzes:[{correct:"を完成させる", choices:["を中断する","を破壊する","を放棄する","を延期する","を解体する"]},{correct:"仕上げる", choices:["途中でやめる","やり直す","手を抜く","先送りにする","投げ出す"]}]},
-  ,{word:"in accord with", meaning:"～と一致して", atk:178, hp:2456, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"Act in accord with the rules.", exampleJp:"規則と一致して行動しなさい。", quizzes:[{correct:"～と一致して", choices:["～に反して","～とは無関係に","～に反対して","～を無視して","～と矛盾して"]}]},
-  ,{word:"cause", meaning:"原因", atk:234, hp:1567, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"What is the cause of the problem?", exampleJp:"問題の原因は何ですか？", quizzes:[{correct:"原因", choices:["結果","目的","影響","経過","解決策"]}]},
-  ,{word:"have an effect on", meaning:"～に影響を与える", atk:201, hp:2123, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"Exercise has an effect on your health.", exampleJp:"運動は健康に影響を与える。", quizzes:[{correct:"～に影響を与える", choices:["～に無関係である","～から影響を受ける","～を変化させない","～を観察する","～から独立する"]}]},
-  ,{word:"have an influence on", meaning:"～に影響を与える", atk:189, hp:2234, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"Music has an influence on our emotions.", exampleJp:"音楽は私たちの感情に影響を与える。", quizzes:[{correct:"～に影響を与える", choices:["～に支配される","～から切り離される","～を制限する","～に依存する","～を妨げる"]}]},
-  ,{word:"environment", meaning:"環境", atk:223, hp:1890, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"We must protect the environment.", exampleJp:"私たちは環境を守らなければならない。", quizzes:[{correct:"環境", choices:["経済","社会","文化","自然","気候"]}]},
-  ,{word:"matter", meaning:"事柄", atk:245, hp:1678, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"This is a serious matter.", exampleJp:"これは深刻な事柄だ。", quizzes:[{correct:"事柄", choices:["感情","結果","意見","立場","判断"]}]},
-  ,{word:"view", meaning:"見解", atk:212, hp:2012, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"What is your view on this issue?", exampleJp:"この問題についてあなたの見解は何ですか？", quizzes:[{correct:"見解", choices:["事実","証拠","結論","報告","記録"]}]},
-  ,{word:"species", meaning:"生物の種", atk:278, hp:1345, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"Many species are endangered.", exampleJp:"多くの生物の種が絶滅の危機にある。", quizzes:[{correct:"生物の種", choices:["生物の群れ","生物の個体","生物の器官","生物の生態","生物の進化"]}]},
-  ,{word:"thought", meaning:"考え", atk:189, hp:2345, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"Share your thoughts with us.", exampleJp:"あなたの考えを私たちと共有してください。", quizzes:[{correct:"考え", choices:["感情","記憶","行動","判断","印象"]}]},
-  ,{word:"have a good memory for", meaning:"～に関して記憶力が良い", atk:167, hp:2567, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"She has a good memory for faces.", exampleJp:"彼女は顔に関して記憶力が良い。", quizzes:[{correct:"～に関して記憶力が良い", choices:["～に関して理解力が高い","～に関して興味がある","～に関して知識が豊富だ","～に関して集中力がある","～に関して判断力が優れている"]}]},
-  ,{word:"put ～ into practice", meaning:"～を実行する", atk:256, hp:1567, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"It is time to put the plan into practice.", exampleJp:"計画を実行する時だ。", quizzes:[{correct:"～を実行する", choices:["～を計画する","～を中止する","～を評価する","～を修正する","～を提案する"]}]},
-  ,{word:"theory", meaning:"学説", atk:201, hp:2234, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"Darwin's theory changed science.", exampleJp:"ダーウィンの学説は科学を変えた。", quizzes:[{correct:"学説", choices:["実験","証拠","仮説","法則","事実"]}]},
-  ,{word:"issue", meaning:"問題点", atk:234, hp:1678, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"We need to address this issue.", exampleJp:"私たちはこの問題点に対処する必要がある。", quizzes:[{correct:"問題点", choices:["解決策","目標","原因","結果","議題"]}]},
-  ,{word:"experiment", meaning:"実験", atk:267, hp:1456, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"The experiment was a success.", exampleJp:"その実験は成功だった。", quizzes:[{correct:"実験", choices:["観察","調査","研究","分析","証明"]}]},
-  ,{word:"subject", meaning:"話題", atk:212, hp:1890, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"Let's change the subject.", exampleJp:"話題を変えましょう。", quizzes:[{correct:"話題", choices:["意見","議論","内容","テーマ","問題"]}]},
-  ,{word:"project", meaning:"計画", atk:245, hp:1789, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"The project will take three months.", exampleJp:"その計画には3ヶ月かかるだろう。", quizzes:[{correct:"計画", choices:["結果","予算","目標","報告","提案"]}]},
-  ,{word:"play an important role in", meaning:"～において重要な役割を果たす", atk:178, hp:2456, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"Education plays an important role in society.", exampleJp:"教育は社会において重要な役割を果たす。", quizzes:[{correct:"～において重要な役割を果たす", choices:["～において重要な問題を引き起こす","～において大きな影響を受ける","～において中心的な立場を失う","～において小さな貢献をする","～において重要な決定を避ける"]}]},
-  ,{word:"term", meaning:"用語", atk:223, hp:1678, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"This is a technical term.", exampleJp:"これは専門用語だ。", quizzes:[{correct:"用語", choices:["定義","概念","表現","説明","略語"]}]},
-  ,{word:"statement", meaning:"声明", atk:201, hp:2123, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"The president made a statement.", exampleJp:"大統領は声明を発表した。", quizzes:[{correct:"声明", choices:["報告","宣言","発表","主張","指示"]}]},
-  ,{word:"material", meaning:"材料", atk:256, hp:1345, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"What materials do you need?", exampleJp:"どんな材料が必要ですか？", quizzes:[{correct:"材料", choices:["製品","資源","道具","部品","素材"]}]},
-  ,{word:"evidence", meaning:"証拠", atk:289, hp:1234, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"There is no evidence of this.", exampleJp:"これに関する証拠はない。", quizzes:[{correct:"証拠", choices:["手がかり","事実","根拠","記録","情報"]}]},
-  ,{word:"source", meaning:"源", atk:212, hp:2012, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"The sun is a source of energy.", exampleJp:"太陽はエネルギーの源だ。", quizzes:[{correct:"源", choices:["結果","原因","起点","供給","背景"]}]},
-  ,{word:"appropriate", meaning:"適切な", atk:234, hp:1567, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"Choose appropriate words.", exampleJp:"適切な言葉を選びなさい。", quizzes:[{correct:"適切な", choices:["不適切な","効果的な","一般的な","重要な","必要な"]}]},
-  ,{word:"A is likely to do", meaning:"Aは～しそうだ", atk:178, hp:2234, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"It is likely to rain tomorrow.", exampleJp:"明日は雨が降りそうだ。", quizzes:[{correct:"Aは～しそうだ", choices:["Aは～するべきだ","Aは～するつもりだ","Aは～することができる","Aは～することを望んでいる","Aは～することを避けている"]}]},
-  ,{word:"public", meaning:"公の", atk:245, hp:1678, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"This is a public space.", exampleJp:"ここは公の場所だ。", quizzes:[{correct:"公の", choices:["私的な","一般的な","社会的な","公式な","共通の"]}]},
-  ,{word:"be certain that", meaning:"～と確信している", atk:267, hp:1456, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"I am certain that he is right.", exampleJp:"私は彼が正しいと確信している。", quizzes:[{correct:"～と確信している", choices:["～と疑っている","～と心配している","～と期待している","～と想像している","～と思い込んでいる"]}]},
-  ,{word:"similar to", meaning:"～と似ている", atk:198, hp:2123, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"This is similar to what I expected.", exampleJp:"これは私が期待していたものと似ている。", quizzes:[{correct:"～と似ている", choices:["～と異なっている","～と反対である","～と無関係である","～より優れている","～と矛盾している"]}]},
-  ,{word:"recent", meaning:"最近の", atk:212, hp:1890, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"Have you seen any recent news?", exampleJp:"最近のニュースを見ましたか？", quizzes:[{correct:"最近の", choices:["過去の","現在の","将来の","古い","長期的な"]}]},
-  ,{word:"major", meaning:"主要な", atk:256, hp:1567, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"This is a major problem.", exampleJp:"これは主要な問題だ。", quizzes:[{correct:"主要な", choices:["副次的な","一般的な","重大な","基本的な","代表的な"]}]},
-  ,{word:"patient", meaning:"忍耐強い", atk:189, hp:2234, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"You need to be patient.", exampleJp:"忍耐強くある必要がある。", quizzes:[{correct:"忍耐強い", choices:["短気な","慎重な","穏やかな","寛大な","冷静な"]}]},
-  ,{word:"particular", meaning:"特定の", atk:234, hp:1789, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"Is there a particular reason?", exampleJp:"特定の理由がありますか？", quizzes:[{correct:"特定の", choices:["一般的な","様々な","典型的な","共通の","普遍的な"]}]},
+  {word:"require to do", meaning:"～に～することを要求する", atk:234, hp:1567, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"The law requires companies to report their earnings.", exampleJp:"法律は企業に収益を報告することを要求する。", quizzes:[{correct:"～に～することを要求する", choices:["～に～することを禁止する","～に～することを許可する","～に～することを勧める","～に～することを頼む","～に～することを教える"]}]},
+  {word:"share A with B", meaning:"AをBと分かち合う", atk:178, hp:2234, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"She shared her lunch with her friend.", exampleJp:"彼女は友達と昼食を分かち合った。", quizzes:[{correct:"AをBと分かち合う", choices:["AをBから奪う","AをBに売る","AをBから隠す","AをBと交換する","AをBに押しつける"]}]},
+  {word:"store", meaning:"を保存する", atk:289, hp:1123, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"You can store data on the cloud.", exampleJp:"データをクラウドに保存することができる。", quizzes:[{correct:"を保存する", choices:["を削除する","を公開する","を転送する","を破棄する","を変換する"]}]},
+  {word:"tend to do", meaning:"～する傾向にある", atk:156, hp:2456, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"People tend to forget names easily.", exampleJp:"人は名前を忘れやすい傾向にある。", quizzes:[{correct:"～する傾向にある", choices:["～することを避ける傾向にある","～することが得意である","～することを強制される","～することができない","～することを好まない"]}]},
+  {word:"be concerned about", meaning:"～を心配している", atk:167, hp:2678, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"She is concerned about her health.", exampleJp:"彼女は自分の健康を心配している。", quizzes:[{correct:"～を心配している", choices:["～に満足している","～に興味を持っている","～を楽しんでいる","～に怒っている","～を無視している"]}]},
+  {word:"describe", meaning:"～について述べる、を説明する", atk:245, hp:1489, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"Please describe what you saw.", exampleJp:"見たことについて述べてください。", quizzes:[{correct:"～について述べる", choices:["～について黙っている","～について質問する","～について否定する","～について調査する","～について批判する"]},{correct:"を説明する", choices:["を誤魔化す","を省略する","を否定する","を複雑にする","を隠す"]}]},
+  {word:"be involved in", meaning:"～にかかわる", atk:198, hp:2123, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"He is involved in the project.", exampleJp:"彼はそのプロジェクトにかかわっている。", quizzes:[{correct:"～にかかわる", choices:["～から離れる","～を無視する","～に反対する","～を批判する","～から逃げる"]}]},
+  {word:"reduce", meaning:"を減らす", atk:267, hp:1345, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"We need to reduce waste.", exampleJp:"私たちは廃棄物を減らす必要がある。", quizzes:[{correct:"を減らす", choices:["を増やす","を維持する","を分散する","を強化する","を拡大する"]}]},
+  {word:"design", meaning:"を設計する", atk:312, hp:1078, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"She designed a new building.", exampleJp:"彼女は新しい建物を設計した。", quizzes:[{correct:"を設計する", choices:["を解体する","を模倣する","を修理する","を評価する","を破壊する"]}]},
+  {word:"force to do", meaning:"～に～することを強いる", atk:289, hp:1234, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"They forced him to sign the contract.", exampleJp:"彼らは彼に契約書に署名することを強いた。", quizzes:[{correct:"～に～することを強いる", choices:["～に～することを許可する","～に～することを勧める","～に～することを禁止する","～に～することを頼む","～に～することを教える"]}]},
+  {word:"A is limited to B", meaning:"AはBに限られる", atk:223, hp:1789, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"Access is limited to members only.", exampleJp:"アクセスは会員のみに限られる。", quizzes:[{correct:"AはBに限られる", choices:["AはBに含まれる","AはBに関係する","AはBを超える","AはBに反する","AはBに依存する"]}]},
+  {word:"bear", meaning:"に耐える", atk:256, hp:1678, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"She could not bear the pain.", exampleJp:"彼女はその痛みに耐えられなかった。", quizzes:[{correct:"に耐える", choices:["に屈する","から逃げる","を拒否する","を無視する","に怒る"]}]},
+  {word:"affect", meaning:"に影響を及ぼす", atk:278, hp:1345, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"The weather affects our mood.", exampleJp:"天気は私たちの気分に影響を及ぼす。", quizzes:[{correct:"に影響を及ぼす", choices:["に無関係である","から切り離す","を無視する","に従う","を観察する"]}]},
+  {word:"deal with", meaning:"を処理する", atk:301, hp:1123, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"He knows how to deal with problems.", exampleJp:"彼は問題を処理する方法を知っている。", quizzes:[{correct:"を処理する", choices:["を放置する","を悪化させる","を無視する","を複雑にする","を先延ばしにする"]}]},
+  {word:"avoid doing", meaning:"～することを避ける", atk:189, hp:2234, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"You should avoid eating too much sugar.", exampleJp:"砂糖を食べすぎることを避けるべきだ。", quizzes:[{correct:"～することを避ける", choices:["～することを楽しむ","～することを続ける","～することを決める","～することを好む","～することを目指す"]}]},
+  {word:"be related to", meaning:"～に関連している", atk:212, hp:1890, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"This issue is related to climate change.", exampleJp:"この問題は気候変動に関連している。", quizzes:[{correct:"～に関連している", choices:["～に反対している","～から独立している","～を無視している","～に矛盾している","～から切り離されている"]}]},
+  {word:"realize", meaning:"に気づく", atk:234, hp:1567, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"I realized that I had made a mistake.", exampleJp:"私は間違いを犯したことに気づいた。", quizzes:[{correct:"に気づく", choices:["を無視する","を誤解する","を忘れる","を否定する","を見落とす"]}]},
+  {word:"encourage to do", meaning:"～を～するように奨励する", atk:198, hp:2123, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"The teacher encouraged students to read more.", exampleJp:"先生は生徒たちにもっと読書するように奨励した。", quizzes:[{correct:"～を～するように奨励する", choices:["～を～するように強制する","～を～することから止める","～を～することを禁止する","～を～することを批判する","～を～することを無視する"]}]},
+  {word:"compare A with B", meaning:"AをBと比較する", atk:267, hp:1456, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"Compare this product with others.", exampleJp:"この製品を他のものと比較してください。", quizzes:[{correct:"AをBと比較する", choices:["AをBと混同する","AをBに変える","AをBから区別する","AをBと交換する","AをBに組み合わせる"]}]},
+  {word:"measure", meaning:"を測る", atk:234, hp:1789, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"We need to measure the temperature.", exampleJp:"温度を測る必要がある。", quizzes:[{correct:"を測る", choices:["を推測する","を記録する","を観察する","を計算する","を評価する"]}]},
+  {word:"exist", meaning:"存在する", atk:245, hp:1567, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"Do aliens exist?", exampleJp:"宇宙人は存在するのか？", quizzes:[{correct:"存在する", choices:["消滅する","変化する","隠れる","移動する","停止する"]}]},
+  {word:"mark", meaning:"に印をつける", atk:278, hp:1234, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"Mark the correct answer.", exampleJp:"正しい答えに印をつけなさい。", quizzes:[{correct:"に印をつける", choices:["に色を塗る","を消去する","を切り取る","に書き込む","を貼り付ける"]}]},
+  {word:"challenge", meaning:"に異議を唱える", atk:312, hp:1089, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"She challenged the court's decision.", exampleJp:"彼女は裁判所の決定に異議を唱えた。", quizzes:[{correct:"に異議を唱える", choices:["に同意する","を支持する","を称賛する","を無視する","に従う"]}]},
+  {word:"depend on", meaning:"～に頼る", atk:189, hp:2345, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"Children depend on their parents.", exampleJp:"子供たちは親に頼る。", quizzes:[{correct:"～に頼る", choices:["～から独立する","～を無視する","～に反抗する","～を批判する","～から離れる"]}]},
+  {word:"object to", meaning:"～に反対する", atk:223, hp:1890, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"He objected to the new policy.", exampleJp:"彼は新しい政策に反対した。", quizzes:[{correct:"～に反対する", choices:["～に賛成する","～を支持する","～に従う","～を称賛する","～を受け入れる"]}]},
+  {word:"demand that A do", meaning:"Aが～するように要求する", atk:267, hp:1345, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"She demanded that he apologize.", exampleJp:"彼女は彼が謝罪するように要求した。", quizzes:[{correct:"Aが～するように要求する", choices:["Aが～するように許可する","Aが～するように勧める","Aが～するように頼む","Aが～しないように禁止する","Aが～するように教える"]}]},
+  {word:"found", meaning:"を設立する", atk:289, hp:1456, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"He founded the company in 1990.", exampleJp:"彼は1990年に会社を設立した。", quizzes:[{correct:"を設立する", choices:["を解散する","を買収する","を管理する","を改名する","を移転する"]}]},
+  {word:"complete", meaning:"を完成させる、仕上げる", atk:256, hp:1678, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"He completed the project on time.", exampleJp:"彼はプロジェクトを時間通りに完成させた。", quizzes:[{correct:"を完成させる", choices:["を中断する","を破壊する","を放棄する","を延期する","を解体する"]},{correct:"仕上げる", choices:["途中でやめる","やり直す","手を抜く","先送りにする","投げ出す"]}]},
+  {word:"in accord with", meaning:"～と一致して", atk:178, hp:2456, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"Act in accord with the rules.", exampleJp:"規則と一致して行動しなさい。", quizzes:[{correct:"～と一致して", choices:["～に反して","～とは無関係に","～に反対して","～を無視して","～と矛盾して"]}]},
+  {word:"cause", meaning:"原因", atk:234, hp:1567, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"What is the cause of the problem?", exampleJp:"問題の原因は何ですか？", quizzes:[{correct:"原因", choices:["結果","目的","影響","経過","解決策"]}]},
+  {word:"have an effect on", meaning:"～に影響を与える", atk:201, hp:2123, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"Exercise has an effect on your health.", exampleJp:"運動は健康に影響を与える。", quizzes:[{correct:"～に影響を与える", choices:["～に無関係である","～から影響を受ける","～を変化させない","～を観察する","～から独立する"]}]},
+  {word:"have an influence on", meaning:"～に影響を与える", atk:189, hp:2234, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"Music has an influence on our emotions.", exampleJp:"音楽は私たちの感情に影響を与える。", quizzes:[{correct:"～に影響を与える", choices:["～に支配される","～から切り離される","～を制限する","～に依存する","～を妨げる"]}]},
+  {word:"environment", meaning:"環境", atk:223, hp:1890, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"We must protect the environment.", exampleJp:"私たちは環境を守らなければならない。", quizzes:[{correct:"環境", choices:["経済","社会","文化","自然","気候"]}]},
+  {word:"matter", meaning:"事柄", atk:245, hp:1678, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"This is a serious matter.", exampleJp:"これは深刻な事柄だ。", quizzes:[{correct:"事柄", choices:["感情","結果","意見","立場","判断"]}]},
+  {word:"view", meaning:"見解", atk:212, hp:2012, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"What is your view on this issue?", exampleJp:"この問題についてあなたの見解は何ですか？", quizzes:[{correct:"見解", choices:["事実","証拠","結論","報告","記録"]}]},
+  {word:"species", meaning:"生物の種", atk:278, hp:1345, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"Many species are endangered.", exampleJp:"多くの生物の種が絶滅の危機にある。", quizzes:[{correct:"生物の種", choices:["生物の群れ","生物の個体","生物の器官","生物の生態","生物の進化"]}]},
+  {word:"thought", meaning:"考え", atk:189, hp:2345, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"Share your thoughts with us.", exampleJp:"あなたの考えを私たちと共有してください。", quizzes:[{correct:"考え", choices:["感情","記憶","行動","判断","印象"]}]},
+  {word:"have a good memory for", meaning:"～に関して記憶力が良い", atk:167, hp:2567, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"She has a good memory for faces.", exampleJp:"彼女は顔に関して記憶力が良い。", quizzes:[{correct:"～に関して記憶力が良い", choices:["～に関して理解力が高い","～に関して興味がある","～に関して知識が豊富だ","～に関して集中力がある","～に関して判断力が優れている"]}]},
+  {word:"put ～ into practice", meaning:"～を実行する", atk:256, hp:1567, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"It is time to put the plan into practice.", exampleJp:"計画を実行する時だ。", quizzes:[{correct:"～を実行する", choices:["～を計画する","～を中止する","～を評価する","～を修正する","～を提案する"]}]},
+  {word:"theory", meaning:"学説", atk:201, hp:2234, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"Darwin's theory changed science.", exampleJp:"ダーウィンの学説は科学を変えた。", quizzes:[{correct:"学説", choices:["実験","証拠","仮説","法則","事実"]}]},
+  {word:"issue", meaning:"問題点", atk:234, hp:1678, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"We need to address this issue.", exampleJp:"私たちはこの問題点に対処する必要がある。", quizzes:[{correct:"問題点", choices:["解決策","目標","原因","結果","議題"]}]},
+  {word:"experiment", meaning:"実験", atk:267, hp:1456, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"The experiment was a success.", exampleJp:"その実験は成功だった。", quizzes:[{correct:"実験", choices:["観察","調査","研究","分析","証明"]}]},
+  {word:"subject", meaning:"話題", atk:212, hp:1890, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"Let's change the subject.", exampleJp:"話題を変えましょう。", quizzes:[{correct:"話題", choices:["意見","議論","内容","テーマ","問題"]}]},
+  {word:"project", meaning:"計画", atk:245, hp:1789, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"The project will take three months.", exampleJp:"その計画には3ヶ月かかるだろう。", quizzes:[{correct:"計画", choices:["結果","予算","目標","報告","提案"]}]},
+  {word:"play an important role in", meaning:"～において重要な役割を果たす", atk:178, hp:2456, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"Education plays an important role in society.", exampleJp:"教育は社会において重要な役割を果たす。", quizzes:[{correct:"～において重要な役割を果たす", choices:["～において重要な問題を引き起こす","～において大きな影響を受ける","～において中心的な立場を失う","～において小さな貢献をする","～において重要な決定を避ける"]}]},
+  {word:"term", meaning:"用語", atk:223, hp:1678, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"This is a technical term.", exampleJp:"これは専門用語だ。", quizzes:[{correct:"用語", choices:["定義","概念","表現","説明","略語"]}]},
+  {word:"statement", meaning:"声明", atk:201, hp:2123, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"The president made a statement.", exampleJp:"大統領は声明を発表した。", quizzes:[{correct:"声明", choices:["報告","宣言","発表","主張","指示"]}]},
+  {word:"material", meaning:"材料", atk:256, hp:1345, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"What materials do you need?", exampleJp:"どんな材料が必要ですか？", quizzes:[{correct:"材料", choices:["製品","資源","道具","部品","素材"]}]},
+  {word:"evidence", meaning:"証拠", atk:289, hp:1234, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"There is no evidence of this.", exampleJp:"これに関する証拠はない。", quizzes:[{correct:"証拠", choices:["手がかり","事実","根拠","記録","情報"]}]},
+  {word:"source", meaning:"源", atk:212, hp:2012, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"The sun is a source of energy.", exampleJp:"太陽はエネルギーの源だ。", quizzes:[{correct:"源", choices:["結果","原因","起点","供給","背景"]}]},
+  {word:"appropriate", meaning:"適切な", atk:234, hp:1567, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"Choose appropriate words.", exampleJp:"適切な言葉を選びなさい。", quizzes:[{correct:"適切な", choices:["不適切な","効果的な","一般的な","重要な","必要な"]}]},
+  {word:"A is likely to do", meaning:"Aは～しそうだ", atk:178, hp:2234, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"It is likely to rain tomorrow.", exampleJp:"明日は雨が降りそうだ。", quizzes:[{correct:"Aは～しそうだ", choices:["Aは～するべきだ","Aは～するつもりだ","Aは～することができる","Aは～することを望んでいる","Aは～することを避けている"]}]},
+  {word:"public", meaning:"公の", atk:245, hp:1678, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"This is a public space.", exampleJp:"ここは公の場所だ。", quizzes:[{correct:"公の", choices:["私的な","一般的な","社会的な","公式な","共通の"]}]},
+  {word:"be certain that", meaning:"～と確信している", atk:267, hp:1456, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"I am certain that he is right.", exampleJp:"私は彼が正しいと確信している。", quizzes:[{correct:"～と確信している", choices:["～と疑っている","～と心配している","～と期待している","～と想像している","～と思い込んでいる"]}]},
+  {word:"similar to", meaning:"～と似ている", atk:198, hp:2123, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"This is similar to what I expected.", exampleJp:"これは私が期待していたものと似ている。", quizzes:[{correct:"～と似ている", choices:["～と異なっている","～と反対である","～と無関係である","～より優れている","～と矛盾している"]}]},
+  {word:"recent", meaning:"最近の", atk:212, hp:1890, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"Have you seen any recent news?", exampleJp:"最近のニュースを見ましたか？", quizzes:[{correct:"最近の", choices:["過去の","現在の","将来の","古い","長期的な"]}]},
+  {word:"major", meaning:"主要な", atk:256, hp:1567, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"This is a major problem.", exampleJp:"これは主要な問題だ。", quizzes:[{correct:"主要な", choices:["副次的な","一般的な","重大な","基本的な","代表的な"]}]},
+  {word:"patient", meaning:"忍耐強い", atk:189, hp:2234, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"You need to be patient.", exampleJp:"忍耐強くある必要がある。", quizzes:[{correct:"忍耐強い", choices:["短気な","慎重な","穏やかな","寛大な","冷静な"]}]},
+  {word:"particular", meaning:"特定の", atk:234, hp:1789, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"Is there a particular reason?", exampleJp:"特定の理由がありますか？", quizzes:[{correct:"特定の", choices:["一般的な","様々な","典型的な","共通の","普遍的な"]}]},
 {word:"available", meaning:"手に入る", atk:210, hp:2200, element:"ice", elementLabel:"🧊 氷属性", elementColor:"#00BFFF", type:"target1900", example:"The product is available in stores.", exampleJp:"その商品は店舗で手に入る。", quizzes:[{correct:"手に入る", choices:["売り切れの","禁止されている","壊れている","見つからない","隠されている"]}]},
 {word:"native", meaning:"出生地の", atk:245, hp:1800, element:"lightning", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"She returned to her native country.", exampleJp:"彼女は出生地の国に戻った。", quizzes:[{correct:"出生地の", choices:["外国の","移住した","旅行中の","一時的な","亡命した"]}]},
 {word:"political", meaning:"政治の", atk:185, hp:2600, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"He has strong political views.", exampleJp:"彼は強い政治的見解を持っている。", quizzes:[{correct:"政治の", choices:["経済の","文化の","宗教の","軍事の","社会の"]}]},
@@ -8793,7 +8793,6 @@ function openTarget1900Gacha1(){
   const card = { ...target1900Cards[Math.floor(Math.random()*target1900Cards.length)] };
   owned.push(card);
   saveGame(); update();
-
   showTarget1900Result([card]);
 }
 
@@ -8805,17 +8804,12 @@ function openTarget1900Gacha11(){
   diamonds -= 50;
 
   const results = [];
-  // 10枚ランダム
-  for(let i = 0; i < 10; i++){
+  for(let i = 0; i < 11; i++){
     results.push({ ...target1900Cards[Math.floor(Math.random()*target1900Cards.length)] });
   }
-  // 11枚目はSR以上確定（現状SRは1枚なのでSR固定）
-  const srPool = target1900Cards.filter(c=>c.rarity==="SR"||c.rarity==="SSR"||c.rarity==="UR");
-  results.push({ ...(srPool[Math.floor(Math.random()*srPool.length)]) });
 
   results.forEach(c=>owned.push(c));
   saveGame(); update();
-
   showTarget1900Result(results);
 }
 
@@ -8837,43 +8831,28 @@ function showTarget1900Result(cards){
     const wrap = document.createElement("div");
     wrap.className = "gacha10-card-wrap";
 
-    const rarityColor = {N:"#aaa",R:"#6BCB77",SR:"#4D96FF",SSR:"#FFD93D",UR:"#ff9500"}[card.rarity]||"#fff";
-
     wrap.innerHTML = `
-      <div class="target1900-card t1900-${card.element}"
-        onclick="showTarget1900Detail('${card.word}')"
+      <div class="target1900-card t1900-${card.element||"fire"}"
+        onclick="showTarget1900Detail('${(card.word||"").replace(/'/g,"\\'")}')"
         style="cursor:pointer;width:110px;padding:12px 8px;border-radius:14px;
           text-align:center;color:#fff;position:relative;overflow:hidden;
-          border:2px solid ${card.elementColor};
-          box-shadow:0 0 14px ${card.elementColor}66;">
-        <div style="font-size:1.2rem;margin-bottom:4px">${card.elementLabel}</div>
+          border:2px solid ${card.elementColor||"#fff"};
+          box-shadow:0 0 14px ${card.elementColor||"#fff"}66;">
+        <div style="font-size:1.2rem;margin-bottom:4px">${card.elementLabel||""}</div>
         <div style="font-family:'Fredoka One',cursive;font-size:1rem;
-          margin-bottom:3px;color:#fff">${card.word}</div>
+          margin-bottom:3px;color:#fff">${card.word||""}</div>
         <div style="font-size:11px;color:rgba(255,255,255,0.8);margin-bottom:4px">
-          ${card.meaning}
+          ${card.meaning||""}
         </div>
         <div style="font-size:10px;color:rgba(255,255,255,0.5)">
-          ⚔️${card.atk} ❤️${card.hp}
+          ⚔️${card.atk||0} ❤️${card.hp||0}
         </div>
-        <div style="font-size:11px;font-weight:700;color:${rarityColor};margin-top:3px">
-          ${card.rarity}
-        </div>
-        <div style="font-size:9px;color:rgba(255,255,255,0.4);margin-top:2px">📖 詳細</div>
       </div>`;
 
     stage.appendChild(wrap);
 
     setTimeout(()=>{
-      if(card.rarity==="SR"||card.rarity==="SSR"||card.rarity==="UR"){
-        const flash = document.createElement("div");
-        flash.className = "ssr-flash";
-        document.body.appendChild(flash);
-        setTimeout(()=>flash.remove(), 600);
-        wrap.classList.add("ssr-reveal");
-        spawnGachaParticles(wrap);
-      } else {
-        wrap.classList.add("flip");
-      }
+      wrap.classList.add("flip");
     }, 150 + i * 220);
   });
 
