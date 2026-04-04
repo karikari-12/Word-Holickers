@@ -9226,6 +9226,10 @@ function beginRocketVersus(){
   rvCanvas.addEventListener("mouseup",    onRVMouseUp);
 
   updateRVHUD();
+
+  document.querySelector(".modeTabBar").style.display = "none";
+  document.querySelector("h1").style.display = "none";
+
   requestAnimationFrame(rvLoop);
 }
 
@@ -9646,19 +9650,18 @@ function drawRV(){
   ctx.setLineDash([]);
   ctx.restore();
 
-  // HPバー（P1左下、P2右上・反転）
+  // HPバー
   [0,1].forEach(pi=>{
     const p = rvP[pi];
     const bw = W*0.45, bh = 10;
     const bx = pi===0 ? 6 : W-bw-6;
-    const by = pi===0 ? H-16 : 6;
+    const by = pi===0 ? H-16 : H*0.52+28;
     ctx.save();
     ctx.fillStyle = "rgba(0,0,0,0.4)";
     ctx.beginPath(); ctx.roundRect(bx,by,bw,bh,5); ctx.fill();
     const ratio = Math.max(0,p.hp/p.maxHP);
     const hpColor = ratio>0.5?"#6BCB77":ratio>0.25?"#FFD93D":"#FF6B6B";
     ctx.fillStyle=hpColor; ctx.shadowColor=hpColor; ctx.shadowBlur=6;
-    // P2はHPバーを右から左に伸びるよう反転
     if(pi===1){
       ctx.beginPath();
       ctx.roundRect(bx+bw*(1-ratio), by, bw*ratio, bh, 5);
@@ -9674,8 +9677,8 @@ function drawRV(){
     const info = ELEMENT_INFO[rvP[pi].element];
     if(!info) return;
     const bw=64, bh=24;
-   const bx = pi===0 ? W-bw-8 : 8;
-    const by = pi===0 ? H-58 : 8;
+    const bx = pi===0 ? W-bw-8 : 8;
+    const by = pi===0 ? H-58 : H*0.52;
     ctx.save();
     ctx.fillStyle = info.color+"44";
     ctx.strokeStyle = info.color;
@@ -9929,6 +9932,8 @@ function drawRVSubShip(ctx, x, y, color){
 function endRocketVersus(winnerIdx){
   rvActive = false;
   cancelAnimationFrame(rvAnimFrame);
+  document.querySelector(".modeTabBar").style.display = "";
+  document.querySelector("h1").style.display = "";
   [0,1].forEach(pi=>{ if(rvQuiz[pi].countdown) clearInterval(rvQuiz[pi].countdown); });
   rvCanvas.removeEventListener("touchstart", onRVTouchStart);
   rvCanvas.removeEventListener("touchmove",  onRVTouchMove);
