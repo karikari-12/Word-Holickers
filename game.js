@@ -8935,6 +8935,1043 @@ function renderTarget1900CardList(){
 }
 
 // =============================================
+//  ROCKET VERSUS MODE
+// =============================================
+let rvActive = false;
+let rvAnimFrame = null;
+let rvCanvas = null, rvCtx = null;
+let rvLastFrame = 0;
+
+// プレイヤー状態
+const rvP = [
+  { x:0, y:0, w:50, h:70, hp:0, maxHP:0, atk:0, element:"fire", word:"", bullets:[], quizBulletSize:10, color:"#4D96FF", facing:1 },
+  { x:0, y:0, w:50, h:70, hp:0, maxHP:0, atk:0, element:"fire", word:"", bullets:[], quizBulletSize:10, color:"#FF6B6B", facing:-1 }
+];
+let rvDecks = [null, null];
+let rvTouchP = [
+  {active:false, lx:0, ly:0},
+  {active:false, lx:0, ly:0}
+];
+
+// 弾
+let rvBulletTimers = [0, 0];
+const RV_BULLET_BASE_INTERVAL = 60;
+
+// 隕石
+let rvMeteors = [];
+let rvMeteorTimer = 0;
+
+// クイズ
+let rvQuiz = [
+  {active:false, answer:"", zones:[], timer:0, countdown:null, word:""},
+  {active:false, answer:"", zones:[], timer:0, countdown:null, word:""}
+];
+let rvQuizTimer = [0, 0];
+const RV_QUIZ_INTERVAL = 900; // 15秒
+
+let rvPhase = "menu"; // menu | deckselect | battle | result
+let rvWinner = -1;
+
+// =============================================
+//  VERSUS SPACE MENU
+// =============================================
+function showVersusSpaceMenu(){
+  const area = document.getElementById("spaceArea");
+  area.innerHTML = `
+    <div style="text-align:center;padding:16px">
+      <div style="font-size:3rem;margin-bottom:8px">⚔️🚀</div>
+      <div style="font-family:'Fredoka One',cursive;font-size:1.3rem;
+        background:linear-gradient(90deg,#4D96FF,#FF6B6B);
+        -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+        margin-bottom:12px">ロケット対戦</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:16px;line-height:1.8">
+        2人で同じ画面を使って対戦！<br>
+        上半分がP2、下半分がP1の操作エリア<br>
+        相手に弾を当ててHPを削ろう！<br>
+        隕石を倒すと10秒間連射速度2倍！<br>
+        クイズ正解で弾が大きくなる（永続）
+      </div>
+      <button onclick="showRVDeckSelect()"
+        style="background:linear-gradient(135deg,#4D96FF,#FF6B6B);
+          font-size:1.1rem;padding:14px 28px;width:80%;margin:8px auto;display:block">
+        🚀 対戦スタート
+      </button>
+      <button onclick="showNormalStageMenu()"
+        style="background:rgba(255,255,255,0.08);box-shadow:none;
+          font-size:12px;margin-top:8px;color:rgba(255,255,255,0.5)">← 戻る</button>
+    </div>`;
+}
+
+// =============================================
+//  DECK SELECT
+// =============================================
+let rvDeckSelectPhase = 0; // 0=P1選択中, 1=P2選択中
+
+function showRVDeckSelect(){
+  rvDeckSelectPhase = 0;
+  showRVDeckSelectFor(0);
+}
+
+function showRVDeckSelectFor(playerIdx){
+  const pool = owned.filter(c=>c.type==="target1900");
+  const grouped = {};
+  pool.forEach(c=>{ if(!grouped[c.word]) grouped[c.word]=c; });
+  let cards = Object.values(grouped);
+
+  const area = document.getElementById("spaceArea");
+  const pName = playerIdx===0 ? "プレイヤー１" : "プレイヤー２";
+  const pColor = playerIdx===0 ? "#4D96FF" : "#FF6B6B";
+
+  area.innerHTML = `
+    <div style="position:relative;min-height:100vh;padding:12px 12px 100px">
+      <div style="text-align:center">
+        <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;
+          color:${pColor};margin-bottom:8px">🚀 ${pName} カード選択</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:8px">
+          カードを2枚選んでください（1枚目メイン・2枚目サブ）
+        </div>
+        <div style="display:flex;justify-content:center;gap:6px;margin-bottom:10px">
+          <button onclick="rvSortCards('atk')"
+            style="font-size:11px;padding:5px 12px;background:rgba(255,255,255,0.1);box-shadow:none">
+            ⚔️ ATK順
+          </button>
+          <button onclick="rvSortCards('hp')"
+            style="font-size:11px;padding:5px 12px;background:rgba(255,255,255,0.1);box-shadow:none">
+            ❤️ HP順
+          </button>
+        </div>
+        <div style="font-size:13px;color:${pColor};margin-bottom:8px">
+          選択: <span id="rvSelCount">0</span> / 2
+        </div>
+        <div id="rvCardPicker"
+          style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:12px">
+        </div>
+        <div id="rvSelectedDisplay"
+          style="display:flex;justify-content:center;gap:10px;margin-bottom:12px;min-height:60px">
+        </div>
+        <button onclick="showVersusSpaceMenu()"
+          style="background:rgba(255,255,255,0.08);box-shadow:none;
+            font-size:12px;color:rgba(255,255,255,0.5)">← 戻る</button>
+      </div>
+    </div>
+    <!-- 右下固定の決定ボタン -->
+    <div style="position:fixed;bottom:80px;right:16px;z-index:1000">
+      <button id="rvConfirmBtn" disabled
+        style="background:linear-gradient(135deg,${pColor},#C77DFF);
+          font-size:1rem;padding:14px 20px;border-radius:20px;
+          opacity:0.4;cursor:not-allowed;
+          box-shadow:0 4px 20px rgba(0,0,0,0.4)">
+        ✅ 決定
+      </button>
+    </div>`;
+
+  if(cards.length === 0){
+    document.getElementById("rvCardPicker").innerHTML =
+      `<div style="color:rgba(255,255,255,0.4);font-size:13px;padding:20px">
+        ターゲット1900カードがありません！
+      </div>`;
+    return;
+  }
+
+  let selected = [];
+
+  window.rvSortCards = function(by){
+    if(by==="atk") cards.sort((a,b)=>b.atk-a.atk);
+    if(by==="hp")  cards.sort((a,b)=>b.hp-a.hp);
+    renderPicker();
+  };
+
+  function renderPicker(){
+    document.getElementById("rvSelCount").textContent = selected.length;
+    document.getElementById("rvCardPicker").innerHTML = cards.map(c=>{
+      const idx = selected.findIndex(s=>s.word===c.word);
+      const isSel = idx !== -1;
+      const advantageHtml = (playerIdx===1 && rvDecks[0])
+        ? '<div style="font-size:10px;font-weight:700;color:'
+          +(getElementMultiplier(c.element,rvDecks[0][0].element)===2?"#6BCB77"
+            :getElementMultiplier(c.element,rvDecks[0][0].element)===0.5?"#FF6B6B"
+            :"rgba(255,255,255,0.4)")
+          +'">'
+          +(getElementMultiplier(c.element,rvDecks[0][0].element)===2?"▲有利"
+            :getElementMultiplier(c.element,rvDecks[0][0].element)===0.5?"▼不利"
+            :"−")
+          +'</div>'
+        : "";
+      return `
+        <div onclick="rvPickCard('${c.word}')"
+          style="cursor:pointer;width:90px;padding:8px 6px;border-radius:14px;
+            background:${isSel?"rgba(255,217,61,0.25)":"rgba(255,255,255,0.06)"};
+            border:2px solid ${isSel?c.elementColor:"rgba(255,255,255,0.15)"};
+            text-align:center;transition:all 0.15s;position:relative">
+          ${isSel?`<div style="position:absolute;top:-6px;right:-6px;
+            background:#FFD93D;border-radius:50%;width:18px;height:18px;
+            font-size:10px;display:flex;align-items:center;justify-content:center;
+            color:#1a1a2e;font-weight:700">${idx+1}</div>`:""}
+          <div style="font-size:1rem">${c.elementLabel.split(" ")[0]}</div>
+          <div style="font-family:'Fredoka One',cursive;font-size:0.8rem;color:#fff">${c.word}</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.5)">${c.meaning}</div>
+          <div style="font-size:10px;color:${c.elementColor}">⚔️${c.atk} ❤️${c.hp}</div>
+          ${advantageHtml}
+        </div>`;
+    }).join("");
+
+    document.getElementById("rvSelectedDisplay").innerHTML = [0,1].map(i=>{
+      const c = selected[i];
+      return c
+        ? `<div style="background:rgba(255,255,255,0.08);border:1px solid ${c.elementColor};
+            border-radius:12px;padding:8px;text-align:center;min-width:80px">
+            <div style="font-size:10px;color:rgba(255,255,255,0.4)">${i===0?"メイン":"サブ"}</div>
+            <div style="font-family:'Fredoka One',cursive;font-size:0.85rem;color:#fff">${c.word}</div>
+            <div style="font-size:10px;color:${c.elementColor}">⚔️${c.atk} ❤️${c.hp}</div>
+          </div>`
+        : `<div style="background:rgba(255,255,255,0.03);
+            border:1px dashed rgba(255,255,255,0.15);
+            border-radius:12px;padding:8px;text-align:center;min-width:80px;
+            color:rgba(255,255,255,0.25);font-size:12px">
+            ${i===0?"メイン":"サブ"}<br>未選択
+          </div>`;
+    }).join("");
+
+    const btn = document.getElementById("rvConfirmBtn");
+    btn.disabled = selected.length !== 2;
+    btn.style.opacity = selected.length===2 ? "1" : "0.4";
+    btn.style.cursor  = selected.length===2 ? "pointer" : "not-allowed";
+  }
+
+  window.rvPickCard = function(word){
+    const c = cards.find(x=>x.word===word);
+    const idx = selected.findIndex(s=>s.word===word);
+    if(idx!==-1){ selected.splice(idx,1); }
+    else { if(selected.length>=2) return; selected.push(c); }
+    renderPicker();
+  };
+
+  document.getElementById("rvConfirmBtn").onclick = ()=>{
+    if(selected.length<2) return;
+    rvDecks[playerIdx] = selected;
+    if(playerIdx===0){ showRVDeckSelectFor(1); }
+    else { beginRocketVersus(); }
+  };
+
+  renderPicker();
+}
+
+// =============================================
+//  BEGIN ROCKET VERSUS
+// =============================================
+function beginRocketVersus(){
+  const area = document.getElementById("spaceArea");
+  area.innerHTML = `
+    <div style="position:fixed;top:0;left:0;right:0;bottom:60px;z-index:3000;background:#000018">
+      <canvas id="rvCanvas"
+        style="display:block;width:100%;height:100%;touch-action:none"></canvas>
+      <div id="rvHUD" style="display:none"></div>
+    </div>`;
+
+  rvCanvas = document.getElementById("rvCanvas");
+  rvCanvas.width  = window.innerWidth;
+  rvCanvas.height = window.innerHeight - 60;
+  rvCtx = rvCanvas.getContext("2d");
+
+  const H = rvCanvas.height, W = rvCanvas.width;
+
+  // P1初期化（下半分・メインカード）
+  const p1main = rvDecks[0][0], p1sub = rvDecks[0][1];
+  rvP[0].hp = p1main.hp + p1sub.hp;
+  rvP[0].maxHP = p1main.hp + p1sub.hp;
+  rvP[0].atk = Math.floor((p1main.atk + p1sub.atk)/2);
+  rvP[0].element = p1main.element;
+  rvP[0].word = p1main.word;
+  rvP[0].x = W/2-25; rvP[0].y = H*0.75-35;
+  rvP[0].bullets = []; rvP[0].quizBulletSize = 10;
+  rvP[0].rapidFire = false; rvP[0].rapidFireTimer = 0;
+  rvP[0].flashMsg=""; rvP[0].flashTimer=0;
+  rvP[0].currentCardIdx = 0;
+  rvP[0].dead = false;
+  rvP[0].subShips = [];
+
+  // P2初期化（上半分・メインカード）
+  const p2main = rvDecks[1][0], p2sub = rvDecks[1][1];
+  rvP[1].hp = p2main.hp + p2sub.hp;
+  rvP[1].maxHP = p2main.hp + p2sub.hp;
+  rvP[1].atk = Math.floor((p2main.atk + p2sub.atk)/2);
+  rvP[1].element = p2main.element;
+  rvP[1].word = p2main.word;
+  rvP[1].x = W/2-25; rvP[1].y = H*0.25-35;
+  rvP[1].bullets = []; rvP[1].quizBulletSize = 10;
+  rvP[1].rapidFire = false; rvP[1].rapidFireTimer = 0;
+  rvP[1].flashMsg=""; rvP[1].flashTimer=0;
+  rvP[1].currentCardIdx = 0;
+  rvP[1].dead = false;
+  rvP[1].subShips = [];
+
+  rvMeteors = []; rvMeteorTimer = 0;
+  rvBulletTimers = [0,0];
+  rvQuizTimer = [0,0];
+  rvQuiz = [
+    {active:false, answer:"", zones:[], timer:0, countdown:null, word:""},
+    {active:false, answer:"", zones:[], timer:0, countdown:null, word:""}
+  ];
+  rvTouchP = [
+    {active:false, lx:0, ly:0, id:null},
+    {active:false, lx:0, ly:0, id:null}
+  ];
+  rvActive=true; rvWinner=-1; rvLastFrame=0; rvPhase="battle";
+
+  rvCanvas.addEventListener("touchstart", onRVTouchStart, {passive:false});
+  rvCanvas.addEventListener("touchmove",  onRVTouchMove,  {passive:false});
+  rvCanvas.addEventListener("touchend",   onRVTouchEnd,   {passive:false});
+  rvCanvas.addEventListener("mousedown",  onRVMouseDown);
+  rvCanvas.addEventListener("mousemove",  onRVMouseMove);
+  rvCanvas.addEventListener("mouseup",    onRVMouseUp);
+
+  updateRVHUD();
+  requestAnimationFrame(rvLoop);
+}
+
+// =============================================
+//  TOUCH / MOUSE 処理（2プレイヤー分）
+// =============================================
+function getRVPlayerFromY(y){
+  // 画面の上半分=P2、下半分=P1
+  return y < rvCanvas.height/2 ? 1 : 0;
+}
+
+function onRVTouchStart(e){
+  e.preventDefault();
+  Array.from(e.changedTouches).forEach(t=>{
+    const rect = rvCanvas.getBoundingClientRect();
+    const sx = (t.clientX-rect.left)*(rvCanvas.width/rect.width);
+    const sy = (t.clientY-rect.top)*(rvCanvas.height/rect.height);
+    const pi = getRVPlayerFromY(sy);
+    rvTouchP[pi].active = true;
+    rvTouchP[pi].lx = sx; rvTouchP[pi].ly = sy;
+    rvTouchP[pi].id = t.identifier;
+  });
+}
+
+function onRVTouchMove(e){
+  e.preventDefault();
+  Array.from(e.changedTouches).forEach(t=>{
+    const rect = rvCanvas.getBoundingClientRect();
+    const sx = (t.clientX-rect.left)*(rvCanvas.width/rect.width);
+    const sy = (t.clientY-rect.top)*(rvCanvas.height/rect.height);
+    [0,1].forEach(pi=>{
+      if(rvTouchP[pi].active && rvTouchP[pi].id === t.identifier){
+        const dx = sx - rvTouchP[pi].lx;
+        const dy = sy - rvTouchP[pi].ly;
+        moveRVPlayer(pi, dx, dy);
+        rvTouchP[pi].lx = sx; rvTouchP[pi].ly = sy;
+      }
+    });
+  });
+}
+
+function onRVTouchEnd(e){
+  e.preventDefault();
+  Array.from(e.changedTouches).forEach(t=>{
+    [0,1].forEach(pi=>{
+      if(rvTouchP[pi].id === t.identifier) rvTouchP[pi].active = false;
+    });
+  });
+}
+
+function onRVMouseDown(e){
+  const rect = rvCanvas.getBoundingClientRect();
+  const sx = (e.clientX-rect.left)*(rvCanvas.width/rect.width);
+  const sy = (e.clientY-rect.top)*(rvCanvas.height/rect.height);
+  const pi = getRVPlayerFromY(sy);
+  rvTouchP[pi].active = true;
+  rvTouchP[pi].lx = sx; rvTouchP[pi].ly = sy;
+  rvTouchP[pi].id = "mouse"+pi;
+}
+
+function onRVMouseMove(e){
+  const rect = rvCanvas.getBoundingClientRect();
+  const sx = (e.clientX-rect.left)*(rvCanvas.width/rect.width);
+  const sy = (e.clientY-rect.top)*(rvCanvas.height/rect.height);
+  [0,1].forEach(pi=>{
+    if(rvTouchP[pi].active && rvTouchP[pi].id === "mouse"+pi){
+      const dx = sx - rvTouchP[pi].lx;
+      const dy = sy - rvTouchP[pi].ly;
+      moveRVPlayer(pi, dx, dy);
+      rvTouchP[pi].lx = sx; rvTouchP[pi].ly = sy;
+    }
+  });
+}
+
+function onRVMouseUp(){ rvTouchP[0].active=false; rvTouchP[1].active=false; }
+
+function moveRVPlayer(pi, dx, dy){
+  const W = rvCanvas.width, H = rvCanvas.height;
+  const p = rvP[pi];
+  const halfH = H/2;
+  p.x = Math.max(0, Math.min(W-p.w, p.x+dx));
+  // 移動範囲制限：P1は下半分、P2は上半分
+  if(pi===0){
+    p.y = Math.max(halfH+4, Math.min(H-p.h-4, p.y+dy));
+  } else {
+    p.y = Math.max(4, Math.min(halfH-p.h-4, p.y+dy));
+  }
+}
+
+// =============================================
+//  GAME LOOP
+// =============================================
+function rvLoop(timestamp){
+  if(!rvActive) return;
+  if(!rvCanvas || !rvCtx) return;
+  const dt = Math.min((timestamp-(rvLastFrame||timestamp))/16.67, 3);
+  rvLastFrame = timestamp;
+  try{
+    updateRV(dt);
+    drawRV();
+  } catch(e){
+    console.error("rvLoop error:", e);
+    rvActive = false;
+    return;
+  }
+  rvAnimFrame = requestAnimationFrame(rvLoop);
+}
+
+// =============================================
+//  UPDATE
+// =============================================
+function updateRV(dt){
+  const W = rvCanvas.width, H = rvCanvas.height;
+
+  // 弾発射
+  [0,1].forEach(pi=>{
+    rvBulletTimers[pi] += dt;
+    const interval = rvP[pi].rapidFire ? RV_BULLET_BASE_INTERVAL/2 : RV_BULLET_BASE_INTERVAL;
+    if(rvBulletTimers[pi] >= interval){
+      rvBulletTimers[pi] = 0;
+      const p = rvP[pi];
+      const bsize = p.quizBulletSize;
+      const baseVY = pi===0 ? -6 : 6;
+
+      // メイン弾
+      p.bullets.push({
+        x: p.x+p.w/2-bsize/2,
+        y: pi===0 ? p.y-bsize : p.y+p.h,
+        w: bsize, h: bsize*1.4,
+        vx: 0, vy: baseVY,
+        owner: pi
+      });
+
+      // 小型機の斜め弾
+      if(p.subShips && p.subShips.length>0){
+        p.subShips.forEach(ss=>{
+          const angle = 15 * Math.PI/180;
+          const dir = ss.offset < 0 ? -1 : 1;
+          const vx = Math.sin(angle) * 6 * dir;
+          const vy = Math.cos(angle) * baseVY;
+          p.bullets.push({
+            x: p.x+p.w/2+ss.offset-bsize/2,
+            y: pi===0 ? p.y-bsize : p.y+p.h,
+            w: bsize*0.7, h: bsize,
+            vx, vy,
+            owner: pi,
+            isSub: true
+          });
+        });
+      }
+    }
+
+    // rapidFireタイマー
+    if(rvP[pi].rapidFireTimer > 0){
+      rvP[pi].rapidFireTimer -= dt;
+      if(rvP[pi].rapidFireTimer <= 0){
+        rvP[pi].rapidFire = false;
+        rvP[pi].rapidFireTimer = 0;
+      }
+    }
+  });
+
+  // 弾移動
+  [0,1].forEach(pi=>{
+    rvP[pi].bullets.forEach(b=>{
+      b.x += (b.vx||0)*dt;
+      b.y += b.vy*dt;
+    });
+    rvP[pi].bullets = rvP[pi].bullets.filter(b=>
+      b.y>-50 && b.y<rvCanvas.height+50 &&
+      b.x>-50 && b.x<rvCanvas.width+50
+    );
+  });
+
+  // 弾 vs 相手プレイヤー
+  [0,1].forEach(pi=>{
+    const enemy = rvP[1-pi];
+    if(enemy.dead) return;
+    const remaining = [];
+    for(let i=0; i<rvP[pi].bullets.length; i++){
+      const b = rvP[pi].bullets[i];
+      if(rectsOverlap(b, enemy)){
+        const mult = getElementMultiplier(rvP[pi].element, enemy.element);
+        const dmg = Math.floor(rvP[pi].atk * mult);
+        enemy.hp -= dmg;
+        spawnHitEffect(enemy.x+enemy.w/2, enemy.y+enemy.h/2, pi===0?"#4D96FF":"#FF6B6B");
+        updateRVHUD();
+        if(enemy.hp <= 0 && rvActive){
+          // サブ機があれば出撃
+          const nextIdx = enemy.currentCardIdx + 1;
+          if(nextIdx < rvDecks[1-pi].length){
+            enemy.currentCardIdx = nextIdx;
+            const nextCard = rvDecks[1-pi][nextIdx];
+            enemy.hp = nextCard.hp;
+            enemy.maxHP = nextCard.hp;
+            enemy.atk = nextCard.atk;
+            enemy.element = nextCard.element;
+            enemy.word = nextCard.word;
+            enemy.quizBulletSize = 10;
+            enemy.bullets = [];
+            showRVMessage(1-pi, `💥 ${nextCard.word} 出撃！`, "#FFD93D");
+            updateRVHUD();
+          } else {
+            endRocketVersus(pi);
+          }
+        }
+      } else {
+        remaining.push(b);
+      }
+    }
+    rvP[pi].bullets = remaining;
+  });
+
+  // 隕石生成（25秒に1回）
+  rvMeteorTimer += dt;
+  if(rvMeteorTimer >= 1500){
+    rvMeteorTimer = 0;
+    const mw = 30+Math.random()*20;
+    const isRed = Math.random() < 0.25; // 25%で赤隕石
+    const hp = isRed ? 1 : Math.floor(Math.random()*3)+2;
+    const fromLeft = Math.random()<0.5;
+    rvMeteors.push({
+      x: fromLeft ? -mw : rvCanvas.width+mw,
+      y: rvCanvas.height*0.25 + Math.random()*rvCanvas.height*0.5,
+      w: mw, h: mw,
+      vx: fromLeft ? 1.5 : -1.5,
+      vy: 1.5,
+      vyDir: 1,
+      vyTimer: 0,
+      hp, maxHP: hp,
+      isRed,
+      id: Date.now()+Math.random()
+    });
+  }
+
+  // 隕石移動
+  rvMeteors.forEach(m=>{
+    m.x += m.vx*dt;
+    m.vyTimer = (m.vyTimer||0) + dt;
+    if(m.vyTimer >= 40){
+      m.vyTimer = 0;
+      m.vyDir = (m.vyDir||1) * -1;
+    }
+    m.y += m.vy * (m.vyDir||1) * dt;
+    m.y = Math.max(rvCanvas.height*0.05, Math.min(rvCanvas.height*0.92, m.y));
+  });
+  rvMeteors = rvMeteors.filter(m=>m.x>-100 && m.x<rvCanvas.width+100);
+
+  
+
+  // 弾 vs 隕石
+  [0,1].forEach(pi=>{
+    const remainingBullets = [];
+    for(let bi=0; bi<rvP[pi].bullets.length; bi++){
+      const b = rvP[pi].bullets[bi];
+      let hit = false;
+      for(let mi=rvMeteors.length-1; mi>=0; mi--){
+        const m = rvMeteors[mi];
+        if(rectsOverlap(b,m)){
+          m.hp--;
+          spawnHitEffect(b.x+b.w/2, b.y, m.isRed?"#FF4444":"#FFD93D");
+          if(m.hp<=0){
+            spawnMeteorBreakEffect(m.x+m.w/2, m.y+m.h/2);
+            rvMeteors.splice(mi,1);
+            if(m.isRed){
+              if(!rvP[pi].subShips) rvP[pi].subShips = [];
+              if(rvP[pi].subShips.length < 2){
+                const offsetVal = rvP[pi].subShips.length===0 ? -30 : 30;
+                rvP[pi].subShips.push({ offset: offsetVal });
+                showRVMessage(pi, "🔴 小型機追加！", "#FF4444");
+              } else {
+                showRVMessage(pi, "🔴 すでに装備済み", "#FF4444");
+              }
+            } else {
+              rvP[pi].rapidFire = true;
+              rvP[pi].rapidFireTimer = 600;
+              showRVMessage(pi, "⚡ 連射速度2倍！", "#FFD93D");
+            }
+          }
+          hit = true;
+          break;
+        }
+      }
+      if(!hit) remainingBullets.push(b);
+    }
+    rvP[pi].bullets = remainingBullets;
+  });
+
+  // 隕石 vs プレイヤー
+  [0,1].forEach(pi=>{
+    for(let mi=rvMeteors.length-1; mi>=0; mi--){
+      const m = rvMeteors[mi];
+      if(rectsOverlap(m, rvP[pi])){
+        rvMeteors.splice(mi,1);
+        rvP[pi].hp -= 200;
+        spawnHitEffect(rvP[pi].x+rvP[pi].w/2, rvP[pi].y+rvP[pi].h/2, "#FF6B6B");
+        updateRVHUD();
+        if(rvP[pi].hp<=0){ endRocketVersus(1-pi); return; }
+      }
+    }
+  });
+
+  // クイズタイマー
+  [0,1].forEach(pi=>{
+    if(rvQuiz[pi].active) return;
+    rvQuizTimer[pi] += dt;
+    if(rvQuizTimer[pi] >= RV_QUIZ_INTERVAL){
+      rvQuizTimer[pi] = 0;
+      triggerRVQuiz(pi);
+    }
+  });
+}
+
+// =============================================
+//  クイズ
+// =============================================
+function triggerRVQuiz(pi){
+  if(rvQuiz[pi].active) return;
+  rvQuiz[pi].active = true;
+
+  const card = target1900Cards[Math.floor(Math.random()*target1900Cards.length)];
+  const q = card.quizzes[Math.floor(Math.random()*card.quizzes.length)];
+  rvQuiz[pi].answer = q.correct;
+  rvQuiz[pi].word = card.word;
+
+  const wrongs = q.choices.sort(()=>Math.random()-0.5).slice(0,3);
+  const allChoices = [...wrongs, q.correct].sort(()=>Math.random()-0.5);
+
+  const W = rvCanvas.width, H = rvCanvas.height;
+  const halfH = H/2;
+  const zW = W/2-6, zH = (halfH*0.42)/2;
+
+  if(pi===0){
+    // P1用：下半分に配置
+    const top = halfH + halfH*0.5;
+    rvQuiz[0].zones = [
+      {label:allChoices[0], x:4,     y:top,       w:zW, h:zH-3},
+      {label:allChoices[1], x:W/2+2, y:top,       w:zW, h:zH-3},
+      {label:allChoices[2], x:4,     y:top+zH+3,  w:zW, h:zH-3},
+      {label:allChoices[3], x:W/2+2, y:top+zH+3,  w:zW, h:zH-3},
+    ];
+  } else {
+    // P2用：上半分に配置（上下反転表示）
+    const top = halfH*0.06;
+    rvQuiz[1].zones = [
+      {label:allChoices[0], x:4,     y:top,       w:zW, h:zH-3},
+      {label:allChoices[1], x:W/2+2, y:top,       w:zW, h:zH-3},
+      {label:allChoices[2], x:4,     y:top+zH+3,  w:zW, h:zH-3},
+      {label:allChoices[3], x:W/2+2, y:top+zH+3,  w:zW, h:zH-3},
+    ];
+  }
+
+  rvQuiz[pi].timer = 5;
+  if(rvQuiz[pi].countdown) clearInterval(rvQuiz[pi].countdown);
+  rvQuiz[pi].countdown = setInterval(()=>{
+    rvQuiz[pi].timer--;
+    if(rvQuiz[pi].timer<=0){
+      clearInterval(rvQuiz[pi].countdown);
+      rvQuiz[pi].countdown = null;
+      judgeRVQuiz(pi);
+    }
+  }, 1000);
+}
+
+function judgeRVQuiz(pi){
+  rvQuiz[pi].active = false;
+  const p = rvP[pi];
+  const cx = p.x+p.w/2, cy = p.y+p.h/2;
+  let chosen = null;
+  for(const z of rvQuiz[pi].zones){
+    if(cx>=z.x&&cx<=z.x+z.w&&cy>=z.y&&cy<=z.y+z.h){ chosen=z.label; break; }
+  }
+  rvQuiz[pi].zones = [];
+
+  if(chosen === rvQuiz[pi].answer){
+    // 正解：弾が大きくなる（永続）
+    rvP[pi].quizBulletSize = Math.min(Math.floor(rvP[pi].quizBulletSize * 1.5), 60);
+    showRVMessage(pi, "✅ 正解！弾が大きくなった！", "#6BCB77");
+  } else {
+    // 不正解：300ダメージ
+    rvP[pi].hp -= 300;
+    updateRVHUD();
+    showRVMessage(pi, `❌ 不正解！300ダメージ`, "#FF6B6B");
+    if(rvP[pi].hp<=0) endRocketVersus(1-pi);
+  }
+}
+
+function showRVMessage(pi, msg, color){
+  // キャンバス上にフラッシュメッセージ（drawRVで描画）
+  rvP[pi].flashMsg = msg;
+  rvP[pi].flashColor = color;
+  rvP[pi].flashTimer = 120;
+}
+
+// =============================================
+//  DRAW
+// =============================================
+function drawRV(){
+  const ctx = rvCtx;
+  const W = rvCanvas.width, H = rvCanvas.height;
+
+  ctx.fillStyle = "#000018";
+  ctx.fillRect(0,0,W,H);
+
+  // 星
+  ctx.fillStyle = "rgba(255,255,255,0.4)";
+  for(let i=0;i<50;i++) ctx.fillRect((i*137+50)%W,(i*97+30)%H,1.5,1.5);
+
+  // 中央ライン
+  ctx.save();
+  ctx.strokeStyle = "rgba(255,255,255,0.2)";
+  ctx.lineWidth = 2;
+  ctx.setLineDash([10,8]);
+  ctx.beginPath();
+  ctx.moveTo(0, H/2);
+  ctx.lineTo(W, H/2);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.restore();
+
+  // HPバー（P1左下、P2右上・反転）
+  [0,1].forEach(pi=>{
+    const p = rvP[pi];
+    const bw = W*0.45, bh = 10;
+    const bx = pi===0 ? 6 : W-bw-6;
+    const by = pi===0 ? H-16 : 6;
+    ctx.save();
+    ctx.fillStyle = "rgba(0,0,0,0.4)";
+    ctx.beginPath(); ctx.roundRect(bx,by,bw,bh,5); ctx.fill();
+    const ratio = Math.max(0,p.hp/p.maxHP);
+    const hpColor = ratio>0.5?"#6BCB77":ratio>0.25?"#FFD93D":"#FF6B6B";
+    ctx.fillStyle=hpColor; ctx.shadowColor=hpColor; ctx.shadowBlur=6;
+    // P2はHPバーを右から左に伸びるよう反転
+    if(pi===1){
+      ctx.beginPath();
+      ctx.roundRect(bx+bw*(1-ratio), by, bw*ratio, bh, 5);
+      ctx.fill();
+    } else {
+      ctx.beginPath(); ctx.roundRect(bx,by,bw*ratio,bh,5); ctx.fill();
+    }
+    ctx.restore();
+  });
+
+  // 属性バッジ（P1右下、P2左上・反転）
+  [0,1].forEach(pi=>{
+    const info = ELEMENT_INFO[rvP[pi].element];
+    if(!info) return;
+    const bw=64, bh=24;
+   const bx = pi===0 ? W-bw-8 : 8;
+    const by = pi===0 ? H-58 : 8;
+    ctx.save();
+    ctx.fillStyle = info.color+"44";
+    ctx.strokeStyle = info.color;
+    ctx.lineWidth = 1.5;
+    ctx.shadowColor = info.color; ctx.shadowBlur = 6;
+    ctx.beginPath(); ctx.roundRect(bx,by,bw,bh,6); ctx.fill(); ctx.stroke();
+    ctx.shadowBlur=0;
+    if(pi===1){
+      ctx.save();
+      ctx.translate(bx+bw/2, by+bh/2);
+      ctx.scale(1,-1);
+      ctx.fillStyle="#fff"; ctx.font="bold 10px sans-serif";
+      ctx.textAlign="center"; ctx.textBaseline="middle";
+      ctx.fillText(info.label, 0, 0);
+      ctx.restore();
+    } else {
+      ctx.fillStyle="#fff"; ctx.font="bold 10px sans-serif";
+      ctx.textAlign="center"; ctx.textBaseline="middle";
+      ctx.fillText(info.label, bx+bw/2, by+bh/2);
+    }
+    ctx.restore();
+  });
+  
+  // 連射中バッジ
+  [0,1].forEach(pi=>{
+    if(rvP[pi].rapidFire){
+      ctx.save();
+      ctx.fillStyle = "rgba(255,217,61,0.9)";
+      ctx.font = "bold 11px sans-serif";
+      ctx.textAlign = pi===0?"left":"right";
+      ctx.textBaseline = "middle";
+      ctx.fillText("⚡ 連射中!", pi===0?6:W-6, pi===0?H-50:50);
+      ctx.restore();
+    }
+  });
+
+  // 隕石
+  rvMeteors.forEach(m=>{
+    ctx.save();
+    ctx.fillStyle = m.isRed ? "#CC2200" : "#8B6914";
+    ctx.shadowColor = m.isRed ? "rgba(255,50,0,0.7)" : "rgba(139,105,20,0.5)";
+    ctx.shadowBlur = m.isRed ? 14 : 6;
+    ctx.beginPath(); ctx.ellipse(m.x+m.w/2,m.y+m.h/2,m.w/2,m.h/2,0,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle = m.isRed ? "#FF4444" : "#6B4F10";
+    ctx.shadowBlur=0;
+    ctx.beginPath(); ctx.ellipse(m.x+m.w*0.35,m.y+m.h*0.35,m.w*0.15,m.h*0.12,0.5,0,Math.PI*2); ctx.fill();
+    // HPバー（赤隕石は1発なので非表示）
+    if(!m.isRed){
+      const hpR = m.hp/m.maxHP;
+      ctx.fillStyle="rgba(0,0,0,0.4)";
+      ctx.beginPath(); ctx.roundRect(m.x,m.y-10,m.w,5,2); ctx.fill();
+      ctx.fillStyle="#FFD93D";
+      ctx.beginPath(); ctx.roundRect(m.x,m.y-10,m.w*hpR,5,2); ctx.fill();
+    } else {
+      // 赤隕石はビックリマーク
+      ctx.fillStyle="#fff"; ctx.font=`bold ${Math.floor(m.w*0.5)}px sans-serif`;
+      ctx.textAlign="center"; ctx.textBaseline="middle";
+      ctx.fillText("!", m.x+m.w/2, m.y+m.h/2);
+    }
+    ctx.restore();
+  });
+
+  // 弾
+  [0,1].forEach(pi=>{
+    const color = pi===0 ? "#4D96FF" : "#FF6B6B";
+    rvP[pi].bullets.forEach(b=>{
+      ctx.save();
+      ctx.fillStyle = color; ctx.shadowColor=color; ctx.shadowBlur=10;
+      ctx.beginPath(); ctx.ellipse(b.x+b.w/2,b.y+b.h/2,b.w/2,b.h/2,0,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+    });
+  });
+
+  // クイズゾーン
+  [0,1].forEach(pi=>{
+    if(!rvQuiz[pi].active || rvQuiz[pi].zones.length===0) return;
+    const zoneColors=["rgba(255,107,107,0.3)","rgba(77,150,255,0.3)","rgba(107,203,119,0.3)","rgba(255,217,61,0.3)"];
+    const zoneBorders=["#FF6B6B","#4D96FF","#6BCB77","#FFD93D"];
+    const halfH = H/2;
+
+    // 問題文
+    ctx.save();
+    let qy;
+    if(pi===0){
+      qy = halfH + halfH*0.38;
+    } else {
+      qy = halfH - halfH*0.38;
+    }
+
+    ctx.fillStyle="rgba(0,0,0,0.8)";
+    ctx.beginPath(); ctx.roundRect(4,qy-20,W-8,40,8); ctx.fill();
+
+    if(pi===1){
+      ctx.save();
+      ctx.translate(W/2, qy);
+      ctx.scale(1,-1);
+      ctx.fillStyle="#FFD93D";
+      ctx.font=`bold ${Math.floor(W*0.03)}px sans-serif`;
+      ctx.textAlign="center"; ctx.textBaseline="middle";
+      ctx.fillText(`「${rvQuiz[pi].word}」の意味は？ ⏱${rvQuiz[pi].timer}秒`, 0, 0);
+      ctx.restore();
+    } else {
+      ctx.fillStyle="#FFD93D";
+      ctx.font=`bold ${Math.floor(W*0.03)}px sans-serif`;
+      ctx.textAlign="center"; ctx.textBaseline="middle";
+      ctx.fillText(`「${rvQuiz[pi].word}」の意味は？ ⏱${rvQuiz[pi].timer}秒`, W/2, qy);
+    }
+    ctx.restore();
+
+    // ゾーン
+    rvQuiz[pi].zones.forEach((z,i)=>{
+      ctx.save();
+      ctx.fillStyle=zoneColors[i%4]; ctx.strokeStyle=zoneBorders[i%4]; ctx.lineWidth=2;
+      ctx.beginPath(); ctx.roundRect(z.x,z.y,z.w,z.h,6); ctx.fill(); ctx.stroke();
+
+      const p = rvP[pi];
+      const cx=p.x+p.w/2, cy=p.y+p.h/2;
+      if(cx>=z.x&&cx<=z.x+z.w&&cy>=z.y&&cy<=z.y+z.h){
+        ctx.strokeStyle=zoneBorders[i%4]; ctx.lineWidth=3;
+        ctx.shadowColor=zoneBorders[i%4]; ctx.shadowBlur=14;
+        ctx.beginPath(); ctx.roundRect(z.x,z.y,z.w,z.h,6); ctx.stroke();
+      }
+
+      // ラベル（P2は反転）
+      ctx.save();
+      const fs = Math.floor(W*0.024);
+      if(pi===1){
+        ctx.translate(z.x+z.w/2, z.y+z.h/2);
+        ctx.scale(1,-1);
+        ctx.fillStyle="#fff"; ctx.font=`bold ${fs}px sans-serif`;
+        ctx.textAlign="center"; ctx.textBaseline="middle";
+        const lines = wrapText(ctx, z.label, z.w-10, fs);
+        const lh = fs+2;
+        lines.forEach((l,li)=>ctx.fillText(l,0,li*lh-(lines.length-1)*lh/2));
+      } else {
+        ctx.fillStyle="#fff"; ctx.font=`bold ${fs}px sans-serif`;
+        ctx.textAlign="center"; ctx.textBaseline="middle";
+        const lines = wrapText(ctx, z.label, z.w-10, fs);
+        const lh=fs+2, sy=z.y+z.h/2-(lines.length-1)*lh/2;
+        lines.forEach((l,li)=>ctx.fillText(l,z.x+z.w/2,sy+li*lh));
+      }
+      ctx.restore();
+      ctx.restore();
+    });
+  });
+
+  // エフェクト更新＆描画
+  hitEffects.forEach(e=>{
+    e.life++;
+    e.alpha=Math.max(0,1-e.life/e.maxLife);
+    if(e.type==="debris"){ e.x+=(e.vx||0); e.y+=(e.vy||0); e.r=Math.max(0,e.r-0.15); }
+    else { e.r+=(e.maxR-e.r)*0.18; }
+    if(e.alpha<=0)return;
+    ctx.save(); ctx.globalAlpha=e.alpha;
+    if(e.type==="debris"){ ctx.fillStyle=e.color; ctx.beginPath(); ctx.arc(e.x,e.y,Math.max(0,e.r),0,Math.PI*2); ctx.fill(); }
+    else { ctx.strokeStyle=e.color; ctx.lineWidth=2.5; ctx.shadowColor=e.color; ctx.shadowBlur=12; ctx.beginPath(); ctx.arc(e.x,e.y,Math.max(0,e.r),0,Math.PI*2); ctx.stroke(); }
+    ctx.restore();
+  });
+  hitEffects = hitEffects.filter(e=>e.life<e.maxLife);
+
+  // ロケット＋小型機
+  [0,1].forEach(pi=>{
+    const p = rvP[pi];
+    ctx.save();
+    if(pi===1){
+      ctx.translate(p.x+p.w/2, p.y+p.h/2);
+      ctx.scale(1,-1);
+      ctx.translate(-(p.x+p.w/2), -(p.y+p.h/2));
+    }
+    drawRVShip(ctx, p.x, p.y, p.w, p.h, pi===0?"#4D96FF":"#FF6B6B");
+
+    // 小型機
+    if(p.subShips && p.subShips.length>0){
+      p.subShips.forEach(ss=>{
+        const sx = p.x+p.w/2+ss.offset-12;
+        const sy = p.y+8;
+        drawRVSubShip(ctx, sx, sy, pi===0?"#4D96FF":"#FF6B6B");
+      });
+    }
+    ctx.restore();
+  });
+
+  // フラッシュメッセージ
+  [0,1].forEach(pi=>{
+    const p = rvP[pi];
+    if(p.flashTimer>0){
+      p.flashTimer--;
+      ctx.save();
+      ctx.globalAlpha = Math.min(1, p.flashTimer/30);
+      const fy = pi===0 ? H*0.75 : H*0.25;
+      if(pi===1){
+        ctx.translate(W/2, fy);
+        ctx.scale(1,-1);
+        ctx.fillStyle = p.flashColor||"#fff";
+        ctx.font = `bold ${Math.floor(W*0.032)}px sans-serif`;
+        ctx.textAlign="center"; ctx.textBaseline="middle";
+        ctx.fillText(p.flashMsg||"", 0, 0);
+      } else {
+        ctx.fillStyle = p.flashColor||"#fff";
+        ctx.font = `bold ${Math.floor(W*0.032)}px sans-serif`;
+        ctx.textAlign="center"; ctx.textBaseline="middle";
+        ctx.fillText(p.flashMsg||"", W/2, fy);
+      }
+      ctx.restore();
+    }
+  });
+}
+
+function drawRVShip(ctx, x, y, w, h, color){
+  ctx.save();
+  // エンジン炎
+  const flame=ctx.createLinearGradient(x+w*0.4,y+h,x+w*0.4,y+h+15);
+  flame.addColorStop(0,"rgba(255,150,0,0.9)"); flame.addColorStop(1,"rgba(255,50,0,0)");
+  ctx.fillStyle=flame;
+  ctx.beginPath(); ctx.moveTo(x+w*0.35,y+h*0.92); ctx.lineTo(x+w*0.5,y+h+14); ctx.lineTo(x+w*0.65,y+h*0.92); ctx.fill();
+  // 本体
+  const bg=ctx.createLinearGradient(x,y,x+w,y);
+  bg.addColorStop(0,color+"88"); bg.addColorStop(0.5,"#fff"); bg.addColorStop(1,color+"88");
+  ctx.fillStyle=bg;
+  ctx.beginPath(); ctx.moveTo(x+w*0.5,y); ctx.quadraticCurveTo(x+w*0.75,y+h*0.2,x+w*0.7,y+h*0.9); ctx.lineTo(x+w*0.3,y+h*0.9); ctx.quadraticCurveTo(x+w*0.25,y+h*0.2,x+w*0.5,y); ctx.fill();
+  // 翼
+  ctx.fillStyle=color+"aa";
+  ctx.beginPath(); ctx.moveTo(x+w*0.3,y+h*0.65); ctx.lineTo(x,y+h*0.95); ctx.lineTo(x+w*0.25,y+h*0.9); ctx.closePath(); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(x+w*0.7,y+h*0.65); ctx.lineTo(x+w,y+h*0.95); ctx.lineTo(x+w*0.75,y+h*0.9); ctx.closePath(); ctx.fill();
+  // コックピット
+  ctx.fillStyle=color; ctx.shadowColor=color; ctx.shadowBlur=8;
+  ctx.beginPath(); ctx.ellipse(x+w*0.5,y+h*0.28,w*0.12,h*0.1,0,0,Math.PI*2); ctx.fill();
+  ctx.restore();
+}
+
+function drawRVSubShip(ctx, x, y, color){
+  const w=24, h=36;
+  ctx.save();
+  const flame=ctx.createLinearGradient(x+w*0.4,y+h,x+w*0.4,y+h+8);
+  flame.addColorStop(0,"rgba(255,150,0,0.9)"); flame.addColorStop(1,"rgba(255,50,0,0)");
+  ctx.fillStyle=flame;
+  ctx.beginPath(); ctx.moveTo(x+w*0.35,y+h*0.92); ctx.lineTo(x+w*0.5,y+h+8); ctx.lineTo(x+w*0.65,y+h*0.92); ctx.fill();
+  ctx.fillStyle=color+"cc";
+  ctx.beginPath(); ctx.moveTo(x+w*0.5,y); ctx.quadraticCurveTo(x+w*0.8,y+h*0.3,x+w*0.7,y+h*0.9); ctx.lineTo(x+w*0.3,y+h*0.9); ctx.quadraticCurveTo(x+w*0.2,y+h*0.3,x+w*0.5,y); ctx.fill();
+  ctx.fillStyle=color+"88";
+  ctx.beginPath(); ctx.moveTo(x+w*0.3,y+h*0.6); ctx.lineTo(x,y+h*0.9); ctx.lineTo(x+w*0.25,y+h*0.85); ctx.closePath(); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(x+w*0.7,y+h*0.6); ctx.lineTo(x+w,y+h*0.9); ctx.lineTo(x+w*0.75,y+h*0.85); ctx.closePath(); ctx.fill();
+  ctx.restore();
+}
+
+
+
+// =============================================
+//  RESULT
+// =============================================
+function endRocketVersus(winnerIdx){
+  rvActive = false;
+  cancelAnimationFrame(rvAnimFrame);
+  [0,1].forEach(pi=>{ if(rvQuiz[pi].countdown) clearInterval(rvQuiz[pi].countdown); });
+  rvCanvas.removeEventListener("touchstart", onRVTouchStart);
+  rvCanvas.removeEventListener("touchmove",  onRVTouchMove);
+  rvCanvas.removeEventListener("touchend",   onRVTouchEnd);
+  rvCanvas.removeEventListener("mousedown",  onRVMouseDown);
+  rvCanvas.removeEventListener("mousemove",  onRVMouseMove);
+  rvCanvas.removeEventListener("mouseup",    onRVMouseUp);
+
+  const pName = winnerIdx===0 ? "プレイヤー１" : "プレイヤー２";
+  const pColor = winnerIdx===0 ? "#4D96FF" : "#FF6B6B";
+
+  setTimeout(()=>{
+    document.getElementById("spaceArea").innerHTML=`
+      <div style="text-align:center;padding:30px 16px">
+        <div style="font-size:4rem;margin-bottom:10px">🏆</div>
+        <div style="font-family:'Fredoka One',cursive;font-size:2.2rem;
+          color:${pColor};margin-bottom:8px">${pName}</div>
+        <div style="font-family:'Fredoka One',cursive;font-size:1.4rem;
+          color:#FFD93D;margin-bottom:20px">の勝利！</div>
+        <button onclick="showRVDeckSelect()"
+          style="background:linear-gradient(135deg,#4D96FF,#FF6B6B);
+            font-size:1rem;padding:14px 28px;margin:6px">
+          🔄 もう一度
+        </button>
+        <br>
+        <button onclick="showVersusSpaceMenu()"
+          style="background:rgba(255,255,255,0.08);box-shadow:none;
+            font-size:12px;margin-top:10px;color:rgba(255,255,255,0.5)">
+          ← 戻る
+        </button>
+      </div>`;
+    spawnStars();
+  }, 500);
+}
+
+// =============================================
+//  HUD
+// =============================================
+function updateRVHUD(){
+  
+}
+
+// =============================================
 //  SHOOTING GAME
 // =============================================
 let shootingGameActive = false;
@@ -9946,6 +10983,11 @@ function showNormalStageMenu(){
               : '<span style="font-size:11px;color:rgba(255,255,255,0.5);margin-left:6px">💎×15+クイズボーナス</span>')
           : '<span style="font-size:11px;color:rgba(255,255,255,0.4);margin-left:6px">🔒 ST2クリアで解放</span>'}
       </button>
+      <button onclick="showVersusSpaceMenu()"
+  style="background:linear-gradient(135deg,#FF6B6B,#C77DFF);
+    font-size:1.1rem;padding:14px 28px;width:80%;margin:8px auto;display:block">
+  ⚔️ ロケット対戦
+</button>
 
       <!-- 属性相性表 -->
       <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
@@ -11481,6 +12523,8 @@ function clearStage3(){
     spawnStars();
   },500);
 }
+
+
 
 
 // =============================================
