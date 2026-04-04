@@ -9655,7 +9655,7 @@ function drawRV(){
     const p = rvP[pi];
     const bw = W*0.45, bh = 10;
     const bx = pi===0 ? 6 : W-bw-6;
-    const by = pi===0 ? H-16 : H*0.52+28;
+    const by = pi===0 ? H-16 : 8;
     ctx.save();
     ctx.fillStyle = "rgba(0,0,0,0.4)";
     ctx.beginPath(); ctx.roundRect(bx,by,bw,bh,5); ctx.fill();
@@ -9678,7 +9678,7 @@ function drawRV(){
     if(!info) return;
     const bw=64, bh=24;
     const bx = pi===0 ? W-bw-8 : 8;
-    const by = pi===0 ? H-58 : H*0.52;
+    const by = pi===0 ? H-58 : 8;
     ctx.save();
     ctx.fillStyle = info.color+"44";
     ctx.strokeStyle = info.color;
