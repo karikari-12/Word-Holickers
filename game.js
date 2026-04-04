@@ -9229,6 +9229,8 @@ function beginRocketVersus(){
 
   document.querySelector(".modeTabBar").style.display = "none";
   document.querySelector("h1").style.display = "none";
+  document.getElementById("topResource").style.display = "none";
+  document.querySelector("h1").style.display = "none";
 
   requestAnimationFrame(rvLoop);
 }
@@ -9933,6 +9935,8 @@ function endRocketVersus(winnerIdx){
   rvActive = false;
   cancelAnimationFrame(rvAnimFrame);
   document.querySelector(".modeTabBar").style.display = "";
+  document.querySelector("h1").style.display = "";
+  document.getElementById("topResource").style.display = "";
   document.querySelector("h1").style.display = "";
   [0,1].forEach(pi=>{ if(rvQuiz[pi].countdown) clearInterval(rvQuiz[pi].countdown); });
   rvCanvas.removeEventListener("touchstart", onRVTouchStart);
