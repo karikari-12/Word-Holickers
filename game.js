@@ -9680,7 +9680,7 @@ function drawRV(){
     if(!info) return;
     const bw=64, bh=24;
     const bx = pi===0 ? W-bw-8 : 8;
-    const by = pi===0 ? H-58 : 8;
+    const by = pi===0 ? H-58 : 2;
     ctx.save();
     ctx.fillStyle = info.color+"44";
     ctx.strokeStyle = info.color;
@@ -9691,7 +9691,7 @@ function drawRV(){
     if(pi===1){
       ctx.save();
       ctx.translate(bx+bw/2, by+bh/2);
-      ctx.scale(1,-1);
+      ctx.scale(-1,-1);
       ctx.fillStyle="#fff"; ctx.font="bold 10px sans-serif";
       ctx.textAlign="center"; ctx.textBaseline="middle";
       ctx.fillText(info.label, 0, 0);
@@ -9776,7 +9776,7 @@ function drawRV(){
     if(pi===1){
       ctx.save();
       ctx.translate(W/2, qy);
-      ctx.scale(1,-1);
+      ctx.scale(-1,-1);
       ctx.fillStyle="#FFD93D";
       ctx.font=`bold ${Math.floor(W*0.03)}px sans-serif`;
       ctx.textAlign="center"; ctx.textBaseline="middle";
@@ -9809,11 +9809,11 @@ function drawRV(){
       const fs = Math.floor(W*0.024);
       if(pi===1){
         ctx.translate(z.x+z.w/2, z.y+z.h/2);
-        ctx.scale(1,-1);
+        ctx.scale(-1,-1);
         ctx.fillStyle="#fff"; ctx.font=`bold ${fs}px sans-serif`;
         ctx.textAlign="center"; ctx.textBaseline="middle";
-        const lines = wrapText(ctx, z.label, z.w-10, fs);
-        const lh = fs+2;
+        const lines=wrapText(ctx,z.label,z.w-10,fs);
+        const lh=fs+2;
         lines.forEach((l,li)=>ctx.fillText(l,0,li*lh-(lines.length-1)*lh/2));
       } else {
         ctx.fillStyle="#fff"; ctx.font=`bold ${fs}px sans-serif`;
@@ -9873,7 +9873,7 @@ function drawRV(){
       const fy = pi===0 ? H*0.75 : H*0.25;
       if(pi===1){
         ctx.translate(W/2, fy);
-        ctx.scale(1,-1);
+        ctx.scale(-1,-1);
         ctx.fillStyle = p.flashColor||"#fff";
         ctx.font = `bold ${Math.floor(W*0.032)}px sans-serif`;
         ctx.textAlign="center"; ctx.textBaseline="middle";
