@@ -1,3 +1,4 @@
+
 // =============================================
 //  CARD DATA
 // =============================================
@@ -10287,7 +10288,8 @@ if(shootingAnimFrame){
       startBossPhase();
     }
   }, 1000);
-  shootingPaused = false;        
+  shootingPaused = false;
+  let currentShootingStage = "stage1";
   currentShootingStage = "stage2";
   shootingGameActive = true;
   lockShootingUI();
@@ -10935,11 +10937,14 @@ function updateBossHUD(){
   const bar = document.getElementById("shootBossHPBar");
   if(!bar) return;
   
-  let maxHP = shootingBossMaxHP; // デフォルト6000（ST1）
-  if(currentShootingStage === "stage2") maxHP = s2BossMaxHP;
-  if(currentShootingStage === "stage3") maxHP = s3BossMaxHP;
-  if(currentShootingStage === "stage4") maxHP = s4BossMaxHP;
-  if(currentShootingStage === "stage5") maxHP = s5BossMaxHP;
+  let maxHP = shootingBossMaxHP;
+  
+  try{
+    if(currentShootingStage === "stage2") maxHP = s2BossMaxHP;
+    else if(currentShootingStage === "stage3") maxHP = s3BossMaxHP;
+    else if(currentShootingStage === "stage4") maxHP = s4BossMaxHP;
+    else if(currentShootingStage === "stage5") maxHP = s5BossMaxHP;
+  } catch(e){}
   
   bar.style.width = Math.max(0, boss.hp / maxHP * 100) + "%";
 }
@@ -13389,6 +13394,7 @@ function unlockShootingUI(){
 //  SHOOTING PAUSE
 // =============================================
 let shootingPaused = false;
+let currentShootingStage = "stage1";
 
 function toggleShootingPause(){
   shootingPaused = !shootingPaused;
