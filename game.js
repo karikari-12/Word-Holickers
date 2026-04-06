@@ -8761,22 +8761,22 @@ const target1900Cards = [
   {word:"major", meaning:"主要な", atk:256, hp:1567, element:"water", elementLabel:"💧 水属性", elementColor:"#00BFFF", type:"target1900", example:"This is a major problem.", exampleJp:"これは主要な問題だ。", quizzes:[{correct:"主要な", choices:["副次的な","一般的な","重大な","基本的な","代表的な"]}]},
   {word:"patient", meaning:"忍耐強い", atk:189, hp:2234, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"You need to be patient.", exampleJp:"忍耐強くある必要がある。", quizzes:[{correct:"忍耐強い", choices:["短気な","慎重な","穏やかな","寛大な","冷静な"]}]},
   {word:"particular", meaning:"特定の", atk:234, hp:1789, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"Is there a particular reason?", exampleJp:"特定の理由がありますか？", quizzes:[{correct:"特定の", choices:["一般的な","様々な","典型的な","共通の","普遍的な"]}]},
-{word:"available", meaning:"手に入る", atk:210, hp:2200, element:"ice", elementLabel:"🧊 氷属性", elementColor:"#00BFFF", type:"target1900", example:"The product is available in stores.", exampleJp:"その商品は店舗で手に入る。", quizzes:[{correct:"手に入る", choices:["売り切れの","禁止されている","壊れている","見つからない","隠されている"]}]},
-{word:"native", meaning:"出生地の", atk:245, hp:1800, element:"lightning", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"She returned to her native country.", exampleJp:"彼女は出生地の国に戻った。", quizzes:[{correct:"出生地の", choices:["外国の","移住した","旅行中の","一時的な","亡命した"]}]},
+{word:"available", meaning:"手に入る", atk:210, hp:2200, element:"water", elementLabel:"🧊 氷属性", elementColor:"#00BFFF", type:"target1900", example:"The product is available in stores.", exampleJp:"その商品は店舗で手に入る。", quizzes:[{correct:"手に入る", choices:["売り切れの","禁止されている","壊れている","見つからない","隠されている"]}]},
+{word:"native", meaning:"出生地の", atk:245, hp:1800, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"She returned to her native country.", exampleJp:"彼女は出生地の国に戻った。", quizzes:[{correct:"出生地の", choices:["外国の","移住した","旅行中の","一時的な","亡命した"]}]},
 {word:"political", meaning:"政治の", atk:185, hp:2600, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"He has strong political views.", exampleJp:"彼は強い政治的見解を持っている。", quizzes:[{correct:"政治の", choices:["経済の","文化の","宗教の","軍事の","社会の"]}]},
 {word:"be due to do", meaning:"～する予定である", atk:260, hp:1400, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"The train is due to arrive at noon.", exampleJp:"電車は正午に到着する予定である。", quizzes:[{correct:"～する予定である", choices:["～したばかりである","～するはずがない","～し終えた","～を避ける","～に反対する"]}]},
 {word:"blank", meaning:"空白の", atk:230, hp:1900, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"Fill in the blank spaces on the form.", exampleJp:"用紙の空白の欄を埋めてください。", quizzes:[{correct:"空白の", choices:["記入済みの","印刷された","色付きの","破損した","折り畳まれた"]}]},
-{word:"correct", meaning:"正しい", atk:195, hp:2400, element:"ice", elementLabel:"🧊 氷属性", elementColor:"#00BFFF", type:"target1900", example:"That is the correct answer.", exampleJp:"それが正しい答えです。", quizzes:[{correct:"正しい", choices:["間違った","曖昧な","不完全な","偽りの","疑わしい"]}]},
-{word:"despite", meaning:"～にもかかわらず", atk:270, hp:1300, element:"lightning", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"Despite the rain, they went outside.", exampleJp:"雨にもかかわらず、彼らは外に出た。", quizzes:[{correct:"～にもかかわらず", choices:["～のおかげで","～の結果として","～と同様に","～を除いて","～に加えて"]}]},
+{word:"correct", meaning:"正しい", atk:195, hp:2400, element:"water", elementLabel:"🧊 氷属性", elementColor:"#00BFFF", type:"target1900", example:"That is the correct answer.", exampleJp:"それが正しい答えです。", quizzes:[{correct:"正しい", choices:["間違った","曖昧な","不完全な","偽りの","疑わしい"]}]},
+{word:"despite", meaning:"～にもかかわらず", atk:270, hp:1300, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"Despite the rain, they went outside.", exampleJp:"雨にもかかわらず、彼らは外に出た。", quizzes:[{correct:"～にもかかわらず", choices:["～のおかげで","～の結果として","～と同様に","～を除いて","～に加えて"]}]},
 {word:"refer to", meaning:"～に言及する", atk:220, hp:2000, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"She referred to her notes during the speech.", exampleJp:"彼女はスピーチ中にメモに言及した。", quizzes:[{correct:"～に言及する", choices:["～を無視する","～を否定する","～を批判する","～を避ける","～を忘れる"]}]},
 {word:"approach", meaning:"に近づく", atk:255, hp:1600, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"The cat slowly approached the bird.", exampleJp:"猫はゆっくりと鳥に近づいた。", quizzes:[{correct:"に近づく", choices:["から離れる","を追い越す","を見下ろす","に背を向ける","を取り囲む"]}]},
 {word:"wonder wh-", meaning:"～かなと思う", atk:200, hp:2300, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"I wonder where she went.", exampleJp:"彼女はどこへ行ったのかなと思う。", quizzes:[{correct:"～かなと思う", choices:["～だと確信する","～を命令する","～を否定する","～と断言する","～を忘れる"]}]},
-{word:"recognize", meaning:"を識別できる", atk:240, hp:1750, element:"ice", elementLabel:"🧊 氷属性", elementColor:"#00BFFF", type:"target1900", example:"I recognized her voice immediately.", exampleJp:"私はすぐに彼女の声を識別できた。", quizzes:[{correct:"を識別できる", choices:["を見逃す","を忘れる","を混同する","を無視する","を誤解する"]}]},
-{word:"solve", meaning:"を解く", atk:285, hp:1100, element:"lightning", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"She solved the math problem quickly.", exampleJp:"彼女はその数学の問題をすばやく解いた。", quizzes:[{correct:"を解く", choices:["を諦める","を複雑にする","を間違える","を避ける","を無視する"]}]},
+{word:"recognize", meaning:"を識別できる", atk:240, hp:1750, element:"water", elementLabel:"🧊 氷属性", elementColor:"#00BFFF", type:"target1900", example:"I recognized her voice immediately.", exampleJp:"私はすぐに彼女の声を識別できた。", quizzes:[{correct:"を識別できる", choices:["を見逃す","を忘れる","を混同する","を無視する","を誤解する"]}]},
+{word:"solve", meaning:"を解く", atk:285, hp:1100, element:"thunder", elementLabel:"⚡ 雷属性", elementColor:"#FFD700", type:"target1900", example:"She solved the math problem quickly.", exampleJp:"彼女はその数学の問題をすばやく解いた。", quizzes:[{correct:"を解く", choices:["を諦める","を複雑にする","を間違える","を避ける","を無視する"]}]},
 {word:"occur", meaning:"起こる", atk:215, hp:2100, element:"wood", elementLabel:"🌿 木属性", elementColor:"#52D68A", type:"target1900", example:"The accident occurred at midnight.", exampleJp:"その事故は真夜中に起こった。", quizzes:[{correct:"起こる", choices:["終わる","消える","防がれる","計画される","延期される"]}]},
 {word:"argue", meaning:"と主張する", atk:265, hp:1450, element:"earth", elementLabel:"🪨 地属性", elementColor:"#C8A96E", type:"target1900", example:"He argued that the law was unfair.", exampleJp:"彼はその法律は不公平だと主張した。", quizzes:[{correct:"と主張する", choices:["と認める","と否定する","と同意する","と諦める","と疑う"]}]},
 {word:"claim", meaning:"と主張する", atk:250, hp:1700, element:"fire", elementLabel:"🔥 火属性", elementColor:"#FF4444", type:"target1900", example:"She claimed that she was innocent.", exampleJp:"彼女は自分が無実だと主張した。", quizzes:[{correct:"と主張する", choices:["と認める","と否定する","と謝罪する","と諦める","と黙認する"]}]},
-{word:"express", meaning:"を表す、を述べる", atk:225, hp:1950, element:"ice", elementLabel:"🧊 氷属性", elementColor:"#00BFFF", type:"target1900", example:"She expressed her feelings clearly.", exampleJp:"彼女は自分の気持ちをはっきりと述べた。", quizzes:[{correct:"を表す", choices:["を隠す","を誤解する","を忘れる","を否定する","を無視する"]},{correct:"を述べる", choices:["を黙る","を省略する","を曲げる","を避ける","を混乱させる"]}]},
+{word:"express", meaning:"を表す、を述べる", atk:225, hp:1950, element:"water", elementLabel:"🧊 氷属性", elementColor:"#00BFFF", type:"target1900", example:"She expressed her feelings clearly.", exampleJp:"彼女は自分の気持ちをはっきりと述べた。", quizzes:[{correct:"を表す", choices:["を隠す","を誤解する","を忘れる","を否定する","を無視する"]},{correct:"を述べる", choices:["を黙る","を省略する","を曲げる","を避ける","を混乱させる"]}]},
 ];
 target1900Cards.forEach(c=>c.type="target1900");
 
@@ -10076,11 +10076,15 @@ function showStage1DeckSelect(){
       <div id="s1SelectedDisplay"
         style="display:flex;justify-content:center;gap:12px;margin-bottom:16px;min-height:60px">
       </div>
-      <button id="s1StartBtn" disabled
-        style="background:linear-gradient(135deg,#FFD93D,#FF6B6B);
-          font-size:1.1rem;padding:14px 28px;opacity:0.4;cursor:not-allowed">
-        🚀 スタート！
-      </button>
+      <div style="position:fixed;bottom:70px;right:16px;z-index:1000">
+  <button id="s1StartBtn" disabled
+    style="background:linear-gradient(135deg,#FFD93D,#FF6B6B);
+      font-size:1rem;padding:14px 20px;border-radius:20px;
+      opacity:0.4;cursor:not-allowed;
+      box-shadow:0 4px 20px rgba(0,0,0,0.4)">
+    🚀 スタート！
+  </button>
+</div>
       <br>
       <button onclick="showNormalStageMenu()"
         style="background:rgba(255,255,255,0.08);box-shadow:none;
@@ -10183,12 +10187,28 @@ function showStage1DeckSelect(){
 //  BEGIN SHOOTING GAME
 // =============================================
 function beginShootingGame(){
+  // 既存のタイマーを必ずクリア
+if(shootingTimerInterval){
+  clearInterval(shootingTimerInterval);
+  shootingTimerInterval = null;
+}
+if(shootingAnimFrame){
+  cancelAnimationFrame(shootingAnimFrame);
+  shootingAnimFrame = null;
+}
   const area = document.getElementById("spaceArea");
   area.innerHTML = `
     <div style="position:relative;width:100%;max-width:420px;margin:0 auto">
       <canvas id="shootCanvas"
         style="display:block;width:100%;border-radius:16px;
           background:#000010;touch-action:none"></canvas>
+          <button onclick="toggleShootingPause()"
+  style="position:absolute;top:8px;right:8px;
+    background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.3);
+    color:#fff;font-size:12px;padding:5px 10px;border-radius:8px;
+    z-index:2100;cursor:pointer">
+  ⏸ ポーズ
+</button>
       <div id="shootHUD"
         style="position:absolute;top:8px;left:8px;right:8px;
           display:flex;justify-content:space-between;pointer-events:none">
@@ -10267,8 +10287,10 @@ function beginShootingGame(){
       startBossPhase();
     }
   }, 1000);
-
+  shootingPaused = false;        
+  currentShootingStage = "stage2";
   shootingGameActive = true;
+  lockShootingUI();
   updateShootHUD();
   requestAnimationFrame(shootingLoop);
 }
@@ -10802,6 +10824,7 @@ function startBossPhase(){
 }
 
 function gameOverShooting(){
+  unlockShootingUI(); // ← 追加
   shootingPhase      = "gameover";
   shootingGameActive = false;
   clearInterval(shootingTimerInterval);
@@ -10834,6 +10857,7 @@ function gameOverShooting(){
 }
 
 function clearShooting(){
+  unlockShootingUI(); // ← 追加
   shootingPhase      = "clear";
   shootingGameActive = false;
   clearInterval(shootingTimerInterval);
@@ -10889,6 +10913,7 @@ function removeShootListeners(){
   shootCanvas.removeEventListener("mousedown",  onShootMouseDown);
   shootCanvas.removeEventListener("mousemove",  onShootMouseMove);
   shootCanvas.removeEventListener("mouseup",    onShootMouseUp);
+  unlockShootingUI();
 }
 
 // =============================================
@@ -10908,7 +10933,15 @@ function updateShootHUD(){
 
 function updateBossHUD(){
   const bar = document.getElementById("shootBossHPBar");
-  if(bar) bar.style.width = Math.max(0, boss.hp/shootingBossMaxHP*100)+"%";
+  if(!bar) return;
+  
+  let maxHP = shootingBossMaxHP; // デフォルト6000（ST1）
+  if(currentShootingStage === "stage2") maxHP = s2BossMaxHP;
+  if(currentShootingStage === "stage3") maxHP = s3BossMaxHP;
+  if(currentShootingStage === "stage4") maxHP = s4BossMaxHP;
+  if(currentShootingStage === "stage5") maxHP = s5BossMaxHP;
+  
+  bar.style.width = Math.max(0, boss.hp / maxHP * 100) + "%";
 }
 
 function showShootMessage(msg, duration){
@@ -10946,6 +10979,8 @@ function showNormalStageMenu(){
   const area     = document.getElementById("spaceArea");
   const cleared1 = isStage1Cleared();
   const cleared2 = isStage2Cleared();
+  const cleared3 = isStage3Cleared();
+  const cleared4 = isStage4Cleared();
 
   // 属性相性五角形を描画するcanvas
   const pentagonCanvas = `
@@ -10991,6 +11026,32 @@ function showNormalStageMenu(){
               ? '<span style="font-size:11px;color:#FFD93D;margin-left:6px">✅ クリア済</span>'
               : '<span style="font-size:11px;color:rgba(255,255,255,0.5);margin-left:6px">💎×15+クイズボーナス</span>')
           : '<span style="font-size:11px;color:rgba(255,255,255,0.4);margin-left:6px">🔒 ST2クリアで解放</span>'}
+      </button>
+      <button onclick="${cleared3?"showStage4DeckSelect()":"null"}"
+        style="background:${cleared3
+          ? "linear-gradient(135deg,#FF4444,#FF9500)"
+          : "rgba(255,255,255,0.08)"};
+          font-size:1.1rem;padding:14px 28px;width:80%;margin:8px auto;display:block;
+          ${cleared3?"":"opacity:0.4;cursor:not-allowed"}">
+        ステージ４
+        ${cleared3
+          ? (isStage4Cleared()
+              ? '<span style="font-size:11px;color:#FFD93D;margin-left:6px">✅ クリア済</span>'
+              : '<span style="font-size:11px;color:rgba(255,255,255,0.5);margin-left:6px">💎×15+クイズボーナス</span>')
+          : '<span style="font-size:11px;color:rgba(255,255,255,0.4);margin-left:6px">🔒 ST3クリアで解放</span>'}
+      </button>
+      <button onclick="${cleared4?"showStage5DeckSelect()":"null"}"
+        style="background:${cleared4
+          ? "linear-gradient(135deg,#C8A96E,#8B6914)"
+          : "rgba(255,255,255,0.08)"};
+          font-size:1.1rem;padding:14px 28px;width:80%;margin:8px auto;display:block;
+          ${cleared4?"":"opacity:0.4;cursor:not-allowed"}">
+        ステージ５
+        ${cleared4
+          ? (isStage5Cleared()
+              ? '<span style="font-size:11px;color:#FFD93D;margin-left:6px">✅ クリア済</span>'
+              : '<span style="font-size:11px;color:rgba(255,255,255,0.5);margin-left:6px">💎×15+クイズボーナス</span>')
+          : '<span style="font-size:11px;color:rgba(255,255,255,0.4);margin-left:6px">🔒 ST4クリアで解放</span>'}
       </button>
       <button onclick="showVersusSpaceMenu()"
   style="background:linear-gradient(135deg,#FF6B6B,#C77DFF);
@@ -11150,11 +11211,15 @@ function showStage2DeckSelect(){
       <div id="s2SelectedDisplay"
         style="display:flex;justify-content:center;gap:12px;margin-bottom:16px;min-height:60px">
       </div>
-      <button id="s2StartBtn" disabled
-        style="background:linear-gradient(135deg,#4D96FF,#C77DFF);
-          font-size:1.1rem;padding:14px 28px;opacity:0.4;cursor:not-allowed">
-        🚀 スタート！
-      </button>
+      <div style="position:fixed;bottom:70px;right:16px;z-index:1000">
+  <button id="s2StartBtn" disabled
+    style="background:linear-gradient(135deg,#FFD93D,#FF6B6B);
+      font-size:1rem;padding:14px 20px;border-radius:20px;
+      opacity:0.4;cursor:not-allowed;
+      box-shadow:0 4px 20px rgba(0,0,0,0.4)">
+    🚀 スタート！
+  </button>
+</div>
       <br>
       <button onclick="showNormalStageMenu()"
         style="background:rgba(255,255,255,0.08);box-shadow:none;
@@ -11266,12 +11331,28 @@ let s2BossQuizTimer  = 0;
 let s2BossPhase      = false;
 
 function beginStage2(){
+  // 既存のタイマーを必ずクリア
+if(shootingTimerInterval){
+  clearInterval(shootingTimerInterval);
+  shootingTimerInterval = null;
+}
+if(shootingAnimFrame){
+  cancelAnimationFrame(shootingAnimFrame);
+  shootingAnimFrame = null;
+}
   const area = document.getElementById("spaceArea");
   area.innerHTML = `
     <div style="position:relative;width:100%;max-width:420px;margin:0 auto">
       <canvas id="shootCanvas"
         style="display:block;width:100%;border-radius:16px;
           background:#000018;touch-action:none"></canvas>
+          <button onclick="toggleShootingPause()"
+  style="position:absolute;top:8px;right:8px;
+    background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.3);
+    color:#fff;font-size:12px;padding:5px 10px;border-radius:8px;
+    z-index:2100;cursor:pointer">
+  ⏸ ポーズ
+</button>
       <div id="shootHUD"
         style="position:absolute;top:8px;left:8px;right:8px;
           display:flex;justify-content:space-between;pointer-events:none">
@@ -11377,8 +11458,11 @@ function beginStage2(){
       startS2BossPhase();
     }
   }, 1000);
-
+  
+  shootingPaused = false;          // ← 追加
+  currentShootingStage = "stage2";
   shootingGameActive = true;
+  lockShootingUI();
   updateShootHUD();
   requestAnimationFrame(stage2Loop);
 }
@@ -11852,6 +11936,7 @@ function drawElementBadge(ctx, W, element){
 }
 
 function clearStage2(){
+  unlockShootingUI(); // ← 追加
   shootingPhase="clear";
   shootingGameActive=false;
   clearInterval(shootingTimerInterval);
@@ -11909,6 +11994,14 @@ const STAGE3_CLEAR_KEY = "shootingStage3Cleared";
 function isStage3Cleared(){ return localStorage.getItem(STAGE3_CLEAR_KEY)==="cleared"; }
 function markStage3Cleared(){ localStorage.setItem(STAGE3_CLEAR_KEY,"cleared"); }
 
+const STAGE4_CLEAR_KEY = "shootingStage4Cleared";
+function isStage4Cleared(){ return localStorage.getItem(STAGE4_CLEAR_KEY)==="cleared"; }
+function markStage4Cleared(){ localStorage.setItem(STAGE4_CLEAR_KEY,"cleared"); }
+
+const STAGE5_CLEAR_KEY = "shootingStage5Cleared";
+function isStage5Cleared(){ return localStorage.getItem(STAGE5_CLEAR_KEY)==="cleared"; }
+function markStage5Cleared(){ localStorage.setItem(STAGE5_CLEAR_KEY,"cleared"); }
+
 let s3PlayerElement = "fire";
 let s3BossElement   = "thunder";
 let s3BossMaxHP     = 10000;
@@ -11942,10 +12035,15 @@ function showStage3DeckSelect(){
       <div style="font-size:13px;color:var(--pop2);margin-bottom:8px">選択: <span id="s3SelectedCount">0</span> / 2</div>
       <div id="s3CardPicker" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:16px"></div>
       <div id="s3SelectedDisplay" style="display:flex;justify-content:center;gap:12px;margin-bottom:16px;min-height:60px"></div>
-      <button id="s3StartBtn" disabled
-        style="background:linear-gradient(135deg,#FFD700,#FF6B6B);font-size:1.1rem;padding:14px 28px;opacity:0.4;cursor:not-allowed">
-        🚀 スタート！
-      </button>
+      <div style="position:fixed;bottom:70px;right:16px;z-index:1000">
+  <button id="s3StartBtn" disabled
+    style="background:linear-gradient(135deg,#FFD93D,#FF6B6B);
+      font-size:1rem;padding:14px 20px;border-radius:20px;
+      opacity:0.4;cursor:not-allowed;
+      box-shadow:0 4px 20px rgba(0,0,0,0.4)">
+    🚀 スタート！
+  </button>
+</div>
       <br>
       <button onclick="showNormalStageMenu()"
         style="background:rgba(255,255,255,0.08);box-shadow:none;font-size:12px;margin-top:10px;color:rgba(255,255,255,0.5)">← 戻る</button>
@@ -12012,10 +12110,26 @@ function showStage3DeckSelect(){
 //  BEGIN STAGE 3
 // =============================================
 function beginStage3(){
+  // 既存のタイマーを必ずクリア
+if(shootingTimerInterval){
+  clearInterval(shootingTimerInterval);
+  shootingTimerInterval = null;
+}
+if(shootingAnimFrame){
+  cancelAnimationFrame(shootingAnimFrame);
+  shootingAnimFrame = null;
+}
   const area=document.getElementById("spaceArea");
   area.innerHTML=`
     <div style="position:relative;width:100%;max-width:420px;margin:0 auto">
       <canvas id="shootCanvas" style="display:block;width:100%;border-radius:16px;background:#000020;touch-action:none"></canvas>
+      <button onclick="toggleShootingPause()"
+  style="position:absolute;top:8px;right:8px;
+    background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.3);
+    color:#fff;font-size:12px;padding:5px 10px;border-radius:8px;
+    z-index:2100;cursor:pointer">
+  ⏸ ポーズ
+</button>
       <div id="shootHUD" style="position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;pointer-events:none">
         <div id="shootHP" style="font-family:'Fredoka One',cursive;font-size:14px;color:#6BCB77;text-shadow:0 0 8px rgba(107,203,119,0.8)">❤️ 0</div>
         <div id="shootTimer" style="font-family:'Fredoka One',cursive;font-size:14px;color:#FFD93D;text-shadow:0 0 8px rgba(255,217,61,0.8)">⏱ 60</div>
@@ -12071,8 +12185,11 @@ function beginStage3(){
     if(shootingTime===15&&!s3QuizShown45){ s3QuizShown45=true; triggerS3Quiz(); }
     if(shootingTime<=0){ clearInterval(shootingTimerInterval); startS3BossPhase(); }
   },1000);
-
+   
+  shootingPaused = false;          // ← 追加
+  currentShootingStage = "stage3";
   shootingGameActive=true;
+  lockShootingUI();
   updateShootHUD();
   requestAnimationFrame(stage3Loop);
 }
@@ -12510,6 +12627,7 @@ function draw_stage3(){
 //  STAGE 3 CLEAR / GAMEOVER
 // =============================================
 function clearStage3(){
+  unlockShootingUI(); // ← 追加
   shootingPhase="clear"; shootingGameActive=false;
   clearInterval(shootingTimerInterval);
   if(s3QuizCountdown) clearInterval(s3QuizCountdown);
@@ -12533,7 +12651,1564 @@ function clearStage3(){
   },500);
 }
 
+// =============================================
+//  STAGE 4
+// =============================================
+let s4PlayerElement  = "fire";
+let s4BossElement    = "water"; // 火星は水属性に弱い（木が強い）
+let s4BossMaxHP      = 13000;
+let s4BossATK        = 400;
+let s4QuizActive     = false;
+let s4QuizAnswer     = "";
+let s4QuizZones      = [];
+let s4QuizTimer      = 0;
+let s4QuizWord       = "";
+let s4QuizCountdown  = null;
+let s4QuizShown15    = false;
+let s4QuizShown30    = false;
+let s4QuizShown45    = false;
+let s4BossQuizTimer  = 0;
+let s4BossPhase      = false;
+let s4Walls          = []; // 障害物（岩壁）
+let s4WallTimer      = 0;
 
+function showStage4DeckSelect(){
+  const pool = owned.filter(c=>c.type==="target1900");
+  const grouped = {};
+  pool.forEach(c=>{ if(!grouped[c.word]) grouped[c.word]=c; });
+  const cards = Object.values(grouped);
+
+  const area = document.getElementById("spaceArea");
+  area.innerHTML = `
+    <div style="text-align:center;padding:12px">
+      <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;color:#FF4444;margin-bottom:8px">🔴 ステージ４ デッキ選択</div>
+      <div style="background:rgba(255,68,68,0.1);border:1px solid rgba(255,68,68,0.3);border-radius:12px;padding:10px;margin:0 auto 12px;max-width:320px;font-size:12px;color:rgba(255,255,255,0.7);text-align:left;line-height:1.8">
+        🌋 <b>ステージ4 特殊ギミック</b><br>
+        岩壁が横断してくる！弾を遮断・触れるとダメージ！<br>
+        <br>
+        クイズ正解で💎×3獲得！
+      </div>
+      <div style="font-size:13px;color:#FF4444;margin-bottom:8px">選択: <span id="s4SelectedCount">0</span> / 2</div>
+      <div id="s4CardPicker" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:16px"></div>
+      <div id="s4SelectedDisplay" style="display:flex;justify-content:center;gap:12px;margin-bottom:16px;min-height:60px"></div>
+      <div style="position:fixed;bottom:70px;right:16px;z-index:1000">
+  <button id="s4StartBtn" disabled
+    style="background:linear-gradient(135deg,#FFD93D,#FF6B6B);
+      font-size:1rem;padding:14px 20px;border-radius:20px;
+      opacity:0.4;cursor:not-allowed;
+      box-shadow:0 4px 20px rgba(0,0,0,0.4)">
+    🚀 スタート！
+  </button>
+</div>
+      <br>
+      <button onclick="showNormalStageMenu()"
+        style="background:rgba(255,255,255,0.08);box-shadow:none;font-size:12px;margin-top:10px;color:rgba(255,255,255,0.5)">← 戻る</button>
+    </div>`;
+
+  if(cards.length===0){
+    document.getElementById("s4CardPicker").innerHTML=`<div style="color:rgba(255,255,255,0.4);font-size:13px;padding:20px">ターゲット1900カードがありません！</div>`;
+    return;
+  }
+
+  let selected=[];
+
+  function renderPicker(){
+    document.getElementById("s4SelectedCount").textContent=selected.length;
+    document.getElementById("s4CardPicker").innerHTML=cards.map(c=>{
+      const idx=selected.findIndex(s=>s.word===c.word);
+      const isSel=idx!==-1;
+    
+      return `<div onclick="s4ToggleCard('${c.word}')"
+        style="cursor:pointer;width:95px;padding:10px 6px;border-radius:14px;
+          background:${isSel?"rgba(255,217,61,0.2)":"rgba(255,255,255,0.06)"};
+          border:2px solid ${isSel?c.elementColor:"rgba(255,255,255,0.15)"};
+          text-align:center;transition:all 0.15s;position:relative">
+        ${isSel?`<div style="position:absolute;top:-6px;right:-6px;background:#FFD93D;border-radius:50%;width:18px;height:18px;font-size:10px;display:flex;align-items:center;justify-content:center;color:#1a1a2e;font-weight:700">${idx+1}</div>`:""}
+        <div style="font-size:1rem">${c.elementLabel.split(" ")[0]}</div>
+        <div style="font-family:'Fredoka One',cursive;font-size:0.8rem;color:#fff">${c.word}</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.5)">${c.meaning}</div>
+        <div style="font-size:10px;color:${c.elementColor}">⚔️${c.atk} ❤️${c.hp}</div>
+      </div>`;
+    }).join("");
+
+    document.getElementById("s4SelectedDisplay").innerHTML=[0,1].map(i=>{
+      const c=selected[i];
+      return c
+        ?`<div style="background:rgba(255,255,255,0.08);border:1px solid ${c.elementColor};border-radius:12px;padding:8px 14px;text-align:center;min-width:80px">
+            <div style="font-size:10px;color:rgba(255,255,255,0.4)">${i===0?"1枚目（メイン）":"2枚目（予備）"}</div>
+            <div style="font-family:'Fredoka One',cursive;font-size:0.85rem;color:#fff">${c.word}</div>
+            <div style="font-size:10px;color:${c.elementColor}">⚔️${c.atk} ❤️${c.hp}</div>
+          </div>`
+        :`<div style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.15);border-radius:12px;padding:8px 14px;text-align:center;min-width:80px;color:rgba(255,255,255,0.25);font-size:12px">${i===0?"1枚目":"2枚目"}<br>未選択</div>`;
+    }).join("");
+
+    const btn=document.getElementById("s4StartBtn");
+    btn.disabled=selected.length!==2;
+    btn.style.opacity=selected.length===2?"1":"0.4";
+    btn.style.cursor=selected.length===2?"pointer":"not-allowed";
+  }
+
+  window.s4ToggleCard=function(word){
+    const c=cards.find(x=>x.word===word);
+    const idx=selected.findIndex(s=>s.word===word);
+    if(idx!==-1){ selected.splice(idx,1); } else { if(selected.length>=2)return; selected.push(c); }
+    renderPicker();
+  };
+
+  document.getElementById("s4StartBtn").onclick=()=>{
+    if(selected.length<2)return;
+    shootingDeck=selected;
+    beginStage4();
+  };
+  renderPicker();
+}
+
+// =============================================
+//  BEGIN STAGE 4
+// =============================================
+function beginStage4(){
+  // 既存のタイマーを必ずクリア
+if(shootingTimerInterval){
+  clearInterval(shootingTimerInterval);
+  shootingTimerInterval = null;
+}
+if(shootingAnimFrame){
+  cancelAnimationFrame(shootingAnimFrame);
+  shootingAnimFrame = null;
+}
+  const area=document.getElementById("spaceArea");
+  area.innerHTML=`
+    <div style="position:relative;width:100%;max-width:420px;margin:0 auto">
+      <canvas id="shootCanvas" style="display:block;width:100%;border-radius:16px;background:#1a0005;touch-action:none"></canvas>
+      <button onclick="toggleShootingPause()"
+  style="position:absolute;top:8px;right:8px;
+    background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.3);
+    color:#fff;font-size:12px;padding:5px 10px;border-radius:8px;
+    z-index:2100;cursor:pointer">
+  ⏸ ポーズ
+</button>
+      <div id="shootHUD" style="position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;pointer-events:none">
+        <div id="shootHP" style="font-family:'Fredoka One',cursive;font-size:14px;color:#6BCB77;text-shadow:0 0 8px rgba(107,203,119,0.8)">❤️ 0</div>
+        <div id="shootTimer" style="font-family:'Fredoka One',cursive;font-size:14px;color:#FFD93D;text-shadow:0 0 8px rgba(255,217,61,0.8)">⏱ 60</div>
+        <div id="shootCard" style="font-family:'Fredoka One',cursive;font-size:11px;color:#FF4444">🚀 1枚目</div>
+      </div>
+      <div id="shootBossHUD" style="position:absolute;top:36px;left:8px;right:8px;display:none;pointer-events:none">
+        <div style="font-family:'Fredoka One',cursive;font-size:11px;color:#FF4444;text-align:center;margin-bottom:2px">🔴 火星</div>
+        <div style="background:rgba(0,0,0,0.4);border-radius:8px;height:10px;overflow:hidden">
+          <div id="shootBossHPBar" style="height:100%;background:linear-gradient(90deg,#FF4444,#FF9500);border-radius:8px;transition:width 0.3s;width:100%"></div>
+        </div>
+      </div>
+      <div id="shootMessage" style="position:absolute;top:45%;left:50%;transform:translate(-50%,-50%);font-family:'Fredoka One',cursive;font-size:1.2rem;color:#fff;text-align:center;pointer-events:none;text-shadow:0 0 20px rgba(255,255,255,0.8);display:none;background:rgba(0,0,0,0.6);border-radius:12px;padding:8px 16px;white-space:pre-line"></div>
+    </div>`;
+
+  shootCanvas=document.getElementById("shootCanvas");
+  const maxW=Math.min(420,window.innerWidth-32);
+  shootCanvas.width=maxW;
+  shootCanvas.height=Math.floor(maxW*1.5);
+  shootCtx=shootCanvas.getContext("2d");
+
+  // 状態リセット
+  shootingCurrentCard=0; shootingPhase="survival"; shootingTime=60;
+  shipBullets=[]; meteors=[]; hitEffects=[]; s4Walls=[];
+  bulletTimer=0; meteorTimer=0; bossTimer=0; s4WallTimer=0;
+  boss.bullets=[]; boss.hp=s4BossMaxHP;
+  shootingBossActive=false; lastFrameTime=0;
+
+  s4QuizActive=false; s4QuizShown15=false; s4QuizShown30=false; s4QuizShown45=false;
+  s4BossPhase=false; s4BossQuizTimer=0; s4QuizZones=[];
+  if(s4QuizCountdown){ clearInterval(s4QuizCountdown); s4QuizCountdown=null; }
+
+  const c=shootingDeck[0];
+  shootingPlayerMaxHP=c.hp; shootingPlayerHP=c.hp; shootingPlayerATK=c.atk;
+  s4PlayerElement=c.element;
+
+  ship.x=shootCanvas.width/2-ship.w/2;
+  ship.y=shootCanvas.height-ship.h-20;
+
+  shootCanvas.addEventListener("touchstart",onShootTouchStart,{passive:false});
+  shootCanvas.addEventListener("touchmove", onShootTouchMove, {passive:false});
+  shootCanvas.addEventListener("touchend",  onShootTouchEnd,  {passive:false});
+  shootCanvas.addEventListener("mousedown", onShootMouseDown);
+  shootCanvas.addEventListener("mousemove", onShootMouseMove);
+  shootCanvas.addEventListener("mouseup",   onShootMouseUp);
+
+  shootingTimerInterval=setInterval(()=>{
+    if(shootingPhase!=="survival")return;
+    shootingTime--;
+    updateShootHUD();
+    if(shootingTime===45&&!s4QuizShown15){ s4QuizShown15=true; triggerS4Quiz(); }
+    if(shootingTime===30&&!s4QuizShown30){ s4QuizShown30=true; triggerS4Quiz(); }
+    if(shootingTime===15&&!s4QuizShown45){ s4QuizShown45=true; triggerS4Quiz(); }
+    if(shootingTime<=0){ clearInterval(shootingTimerInterval); startS4BossPhase(); }
+  },1000);
+
+  shootingGameActive=true;
+  updateShootHUD();
+  requestAnimationFrame(stage4Loop);
+}
+
+// =============================================
+//  STAGE 4 BOSS
+// =============================================
+function startS4BossPhase(){
+  shootingPhase="boss"; s4BossPhase=true; shootingBossActive=true;
+  boss.x=shootCanvas.width/2-boss.w/2; boss.y=60;
+  boss.hp=s4BossMaxHP; boss.vx=2.2; boss.bullets=[]; meteors=[]; s4Walls=[]; bossTimer=0; s4BossQuizTimer=0;
+  const bossHUD=document.getElementById("shootBossHUD");
+  if(bossHUD) bossHUD.style.display="block";
+  showShootMessage("🔴 火星 出現！\n岩壁に気をつけろ！",2500);
+  updateBossHUD();
+}
+
+// =============================================
+//  STAGE 4 LOOP
+// =============================================
+function stage4Loop(timestamp){
+  if(!shootingGameActive)return;
+  const dt=Math.min((timestamp-(lastFrameTime||timestamp))/16.67,3);
+  lastFrameTime=timestamp;
+  update_stage4(dt);
+  draw_stage4();
+  shootingAnimFrame=requestAnimationFrame(stage4Loop);
+}
+
+// =============================================
+//  UPDATE STAGE 4
+// =============================================
+function update_stage4(dt){
+  const W=shootCanvas.width, H=shootCanvas.height;
+  if(shootingPhase==="gameover"||shootingPhase==="clear")return;
+
+  // エフェクト更新
+  hitEffects.forEach(e=>{
+    e.life+=dt; e.alpha=Math.max(0,1-e.life/e.maxLife);
+    if(e.type==="debris"){ e.x+=(e.vx||0)*dt; e.y+=(e.vy||0)*dt; e.r=Math.max(0,e.r-0.15*dt); }
+    else { e.r+=(e.maxR-e.r)*0.18*dt; }
+  });
+  hitEffects=hitEffects.filter(e=>e.life<e.maxLife);
+
+  // 弾発射
+  bulletTimer+=dt;
+  if(bulletTimer>=60){ bulletTimer=0; shipBullets.push({x:ship.x+ship.w/2-4,y:ship.y-10,w:8,h:14,active:true}); }
+  shipBullets.forEach(b=>{ b.y-=8*dt; });
+  shipBullets=shipBullets.filter(b=>b.active&&b.y>-20);
+
+  // ===== 岩壁更新（サバイバル・ボス両方） =====
+  // 岩壁生成：サバイバル中は8秒、ボス中は5秒ごと
+  s4WallTimer+=dt;
+  const wallInterval = shootingPhase==="boss" ? 300 : 480;
+  if(s4WallTimer>=wallInterval){
+    s4WallTimer=0;
+    spawnS4Wall(W, H);
+  }
+
+  // 岩壁移動（下から上へ、または左右から横断）
+  s4Walls.forEach(w=>{
+    if(w.dir==="down"){
+      w.y+=w.vy*dt;
+    } else if(w.dir==="left"){
+      w.x+=w.vx*dt;
+    } else {
+      w.x+=w.vx*dt;
+    }
+  });
+  s4Walls=s4Walls.filter(w=>w.y<H+60&&w.y>-60&&w.x>-W&&w.x<W*2);
+
+  // 自弾 vs 岩壁（弾が岩壁に当たると消える）
+  for(let bi=shipBullets.length-1;bi>=0;bi--){
+    const b=shipBullets[bi]; if(!b.active)continue;
+    for(const w of s4Walls){
+      if(rectsOverlap(b,w)){
+        spawnHitEffect(b.x+b.w/2,b.y,"#C8A96E");
+        b.active=false;
+        break;
+      }
+    }
+  }
+  shipBullets=shipBullets.filter(b=>b.active&&b.y>-20);
+
+  // 岩壁 vs プレイヤー（触れたらダメージ＋押し出し、即死なし）
+for(let wi=s4Walls.length-1;wi>=0;wi--){
+  const w=s4Walls[wi];
+  if(rectsOverlap(ship,w)){
+    spawnHitEffect(ship.x+ship.w/2,ship.y+ship.h/2,"#FF4444");
+    
+    // 押し出し処理
+    if(w.dir==="down"){ ship.y=w.y-ship.h-2; }
+    else if(w.dir==="left"){ ship.x=w.x+w.w+2; }
+    else { ship.x=w.x-ship.w-2; }
+    ship.x=Math.max(0,Math.min(W-ship.w,ship.x));
+    ship.y=Math.max(0,Math.min(H-ship.h,ship.y));
+    // ダメージなし（押し出すだけ）
+  }
+}
+
+  if(shootingPhase==="survival"){
+    // 隕石生成（ST3より多め）
+    meteorTimer+=dt;
+    if(meteorTimer>=40+Math.random()*20){
+      meteorTimer=0;
+      const mw=32+Math.random()*20, mh=32+Math.random()*20;
+      meteors.push({x:Math.random()*(W-mw),y:-mh,w:mw,h:mh,vy:2.5+Math.random()*2.5,hp:2,id:Date.now()+Math.random()});
+    }
+    meteors.forEach(m=>{ m.y+=m.vy*dt; });
+
+    // 自弾 vs 隕石
+    for(let bi=shipBullets.length-1;bi>=0;bi--){
+      const b=shipBullets[bi]; if(!b.active)continue;
+      for(let mi=meteors.length-1;mi>=0;mi--){
+        const m=meteors[mi]; if(m.hp<=0)continue;
+        if(rectsOverlap(b,m)){
+          spawnHitEffect(b.x+b.w/2,b.y+b.h/2,"#FFD93D");
+          b.active=false; m.hp--;
+          if(m.hp<=0){
+            spawnMeteorBreakEffect(m.x+m.w/2,m.y+m.h/2);
+            const heal=Math.floor(shootingPlayerMaxHP*0.015);
+            shootingPlayerHP=Math.min(shootingPlayerHP+heal,shootingPlayerMaxHP);
+            spawnHealEffect(ship.x+ship.w/2,ship.y);
+            updateShootHUD(); meteors.splice(mi,1);
+          }
+          break;
+        }
+      }
+    }
+    shipBullets=shipBullets.filter(b=>b.active&&b.y>-20);
+    meteors=meteors.filter(m=>m.hp>0&&m.y<H+50);
+
+    // 隕石 vs プレイヤー
+    for(let mi=meteors.length-1;mi>=0;mi--){
+      const m=meteors[mi];
+      if(rectsOverlap(ship,m)){
+        meteors.splice(mi,1);
+        spawnHitEffect(ship.x+ship.w/2,ship.y+ship.h/2,"#FF6B6B");
+        shootingPlayerHP-=350; updateShootHUD();
+        if(shootingPlayerHP<=0){ handlePlayerDeath(); return; }
+      }
+    }
+
+  } else if(shootingPhase==="boss"){
+    boss.x+=boss.vx*dt;
+    if(boss.x<=0||boss.x+boss.w>=W) boss.vx*=-1;
+    const minY=boss.y+boss.h+10;
+    if(ship.y<minY) ship.y=minY;
+
+    // ボスクイズ（20秒に1回）
+    s4BossQuizTimer+=dt;
+    if(s4BossQuizTimer>=1200){ s4BossQuizTimer=0; if(!s4QuizActive) triggerS4Quiz(); }
+
+    // ボス攻撃（岩壁弾 + 通常弾の混合）
+    bossTimer+=dt;
+    if(bossTimer>=100+Math.random()*80){
+      bossTimer=0;
+      const roll=Math.random();
+      const bx=boss.x+boss.w/2, by=boss.y+boss.h;
+      if(roll<0.5){
+        // 通常弾2発
+        boss.bullets.push({x:bx-20,y:by,w:14,h:14,vx:-1,vy:4,active:true,big:false});
+        boss.bullets.push({x:bx+6, y:by,w:14,h:14,vx:1, vy:4,active:true,big:false});
+      } else if(roll<0.75){
+        // でかい炎弾
+        boss.bullets.push({x:bx-20,y:by,w:40,h:40,vx:0,vy:3,active:true,big:true});
+      } else {
+        // 扇形5発
+        [-2,-1,0,1,2].forEach(i=>{
+          boss.bullets.push({x:bx-7,y:by,w:12,h:12,vx:i*1.8,vy:3.5,active:true,big:false});
+        });
+      }
+    }
+
+    boss.bullets.forEach(b=>{ b.x+=b.vx*dt; b.y+=b.vy*dt; });
+
+    // ボス弾 vs 岩壁（弾は岩壁を通過する）
+    // ボス弾 vs プレイヤー
+    for(let i=boss.bullets.length-1;i>=0;i--){
+      const b=boss.bullets[i]; if(!b.active)continue;
+      if(rectsOverlap(b,ship)){
+        boss.bullets.splice(i,1);
+        spawnHitEffect(ship.x+ship.w/2,ship.y+ship.h/2,"#FF4444");
+        const mult=getElementMultiplier("fire",s4PlayerElement);
+        const dmg=Math.floor(s4BossATK*(b.big?2.5:1)*mult);
+        shootingPlayerHP-=dmg; updateShootHUD();
+        if(shootingPlayerHP<=0){ handlePlayerDeath(); return; }
+      }
+    }
+    boss.bullets=boss.bullets.filter(b=>b.active&&b.y<H+50&&b.x>-50&&b.x<W+50);
+
+    // 自弾 vs ボス
+    const bossRect={x:boss.x,y:boss.y,w:boss.w,h:boss.h};
+    for(let bi=shipBullets.length-1;bi>=0;bi--){
+      const b=shipBullets[bi]; if(!b.active)continue;
+      if(rectsOverlap(b,bossRect)){
+        spawnBossHitEffect(b.x+b.w/2,b.y+b.h/2);
+        b.active=false;
+        const mult=getElementMultiplier(s4PlayerElement,"fire");
+        boss.hp-=Math.floor(shootingPlayerATK*mult);
+        updateBossHUD();
+        if(boss.hp<=0){ clearStage4(); return; }
+      }
+    }
+    shipBullets=shipBullets.filter(b=>b.active&&b.y>-20);
+  }
+}
+
+// =============================================
+//  岩壁生成
+// =============================================
+function spawnS4Wall(W, H){
+  const roll=Math.random();
+  if(roll<0.4){
+    // 横断壁（左から右）：画面を部分的に遮断
+    const wallH=18+Math.random()*14;
+    const gapSize=90+Math.random()*60; // 通り抜けられる隙間
+    const gapY=H*0.3+Math.random()*H*0.4;
+    // 隙間の上の壁
+    if(gapY>40){
+      s4Walls.push({x:-W,y:gapY-wallH-gapSize,w:W,h:wallH,vx:2.5+Math.random()*1,vy:0,dir:"left",id:Date.now()+"a"});
+    }
+    // 隙間の下の壁
+    if(gapY+wallH+gapSize<H-40){
+      s4Walls.push({x:-W,y:gapY+gapSize,w:W,h:wallH,vx:2.5+Math.random()*1,vy:0,dir:"left",id:Date.now()+"b"});
+    }
+  } else if(roll<0.7){
+    // 横断壁（右から左）
+    const wallH=18+Math.random()*14;
+    const gapSize=90+Math.random()*60;
+    const gapY=H*0.3+Math.random()*H*0.4;
+    if(gapY>40){
+      s4Walls.push({x:W,y:gapY-wallH-gapSize,w:W,h:wallH,vx:-(2.5+Math.random()*1),vy:0,dir:"right",id:Date.now()+"c"});
+    }
+    if(gapY+wallH+gapSize<H-40){
+      s4Walls.push({x:W,y:gapY+gapSize,w:W,h:wallH,vx:-(2.5+Math.random()*1),vy:0,dir:"right",id:Date.now()+"d"});
+    }
+  } else {
+    // 縦断壁（上から下）：横に隙間あり
+    const wallW=18+Math.random()*14;
+    const gapSize=80+Math.random()*50;
+    const gapX=W*0.2+Math.random()*W*0.6;
+    if(gapX>30){
+      s4Walls.push({x:0,y:-60,w:gapX-gapSize/2,h:16,vx:0,vy:2+Math.random()*1.5,dir:"down",id:Date.now()+"e"});
+    }
+    if(gapX+gapSize/2<W-30){
+      s4Walls.push({x:gapX+gapSize/2,y:-60,w:W-(gapX+gapSize/2),h:16,vx:0,vy:2+Math.random()*1.5,dir:"down",id:Date.now()+"f"});
+    }
+  }
+}
+
+// =============================================
+//  STAGE 4 QUIZ
+// =============================================
+function triggerS4Quiz(){
+  if(s4QuizActive)return;
+  s4QuizActive=true;
+  const card=target1900Cards[Math.floor(Math.random()*target1900Cards.length)];
+  const q=card.quizzes[Math.floor(Math.random()*card.quizzes.length)];
+  s4QuizAnswer=q.correct;
+  s4QuizWord=card.word;
+  const wrongs=q.choices.sort(()=>Math.random()-0.5).slice(0,3);
+  const allChoices=[...wrongs,q.correct].sort(()=>Math.random()-0.5);
+
+  const W=shootCanvas.width, H=shootCanvas.height;
+  const zoneTop=H*0.55, zoneH=(H-zoneTop-20)/2, zoneW=W/2-8;
+  s4QuizZones=[
+    {label:allChoices[0],x:4,     y:zoneTop,         w:zoneW,h:zoneH-4},
+    {label:allChoices[1],x:W/2+4, y:zoneTop,         w:zoneW,h:zoneH-4},
+    {label:allChoices[2],x:4,     y:zoneTop+zoneH+4, w:zoneW,h:zoneH-4},
+    {label:allChoices[3],x:W/2+4, y:zoneTop+zoneH+4, w:zoneW,h:zoneH-4},
+  ];
+  s4QuizTimer=5;
+  if(s4QuizCountdown) clearInterval(s4QuizCountdown);
+  s4QuizCountdown=setInterval(()=>{
+    s4QuizTimer--;
+    if(s4QuizTimer<=0){ clearInterval(s4QuizCountdown); s4QuizCountdown=null; judgeS4Quiz(); }
+  },1000);
+}
+
+function judgeS4Quiz(){
+  s4QuizActive=false;
+  const cx=ship.x+ship.w/2, cy=ship.y+ship.h/2;
+  let chosen=null;
+  for(const z of s4QuizZones){ if(cx>=z.x&&cx<=z.x+z.w&&cy>=z.y&&cy<=z.y+z.h){ chosen=z.label; break; } }
+  s4QuizZones=[];
+  if(chosen===s4QuizAnswer){
+    diamonds+=3; saveGame();
+    showShootMessage("✅ 正解！💎×3 獲得！",2000);
+  } else {
+    shootingPlayerHP-=600; updateShootHUD();
+    showShootMessage(`❌ 不正解！600ダメージ！\n正解: ${s4QuizAnswer}`,2000);
+    if(shootingPlayerHP<=0) handlePlayerDeath();
+  }
+}
+
+// =============================================
+//  DRAW STAGE 4
+// =============================================
+function draw_stage4(){
+  const ctx=shootCtx, W=shootCanvas.width, H=shootCanvas.height;
+  // 赤みがかった宇宙背景
+  ctx.fillStyle="#120005"; ctx.fillRect(0,0,W,H);
+
+  // 星（赤みがかった）
+  for(let i=0;i<70;i++){
+    const bri=0.3+((i*73)%100)/100*0.4;
+    ctx.fillStyle=`rgba(255,${150+((i*37)%80)},${100+((i*53)%80)},${bri})`;
+    ctx.fillRect((i*137+50)%W,(i*97+30)%H,1.5,1.5);
+  }
+  // 遠くの赤い霧
+  const nebula=ctx.createRadialGradient(W*0.5,H*0.3,0,W*0.5,H*0.3,W*0.6);
+  nebula.addColorStop(0,"rgba(180,20,0,0.08)");
+  nebula.addColorStop(1,"rgba(0,0,0,0)");
+  ctx.fillStyle=nebula; ctx.fillRect(0,0,W,H);
+
+  if(shootingPhase==="gameover"||shootingPhase==="clear")return;
+
+  // ===== 岩壁描画 =====
+  s4Walls.forEach(w=>{
+    ctx.save();
+    // 岩壁グラデーション
+    const wg=ctx.createLinearGradient(w.x,w.y,w.x,w.y+w.h);
+    wg.addColorStop(0,"#8B3A1A");
+    wg.addColorStop(0.5,"#C8603A");
+    wg.addColorStop(1,"#6B2A10");
+    ctx.fillStyle=wg;
+    ctx.shadowColor="rgba(200,80,50,0.6)"; ctx.shadowBlur=8;
+    ctx.fillRect(w.x,w.y,w.w,w.h);
+    // 岩の模様
+    ctx.fillStyle="rgba(0,0,0,0.2)";
+    for(let i=0;i<Math.floor(w.w/30);i++){
+      ctx.fillRect(w.x+i*30+10,w.y+3,8,w.h-6);
+    }
+    // ハイライト
+    ctx.fillStyle="rgba(255,150,100,0.3)";
+    ctx.fillRect(w.x,w.y,w.w,3);
+    ctx.restore();
+  });
+
+  // ===== クイズゾーン =====
+  if(s4QuizActive&&s4QuizZones.length>0){
+    ctx.save();
+    ctx.fillStyle="rgba(0,0,0,0.82)";
+    ctx.beginPath(); ctx.roundRect(W*0.03,H*0.47,W*0.94,46,8); ctx.fill();
+    ctx.fillStyle="#FF9500"; ctx.font=`bold ${Math.floor(W*0.034)}px sans-serif`;
+    ctx.textAlign="center"; ctx.textBaseline="middle";
+    ctx.fillText(`「${s4QuizWord}」の意味は？`,W/2,H*0.47+16);
+    ctx.fillStyle="rgba(255,255,255,0.6)"; ctx.font=`${Math.floor(W*0.028)}px sans-serif`;
+    ctx.fillText(`⏱ ${s4QuizTimer}秒 いるゾーンが回答！`,W/2,H*0.47+34);
+    ctx.restore();
+
+    const zoneColors=["rgba(255,68,68,0.3)","rgba(255,149,0,0.3)","rgba(107,203,119,0.3)","rgba(255,217,61,0.3)"];
+    const zoneBorders=["#FF4444","#FF9500","#6BCB77","#FFD93D"];
+    s4QuizZones.forEach((z,i)=>{
+      ctx.save();
+      ctx.fillStyle=zoneColors[i%4]; ctx.strokeStyle=zoneBorders[i%4]; ctx.lineWidth=2;
+      ctx.beginPath(); ctx.roundRect(z.x,z.y,z.w,z.h,8); ctx.fill(); ctx.stroke();
+      ctx.fillStyle="#fff"; ctx.textAlign="center"; ctx.textBaseline="middle";
+      const fs=Math.floor(W*0.026); ctx.font=`bold ${fs}px sans-serif`;
+      const lines=wrapText(ctx,z.label,z.w-14,fs);
+      const lh=fs+3, sy=z.y+z.h/2-(lines.length-1)*lh/2;
+      lines.forEach((l,li)=>ctx.fillText(l,z.x+z.w/2,sy+li*lh));
+      const cx2=ship.x+ship.w/2, cy2=ship.y+ship.h/2;
+      if(cx2>=z.x&&cx2<=z.x+z.w&&cy2>=z.y&&cy2<=z.y+z.h){
+        ctx.strokeStyle=zoneBorders[i%4]; ctx.lineWidth=4;
+        ctx.shadowColor=zoneBorders[i%4]; ctx.shadowBlur=18;
+        ctx.beginPath(); ctx.roundRect(z.x,z.y,z.w,z.h,8); ctx.stroke();
+      }
+      ctx.restore();
+    });
+  }
+
+  // 隕石
+  meteors.forEach(m=>{
+    ctx.save();
+    ctx.fillStyle="#8B3010"; ctx.shadowColor="rgba(200,80,50,0.5)"; ctx.shadowBlur=6;
+    ctx.beginPath(); ctx.ellipse(m.x+m.w/2,m.y+m.h/2,m.w/2,m.h/2,0,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle="#6B2010"; ctx.shadowBlur=0;
+    ctx.beginPath(); ctx.ellipse(m.x+m.w*0.35,m.y+m.h*0.35,m.w*0.15,m.h*0.12,0.5,0,Math.PI*2); ctx.fill();
+    if(m.hp===1){ ctx.strokeStyle="rgba(255,107,107,0.8)"; ctx.lineWidth=1.5; ctx.beginPath(); ctx.moveTo(m.x+m.w*0.4,m.y+m.h*0.2); ctx.lineTo(m.x+m.w*0.55,m.y+m.h*0.5); ctx.lineTo(m.x+m.w*0.45,m.y+m.h*0.8); ctx.stroke(); }
+    ctx.restore();
+  });
+
+  // 自弾（赤い炎色）
+  shipBullets.forEach(b=>{
+    if(!b.active)return;
+    ctx.save();
+    const g=ctx.createLinearGradient(b.x,b.y,b.x,b.y+b.h);
+    g.addColorStop(0,"#fff"); g.addColorStop(1,"#FF4444");
+    ctx.fillStyle=g; ctx.shadowColor="#FF4444"; ctx.shadowBlur=10;
+    ctx.beginPath(); ctx.roundRect(b.x,b.y,b.w,b.h,4); ctx.fill();
+    ctx.restore();
+  });
+
+  // ボスフェーズ
+  if(shootingPhase==="boss"){
+    // ボス弾
+    boss.bullets.forEach(b=>{
+      ctx.save();
+      if(b.big){
+        const fg=ctx.createRadialGradient(b.x+b.w/2,b.y+b.h/2,2,b.x+b.w/2,b.y+b.h/2,b.w/2);
+        fg.addColorStop(0,"#fff"); fg.addColorStop(0.4,"#FF6B00"); fg.addColorStop(1,"rgba(200,50,0,0.3)");
+        ctx.fillStyle=fg; ctx.shadowColor="#FF6B00"; ctx.shadowBlur=20;
+      } else {
+        ctx.fillStyle="#FF4444"; ctx.shadowColor="#FF4444"; ctx.shadowBlur=12;
+      }
+      ctx.beginPath(); ctx.arc(b.x+b.w/2,b.y+b.h/2,b.w/2,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+    });
+
+    // 火星ボス描画
+    const bossHPRatio=Math.max(0,boss.hp/s4BossMaxHP);
+    ctx.save();
+    ctx.shadowColor=`rgba(255,80,0,0.9)`; ctx.shadowBlur=25+(1-bossHPRatio)*35;
+    // 本体グラデーション
+    const pg=ctx.createRadialGradient(
+      boss.x+boss.w*0.35,boss.y+boss.h*0.3,boss.w*0.05,
+      boss.x+boss.w/2,boss.y+boss.h/2,boss.w/2
+    );
+    pg.addColorStop(0,"#FF8060"); pg.addColorStop(0.4,"#CC3010"); pg.addColorStop(0.8,"#8B1A05"); pg.addColorStop(1,"#5A0A00");
+    ctx.fillStyle=pg;
+    ctx.beginPath(); ctx.arc(boss.x+boss.w/2,boss.y+boss.h/2,boss.w/2,0,Math.PI*2); ctx.fill();
+    // 表面模様（砂嵐みたいな縞）
+    ctx.save();
+    ctx.beginPath(); ctx.arc(boss.x+boss.w/2,boss.y+boss.h/2,boss.w/2,0,Math.PI*2); ctx.clip();
+    ctx.fillStyle="rgba(200,80,30,0.35)";
+    for(let i=0;i<5;i++){
+      const wy=boss.y+boss.h*0.15+i*(boss.h*0.15);
+      const ww=boss.w*(0.6+Math.sin(i*1.3)*0.3);
+      const wx=boss.x+(boss.w-ww)/2+Math.sin(i*2)*10;
+      ctx.beginPath(); ctx.ellipse(wx+ww/2,wy,ww/2,boss.h*0.04,0,0,Math.PI*2); ctx.fill();
+    }
+    ctx.restore();
+    // クレーター
+    ctx.fillStyle="rgba(80,10,0,0.5)"; ctx.shadowBlur=0;
+    [[0.35,0.35,0.1],[0.65,0.55,0.08],[0.45,0.7,0.07],[0.25,0.6,0.05]].forEach(([rx,ry,rs])=>{
+      ctx.beginPath(); ctx.arc(boss.x+boss.w*rx,boss.y+boss.h*ry,boss.w*rs,0,Math.PI*2); ctx.fill();
+    });
+    // HP低下でひび
+    if(bossHPRatio<0.5){
+      ctx.strokeStyle=`rgba(255,150,50,${0.5+(1-bossHPRatio)*0.5})`; ctx.lineWidth=2.5;
+      ctx.beginPath(); ctx.moveTo(boss.x+boss.w*0.3,boss.y+boss.h*0.1); ctx.lineTo(boss.x+boss.w*0.5,boss.y+boss.h*0.5); ctx.lineTo(boss.x+boss.w*0.75,boss.y+boss.h*0.85); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(boss.x+boss.w*0.6,boss.y+boss.h*0.15); ctx.lineTo(boss.x+boss.w*0.42,boss.y+boss.h*0.58); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // エフェクト
+  hitEffects.forEach(e=>{
+    if(e.alpha<=0)return;
+    ctx.save(); ctx.globalAlpha=e.alpha;
+    if(e.type==="debris"){ ctx.fillStyle=e.color; ctx.beginPath(); ctx.arc(e.x,e.y,Math.max(0,e.r),0,Math.PI*2); ctx.fill(); }
+    else if(e.type==="heal"){ ctx.strokeStyle=e.color; ctx.lineWidth=3; ctx.shadowColor=e.color; ctx.shadowBlur=12; ctx.beginPath(); ctx.arc(e.x,e.y,Math.max(0,e.r),0,Math.PI*2); ctx.stroke(); ctx.fillStyle=e.color; ctx.font=`bold ${Math.max(8,Math.floor(e.r*0.8))}px sans-serif`; ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillText("+",e.x,e.y-Math.max(0,e.r)*1.2); }
+    else { ctx.strokeStyle=e.color; ctx.lineWidth=2.5; ctx.shadowColor=e.color; ctx.shadowBlur=14; ctx.beginPath(); ctx.arc(e.x,e.y,Math.max(0,e.r),0,Math.PI*2); ctx.stroke(); ctx.fillStyle=e.color; ctx.globalAlpha=e.alpha*0.3; ctx.beginPath(); ctx.arc(e.x,e.y,Math.max(0,e.r*0.5),0,Math.PI*2); ctx.fill(); }
+    ctx.restore();
+  });
+
+  // 宇宙船
+  drawSpaceShip(ctx,ship.x,ship.y,ship.w,ship.h);
+
+  // HPバー
+  const hpRatio=Math.max(0,shootingPlayerHP/shootingPlayerMaxHP);
+  const barW=W*0.5,barX=(W-barW)/2,barY=H-14;
+  ctx.save();
+  ctx.fillStyle="rgba(0,0,0,0.4)"; ctx.beginPath(); ctx.roundRect(barX,barY,barW,8,4); ctx.fill();
+  const hpColor=hpRatio>0.5?"#6BCB77":hpRatio>0.25?"#FFD93D":"#FF6B6B";
+  ctx.fillStyle=hpColor; ctx.shadowColor=hpColor; ctx.shadowBlur=6;
+  ctx.beginPath(); ctx.roundRect(barX,barY,barW*hpRatio,8,4); ctx.fill();
+  ctx.restore();
+
+  // 属性バッジ
+  drawElementBadge(ctx,W,s4PlayerElement);
+}
+
+// =============================================
+//  STAGE 4 CLEAR / GAMEOVER
+// =============================================
+function clearStage4(){
+  unlockShootingUI(); // ← 追加
+  shootingPhase="clear"; shootingGameActive=false;
+  clearInterval(shootingTimerInterval);
+  if(s4QuizCountdown) clearInterval(s4QuizCountdown);
+  cancelAnimationFrame(shootingAnimFrame);
+  removeShootListeners();
+  const firstClear=!isStage4Cleared();
+  if(firstClear){ markStage4Cleared(); diamonds+=15; saveGame(); }
+  draw_stage4();
+  setTimeout(()=>{
+    document.getElementById("spaceArea").innerHTML=`
+      <div style="text-align:center;padding:30px 16px">
+        <div style="font-size:4rem;margin-bottom:10px">🏆</div>
+        <div style="font-family:'Fredoka One',cursive;font-size:2rem;
+          background:linear-gradient(90deg,#FF4444,#FF9500);
+          -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+          margin-bottom:8px">STAGE 4 CLEAR!</div>
+        ${firstClear
+          ?`<div style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:#FFD93D;margin-bottom:6px">💎×15 獲得！</div>`
+          :`<div style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px">※2回目以降クリア報酬なし</div>`}
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:20px">
+          🔴 火星を撃破した！<br>
+          <span style="font-size:12px;color:rgba(255,255,255,0.4)">
+            ※クイズ正解で💎×3（回数無制限）
+          </span>
+        </div>
+        <button onclick="showStage4DeckSelect()"
+          style="background:linear-gradient(135deg,#FF4444,#FF9500);
+            font-size:1rem;padding:14px 28px;margin:6px">
+          🔄 もう一度
+        </button>
+        <br>
+        <button onclick="showNormalStageMenu()"
+          style="background:rgba(255,255,255,0.08);box-shadow:none;
+            font-size:12px;margin-top:10px;color:rgba(255,255,255,0.5)">
+          ← ステージ選択へ
+        </button>
+      </div>`;
+    spawnStars();
+  },500);
+}
+
+// =============================================
+//  SHOOTING UI LOCK / UNLOCK
+// =============================================
+function lockShootingUI(){
+  const h1 = document.querySelector("h1");
+  if(h1) h1.style.display = "none";
+  const topRes = document.getElementById("topResource");
+  if(topRes) topRes.style.display = "none";
+  const modeBar = document.querySelector(".modeTabBar");
+  if(modeBar) modeBar.style.display = "none";
+}
+
+function unlockShootingUI(){
+  const h1 = document.querySelector("h1");
+  if(h1) h1.style.display = "";
+  const topRes = document.getElementById("topResource");
+  if(topRes) topRes.style.display = "";
+  const modeBar = document.querySelector(".modeTabBar");
+  if(modeBar) modeBar.style.display = "";
+}
+
+// =============================================
+//  SHOOTING PAUSE
+// =============================================
+let shootingPaused = false;
+
+function toggleShootingPause(){
+  shootingPaused = !shootingPaused;
+  const modal = document.getElementById("shootPauseModal");
+  if(shootingPaused){
+    // タイマーとアニメーション両方止める
+    shootingGameActive = false;
+    clearInterval(shootingTimerInterval);
+    cancelAnimationFrame(shootingAnimFrame);
+    if(s2QuizCountdown){ clearInterval(s2QuizCountdown); }
+    if(s3QuizCountdown){ clearInterval(s3QuizCountdown); }
+    if(s4QuizCountdown){ clearInterval(s4QuizCountdown); }
+    if(modal) modal.style.display = "flex";
+  } else {
+    if(modal) modal.style.display = "none";
+    lastFrameTime = performance.now(); // ← 現在時刻を入れる
+    shootingGameActive = true;         // ← trueにしてからループ開始
+    
+    // タイマー再開（以下同じ）
+
+    // タイマー再開
+    shootingTimerInterval = setInterval(()=>{
+      if(shootingPhase !== "survival") return;
+      shootingTime--;
+      updateShootHUD();
+
+      // 各ステージのクイズトリガー
+      if(currentShootingStage === "stage2"){
+        if(shootingTime===40 && !s2QuizShown20){ s2QuizShown20=true; triggerS2Quiz(); }
+        if(shootingTime===20 && !s2QuizShown40){ s2QuizShown40=true; triggerS2Quiz(); }
+        if(shootingTime<=0){ clearInterval(shootingTimerInterval); startS2BossPhase(); }
+      } else if(currentShootingStage === "stage3"){
+        if(shootingTime===45 && !s3QuizShown15){ s3QuizShown15=true; triggerS3Quiz(); }
+        if(shootingTime===30 && !s3QuizShown30){ s3QuizShown30=true; triggerS3Quiz(); }
+        if(shootingTime===15 && !s3QuizShown45){ s3QuizShown45=true; triggerS3Quiz(); }
+        if(shootingTime<=0){ clearInterval(shootingTimerInterval); startS3BossPhase(); }
+      } else if(currentShootingStage === "stage4"){
+        if(shootingTime===45 && !s4QuizShown15){ s4QuizShown15=true; triggerS4Quiz(); }
+        if(shootingTime===30 && !s4QuizShown30){ s4QuizShown30=true; triggerS4Quiz(); }
+        if(shootingTime===15 && !s4QuizShown45){ s4QuizShown45=true; triggerS4Quiz(); }
+        if(shootingTime<=0){ clearInterval(shootingTimerInterval); startS4BossPhase(); }
+      } else if(currentShootingStage === "stage5"){
+        if(shootingTime===45 && !s5QuizShown15){ s5QuizShown15=true; triggerS5Quiz(); }
+        if(shootingTime===30 && !s5QuizShown30){ s5QuizShown30=true; triggerS5Quiz(); }
+        if(shootingTime===15 && !s5QuizShown45){ s5QuizShown45=true; triggerS5Quiz(); }
+        if(shootingTime<=0){ clearInterval(shootingTimerInterval); startS5BossPhase(); }  
+      } else {
+        // stage1
+        if(shootingTime<=0){ clearInterval(shootingTimerInterval); startBossPhase(); }
+      }
+    }, 1000);
+    
+
+    // ループ再開
+    const loopMap = {
+      stage1: shootingLoop,
+      stage2: stage2Loop,
+      stage3: stage3Loop,
+      stage4: stage4Loop,
+      stage5: stage5Loop,
+    };
+    requestAnimationFrame(loopMap[currentShootingStage] || shootingLoop);
+  }
+}
+
+function giveUpShooting(){
+  shootingGameActive = false;
+  shootingPaused = false;
+  clearInterval(shootingTimerInterval);
+  if(s2QuizCountdown){ clearInterval(s2QuizCountdown); s2QuizCountdown=null; }
+  if(s3QuizCountdown){ clearInterval(s3QuizCountdown); s3QuizCountdown=null; }
+  if(s4QuizCountdown){ clearInterval(s4QuizCountdown); s4QuizCountdown=null; }
+  if(s5QuizCountdown){ clearInterval(s5QuizCountdown); s5QuizCountdown=null; }
+  cancelAnimationFrame(shootingAnimFrame);
+  removeShootListeners();
+  unlockShootingUI();
+  const modal = document.getElementById("shootPauseModal");
+  if(modal) modal.style.display = "none";
+  showNormalStageMenu();
+}
+
+// =============================================
+//  STAGE 5
+// =============================================
+let s5PlayerElement  = "fire";
+let s5BossElement    = "wood";
+let s5BossMaxHP      = 16000;
+let s5BossATK        = 500;
+let s5QuizActive     = false;
+let s5QuizAnswer     = "";
+let s5QuizZones      = [];
+let s5QuizTimer      = 0;
+let s5QuizWord       = "";
+let s5QuizCountdown  = null;
+let s5QuizShown15    = false;
+let s5QuizShown30    = false;
+let s5QuizShown45    = false;
+let s5BossQuizTimer  = 0;
+let s5BossPhase      = false;
+let s5Vortexes       = []; // 渦巻き重力場
+let s5VortexTimer    = 0;
+
+function showStage5DeckSelect(){
+  const pool = owned.filter(c=>c.type==="target1900");
+  const grouped = {};
+  pool.forEach(c=>{ if(!grouped[c.word]) grouped[c.word]=c; });
+  const cards = Object.values(grouped);
+
+  const area = document.getElementById("spaceArea");
+  area.innerHTML = `
+    <div style="text-align:center;padding:12px">
+      <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;
+        color:#C8A96E;margin-bottom:8px">🟤 ステージ５ デッキ選択</div>
+      <div style="background:rgba(200,169,110,0.1);border:1px solid rgba(200,169,110,0.3);
+        border-radius:12px;padding:10px;margin:0 auto 12px;max-width:320px;
+        font-size:12px;color:rgba(255,255,255,0.7);text-align:left;line-height:1.8">
+        🌀 <b>ステージ5 特殊ギミック</b><br>
+        渦巻き重力場が出現！船が引き寄せられる！<br>
+        謎の惑星が待ち受ける…<br>
+        クイズ正解で💎×3獲得！
+      </div>
+      <div style="font-size:13px;color:#C8A96E;margin-bottom:8px">
+        選択: <span id="s5SelectedCount">0</span> / 2
+      </div>
+      <div id="s5CardPicker"
+        style="display:flex;flex-wrap:wrap;justify-content:center;
+          gap:8px;margin-bottom:16px"></div>
+      <div id="s5SelectedDisplay"
+        style="display:flex;justify-content:center;gap:12px;
+          margin-bottom:80px;min-height:60px"></div>
+      <div style="position:fixed;bottom:70px;right:16px;z-index:1000">
+        <button id="s5StartBtn" disabled
+          style="background:linear-gradient(135deg,#C8A96E,#8B6914);
+            font-size:1rem;padding:14px 20px;border-radius:20px;
+            opacity:0.4;cursor:not-allowed;
+            box-shadow:0 4px 20px rgba(0,0,0,0.4)">
+          🚀 スタート！
+        </button>
+      </div>
+      <br>
+      <button onclick="showNormalStageMenu()"
+        style="background:rgba(255,255,255,0.08);box-shadow:none;
+          font-size:12px;margin-top:10px;color:rgba(255,255,255,0.5)">← 戻る</button>
+    </div>`;
+
+  if(cards.length===0){
+    document.getElementById("s5CardPicker").innerHTML=
+      `<div style="color:rgba(255,255,255,0.4);font-size:13px;padding:20px">
+        ターゲット1900カードがありません！
+      </div>`;
+    return;
+  }
+
+  let selected=[];
+
+  function renderPicker(){
+    document.getElementById("s5SelectedCount").textContent=selected.length;
+    document.getElementById("s5CardPicker").innerHTML=cards.map(c=>{
+      const idx=selected.findIndex(s=>s.word===c.word);
+      const isSel=idx!==-1;
+      return `
+        <div onclick="s5ToggleCard('${c.word}')"
+          style="cursor:pointer;width:95px;padding:10px 6px;border-radius:14px;
+            background:${isSel?"rgba(255,217,61,0.2)":"rgba(255,255,255,0.06)"};
+            border:2px solid ${isSel?c.elementColor:"rgba(255,255,255,0.15)"};
+            text-align:center;transition:all 0.15s;position:relative">
+          ${isSel?`<div style="position:absolute;top:-6px;right:-6px;
+            background:#FFD93D;border-radius:50%;width:18px;height:18px;
+            font-size:10px;display:flex;align-items:center;justify-content:center;
+            color:#1a1a2e;font-weight:700">${idx+1}</div>`:""}
+          <div style="font-size:1rem">${c.elementLabel.split(" ")[0]}</div>
+          <div style="font-family:'Fredoka One',cursive;font-size:0.8rem;color:#fff">
+            ${c.word}
+          </div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.5)">${c.meaning}</div>
+          <div style="font-size:10px;color:${c.elementColor}">
+            ⚔️${c.atk} ❤️${c.hp}
+          </div>
+        </div>`;
+    }).join("");
+
+    document.getElementById("s5SelectedDisplay").innerHTML=[0,1].map(i=>{
+      const c=selected[i];
+      return c
+        ?`<div style="background:rgba(255,255,255,0.08);
+            border:1px solid ${c.elementColor};border-radius:12px;
+            padding:8px 14px;text-align:center;min-width:80px">
+            <div style="font-size:10px;color:rgba(255,255,255,0.4)">
+              ${i===0?"1枚目（メイン）":"2枚目（予備）"}
+            </div>
+            <div style="font-family:'Fredoka One',cursive;font-size:0.85rem;color:#fff">
+              ${c.word}
+            </div>
+            <div style="font-size:10px;color:${c.elementColor}">
+              ⚔️${c.atk} ❤️${c.hp}
+            </div>
+          </div>`
+        :`<div style="background:rgba(255,255,255,0.03);
+            border:1px dashed rgba(255,255,255,0.15);border-radius:12px;
+            padding:8px 14px;text-align:center;min-width:80px;
+            color:rgba(255,255,255,0.25);font-size:12px">
+            ${i===0?"1枚目":"2枚目"}<br>未選択
+          </div>`;
+    }).join("");
+
+    const btn=document.getElementById("s5StartBtn");
+    btn.disabled=selected.length!==2;
+    btn.style.opacity=selected.length===2?"1":"0.4";
+    btn.style.cursor=selected.length===2?"pointer":"not-allowed";
+  }
+
+  window.s5ToggleCard=function(word){
+    const c=cards.find(x=>x.word===word);
+    const idx=selected.findIndex(s=>s.word===word);
+    if(idx!==-1){ selected.splice(idx,1); }
+    else { if(selected.length>=2)return; selected.push(c); }
+    renderPicker();
+  };
+
+  document.getElementById("s5StartBtn").onclick=()=>{
+    if(selected.length<2)return;
+    shootingDeck=selected;
+    beginStage5();
+  };
+  renderPicker();
+}
+
+// =============================================
+//  BEGIN STAGE 5
+// =============================================
+function beginStage5(){
+  const area=document.getElementById("spaceArea");
+  area.innerHTML=`
+    <div style="position:relative;width:100%;max-width:420px;margin:0 auto">
+      <canvas id="shootCanvas"
+        style="display:block;width:100%;border-radius:16px;
+          background:#0a0a00;touch-action:none"></canvas>
+      <button onclick="toggleShootingPause()"
+        style="position:absolute;top:8px;right:8px;
+          background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.3);
+          color:#fff;font-size:12px;padding:5px 10px;border-radius:8px;
+          z-index:2100;cursor:pointer">⏸ ポーズ</button>
+      <div id="shootHUD"
+        style="position:absolute;top:8px;left:8px;right:8px;
+          display:flex;justify-content:space-between;pointer-events:none">
+        <div id="shootHP"
+          style="font-family:'Fredoka One',cursive;font-size:14px;
+            color:#6BCB77;text-shadow:0 0 8px rgba(107,203,119,0.8)">❤️ 0</div>
+        <div id="shootTimer"
+          style="font-family:'Fredoka One',cursive;font-size:14px;
+            color:#FFD93D;text-shadow:0 0 8px rgba(255,217,61,0.8)">⏱ 60</div>
+        <div id="shootCard"
+          style="font-family:'Fredoka One',cursive;font-size:11px;color:#C8A96E">
+          🚀 1枚目
+        </div>
+      </div>
+      <div id="shootBossHUD"
+        style="position:absolute;top:36px;left:8px;right:8px;
+          display:none;pointer-events:none">
+        <div style="font-family:'Fredoka One',cursive;font-size:11px;
+          color:#C8A96E;text-align:center;margin-bottom:2px">🟤 木星</div>
+        <div style="background:rgba(0,0,0,0.4);border-radius:8px;
+          height:10px;overflow:hidden">
+          <div id="shootBossHPBar"
+            style="height:100%;
+              background:linear-gradient(90deg,#C8A96E,#8B6914);
+              border-radius:8px;transition:width 0.3s;width:100%"></div>
+        </div>
+      </div>
+      <div id="shootMessage"
+        style="position:absolute;top:45%;left:50%;
+          transform:translate(-50%,-50%);
+          font-family:'Fredoka One',cursive;font-size:1.2rem;color:#fff;
+          text-align:center;pointer-events:none;
+          text-shadow:0 0 20px rgba(255,255,255,0.8);display:none;
+          background:rgba(0,0,0,0.6);border-radius:12px;
+          padding:8px 16px;white-space:pre-line"></div>
+    </div>`;
+
+  shootCanvas=document.getElementById("shootCanvas");
+  const maxW=Math.min(420,window.innerWidth-32);
+  shootCanvas.width=maxW;
+  shootCanvas.height=Math.floor(maxW*1.5);
+  shootCtx=shootCanvas.getContext("2d");
+
+  // 状態リセット
+  if(shootingTimerInterval){ clearInterval(shootingTimerInterval); shootingTimerInterval=null; }
+  if(shootingAnimFrame){ cancelAnimationFrame(shootingAnimFrame); shootingAnimFrame=null; }
+
+  shootingCurrentCard=0; shootingPhase="survival"; shootingTime=60;
+  shipBullets=[]; meteors=[]; hitEffects=[]; s5Vortexes=[];
+  bulletTimer=0; meteorTimer=0; bossTimer=0; s5VortexTimer=0;
+  boss.bullets=[]; boss.hp=s5BossMaxHP;
+  shootingBossActive=false; lastFrameTime=0;
+
+  s5QuizActive=false; s5QuizShown15=false; s5QuizShown30=false; s5QuizShown45=false;
+  s5BossPhase=false; s5BossQuizTimer=0; s5QuizZones=[];
+  if(s5QuizCountdown){ clearInterval(s5QuizCountdown); s5QuizCountdown=null; }
+
+  const c=shootingDeck[0];
+  shootingPlayerMaxHP=c.hp; shootingPlayerHP=c.hp; shootingPlayerATK=c.atk;
+  s5PlayerElement=c.element;
+
+  ship.x=shootCanvas.width/2-ship.w/2;
+  ship.y=shootCanvas.height-ship.h-20;
+
+  shootCanvas.addEventListener("touchstart",onShootTouchStart,{passive:false});
+  shootCanvas.addEventListener("touchmove", onShootTouchMove, {passive:false});
+  shootCanvas.addEventListener("touchend",  onShootTouchEnd,  {passive:false});
+  shootCanvas.addEventListener("mousedown", onShootMouseDown);
+  shootCanvas.addEventListener("mousemove", onShootMouseMove);
+  shootCanvas.addEventListener("mouseup",   onShootMouseUp);
+
+  shootingPaused=false;
+  currentShootingStage="stage5";
+
+  shootingTimerInterval=setInterval(()=>{
+    if(shootingPhase!=="survival")return;
+    shootingTime--;
+    updateShootHUD();
+    if(shootingTime===45&&!s5QuizShown15){ s5QuizShown15=true; triggerS5Quiz(); }
+    if(shootingTime===30&&!s5QuizShown30){ s5QuizShown30=true; triggerS5Quiz(); }
+    if(shootingTime===15&&!s5QuizShown45){ s5QuizShown45=true; triggerS5Quiz(); }
+    if(shootingTime<=0){ clearInterval(shootingTimerInterval); startS5BossPhase(); }
+  },1000);
+
+  shootingGameActive=true;
+  lockShootingUI();
+  updateShootHUD();
+  requestAnimationFrame(stage5Loop);
+}
+
+// =============================================
+//  STAGE 5 BOSS
+// =============================================
+function startS5BossPhase(){
+  shootingPhase="boss"; s5BossPhase=true; shootingBossActive=true;
+  boss.x=shootCanvas.width/2-boss.w/2; boss.y=60;
+  boss.hp=s5BossMaxHP; boss.vx=2.5; boss.bullets=[]; meteors=[];
+  s5Vortexes=[]; bossTimer=0; s5BossQuizTimer=0;
+  const bossHUD=document.getElementById("shootBossHUD");
+  if(bossHUD) bossHUD.style.display="block";
+  showShootMessage("🟤 木星 出現！\n重力場に引き寄せられるぞ！",2500);
+  updateBossHUD();
+}
+
+// =============================================
+//  STAGE 5 LOOP
+// =============================================
+function stage5Loop(timestamp){
+  if(!shootingGameActive)return;
+  const dt=Math.min((timestamp-(lastFrameTime||timestamp))/16.67,3);
+  lastFrameTime=timestamp;
+  update_stage5(dt);
+  draw_stage5();
+  shootingAnimFrame=requestAnimationFrame(stage5Loop);
+}
+
+// =============================================
+//  UPDATE STAGE 5
+// =============================================
+function update_stage5(dt){
+  const W=shootCanvas.width, H=shootCanvas.height;
+  if(shootingPhase==="gameover"||shootingPhase==="clear")return;
+
+  // エフェクト更新
+  hitEffects.forEach(e=>{
+    e.life+=dt; e.alpha=Math.max(0,1-e.life/e.maxLife);
+    if(e.type==="debris"){ e.x+=(e.vx||0)*dt; e.y+=(e.vy||0)*dt; e.r=Math.max(0,e.r-0.15*dt); }
+    else { e.r+=(e.maxR-e.r)*0.18*dt; }
+  });
+  hitEffects=hitEffects.filter(e=>e.life<e.maxLife);
+
+  // 弾発射
+  bulletTimer+=dt;
+  if(bulletTimer>=60){ bulletTimer=0; shipBullets.push({x:ship.x+ship.w/2-4,y:ship.y-10,w:8,h:14,active:true}); }
+  shipBullets.forEach(b=>{ b.y-=8*dt; });
+  shipBullets=shipBullets.filter(b=>b.active&&b.y>-20);
+
+  // ===== 渦巻き重力場更新 =====
+  s5VortexTimer+=dt;
+  const vortexInterval = shootingPhase==="boss" ? 400 : 600;
+  if(s5VortexTimer>=vortexInterval){
+    s5VortexTimer=0;
+    s5Vortexes.push({
+  x: W*0.1 + Math.random()*W*0.8,
+  y: H*0.1 + Math.random()*H*0.5,
+  r: 80+Math.random()*60,        // ← 40+30 から 80+60 に変更
+  strength: 2.0+Math.random()*1.0, // ← 引き寄せる力も少し強く
+  life: 0,
+  maxLife: 300+Math.random()*200,
+  angle: 0,
+});
+  }
+
+  // 渦巻きの寿命更新
+  s5Vortexes.forEach(v=>{
+    v.life+=dt;
+    v.angle+=0.05*dt;
+  });
+  s5Vortexes=s5Vortexes.filter(v=>v.life<v.maxLife);
+
+  // 渦巻きが船を引き寄せる
+  s5Vortexes.forEach(v=>{
+    const dx=v.x-(ship.x+ship.w/2);
+    const dy=v.y-(ship.y+ship.h/2);
+    const dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<v.r*4 && dist>1){  // ← v.r*2.5 から v.r*4 に変更
+  const force = v.strength * (1-dist/(v.r*4)) * 0.8;  // ← こちらも合わせて変更
+      ship.x += dx/dist * force * dt;
+      ship.y += dy/dist * force * dt;
+    }
+  });
+
+  // 船の範囲制限
+  ship.x=Math.max(0,Math.min(W-ship.w,ship.x));
+  ship.y=Math.max(0,Math.min(H-ship.h,ship.y));
+
+  if(shootingPhase==="survival"){
+    // 隕石生成
+    meteorTimer+=dt;
+    if(meteorTimer>=38+Math.random()*18){
+      meteorTimer=0;
+      const mw=30+Math.random()*20, mh=30+Math.random()*20;
+      meteors.push({x:Math.random()*(W-mw),y:-mh,w:mw,h:mh,vy:2.5+Math.random()*2.5,hp:2,id:Date.now()+Math.random()});
+    }
+    meteors.forEach(m=>{ m.y+=m.vy*dt; });
+
+    // 自弾 vs 隕石
+    for(let bi=shipBullets.length-1;bi>=0;bi--){
+      const b=shipBullets[bi]; if(!b.active)continue;
+      for(let mi=meteors.length-1;mi>=0;mi--){
+        const m=meteors[mi]; if(m.hp<=0)continue;
+        if(rectsOverlap(b,m)){
+          spawnHitEffect(b.x+b.w/2,b.y+b.h/2,"#FFD93D");
+          b.active=false; m.hp--;
+          if(m.hp<=0){
+            spawnMeteorBreakEffect(m.x+m.w/2,m.y+m.h/2);
+            const heal=Math.floor(shootingPlayerMaxHP*0.015);
+            shootingPlayerHP=Math.min(shootingPlayerHP+heal,shootingPlayerMaxHP);
+            spawnHealEffect(ship.x+ship.w/2,ship.y);
+            updateShootHUD(); meteors.splice(mi,1);
+          }
+          break;
+        }
+      }
+    }
+    shipBullets=shipBullets.filter(b=>b.active&&b.y>-20);
+    meteors=meteors.filter(m=>m.hp>0&&m.y<H+50);
+
+    // 隕石 vs プレイヤー
+    for(let mi=meteors.length-1;mi>=0;mi--){
+      const m=meteors[mi];
+      if(rectsOverlap(ship,m)){
+        meteors.splice(mi,1);
+        spawnHitEffect(ship.x+ship.w/2,ship.y+ship.h/2,"#FF6B6B");
+        shootingPlayerHP-=350; updateShootHUD();
+        if(shootingPlayerHP<=0){ handlePlayerDeath(); return; }
+      }
+    }
+
+  } else if(shootingPhase==="boss"){
+    boss.x+=boss.vx*dt;
+    if(boss.x<=0||boss.x+boss.w>=W) boss.vx*=-1;
+    const minY=boss.y+boss.h+10;
+    if(ship.y<minY) ship.y=minY;
+
+    // ボスクイズ（20秒に1回）
+    s5BossQuizTimer+=dt;
+    if(s5BossQuizTimer>=1200){ s5BossQuizTimer=0; if(!s5QuizActive) triggerS5Quiz(); }
+
+    // ボス攻撃（3パターン）
+    bossTimer+=dt;
+    if(bossTimer>=90+Math.random()*70){
+      bossTimer=0;
+      const roll=Math.random();
+      const bx=boss.x+boss.w/2, by=boss.y+boss.h;
+      if(roll<0.4){
+        // 通常弾3発
+        [-1,0,1].forEach(i=>{
+          boss.bullets.push({x:bx-7+i*20,y:by,w:14,h:14,vx:i*1.5,vy:4,active:true,big:false});
+        });
+      } else if(roll<0.7){
+        // でかい弾
+        boss.bullets.push({x:bx-22,y:by,w:44,h:44,vx:0,vy:2.8,active:true,big:true});
+      } else {
+        // 追尾弾（プレイヤー方向）
+        const dx=(ship.x+ship.w/2)-bx;
+        const dy=(ship.y+ship.h/2)-by;
+        const dist=Math.sqrt(dx*dx+dy*dy)||1;
+        const speed=4.5;
+        boss.bullets.push({x:bx-8,y:by,w:16,h:16,vx:dx/dist*speed,vy:dy/dist*speed,active:true,big:false,homing:true});
+      }
+    }
+
+    boss.bullets.forEach(b=>{ b.x+=b.vx*dt; b.y+=b.vy*dt; });
+
+    // ボス弾 vs プレイヤー
+    for(let i=boss.bullets.length-1;i>=0;i--){
+      const b=boss.bullets[i]; if(!b.active)continue;
+      if(rectsOverlap(b,ship)){
+        boss.bullets.splice(i,1);
+        spawnHitEffect(ship.x+ship.w/2,ship.y+ship.h/2,"#C8A96E");
+        const mult=getElementMultiplier(s5BossElement,s5PlayerElement);
+        const dmg=Math.floor(s5BossATK*(b.big?2.5:1)*mult);
+        shootingPlayerHP-=dmg; updateShootHUD();
+        if(shootingPlayerHP<=0){ handlePlayerDeath(); return; }
+      }
+    }
+    boss.bullets=boss.bullets.filter(b=>b.active&&b.y<H+50&&b.x>-50&&b.x<W+50);
+
+    // 自弾 vs ボス
+    const bossRect={x:boss.x,y:boss.y,w:boss.w,h:boss.h};
+    for(let bi=shipBullets.length-1;bi>=0;bi--){
+      const b=shipBullets[bi]; if(!b.active)continue;
+      if(rectsOverlap(b,bossRect)){
+        spawnBossHitEffect(b.x+b.w/2,b.y+b.h/2);
+        b.active=false;
+        const mult=getElementMultiplier(s5PlayerElement,s5BossElement);
+        boss.hp-=Math.floor(shootingPlayerATK*mult);
+        updateBossHUD();
+        if(boss.hp<=0){ clearStage5(); return; }
+      }
+    }
+    shipBullets=shipBullets.filter(b=>b.active&&b.y>-20);
+  }
+}
+
+// =============================================
+//  STAGE 5 QUIZ
+// =============================================
+function triggerS5Quiz(){
+  if(s5QuizActive)return;
+  s5QuizActive=true;
+  const card=target1900Cards[Math.floor(Math.random()*target1900Cards.length)];
+  const q=card.quizzes[Math.floor(Math.random()*card.quizzes.length)];
+  s5QuizAnswer=q.correct;
+  s5QuizWord=card.word;
+  const wrongs=q.choices.sort(()=>Math.random()-0.5).slice(0,3);
+  const allChoices=[...wrongs,q.correct].sort(()=>Math.random()-0.5);
+
+  const W=shootCanvas.width, H=shootCanvas.height;
+  const zoneTop=H*0.55, zoneH=(H-zoneTop-20)/2, zoneW=W/2-8;
+  s5QuizZones=[
+    {label:allChoices[0],x:4,     y:zoneTop,         w:zoneW,h:zoneH-4},
+    {label:allChoices[1],x:W/2+4, y:zoneTop,         w:zoneW,h:zoneH-4},
+    {label:allChoices[2],x:4,     y:zoneTop+zoneH+4, w:zoneW,h:zoneH-4},
+    {label:allChoices[3],x:W/2+4, y:zoneTop+zoneH+4, w:zoneW,h:zoneH-4},
+  ];
+  s5QuizTimer=5;
+  if(s5QuizCountdown) clearInterval(s5QuizCountdown);
+  s5QuizCountdown=setInterval(()=>{
+    s5QuizTimer--;
+    if(s5QuizTimer<=0){ clearInterval(s5QuizCountdown); s5QuizCountdown=null; judgeS5Quiz(); }
+  },1000);
+}
+
+function judgeS5Quiz(){
+  s5QuizActive=false;
+  const cx=ship.x+ship.w/2, cy=ship.y+ship.h/2;
+  let chosen=null;
+  for(const z of s5QuizZones){ if(cx>=z.x&&cx<=z.x+z.w&&cy>=z.y&&cy<=z.y+z.h){ chosen=z.label; break; } }
+  s5QuizZones=[];
+  if(chosen===s5QuizAnswer){
+    diamonds+=3; saveGame();
+    showShootMessage("✅ 正解！💎×3 獲得！",2000);
+  } else {
+    shootingPlayerHP-=600; updateShootHUD();
+    showShootMessage(`❌ 不正解！600ダメージ！\n正解: ${s5QuizAnswer}`,2000);
+    if(shootingPlayerHP<=0) handlePlayerDeath();
+  }
+}
+
+// =============================================
+//  DRAW STAGE 5
+// =============================================
+function draw_stage5(){
+  const ctx=shootCtx, W=shootCanvas.width, H=shootCanvas.height;
+
+  // 木星らしい黄褐色の宇宙背景
+  ctx.fillStyle="#0a0800"; ctx.fillRect(0,0,W,H);
+
+  // 星
+  for(let i=0;i<70;i++){
+    ctx.fillStyle=`rgba(255,${220+((i*37)%35)},${150+((i*53)%80)},${0.3+((i*73)%100)/100*0.4})`;
+    ctx.fillRect((i*137+50)%W,(i*97+30)%H,1.5,1.5);
+  }
+
+  // 遠くの木星的な霧
+  const nebula=ctx.createRadialGradient(W*0.5,H*0.3,0,W*0.5,H*0.3,W*0.7);
+  nebula.addColorStop(0,"rgba(150,100,20,0.06)");
+  nebula.addColorStop(1,"rgba(0,0,0,0)");
+  ctx.fillStyle=nebula; ctx.fillRect(0,0,W,H);
+
+  if(shootingPhase==="gameover"||shootingPhase==="clear")return;
+
+  // ===== 渦巻き重力場描画 =====
+  s5Vortexes.forEach(v=>{
+    const alpha=Math.min(1, Math.min(v.life/30, (v.maxLife-v.life)/30)) * 0.6;
+    ctx.save();
+    ctx.globalAlpha=alpha;
+    ctx.translate(v.x, v.y);
+
+    // 渦巻きエフェクト（同心円）
+    for(let ri=0;ri<4;ri++){
+      const r=v.r*(0.25+ri*0.25);
+      const grad=ctx.createRadialGradient(0,0,0,0,0,r);
+      grad.addColorStop(0,"rgba(107,203,119,0.4)");
+      grad.addColorStop(1,"rgba(107,203,119,0)");
+      ctx.strokeStyle=`rgba(107,203,119,${0.4-ri*0.08})`;
+      ctx.lineWidth=2;
+      ctx.beginPath();
+      ctx.arc(0,0,r,v.angle+ri*0.5,v.angle+ri*0.5+Math.PI*1.5);
+      ctx.stroke();
+    }
+
+    // 中心の光
+    const cg=ctx.createRadialGradient(0,0,0,0,0,v.r*0.4);
+    cg.addColorStop(0,"rgba(107,203,119,0.5)");
+    cg.addColorStop(1,"rgba(107,203,119,0)");
+    ctx.fillStyle=cg;
+    ctx.beginPath(); ctx.arc(0,0,v.r*0.4,0,Math.PI*2); ctx.fill();
+
+    ctx.restore();
+  });
+
+  // ===== クイズゾーン =====
+  if(s5QuizActive&&s5QuizZones.length>0){
+    ctx.save();
+    ctx.fillStyle="rgba(0,0,0,0.82)";
+    ctx.beginPath(); ctx.roundRect(W*0.03,H*0.47,W*0.94,46,8); ctx.fill();
+    ctx.fillStyle="#C8A96E"; ctx.font=`bold ${Math.floor(W*0.034)}px sans-serif`;
+    ctx.textAlign="center"; ctx.textBaseline="middle";
+    ctx.fillText(`「${s5QuizWord}」の意味は？`,W/2,H*0.47+16);
+    ctx.fillStyle="rgba(255,255,255,0.6)"; ctx.font=`${Math.floor(W*0.028)}px sans-serif`;
+    ctx.fillText(`⏱ ${s5QuizTimer}秒 いるゾーンが回答！`,W/2,H*0.47+34);
+    ctx.restore();
+
+    const zoneColors=["rgba(200,169,110,0.3)","rgba(107,203,119,0.3)","rgba(77,150,255,0.3)","rgba(255,217,61,0.3)"];
+    const zoneBorders=["#C8A96E","#6BCB77","#4D96FF","#FFD93D"];
+    s5QuizZones.forEach((z,i)=>{
+      ctx.save();
+      ctx.fillStyle=zoneColors[i%4]; ctx.strokeStyle=zoneBorders[i%4]; ctx.lineWidth=2;
+      ctx.beginPath(); ctx.roundRect(z.x,z.y,z.w,z.h,8); ctx.fill(); ctx.stroke();
+      ctx.fillStyle="#fff"; ctx.textAlign="center"; ctx.textBaseline="middle";
+      const fs=Math.floor(W*0.026); ctx.font=`bold ${fs}px sans-serif`;
+      const lines=wrapText(ctx,z.label,z.w-14,fs);
+      const lh=fs+3, sy=z.y+z.h/2-(lines.length-1)*lh/2;
+      lines.forEach((l,li)=>ctx.fillText(l,z.x+z.w/2,sy+li*lh));
+      const cx2=ship.x+ship.w/2, cy2=ship.y+ship.h/2;
+      if(cx2>=z.x&&cx2<=z.x+z.w&&cy2>=z.y&&cy2<=z.y+z.h){
+        ctx.strokeStyle=zoneBorders[i%4]; ctx.lineWidth=4;
+        ctx.shadowColor=zoneBorders[i%4]; ctx.shadowBlur=18;
+        ctx.beginPath(); ctx.roundRect(z.x,z.y,z.w,z.h,8); ctx.stroke();
+      }
+      ctx.restore();
+    });
+  }
+
+  // 隕石
+  meteors.forEach(m=>{
+    ctx.save();
+    ctx.fillStyle="#6B4A10"; ctx.shadowColor="rgba(150,100,20,0.5)"; ctx.shadowBlur=6;
+    ctx.beginPath(); ctx.ellipse(m.x+m.w/2,m.y+m.h/2,m.w/2,m.h/2,0,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle="#4A3008"; ctx.shadowBlur=0;
+    ctx.beginPath(); ctx.ellipse(m.x+m.w*0.35,m.y+m.h*0.35,m.w*0.15,m.h*0.12,0.5,0,Math.PI*2); ctx.fill();
+    if(m.hp===1){ ctx.strokeStyle="rgba(200,169,110,0.8)"; ctx.lineWidth=1.5; ctx.beginPath(); ctx.moveTo(m.x+m.w*0.4,m.y+m.h*0.2); ctx.lineTo(m.x+m.w*0.55,m.y+m.h*0.5); ctx.lineTo(m.x+m.w*0.45,m.y+m.h*0.8); ctx.stroke(); }
+    ctx.restore();
+  });
+
+  // 自弾
+  shipBullets.forEach(b=>{
+    if(!b.active)return;
+    ctx.save();
+    const g=ctx.createLinearGradient(b.x,b.y,b.x,b.y+b.h);
+    g.addColorStop(0,"#fff"); g.addColorStop(1,"#C8A96E");
+    ctx.fillStyle=g; ctx.shadowColor="#C8A96E"; ctx.shadowBlur=10;
+    ctx.beginPath(); ctx.roundRect(b.x,b.y,b.w,b.h,4); ctx.fill();
+    ctx.restore();
+  });
+
+  // ボスフェーズ
+  if(shootingPhase==="boss"){
+    // ボス弾
+    boss.bullets.forEach(b=>{
+      ctx.save();
+      if(b.homing){
+        ctx.fillStyle="#6BCB77"; ctx.shadowColor="#6BCB77"; ctx.shadowBlur=16;
+      } else if(b.big){
+        const fg=ctx.createRadialGradient(b.x+b.w/2,b.y+b.h/2,2,b.x+b.w/2,b.y+b.h/2,b.w/2);
+        fg.addColorStop(0,"#fff"); fg.addColorStop(0.4,"#C8A96E"); fg.addColorStop(1,"rgba(139,105,20,0.3)");
+        ctx.fillStyle=fg; ctx.shadowColor="#C8A96E"; ctx.shadowBlur=20;
+      } else {
+        ctx.fillStyle="#8B6914"; ctx.shadowColor="#8B6914"; ctx.shadowBlur=12;
+      }
+      ctx.beginPath(); ctx.arc(b.x+b.w/2,b.y+b.h/2,b.w/2,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+    });
+
+    // 木星ボス描画
+    const bossHPRatio=Math.max(0,boss.hp/s5BossMaxHP);
+    ctx.save();
+    ctx.shadowColor=`rgba(200,169,110,0.8)`; ctx.shadowBlur=25+(1-bossHPRatio)*35;
+
+    // 本体グラデーション
+    const pg=ctx.createRadialGradient(
+      boss.x+boss.w*0.35,boss.y+boss.h*0.3,boss.w*0.05,
+      boss.x+boss.w/2,boss.y+boss.h/2,boss.w/2
+    );
+    pg.addColorStop(0,"#E8C88A"); pg.addColorStop(0.3,"#C8A050"); pg.addColorStop(0.7,"#8B6010"); pg.addColorStop(1,"#5A3A00");
+    ctx.fillStyle=pg;
+    ctx.beginPath(); ctx.arc(boss.x+boss.w/2,boss.y+boss.h/2,boss.w/2,0,Math.PI*2); ctx.fill();
+
+    // 木星の縞模様
+    ctx.save();
+    ctx.beginPath(); ctx.arc(boss.x+boss.w/2,boss.y+boss.h/2,boss.w/2,0,Math.PI*2); ctx.clip();
+    const stripes=[
+      {y:0.15,h:0.08,color:"rgba(180,120,40,0.5)"},
+      {y:0.28,h:0.06,color:"rgba(220,180,100,0.4)"},
+      {y:0.42,h:0.10,color:"rgba(150,90,20,0.5)"},
+      {y:0.58,h:0.07,color:"rgba(200,160,80,0.4)"},
+      {y:0.72,h:0.08,color:"rgba(170,110,30,0.5)"},
+    ];
+    stripes.forEach(s=>{
+      ctx.fillStyle=s.color;
+      ctx.fillRect(boss.x,boss.y+boss.h*s.y,boss.w,boss.h*s.h);
+    });
+
+    // 大赤斑（木星の特徴）
+    ctx.fillStyle="rgba(200,60,20,0.6)";
+    ctx.beginPath();
+    ctx.ellipse(boss.x+boss.w*0.55,boss.y+boss.h*0.55,boss.w*0.15,boss.h*0.1,0,0,Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle="rgba(220,80,40,0.4)";
+    ctx.beginPath();
+    ctx.ellipse(boss.x+boss.w*0.55,boss.y+boss.h*0.55,boss.w*0.1,boss.h*0.07,0,0,Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+
+    // HP低下でひび
+    if(bossHPRatio<0.5){
+      ctx.strokeStyle=`rgba(200,150,50,${0.5+(1-bossHPRatio)*0.5})`; ctx.lineWidth=2.5; ctx.shadowBlur=0;
+      ctx.beginPath(); ctx.moveTo(boss.x+boss.w*0.25,boss.y+boss.h*0.1); ctx.lineTo(boss.x+boss.w*0.45,boss.y+boss.h*0.5); ctx.lineTo(boss.x+boss.w*0.7,boss.y+boss.h*0.85); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(boss.x+boss.w*0.65,boss.y+boss.h*0.15); ctx.lineTo(boss.x+boss.w*0.45,boss.y+boss.h*0.5); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // エフェクト
+  hitEffects.forEach(e=>{
+    if(e.alpha<=0)return;
+    ctx.save(); ctx.globalAlpha=e.alpha;
+    if(e.type==="debris"){ ctx.fillStyle=e.color; ctx.beginPath(); ctx.arc(e.x,e.y,Math.max(0,e.r),0,Math.PI*2); ctx.fill(); }
+    else if(e.type==="heal"){ ctx.strokeStyle=e.color; ctx.lineWidth=3; ctx.shadowColor=e.color; ctx.shadowBlur=12; ctx.beginPath(); ctx.arc(e.x,e.y,Math.max(0,e.r),0,Math.PI*2); ctx.stroke(); ctx.fillStyle=e.color; ctx.font=`bold ${Math.max(8,Math.floor(e.r*0.8))}px sans-serif`; ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillText("+",e.x,e.y-Math.max(0,e.r)*1.2); }
+    else { ctx.strokeStyle=e.color; ctx.lineWidth=2.5; ctx.shadowColor=e.color; ctx.shadowBlur=14; ctx.beginPath(); ctx.arc(e.x,e.y,Math.max(0,e.r),0,Math.PI*2); ctx.stroke(); ctx.fillStyle=e.color; ctx.globalAlpha=e.alpha*0.3; ctx.beginPath(); ctx.arc(e.x,e.y,Math.max(0,e.r*0.5),0,Math.PI*2); ctx.fill(); }
+    ctx.restore();
+  });
+
+  // 宇宙船
+  drawSpaceShip(ctx,ship.x,ship.y,ship.w,ship.h);
+
+  // HPバー
+  const hpRatio=Math.max(0,shootingPlayerHP/shootingPlayerMaxHP);
+  const barW=W*0.5,barX=(W-barW)/2,barY=H-14;
+  ctx.save();
+  ctx.fillStyle="rgba(0,0,0,0.4)"; ctx.beginPath(); ctx.roundRect(barX,barY,barW,8,4); ctx.fill();
+  const hpColor=hpRatio>0.5?"#6BCB77":hpRatio>0.25?"#FFD93D":"#FF6B6B";
+  ctx.fillStyle=hpColor; ctx.shadowColor=hpColor; ctx.shadowBlur=6;
+  ctx.beginPath(); ctx.roundRect(barX,barY,barW*hpRatio,8,4); ctx.fill();
+  ctx.restore();
+
+  // 属性バッジ
+  drawElementBadge(ctx,W,s5PlayerElement);
+}
+
+// =============================================
+//  STAGE 5 CLEAR
+// =============================================
+function clearStage5(){
+  shootingPhase="clear"; shootingGameActive=false;
+  clearInterval(shootingTimerInterval);
+  if(s5QuizCountdown) clearInterval(s5QuizCountdown);
+  cancelAnimationFrame(shootingAnimFrame);
+  removeShootListeners();
+  unlockShootingUI();
+  const firstClear=!isStage5Cleared();
+  if(firstClear){ markStage5Cleared(); diamonds+=15; saveGame(); }
+  draw_stage5();
+  setTimeout(()=>{
+    document.getElementById("spaceArea").innerHTML=`
+      <div style="text-align:center;padding:30px 16px">
+        <div style="font-size:4rem;margin-bottom:10px">🏆</div>
+        <div style="font-family:'Fredoka One',cursive;font-size:2rem;
+          background:linear-gradient(90deg,#C8A96E,#8B6914);
+          -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+          margin-bottom:8px">STAGE 5 CLEAR!</div>
+        ${firstClear
+          ?`<div style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:#FFD93D;margin-bottom:6px">💎×15 獲得！</div>`
+          :`<div style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px">※2回目以降クリア報酬なし</div>`}
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:20px">
+          🟤 木星を撃破した！<br>
+          <span style="font-size:12px;color:rgba(255,255,255,0.4)">
+            ※クイズ正解で💎×3（回数無制限）
+          </span>
+        </div>
+        <button onclick="showStage5DeckSelect()"
+          style="background:linear-gradient(135deg,#C8A96E,#8B6914);
+            font-size:1rem;padding:14px 28px;margin:6px">
+          🔄 もう一度
+        </button>
+        <br>
+        <button onclick="showNormalStageMenu()"
+          style="background:rgba(255,255,255,0.08);box-shadow:none;
+            font-size:12px;margin-top:10px;color:rgba(255,255,255,0.5)">
+          ← ステージ選択へ
+        </button>
+      </div>`;
+    spawnStars();
+  },500);
+}
 
 
 // =============================================
