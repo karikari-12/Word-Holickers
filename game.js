@@ -6626,6 +6626,7 @@ function show(id){
 
   if(id==="gamemenu"){
     renderWrongWordSection();
+    
   }
 }
 
@@ -7177,7 +7178,7 @@ function loadGame(){
         }
       });
     }
-  }
+  }giveInitialClearResetTicket();
 }
 
 // =============================================
@@ -7892,6 +7893,7 @@ function upgradeCard(word){
 function updateItemUI(){
   const area = document.getElementById("itemArea");
   if(!area) return;
+  const clearResetCount = parseInt(localStorage.getItem("clearResetTicket")||"0");
   area.innerHTML = `
     <div class="item-card">
       <div class="item-icon">🎰</div>
@@ -7911,6 +7913,19 @@ function updateItemUI(){
       <button onclick="openResetTicketModal()"
         style="margin-top:8px;background:linear-gradient(135deg,#FF6B6B,#C77DFF);font-size:13px;padding:8px 18px;width:100%;${resetTickets<=0?'opacity:0.4;cursor:not-allowed':''}"
         ${resetTickets<=0?'disabled':''}>
+        使用する
+      </button>
+    </div>
+    <div class="item-card">
+      <div class="item-icon">🎫</div>
+      <div class="item-info">
+        <div class="item-name">初クリアリセットチケット</div>
+        <div class="item-desc">ステージの初クリア記録をリセット<br>初回クリア報酬を再度獲得できます</div>
+        <div class="item-count">×${clearResetCount}</div>
+      </div>
+      <button onclick="showClearResetSelect()"
+        style="margin-top:8px;background:linear-gradient(135deg,#FFD93D,#FF9500);font-size:13px;padding:8px 18px;width:100%;${clearResetCount<=0?'opacity:0.4;cursor:not-allowed':''}"
+        ${clearResetCount<=0?'disabled':''}>
         使用する
       </button>
     </div>`;
@@ -11069,7 +11084,7 @@ function renderDodgeButton(){
   btn.textContent="💨 回避";
   btn.style.cssText=`
     position:fixed;
-    bottom:10px;
+    bottom:40px;
     left:50%;
     transform:translateX(-50%);
     background:linear-gradient(135deg,#6BCB77,#4D96FF);
@@ -21140,6 +21155,129 @@ function clearStage10(){
       </div>`;
     spawnStars();
   },500);
+}
+
+function renderItemArea(){
+  const area = document.getElementById("itemArea");
+  if(!area) return;
+
+  // 初クリアリセットチケットの数を取得
+  const resetTicketCount = parseInt(localStorage.getItem("clearResetTicket")||"0");
+
+  area.innerHTML = `
+    <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,217,61,0.3);
+      border-radius:16px;padding:16px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div style="font-family:'Fredoka One',cursive;font-size:1rem;color:#FFD93D">
+          🎫 初クリアリセットチケット
+        </div>
+        <div style="font-size:1.1rem;color:#FFD93D;font-weight:700">
+          ${resetTicketCount}枚
+        </div>
+      </div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:10px;line-height:1.6">
+        使用するとステージのクリア記録をリセット。<br>
+        初回クリア報酬を再度獲得できます。
+      </div>
+      <button onclick="${resetTicketCount>0?"showClearResetSelect()":"null"}"
+        style="background:${resetTicketCount>0
+          ?"linear-gradient(135deg,#FFD93D,#FF9500)"
+          :"rgba(255,255,255,0.1)"};
+          font-size:0.9rem;padding:10px;width:100%;border-radius:12px;
+          ${resetTicketCount>0?"":"opacity:0.4;cursor:not-allowed"}">
+        ${resetTicketCount>0?"🎫 チケットを使う":"チケットがありません"}
+      </button>
+    </div>`;
+}
+
+function showClearResetSelect(){
+  const resetTicketCount = parseInt(localStorage.getItem("clearResetTicket")||"0");
+  if(resetTicketCount<=0){ alert("チケットがありません！"); return; }
+
+  const stages = [
+    { key:"shootingStage1Cleared",  label:"ステージ1 （月）",    emoji:"🌙" },
+    { key:"shootingStage2Cleared",  label:"ステージ2 （水星）",   emoji:"💧" },
+    { key:"shootingStage3Cleared",  label:"ステージ3 （金星）",   emoji:"⚡" },
+    { key:"shootingStage4Cleared",  label:"ステージ4 （火星）",   emoji:"🔴" },
+    { key:"shootingStage5Cleared",  label:"ステージ5 （木星）",   emoji:"🟤" },
+    { key:"shootingStage6Cleared",  label:"ステージ6 （土星）",   emoji:"🪐" },
+    { key:"shootingStage7Cleared",  label:"ステージ7 （天王星）", emoji:"⚡" },
+    { key:"shootingStage8Cleared",  label:"ステージ8 （海王星）", emoji:"💧" },
+    { key:"shootingStage9Cleared",  label:"ステージ9 （冥王星）", emoji:"🔴" },
+    { key:"shootingStage10Cleared", label:"ステージ10 （地球）",  emoji:"🌍" },
+  ];
+
+  const cleared = stages.filter(s=>localStorage.getItem(s.key)==="cleared");
+
+  const area = document.getElementById("itemArea");
+  area.innerHTML = `
+    <div style="font-family:'Fredoka One',cursive;font-size:1rem;color:#FFD93D;
+      margin-bottom:12px;text-align:center">
+      🎫 リセットするステージを選択
+    </div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.5);text-align:center;margin-bottom:12px">
+      現在のチケット枚数：${resetTicketCount}枚
+    </div>
+    ${cleared.length===0
+      ?`<div style="text-align:center;color:rgba(255,255,255,0.3);padding:20px">
+          クリア済みのステージがありません
+        </div>`
+      :cleared.map(s=>`
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
+          border-radius:12px;padding:12px;margin-bottom:8px;
+          display:flex;justify-content:space-between;align-items:center">
+          <div style="font-size:0.95rem;color:#fff">
+            ${s.emoji} ${s.label}
+          </div>
+          <button onclick="confirmClearReset('${s.key}','${s.label}')"
+            style="background:linear-gradient(135deg,#FF6B6B,#FFD93D);
+              font-size:11px;padding:6px 14px;border-radius:10px;margin:0">
+            リセット
+          </button>
+        </div>`).join("")}
+    <button onclick="updateItemUI()"  
+      style="background:rgba(255,255,255,0.08);box-shadow:none;
+        font-size:12px;margin-top:8px;color:rgba(255,255,255,0.5);width:100%">
+      ← 戻る
+    </button>`;
+}
+
+function confirmClearReset(key, label){
+  if(!confirm(`「${label}」の初クリア記録をリセットします。\nチケットを1枚消費します。よろしいですか？`)) return;
+
+  const count = parseInt(localStorage.getItem("clearResetTicket")||"0");
+  if(count<=0){ alert("チケットがありません！"); return; }
+
+  // チケット消費
+  localStorage.setItem("clearResetTicket", (count-1).toString());
+  // クリア記録削除
+  localStorage.removeItem(key);
+  // ST7クリアリセットの場合は小型機も消す
+  if(key==="shootingStage7Cleared"){
+    localStorage.removeItem("subShipUnlocked");
+  }
+  // ST10クリアリセットの場合は回避も消す
+  if(key==="shootingStage10Cleared"){
+    localStorage.removeItem("dodgeUnlocked");
+  }
+
+  alert(`✅ リセットしました！\n残りチケット：${count-1}枚`);
+  renderItemArea();
+}
+
+function giveInitialClearResetTicket(){
+  const given = localStorage.getItem("clearResetTicketGiven");
+  if(given) return; // すでに付与済み
+  const count = parseInt(localStorage.getItem("clearResetTicket")||"0");
+  localStorage.setItem("clearResetTicket", (count+1).toString());
+  localStorage.setItem("clearResetTicketGiven","true");
+}
+
+function addClearResetTicketDebug(){
+  const count = parseInt(localStorage.getItem("clearResetTicket")||"0");
+  localStorage.setItem("clearResetTicket", (count+1).toString());
+  alert(`チケット追加！現在${count+1}枚`);
+  renderItemArea();
 }
 
 // =============================================
