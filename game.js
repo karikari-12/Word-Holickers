@@ -20121,6 +20121,8 @@ let s10MoonTimer      = 0;
 let s10BossMoons      = [];
 let s10BossMoonTimer  = 0;
 let s10BossMoonActive = false;
+let s10CometTimer = 0;
+let s10Comets     = [];
 
 function showStage10DeckSelect(){
   const pool = owned.filter(c=>c.type==="target1900");
@@ -20141,6 +20143,7 @@ function showStage10DeckSelect(){
         15秒に1回クイズ！正解でHP+10%！<br>
         十字・クロスレーザー隕石に注意！<br>
         月がジェット機を追いかける！<br>
+        🪨 ボス属性：<b style="color:#C8A96E">地属性</b>（木属性が有利！）<br>
         クリアで💎×100獲得！
       </div>
       <div style="font-size:13px;color:#4D96FF;margin-bottom:8px">
@@ -20334,6 +20337,7 @@ function beginStage10(){
   s10LaserMeteors=[]; s10LaserTimer=0;
   s10Moons=[]; s10MoonTimer=0;
   s10BossMoons=[]; s10BossMoonTimer=0; s10BossMoonActive=false;
+  s10CometTimer=0; s10Comets=[];
   bulletTimer=0; meteorTimer=0; bossTimer=0;
   boss.bullets=[]; boss.hp=s10BossMaxHP; boss.vx=2.5;
   shootingBossActive=false; lastFrameTime=0;
@@ -20647,6 +20651,32 @@ function update_stage10(dt){
     const minY=boss.y+boss.h+10;
     if(ship.y<minY) ship.y=minY;
 
+    // 彗星（20秒に1回）
+    s10CometTimer+=dt;
+    if(s10CometTimer>=1200){
+      s10CometTimer=0;
+      const fromLeft=Math.random()<0.5;
+      s10Comets.push({
+        x:fromLeft?-40:W+40,
+        y:boss.y+boss.h+20+Math.random()*(H*0.5),
+        w:40, h:20,
+        vx:fromLeft?3.5:-3.5,
+        life:0, maxLife:400,
+      });
+    }
+    s10Comets.forEach(c=>{ c.x+=c.vx*dt; c.life+=dt; });
+    for(let i=s10Comets.length-1;i>=0;i--){
+      const c=s10Comets[i];
+      if(rectsOverlap({x:c.x-c.w/2,y:c.y-c.h/2,w:c.w,h:c.h},ship)){
+        const heal=Math.floor(shootingPlayerMaxHP*0.2);
+        shootingPlayerHP=Math.min(shootingPlayerHP+heal,shootingPlayerMaxHP);
+        spawnHealEffect(ship.x+ship.w/2,ship.y);
+        showShootMessage("☄️ 彗星！HP+20%！",1500);
+        updateShootHUD(); s10Comets.splice(i,1);
+      }
+    }
+    s10Comets=s10Comets.filter(c=>c.life<c.maxLife&&c.x>-100&&c.x<W+100);
+
     // ボスクイズ（20秒に1回）
     s10BossQuizTimer+=dt;
     if(s10BossQuizTimer>=1200){ s10BossQuizTimer=0; if(!s10QuizActive) triggerS10Quiz(); }
@@ -20893,6 +20923,22 @@ function draw_stage10(){
   }
   drawMoons(s10Moons);
   drawMoons(s10BossMoons);
+
+  // 彗星描画
+  s10Comets.forEach(c=>{
+    const alpha=Math.min(1,Math.min(c.life/20,(c.maxLife-c.life)/20));
+    ctx.save(); ctx.globalAlpha=alpha;
+    const tailDir=c.vx>0?-1:1;
+    const grad=ctx.createLinearGradient(c.x,c.y,c.x+tailDir*60,c.y);
+    grad.addColorStop(0,"rgba(107,203,119,0.8)");
+    grad.addColorStop(1,"rgba(107,203,119,0)");
+    ctx.fillStyle=grad;
+    ctx.beginPath(); ctx.moveTo(c.x,c.y-5); ctx.lineTo(c.x+tailDir*60,c.y); ctx.lineTo(c.x,c.y+5);
+    ctx.closePath(); ctx.fill();
+    ctx.fillStyle="#6BCB77"; ctx.shadowColor="#6BCB77"; ctx.shadowBlur=16;
+    ctx.beginPath(); ctx.arc(c.x,c.y,10,0,Math.PI*2); ctx.fill();
+    ctx.restore();
+  });
 
   // 隕石
   meteors.forEach(m=>{
