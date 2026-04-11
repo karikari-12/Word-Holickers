@@ -11068,7 +11068,7 @@ function renderDodgeButton(){
   btn.textContent="💨 回避";
   btn.style.cssText=`
     position:fixed;
-    bottom:140px;
+    bottom:70px;
     left:50%;
     transform:translateX(-50%);
     background:linear-gradient(135deg,#6BCB77,#4D96FF);
