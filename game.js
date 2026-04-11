@@ -11236,6 +11236,7 @@ const ELEMENT_INFO = {
 };
 
 function showNormalStageMenu(){
+  removeDodgeButton(); 
   const area     = document.getElementById("spaceArea");
   const cleared1 = isStage1Cleared();
   const cleared2 = isStage2Cleared();
@@ -14051,6 +14052,7 @@ function toggleShootingPause(){
 }
 
 function giveUpShooting(){
+  removeDodgeButton();
   shootingGameActive = false;
   shootingPaused = false;
   clearInterval(shootingTimerInterval);
