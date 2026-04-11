@@ -194,6 +194,11 @@
         box-shadow:0 0 20px rgba(255,107,107,0.4)">
       🔥 週間チャレンジバトル
     </button>
+    <button onclick="showTechnicalBattleMenu()"
+      style="background:linear-gradient(135deg,#00BFFF,#C77DFF);
+        font-size:1.1rem;padding:16px 28px;width:80%;margin:8px auto;display:block">
+      ⚡ テクニカルバトル
+    </button>
   </div>
 
   <!-- チャレンジバトル メニュー -->
@@ -532,6 +537,8 @@
     </div>
     <div id="itemArea"></div>
 
+    <div id="wrongWordSection" style="max-width:420px;margin:0 auto;padding:0 4px"></div>
+
   </div>
 </div>
 
@@ -622,6 +629,10 @@
 <button id="dbgResetUpgrade" onclick="resetUpgradeDebug()"  style="position:fixed;bottom:135px;right:8px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">🔧 リセット</button>
 <button id="dbgMaxUpgrade"   onclick="maxUpgradeDebug()"    style="position:fixed;bottom:155px;right:8px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">🔧 MAX</button>
 <button id="dbgDailyReset"   onclick="resetDailyBossDebug()" style="position:fixed;bottom:75px;left:8px;background:rgba(255,255,255,0.07);box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;border-radius:8px;z-index:500">🌟 日替わりリセット</button>
+<button id="dbgTechReset" onclick="resetTechDebug()"
+  style="position:fixed;bottom:155px;left:8px;background:rgba(255,255,255,0.07);
+    box-shadow:none;color:#444;font-size:10px;padding:4px 8px;margin:0;
+    border-radius:8px;z-index:500">⚡ テクリセット</button>
 
 <script src="game.js"></script>
 <script>
@@ -633,7 +644,8 @@
     document.getElementById("dbgTickets").style.display="none";
     document.getElementById("dbgResetUpgrade").style.display="none";
     document.getElementById("dbgMaxUpgrade").style.display="none";
-  }
+    document.getElementById("dbgTechReset").style.display="none";
+ }
 </script>
 
 <!-- シューティング中UI封鎖オーバーレイ -->
