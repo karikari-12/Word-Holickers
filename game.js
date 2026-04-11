@@ -6591,6 +6591,7 @@ function update(){
 //  SHOW SCREEN
 // =============================================
 function show(id){
+  removeDodgeButton();
   if(versusMode && id!=="versus"){alert("対戦中です！");return;}
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
 
@@ -11068,7 +11069,7 @@ function renderDodgeButton(){
   btn.textContent="💨 回避";
   btn.style.cssText=`
     position:fixed;
-    bottom:70px;
+    bottom:10px;
     left:50%;
     transform:translateX(-50%);
     background:linear-gradient(135deg,#6BCB77,#4D96FF);
