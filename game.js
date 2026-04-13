@@ -22530,7 +22530,7 @@ function giveAffinityCard(){
 let s12PlayerElement  = "fire";
 let s12BossElement    = "fire";
 let s12BossMaxHP      = 65000;
-let s12BossATK        = 1200;
+let s12BossATK        = 800;
 let s12QuizActive     = false;
 let s12QuizAnswer     = "";
 let s12QuizZones      = [];
@@ -23476,8 +23476,8 @@ function clearStage12(){
 // =============================================
 let s13PlayerElement  = "fire";
 let s13BossElement    = "wood";
-let s13BossMaxHP      = 70000;
-let s13BossATK        = 1300;
+let s13BossMaxHP      = 65000;
+let s13BossATK        = 1200;
 let s13QuizActive     = false;
 let s13QuizAnswer     = "";
 let s13QuizZones      = [];
@@ -24391,7 +24391,7 @@ function addLv40TicketDebug(){
 let s14PlayerElement  = "thunder";
 let s14BossElement    = "water";
 let s14BossMaxHP      = 75000;
-let s14BossATK        = 1400;
+let s14BossATK        = 1000;
 let s14QuizActive     = false;
 let s14QuizAnswer     = "";
 let s14QuizZones      = [];
