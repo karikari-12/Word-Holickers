@@ -11263,6 +11263,7 @@ function updateBossHUD(){
     else if(currentShootingStage === "stage13") maxHP = s13BossMaxHP;
     else if(currentShootingStage === "stage14") maxHP = s14BossMaxHP;
     else if(currentShootingStage === "stage15") maxHP = s15BossMaxHP;
+    else if(currentShootingStage === "stage16") maxHP = s16BossMaxHP;
   } catch(e){}
   
   bar.style.width = Math.max(0, boss.hp / maxHP * 100) + "%";
@@ -11514,6 +11515,7 @@ function showNormalStageMenu(){
   const cleared12 = isStage12Cleared();
   const cleared13 = isStage13Cleared();
   const cleared14 = isStage14Cleared();
+  const cleared15 = isStage15Cleared();
 
   // 属性相性五角形を描画するcanvas
   const pentagonCanvas = `
@@ -11716,6 +11718,19 @@ function showNormalStageMenu(){
               : '<span style="font-size:11px;color:rgba(255,255,255,0.5);margin-left:6px">💎×100+Lv40チケット</span>')
           : '<span style="font-size:11px;color:rgba(255,255,255,0.4);margin-left:6px">🔒 ST14クリアで解放</span>'}
       </button>
+      <button onclick="${cleared15?"showStage16DeckSelect()":"null"}"
+  style="background:${cleared15
+    ? "linear-gradient(135deg,#FFD93D,#FF9500)"
+    : "rgba(255,255,255,0.08)"};
+    font-size:1.1rem;padding:14px 28px;width:80%;margin:8px auto;display:block;
+    ${cleared15?"":"opacity:0.4;cursor:not-allowed"}">
+  ステージ１６
+  ${cleared15
+    ? (isStage16Cleared()
+        ? '<span style="font-size:11px;color:#FFD93D;margin-left:6px">✅ クリア済</span>'
+        : '<span style="font-size:11px;color:rgba(255,255,255,0.5);margin-left:6px">💎×70</span>')
+    : '<span style="font-size:11px;color:rgba(255,255,255,0.4);margin-left:6px">🔒 ST15クリアで解放</span>'}
+   </button>
       <div style="margin:16px auto;width:80%;border-top:1px solid rgba(255,255,255,0.1);padding-top:16px">
         <button onclick="showSpaceScreen();setTimeout(()=>showVersusSpaceMenu(),50);"
           style="background:linear-gradient(135deg,#FF6B6B,#C77DFF);
@@ -12765,6 +12780,10 @@ function markStage14Cleared(){ localStorage.setItem(STAGE14_CLEAR_KEY,"cleared")
 const STAGE15_CLEAR_KEY = "shootingStage15Cleared";
 function isStage15Cleared(){ return localStorage.getItem(STAGE15_CLEAR_KEY)==="cleared"; }
 function markStage15Cleared(){ localStorage.setItem(STAGE15_CLEAR_KEY,"cleared"); }
+
+const STAGE16_CLEAR_KEY = "shootingStage16Cleared";
+function isStage16Cleared(){ return localStorage.getItem(STAGE16_CLEAR_KEY)==="cleared"; }
+function markStage16Cleared(){ localStorage.setItem(STAGE16_CLEAR_KEY,"cleared"); }
 
 let s3PlayerElement = "fire";
 let s3BossElement   = "thunder";
@@ -14384,6 +14403,9 @@ function toggleShootingPause(){
         if(shootingTime<=0){ clearInterval(shootingTimerInterval); startS14BossPhase(); }
         } else if(currentShootingStage === "stage15"){
         if(shootingTime<=0){ clearInterval(shootingTimerInterval); startS15BossPhase(); }
+        } else if(currentShootingStage === "stage16"){
+        if(shootingTime<=0){ clearInterval(shootingTimerInterval); startS16BossPhase(); }
+
 
 
 
@@ -14415,6 +14437,7 @@ function toggleShootingPause(){
       stage13: stage13Loop,
       stage14: stage14Loop,
       stage15: stage15Loop,
+      stage16: stage16Loop,
 
     };
     requestAnimationFrame(loopMap[currentShootingStage] || shootingLoop);
@@ -14440,6 +14463,7 @@ function giveUpShooting(){
   if(s13QuizCountdown){ clearInterval(s13QuizCountdown); s13QuizCountdown=null; }
   if(s14QuizCountdown){ clearInterval(s14QuizCountdown); s14QuizCountdown=null; }
   if(s15QuizCountdown){ clearInterval(s15QuizCountdown); s15QuizCountdown=null; }
+  if(s16QuizCountdown){ clearInterval(s16QuizCountdown); s16QuizCountdown=null; }
 removeS15UltiButton();
   cancelAnimationFrame(shootingAnimFrame);
   removeShootListeners();
@@ -21576,6 +21600,7 @@ function showClearResetSelect(){
     { key:"shootingStage13Cleared", label:"ステージ13 （アルデバラン）", emoji:"🟠" },
     { key:"shootingStage14Cleared", label:"ステージ14 （デネブ）", emoji:"💧" },
     { key:"shootingStage15Cleared", label:"ステージ15 （シリウス）", emoji:"🪨" },
+    { key:"shootingStage16Cleared", label:"ステージ16 （ベテルギウス）", emoji:"⚡" },
   ];
 
   const cleared = stages.filter(s=>localStorage.getItem(s.key)==="cleared");
@@ -26430,6 +26455,7 @@ function debugShootingBoss(){
       stage13: startS13BossPhase,
       stage14: startS14BossPhase,
       stage15: startS15BossPhase,
+      stage16: startS16BossPhase,
     };
     const starter=bossStarters[currentShootingStage];
     if(starter) starter();
@@ -26440,6 +26466,1295 @@ function debugShootingBoss(){
     s15UltiReady=true;
     updateS15EnergyBar();
   }
+}
+
+// =============================================
+//  STAGE 16 - ベテルギウス（雷属性）
+//  サバイバル：隕石＋壁＋追いかけ月＋パワースター
+//  ボス：ブーメラン・電磁パルス・十字/クロスレーザー
+//  「B」のつくカードで被ダメ0.5倍
+//  クリア報酬：💎×70
+// =============================================
+
+let s16PlayerElement  = "fire";
+let s16BossElement    = "thunder";
+let s16BossMaxHP      = 83000;
+let s16BossATK        = 1800;
+let s16QuizActive     = false;
+let s16QuizAnswer     = "";
+let s16QuizZones      = [];
+let s16QuizTimer      = 0;
+let s16QuizWord       = "";
+let s16QuizCountdown  = null;
+let s16SurvivalQuizTimer = 0;
+let s16BossQuizTimer  = 0;
+let s16BossPhase      = false;
+let s16BShield        = false; // 「B」のつくカードで被ダメ0.5倍
+
+// サバイバル用ギミック変数
+let s16Walls          = [];
+let s16WallTimer      = 0;
+let s16Moons          = [];
+let s16MoonTimer      = 0;
+
+// パワースター（ST15と同じ仕組み）
+let s16Stars          = [];
+let s16StarTimer      = 0;
+let s16Energy         = 0;
+const s16MaxEnergy    = 10;
+let s16UltiReady      = false;
+
+// ボス攻撃用
+let s16Boomerangs     = [];
+let s16BoomerangTimer = 0;
+let s16EmpActive      = false;
+let s16EmpTimer       = 0;
+let s16EmpDuration    = 0;
+let s16BulletDisabled = false;
+let s16LaserActive    = false;
+let s16LaserTimer     = 0;
+let s16LaserLife      = 0;
+let s16LaserType      = "cross";
+let s16BossQuizTimerVal = 0;
+let s16Comets         = [];
+let s16CometTimer     = 0;
+let s16LaserInvTimer  = 0; // レーザー被弾後の無敵タイマー
+
+
+// =============================================
+//  デッキ選択
+// =============================================
+function showStage16DeckSelect(){
+  const pool = owned.filter(c=>c.type==="target1900");
+  const grouped = {};
+  pool.forEach(c=>{ if(!grouped[c.word]) grouped[c.word]=c; });
+  const cards = Object.values(grouped);
+
+  const area = document.getElementById("spaceArea");
+  area.innerHTML = `
+    <div style="text-align:center;padding:12px">
+      <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;
+        color:#FFD93D;margin-bottom:8px">⚡ ステージ１６ デッキ選択</div>
+      <div style="background:rgba(255,217,61,0.1);border:1px solid rgba(255,217,61,0.3);
+        border-radius:12px;padding:10px;margin:0 auto 12px;max-width:320px;
+        font-size:12px;color:rgba(255,255,255,0.7);text-align:left;line-height:1.8">
+        ⚡ <b>ステージ16 特殊ギミック</b><br>
+        「B」のつくカードで被ダメ0.5倍！<br>
+        サバイバル：隕石＋壁＋追いかけ月が全部来る！<br>
+        ⭐ パワースターを集めて必殺技発動！<br>
+        ボス：ブーメラン・電磁パルス・レーザー！<br>
+        ⚡ ボス属性：<b style="color:#FFD93D">雷属性</b>（地属性が有利！）<br>
+        クリアで💎×70！
+      </div>
+      <div style="font-size:13px;color:#FFD93D;margin-bottom:8px">
+        選択: <span id="s16SelectedCount">0</span> / 2
+      </div>
+      <div id="s16CardPicker"
+        style="display:flex;flex-wrap:wrap;justify-content:center;
+          gap:8px;margin-bottom:16px"></div>
+      <div id="s16SelectedDisplay"
+        style="display:flex;justify-content:center;gap:12px;
+          margin-bottom:80px;min-height:60px"></div>
+      <div style="position:fixed;bottom:70px;right:16px;z-index:1000">
+        <button id="s16StartBtn" disabled
+          style="background:linear-gradient(135deg,#FFD93D,#FF9500);
+            font-size:1rem;padding:14px 20px;border-radius:20px;
+            opacity:0.4;cursor:not-allowed;
+            box-shadow:0 4px 20px rgba(0,0,0,0.4)">
+          🚀 スタート！
+        </button>
+      </div>
+      <button onclick="showNormalStageMenu()"
+        style="background:rgba(255,255,255,0.08);box-shadow:none;
+          font-size:12px;margin-top:10px;color:rgba(255,255,255,0.5)">← 戻る</button>
+    </div>`;
+
+  if(cards.length===0){
+    document.getElementById("s16CardPicker").innerHTML=
+      `<div style="color:rgba(255,255,255,0.4);font-size:13px;padding:20px">
+        ターゲット1900カードがありません！
+      </div>`;
+    return;
+  }
+
+  let selected=[];
+
+  function renderPicker(){
+    document.getElementById("s16SelectedCount").textContent=selected.length;
+    document.getElementById("s16CardPicker").innerHTML=cards.map(c=>{
+      const idx=selected.findIndex(s=>s.word===c.word);
+      const isSel=idx!==-1;
+      const hasB=c.word.toUpperCase().startsWith("B");
+      return `
+        <div onclick="s16ToggleCard('${c.word}')"
+          style="cursor:pointer;width:95px;padding:10px 6px;border-radius:14px;
+            background:${isSel?"rgba(255,217,61,0.2)":"rgba(255,255,255,0.06)"};
+            border:2px solid ${isSel?c.elementColor:hasB?"rgba(255,217,61,0.6)":"rgba(255,255,255,0.15)"};
+            text-align:center;transition:all 0.15s;position:relative">
+          ${isSel?`<div style="position:absolute;top:-6px;right:-6px;
+            background:#FFD93D;border-radius:50%;width:18px;height:18px;
+            font-size:10px;display:flex;align-items:center;justify-content:center;
+            color:#1a1a2e;font-weight:700">${idx+1}</div>`:""}
+          ${hasB?`<div style="position:absolute;top:-6px;left:-6px;
+            background:#FFD93D;border-radius:50%;width:18px;height:18px;
+            font-size:10px;display:flex;align-items:center;justify-content:center;
+            color:#1a1a2e;font-weight:700">B</div>`:""}
+          <div style="font-size:1rem">${c.elementLabel.split(" ")[0]}</div>
+          <div style="font-family:'Fredoka One',cursive;font-size:0.8rem;color:#fff">
+            ${c.word}
+          </div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.5)">${c.meaning}</div>
+          <div style="font-size:10px;color:${c.elementColor}">
+            ⚔️${c.atk} ❤️${c.hp}
+          </div>
+          ${hasB?`<div style="font-size:9px;color:#FFD93D;font-weight:700">⚡ Bシールド</div>`:""}
+        </div>`;
+    }).join("");
+
+    document.getElementById("s16SelectedDisplay").innerHTML=[0,1].map(i=>{
+      const c=selected[i];
+      return c
+        ?`<div style="background:rgba(255,255,255,0.08);
+            border:1px solid ${c.elementColor};border-radius:12px;
+            padding:8px 14px;text-align:center;min-width:80px">
+            <div style="font-size:10px;color:rgba(255,255,255,0.4)">
+              ${i===0?"1枚目（メイン）":"2枚目（予備）"}
+            </div>
+            <div style="font-family:'Fredoka One',cursive;font-size:0.85rem;color:#fff">
+              ${c.word}
+            </div>
+            <div style="font-size:10px;color:${c.elementColor}">
+              ⚔️${c.atk} ❤️${c.hp}
+            </div>
+          </div>`
+        :`<div style="background:rgba(255,255,255,0.03);
+            border:1px dashed rgba(255,255,255,0.15);border-radius:12px;
+            padding:8px 14px;text-align:center;min-width:80px;
+            color:rgba(255,255,255,0.25);font-size:12px">
+            ${i===0?"1枚目":"2枚目"}<br>未選択
+          </div>`;
+    }).join("");
+
+    const btn=document.getElementById("s16StartBtn");
+    btn.disabled=selected.length!==2;
+    btn.style.opacity=selected.length===2?"1":"0.4";
+    btn.style.cursor=selected.length===2?"pointer":"not-allowed";
+  }
+
+  window.s16ToggleCard=function(word){
+    const c=cards.find(x=>x.word===word);
+    const idx=selected.findIndex(s=>s.word===word);
+    if(idx!==-1){ selected.splice(idx,1); }
+    else { if(selected.length>=2)return; selected.push(c); }
+    renderPicker();
+  };
+
+  document.getElementById("s16StartBtn").onclick=()=>{
+    if(selected.length<2)return;
+    shootingDeck=selected;
+    beginStage16();
+  };
+  renderPicker();
+}
+
+
+// =============================================
+//  ステージ開始
+// =============================================
+function beginStage16(){
+  const area=document.getElementById("spaceArea");
+  area.innerHTML=`
+    <div style="position:relative;width:100%;max-width:420px;margin:0 auto">
+      <canvas id="shootCanvas"
+        style="display:block;width:100%;border-radius:16px;
+          background:#080808;touch-action:none"></canvas>
+      <button onclick="toggleShootingPause()"
+        style="position:absolute;top:8px;right:8px;
+          background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.3);
+          color:#fff;font-size:12px;padding:5px 10px;border-radius:8px;
+          z-index:2100;cursor:pointer">⏸ ポーズ</button>
+      <div id="shootHUD"
+        style="position:absolute;top:8px;left:8px;right:8px;
+          display:flex;justify-content:space-between;pointer-events:none">
+        <div id="shootHP"
+          style="font-family:'Fredoka One',cursive;font-size:14px;
+            color:#6BCB77;text-shadow:0 0 8px rgba(107,203,119,0.8)">❤️ 0</div>
+        <div id="shootTimer"
+          style="font-family:'Fredoka One',cursive;font-size:14px;
+            color:#FFD93D;text-shadow:0 0 8px rgba(255,217,61,0.8)">⏱ 60</div>
+        <div id="shootCard"
+          style="font-family:'Fredoka One',cursive;font-size:11px;color:#FFD93D">
+          🚀 1枚目
+        </div>
+      </div>
+      <div id="s16ShieldBadge"
+        style="position:absolute;top:36px;left:8px;pointer-events:none;
+          display:none;font-family:'Fredoka One',cursive;font-size:11px;
+          color:#FFD93D;background:rgba(255,217,61,0.2);
+          border:1px solid rgba(255,217,61,0.4);border-radius:8px;padding:3px 8px">
+        ⚡ Bシールド発動中
+      </div>
+      <div id="shootBossHUD"
+        style="position:absolute;top:36px;left:8px;right:8px;
+          display:none;pointer-events:none">
+        <div style="font-family:'Fredoka One',cursive;font-size:11px;
+          color:#FFD93D;text-align:center;margin-bottom:2px">⚡ ベテルギウス</div>
+        <div style="background:rgba(0,0,0,0.4);border-radius:8px;height:10px;overflow:hidden">
+          <div id="shootBossHPBar"
+            style="height:100%;background:linear-gradient(90deg,#FFD93D,#FF9500);
+              border-radius:8px;transition:width 0.3s;width:100%"></div>
+        </div>
+      </div>
+      <div id="shootMessage"
+        style="position:absolute;top:45%;left:50%;
+          transform:translate(-50%,-50%);
+          font-family:'Fredoka One',cursive;font-size:1.2rem;color:#fff;
+          text-align:center;pointer-events:none;
+          text-shadow:0 0 20px rgba(255,255,255,0.8);display:none;
+          background:rgba(0,0,0,0.6);border-radius:12px;
+          padding:8px 16px;white-space:pre-line"></div>
+      <div id="shootQuizResult"
+        style="position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
+          font-family:'Fredoka One',cursive;font-size:1rem;
+          background:rgba(0,0,0,0.7);border-radius:12px;padding:6px 16px;
+          pointer-events:none;display:none;text-align:center;
+          white-space:pre-line;z-index:100;min-width:200px">
+      </div>
+    </div>`;
+
+  shootCanvas=document.getElementById("shootCanvas");
+  const maxW=Math.min(420,window.innerWidth-32);
+  shootCanvas.width=maxW;
+  shootCanvas.height=Math.floor(maxW*1.5);
+  shootCtx=shootCanvas.getContext("2d");
+
+  if(shootingTimerInterval){ clearInterval(shootingTimerInterval); shootingTimerInterval=null; }
+  if(shootingAnimFrame){ cancelAnimationFrame(shootingAnimFrame); shootingAnimFrame=null; }
+
+  shootingCurrentCard=0; shootingPhase="survival"; shootingTime=60;
+  shipBullets=[]; meteors=[]; hitEffects=[];
+  bulletTimer=0; meteorTimer=0; bossTimer=0;
+  boss.bullets=[]; boss.hp=s16BossMaxHP; boss.vx=2.5;
+  shootingBossActive=false; lastFrameTime=0;
+
+  // ST16変数リセット
+  s16SurvivalQuizTimer=0; s16BossQuizTimerVal=0; s16BossPhase=false;
+  s16QuizActive=false; s16QuizZones=[];
+  s16Walls=[]; s16WallTimer=0;
+  s16Moons=[]; s16MoonTimer=0;
+  s16Stars=[]; s16StarTimer=0;
+  s16Energy=0; s16UltiReady=false;
+  s16Boomerangs=[]; s16BoomerangTimer=0;
+  s16EmpActive=false; s16EmpTimer=0; s16EmpDuration=0; s16BulletDisabled=false;
+  s16LaserActive=false; s16LaserTimer=0; s16LaserLife=0;
+  s16Comets=[]; s16CometTimer=0; s16LaserInvTimer=0;
+  if(s16QuizCountdown){ clearInterval(s16QuizCountdown); s16QuizCountdown=null; }
+
+  const c=shootingDeck[0];
+  shootingPlayerMaxHP=c.hp; shootingPlayerHP=c.hp; shootingPlayerATK=c.atk;
+  s16PlayerElement=c.element;
+
+  // Bシールド判定：デッキの単語がBで始まるか
+  s16BShield=shootingDeck.some(card=>card.word.toUpperCase().startsWith("B"));
+  const badge=document.getElementById("s16ShieldBadge");
+  if(badge) badge.style.display=s16BShield?"block":"none";
+
+  const subUnlocked=localStorage.getItem("subShipUnlocked")==="true";
+  if(subUnlocked){ ship.subShips=[{offset:-35},{offset:35}]; }
+  else { ship.subShips=[]; }
+
+  dodgeUnlocked=localStorage.getItem("dodgeUnlocked")==="true";
+  dodgeCooldown=0; dodgeActive=false; dodgeActiveTimer=0;
+  renderDodgeButton();
+
+  ship.x=shootCanvas.width/2-ship.w/2;
+  ship.y=shootCanvas.height-ship.h-20;
+
+  shootCanvas.addEventListener("touchstart",onShootTouchStart,{passive:false});
+  shootCanvas.addEventListener("touchmove", onShootTouchMove, {passive:false});
+  shootCanvas.addEventListener("touchend",  onShootTouchEnd,  {passive:false});
+  shootCanvas.addEventListener("mousedown", onShootMouseDown);
+  shootCanvas.addEventListener("mousemove", onShootMouseMove);
+  shootCanvas.addEventListener("mouseup",   onShootMouseUp);
+
+  shootingPaused=false;
+  currentShootingStage="stage16";
+
+  shootingTimerInterval=setInterval(()=>{
+    if(shootingPhase!=="survival")return;
+    shootingTime--;
+    updateShootHUD();
+    if(shootingTime<=0){ clearInterval(shootingTimerInterval); startS16BossPhase(); }
+  },1000);
+
+  shootingGameActive=true;
+  lockShootingUI();
+  updateShootHUD();
+  // パワースター（サバイバルから有効）
+  renderS16UltiButton();
+  requestAnimationFrame(stage16Loop);
+}
+
+
+// =============================================
+//  必殺技ボタン（ST15と同じ仕様）
+// =============================================
+function updateS16EnergyBar(){ renderS16UltiButton(); }
+
+function renderS16UltiButton(){
+  const old=document.getElementById("s16UltiBtn");
+  if(old) old.remove();
+  // サバイバル・ボス両方で表示
+  if(shootingPhase!=="survival"&&shootingPhase!=="boss") return;
+
+  const btn=document.createElement("button");
+  btn.id="s16UltiBtn";
+  btn.textContent=s16Energy>=s16MaxEnergy?"⚡ 必殺技！":"⚡ 必殺技";
+  btn.style.cssText=`
+    position:fixed;
+    bottom:40px;
+    left:calc(50% + 80px);
+    background:${s16Energy>=s16MaxEnergy
+      ?"linear-gradient(135deg,#FFD93D,#FF9500)"
+      :"rgba(255,255,255,0.1)"};
+    font-family:'Fredoka One',cursive;
+    font-size:0.9rem;
+    padding:10px 16px;
+    border-radius:20px;
+    z-index:3000;
+    box-shadow:${s16Energy>=s16MaxEnergy?"0 4px 20px rgba(255,217,61,0.6)":"none"};
+    border:none;
+    color:#fff;
+    cursor:${s16Energy>=s16MaxEnergy?"pointer":"not-allowed"};
+    opacity:${s16Energy>=s16MaxEnergy?"1":"0.4"};
+    transition:all 0.2s;
+  `;
+  if(s16Energy>=s16MaxEnergy){
+    btn.addEventListener("click", fireS16Ulti);
+  }
+  document.body.appendChild(btn);
+}
+
+function fireS16Ulti(){
+  if(s16Energy<s16MaxEnergy) return;
+  s16Energy=0;
+  s16UltiReady=false;
+  updateS16EnergyBar();
+  const ultiDmg=shootingPlayerATK*40;
+  shipBullets.push({
+    x:ship.x+ship.w/2-40, y:ship.y-80,
+    w:80, h:80, vx:0, vy:-6,
+    active:true, isUlti:true, ultiDmg:ultiDmg,
+  });
+  showShootMessage("⚡ 必殺技発動！",1500);
+}
+
+function removeS16UltiButton(){
+  const btn=document.getElementById("s16UltiBtn");
+  if(btn) btn.remove();
+}
+
+
+// =============================================
+//  ボスフェーズ開始
+// =============================================
+function startS16BossPhase(){
+  shootingPhase="boss"; s16BossPhase=true; shootingBossActive=true;
+  boss.x=shootCanvas.width/2-boss.w/2; boss.y=60;
+  boss.hp=s16BossMaxHP; boss.vx=2.5; boss.bullets=[];
+  meteors=[]; s16Walls=[]; s16Moons=[];
+  // エネルギーはサバイバルから引き継ぐ（リセットしない）
+  bossTimer=0; s16BossQuizTimerVal=0;
+  s16Boomerangs=[]; s16BoomerangTimer=0;
+  s16EmpActive=false; s16EmpTimer=0; s16EmpDuration=0; s16BulletDisabled=false;
+  s16LaserActive=false; s16LaserTimer=0;
+  s16Comets=[]; s16CometTimer=0; s16LaserInvTimer=0;
+  const bossHUD=document.getElementById("shootBossHUD");
+  if(bossHUD) bossHUD.style.display="block";
+  const badge=document.getElementById("s16ShieldBadge");
+  if(badge) badge.style.display="none";
+  removeS16UltiButton();
+  showShootMessage("⚡ ベテルギウス 出現！\n⭐パワースターを集めろ！",2500);
+  updateBossHUD();
+  updateS16EnergyBar();
+  renderS16UltiButton();
+}
+
+
+// =============================================
+//  ゲームループ
+// =============================================
+function stage16Loop(timestamp){
+  if(!shootingGameActive)return;
+  const dt=Math.min((timestamp-(lastFrameTime||timestamp))/16.67,3);
+  lastFrameTime=timestamp;
+  update_stage16(dt);
+  draw_stage16();
+  shootingAnimFrame=requestAnimationFrame(stage16Loop);
+}
+
+
+// =============================================
+//  更新処理
+// =============================================
+function update_stage16(dt){
+  const W=shootCanvas.width, H=shootCanvas.height;
+  if(shootingPhase==="gameover"||shootingPhase==="clear")return;
+
+  // エフェクト更新
+  hitEffects.forEach(e=>{
+    e.life+=dt; e.alpha=Math.max(0,1-e.life/e.maxLife);
+    if(e.type==="debris"){ e.x+=(e.vx||0)*dt; e.y+=(e.vy||0)*dt; e.r=Math.max(0,e.r-0.15*dt); }
+    else { e.r+=(e.maxR-e.r)*0.18*dt; }
+  });
+  hitEffects=hitEffects.filter(e=>e.life<e.maxLife);
+
+  // 回避タイマー
+  if(dodgeActive){
+    dodgeActiveTimer-=dt;
+    if(dodgeActiveTimer<=0){ dodgeActive=false; dodgeCooldown=600; }
+    updateDodgeButton();
+  }
+  if(dodgeCooldown>0){
+    dodgeCooldown-=dt;
+    if(dodgeCooldown<0) dodgeCooldown=0;
+    updateDodgeButton();
+  }
+
+  // 弾発射（EMP中は撃てない）
+  bulletTimer+=dt;
+  if(bulletTimer>=60&&!s16BulletDisabled){
+    bulletTimer=0;
+    shipBullets.push({x:ship.x+ship.w/2-4,y:ship.y-10,w:8,h:14,active:true});
+    if(ship.subShips&&ship.subShips.length>0){
+      ship.subShips.forEach(ss=>{
+        const angle=15*Math.PI/180;
+        const dir=ss.offset<0?-1:1;
+        shipBullets.push({
+          x:ship.x+ship.w/2+ss.offset-4, y:ship.y-10,
+          w:6, h:10, vx:Math.sin(angle)*4*dir, vy:-8,
+          active:true, isSub:true,
+        });
+      });
+    }
+  }
+  shipBullets.forEach(b=>{ b.x+=(b.vx||0)*dt; b.y+=(b.vy||-8)*dt; });
+  shipBullets=shipBullets.filter(b=>b.active&&b.y>-100&&b.x>-50&&b.x<W+50);
+
+  // ===== 壁更新（サバイバルのみ） =====
+  if(shootingPhase==="survival"){
+    s16WallTimer+=dt;
+    if(s16WallTimer>=500){ s16WallTimer=0; spawnS16Wall(W,H); }
+    s16Walls.forEach(w=>{
+      if(w.dir==="down"){ w.y+=w.vy*dt; }
+      else { w.x+=w.vx*dt; }
+    });
+    s16Walls=s16Walls.filter(w=>w.y<H+60&&w.y>-60&&w.x>-W&&w.x<W*2);
+
+    // 自弾 vs 壁（弾が消える）
+    for(let bi=shipBullets.length-1;bi>=0;bi--){
+      const b=shipBullets[bi]; if(!b.active)continue;
+      for(const w of s16Walls){
+        if(rectsOverlap(b,w)){ spawnHitEffect(b.x+b.w/2,b.y,"#C8A96E"); b.active=false; break; }
+      }
+    }
+
+    // 壁 vs プレイヤー（押し出し）
+    for(let wi=s16Walls.length-1;wi>=0;wi--){
+      const w=s16Walls[wi];
+      if(rectsOverlap(ship,w)){
+        spawnHitEffect(ship.x+ship.w/2,ship.y+ship.h/2,"#FF4444");
+        if(w.dir==="down"){ ship.y=w.y-ship.h-2; }
+        else if(w.dir==="left"){ ship.x=w.x+w.w+2; }
+        else { ship.x=w.x-ship.w-2; }
+        ship.x=Math.max(0,Math.min(W-ship.w,ship.x));
+        ship.y=Math.max(0,Math.min(H-ship.h,ship.y));
+      }
+    }
+  }
+
+  // ===== 月の更新（サバイバルのみ） =====
+  if(shootingPhase==="survival"){
+    s16MoonTimer+=dt;
+    if(s16MoonTimer>=140&&s16Moons.length<2){
+      s16MoonTimer=0;
+      const side=Math.random()<0.5?"left":"right";
+      s16Moons.push({
+        x:side==="left"?-60:W+10, y:H*0.1+Math.random()*H*0.4,
+        w:50, h:50, vx:0, vy:0, phase:"aim", aimTimer:0, angle:0, stopTimer:0,
+      });
+    }
+    s16Moons.forEach(m=>{
+      if(m.phase==="aim"){
+        m.aimTimer+=dt;
+        const dx=(ship.x+ship.w/2)-(m.x+m.w/2);
+        const dy=(ship.y+ship.h/2)-(m.y+m.h/2);
+        m.angle=Math.atan2(dy,dx);
+        if(m.aimTimer>=50){
+          const speed=3.5;
+          m.vx=Math.cos(m.angle)*speed;
+          m.vy=Math.sin(m.angle)*speed;
+          m.phase="move";
+        }
+      } else if(m.phase==="move"){
+        m.x+=m.vx*dt; m.y+=m.vy*dt;
+        if(m.x<=0||m.x+m.w>=W||m.y<=0||m.y+m.h>=H){
+          m.x=Math.max(0,Math.min(W-m.w,m.x));
+          m.y=Math.max(0,Math.min(H-m.h,m.y));
+          m.vx=0; m.vy=0; m.phase="stop"; m.stopTimer=0;
+        }
+      } else if(m.phase==="stop"){
+        m.stopTimer=(m.stopTimer||0)+dt;
+        if(m.stopTimer>=80){ m.phase="aim"; m.aimTimer=0; }
+      }
+    });
+    for(let mi=s16Moons.length-1;mi>=0;mi--){
+      const m=s16Moons[mi];
+      if(rectsOverlap(ship,{x:m.x,y:m.y,w:m.w,h:m.h})&&!dodgeActive){
+        spawnHitEffect(ship.x+ship.w/2,ship.y+ship.h/2,"#FFD93D");
+        let dmg=420; if(s16BShield) dmg=Math.floor(dmg*0.5);
+        s16Moons.splice(mi,1);
+        if(applyPlayerDamage(dmg)) return;
+      }
+    }
+  }
+
+  // ===== パワースター生成（サバイバル・ボス両方） =====
+  s16StarTimer+=dt;
+  if(s16StarTimer>=500&&s16Stars.length<3){
+    s16StarTimer=0;
+    s16Stars.push({
+      x:Math.random()*(W-30), y:-30,
+      w:30, h:30, vy:2+Math.random()*1.5, angle:0,
+    });
+  }
+  s16Stars.forEach(s=>{ s.y+=s.vy*dt; s.angle+=0.05*dt; });
+  s16Stars=s16Stars.filter(s=>s.y<H+50);
+
+  // 自弾 vs パワースター
+  for(let bi=shipBullets.length-1;bi>=0;bi--){
+    const b=shipBullets[bi]; if(!b.active)continue;
+    for(let si=s16Stars.length-1;si>=0;si--){
+      const s=s16Stars[si];
+      if(rectsOverlap(b,{x:s.x,y:s.y,w:s.w,h:s.h})){
+        b.active=false;
+        s16Stars.splice(si,1);
+        if(s16Energy<s16MaxEnergy){
+          s16Energy++;
+          if(s16Energy>=s16MaxEnergy){
+            s16UltiReady=true;
+            showShootMessage("⚡ 必殺技が使える！",1500);
+          }
+          updateS16EnergyBar();
+        }
+        spawnHitEffect(s.x+s.w/2,s.y+s.h/2,"#FFD93D");
+        break;
+      }
+    }
+  }
+
+
+  if(shootingPhase==="survival"){
+    // 通常隕石
+    meteorTimer+=dt;
+    if(meteorTimer>=55+Math.random()*25){
+      meteorTimer=0;
+      const mw=28+Math.random()*18, mh=28+Math.random()*18;
+      meteors.push({x:Math.random()*(W-mw),y:-mh,w:mw,h:mh,vy:2.5+Math.random()*2,hp:2,id:Date.now()+Math.random()});
+    }
+    meteors.forEach(m=>{ m.y+=m.vy*dt; });
+    meteors=meteors.filter(m=>m.hp>0&&m.y<H+50);
+
+    // クイズ（15秒ごと）
+    s16SurvivalQuizTimer+=dt;
+    if(s16SurvivalQuizTimer>=900&&!s16QuizActive){
+      s16SurvivalQuizTimer=0; triggerS16Quiz();
+    }
+
+    // 自弾 vs 隕石
+    for(let bi=shipBullets.length-1;bi>=0;bi--){
+      const b=shipBullets[bi]; if(!b.active)continue;
+      for(let mi=meteors.length-1;mi>=0;mi--){
+        const m=meteors[mi]; if(m.hp<=0)continue;
+        if(rectsOverlap(b,m)){
+          spawnHitEffect(b.x+b.w/2,b.y+b.h/2,"#FFD93D");
+          b.active=false; m.hp--;
+          if(m.hp<=0){ spawnMeteorBreakEffect(m.x+m.w/2,m.y+m.h/2); meteors.splice(mi,1); }
+          break;
+        }
+      }
+    }
+    shipBullets=shipBullets.filter(b=>b.active&&b.y>-20);
+
+    // 隕石 vs プレイヤー
+    for(let mi=meteors.length-1;mi>=0;mi--){
+      const m=meteors[mi];
+      if(rectsOverlap(ship,m)&&!dodgeActive){
+        meteors.splice(mi,1);
+        spawnHitEffect(ship.x+ship.w/2,ship.y+ship.h/2,"#FF6B6B");
+        let dmg=350; if(s16BShield) dmg=Math.floor(dmg*0.5);
+        if(applyPlayerDamage(dmg)) return;
+      }
+    }
+
+  } else if(shootingPhase==="boss"){
+    boss.x+=boss.vx*dt;
+    if(boss.x<=10){ boss.x=10; boss.vx=Math.abs(boss.vx); }
+    if(boss.x+boss.w>=W-10){ boss.x=W-boss.w-10; boss.vx=-Math.abs(boss.vx); }
+    const minY=boss.y+boss.h+10;
+    if(ship.y<minY) ship.y=minY;
+
+    // クイズ
+    s16BossQuizTimerVal+=dt;
+    if(s16BossQuizTimerVal>=1200){ s16BossQuizTimerVal=0; if(!s16QuizActive) triggerS16Quiz(); }
+
+    // ----- ブーメラン攻撃 -----
+    s16BoomerangTimer+=dt;
+    if(s16BoomerangTimer>=300+Math.random()*200){
+      s16BoomerangTimer=0;
+      const bx=boss.x+boss.w/2, by=boss.y+boss.h;
+      // 左右から2本のブーメランを発射
+      [-1,1].forEach(dir=>{
+        s16Boomerangs.push({
+          x:bx, y:by,
+          vx:dir*4, vy:2,
+          life:0, maxLife:180,
+          angle:0, dir,
+          returning:false,
+        });
+      });
+    }
+    s16Boomerangs.forEach(b=>{
+      b.life+=dt;
+      b.angle+=0.2*dt*b.dir;
+      if(!b.returning&&b.life>=b.maxLife*0.5){
+        // 折り返してプレイヤーに向かう
+        b.returning=true;
+        const dx=(ship.x+ship.w/2)-b.x;
+        const dy=(ship.y+ship.h/2)-b.y;
+        const len=Math.sqrt(dx*dx+dy*dy)||1;
+        b.vx=dx/len*4.5;
+        b.vy=dy/len*4.5;
+      }
+      b.x+=b.vx*dt; b.y+=b.vy*dt;
+    });
+    for(let i=s16Boomerangs.length-1;i>=0;i--){
+      const b=s16Boomerangs[i];
+      if(b.life>=b.maxLife){ s16Boomerangs.splice(i,1); continue; }
+      if(rectsOverlap({x:b.x-12,y:b.y-12,w:24,h:24},ship)&&!dodgeActive){
+        s16Boomerangs.splice(i,1);
+        spawnHitEffect(ship.x+ship.w/2,ship.y+ship.h/2,"#FFD93D");
+        const mult=getElementMultiplier(s16BossElement,s16PlayerElement);
+        let dmg=Math.floor(s16BossATK*1.2*mult);
+        if(s16BShield) dmg=Math.floor(dmg*0.5);
+        if(applyPlayerDamage(dmg)) return;
+      }
+    }
+
+    // ----- 電磁パルス -----
+    s16EmpTimer+=dt;
+    if(!s16EmpActive&&s16EmpTimer>=600+Math.random()*300){
+      s16EmpTimer=0;
+      s16EmpActive=true;
+      s16EmpDuration=180;
+      s16BulletDisabled=true;
+      shipBullets=[];
+      showShootMessage("⚡ 電磁パルス！\n弾が撃てない！",1500);
+    }
+    if(s16EmpActive){
+      s16EmpDuration-=dt;
+      if(s16EmpDuration<=0){
+        s16EmpActive=false;
+        s16BulletDisabled=false;
+      }
+    }
+
+    // ----- 十字/クロスレーザー -----
+    s16LaserTimer+=dt;
+    if(!s16LaserActive&&s16LaserTimer>=500+Math.random()*300){
+      s16LaserTimer=0;
+      s16LaserActive=true; s16LaserLife=0;
+      s16LaserType=Math.random()<0.5?"cross":"x";
+      showShootMessage(s16LaserType==="cross"?"✚ 十字レーザー来るぞ！避けろ！":"✖ クロスレーザー来るぞ！避けろ！",1800);
+    }
+    if(s16LaserActive){
+      s16LaserLife+=dt;
+      // レーザー無敵タイマー更新
+      if(s16LaserInvTimer>0) s16LaserInvTimer-=dt;
+      // 予告フェーズ(0〜80)はダメージなし、攻撃フェーズ(80〜200)でダメージ
+      if(s16LaserLife>=80&&s16LaserLife<200&&!dodgeActive&&s16LaserInvTimer<=0){
+        const cx=W/2, cy=H/2;
+        const sx=ship.x+ship.w/2, sy=ship.y+ship.h/2;
+        let hit=false;
+        if(s16LaserType==="cross"){
+          if(Math.abs(sx-cx)<22||Math.abs(sy-cy)<22) hit=true;
+        } else {
+          if(Math.abs((sy-cy)-(sx-cx))<22||Math.abs((sy-cy)+(sx-cx))<22) hit=true;
+        }
+        if(hit){
+          const mult=getElementMultiplier(s16BossElement,s16PlayerElement);
+          let dmg=Math.floor(s16BossATK*0.04*mult);
+          if(s16BShield) dmg=Math.floor(dmg*0.5);
+          shootingPlayerHP-=dmg;
+          if(shootingPlayerHP<0) shootingPlayerHP=0;
+          updateShootHUD();
+          s16LaserInvTimer=40; // 被弾後40フレーム無敵
+          if(shootingPlayerHP<=0){ handlePlayerDeath(); return; }
+        }
+      }
+      if(s16LaserLife>=240) s16LaserActive=false;
+    }
+
+    // ----- 彗星（HP回復） -----
+    s16CometTimer+=dt;
+    if(s16CometTimer>=1200){
+      s16CometTimer=0;
+      const fromLeft=Math.random()<0.5;
+      s16Comets.push({
+        x:fromLeft?-40:W+40,
+        y:boss.y+boss.h+20+Math.random()*(H*0.5),
+        w:40, h:20,
+        vx:fromLeft?3.5:-3.5,
+        life:0, maxLife:400,
+      });
+    }
+    s16Comets.forEach(c=>{ c.x+=c.vx*dt; c.life+=dt; });
+    for(let i=s16Comets.length-1;i>=0;i--){
+      const c=s16Comets[i];
+      if(rectsOverlap({x:c.x-c.w/2,y:c.y-c.h/2,w:c.w,h:c.h},ship)){
+        const heal=Math.floor(shootingPlayerMaxHP*0.2);
+        shootingPlayerHP=Math.min(shootingPlayerHP+heal,shootingPlayerMaxHP);
+        spawnHealEffect(ship.x+ship.w/2,ship.y);
+        showShootMessage("☄️ 彗星！HP+20%！",1500);
+        updateShootHUD(); s16Comets.splice(i,1);
+      }
+    }
+    s16Comets=s16Comets.filter(c=>c.life<c.maxLife&&c.x>-100&&c.x<W+100);
+
+    // ----- 通常弾 -----
+    bossTimer+=dt;
+    if(bossTimer>=120+Math.random()*80){
+      bossTimer=0;
+      const bx=boss.x+boss.w/2, by=boss.y+boss.h;
+      const roll=Math.random();
+      if(roll<0.4){
+        [-1,0,1].forEach(i=>{
+          boss.bullets.push({x:bx-8+i*20,y:by,w:16,h:16,vx:i*2,vy:4,active:true});
+        });
+      } else if(roll<0.7){
+        for(let i=0;i<5;i++){
+          const spread=(i-2)*0.6;
+          boss.bullets.push({x:bx-8+i*14,y:by,w:14,h:14,vx:spread*2,vy:4,active:true});
+        }
+      } else {
+        boss.bullets.push({x:bx-30,y:by,w:60,h:60,vx:0,vy:2.5,active:true,big:true});
+      }
+    }
+
+    boss.bullets.forEach(b=>{ b.x+=b.vx*dt; b.y+=b.vy*dt; });
+    for(let i=boss.bullets.length-1;i>=0;i--){
+      const b=boss.bullets[i]; if(!b.active)continue;
+      if(rectsOverlap(b,ship)&&!dodgeActive){
+        boss.bullets.splice(i,1);
+        spawnHitEffect(ship.x+ship.w/2,ship.y+ship.h/2,"#FFD93D");
+        const mult=getElementMultiplier(s16BossElement,s16PlayerElement);
+        let dmg=Math.floor(s16BossATK*(b.big?2.5:1)*mult);
+        if(s16BShield) dmg=Math.floor(dmg*0.5);
+        if(applyPlayerDamage(dmg)) return;
+      }
+    }
+    boss.bullets=boss.bullets.filter(b=>b.active&&b.y<H+80&&b.x>-80&&b.x<W+80);
+
+    // 自弾 vs ボス
+    const bossRect={x:boss.x,y:boss.y,w:boss.w,h:boss.h};
+    for(let bi=shipBullets.length-1;bi>=0;bi--){
+      const b=shipBullets[bi]; if(!b.active)continue;
+      if(rectsOverlap(b,bossRect)){
+        spawnBossHitEffect(b.x+b.w/2,b.y+b.h/2);
+        b.active=false;
+        let dmg;
+        if(b.isUlti){
+          dmg=b.ultiDmg*2;
+          showShootMessage(`💥 ${dmg.toLocaleString()} ダメージ！`,1200);
+        } else {
+          const mult=getElementMultiplier(s16PlayerElement,s16BossElement);
+          dmg=Math.floor(shootingPlayerATK*mult);
+        }
+        boss.hp-=dmg;
+        if(boss.hp<0) boss.hp=0;
+        updateBossHUD();
+        if(boss.hp<=0){ clearStage16(); return; }
+      }
+    }
+    shipBullets=shipBullets.filter(b=>b.active&&b.y>-100);
+  }
+}
+
+
+// =============================================
+//  描画
+// =============================================
+function draw_stage16(){
+  const ctx=shootCtx, W=shootCanvas.width, H=shootCanvas.height;
+  ctx.fillStyle="#080808"; ctx.fillRect(0,0,W,H);
+
+  // 背景（雷属性の雰囲気：紫×黄）
+  for(let i=0;i<80;i++){
+    ctx.fillStyle=`rgba(${180+((i*37)%75)},${150+((i*53)%60)},${50+((i*73)%80)},${0.3+((i*97)%100)/100*0.4})`;
+    ctx.fillRect((i*137+50)%W,(i*97+30)%H,1.5,1.5);
+  }
+  const nebula=ctx.createRadialGradient(W*0.5,H*0.4,0,W*0.5,H*0.4,W*0.7);
+  nebula.addColorStop(0,"rgba(80,50,120,0.15)"); nebula.addColorStop(1,"rgba(0,0,0,0)");
+  ctx.fillStyle=nebula; ctx.fillRect(0,0,W,H);
+
+  if(shootingPhase==="gameover"||shootingPhase==="clear")return;
+
+  // ===== 壁描画（サバイバルのみ） =====
+  if(shootingPhase==="survival"){
+    s16Walls.forEach(w=>{
+      ctx.save();
+      const wg=ctx.createLinearGradient(w.x,w.y,w.x+w.w,w.y+w.h);
+      wg.addColorStop(0,"#555"); wg.addColorStop(0.5,"#888"); wg.addColorStop(1,"#444");
+      ctx.fillStyle=wg; ctx.shadowColor="rgba(100,100,100,0.5)"; ctx.shadowBlur=8;
+      ctx.fillRect(w.x,w.y,w.w,w.h);
+      ctx.strokeStyle="rgba(0,0,0,0.4)"; ctx.lineWidth=1; ctx.shadowBlur=0;
+      ctx.beginPath();
+      ctx.moveTo(w.x+w.w*0.2,w.y+w.h*0.1);
+      ctx.lineTo(w.x+w.w*0.5,w.y+w.h*0.6);
+      ctx.lineTo(w.x+w.w*0.8,w.y+w.h*0.3);
+      ctx.stroke();
+      ctx.restore();
+    });
+  }
+
+  // ===== 月描画（サバイバルのみ） =====
+  if(shootingPhase==="survival"){
+    s16Moons.forEach(m=>{
+      ctx.save();
+      const cx=m.x+m.w/2, cy=m.y+m.h/2;
+      const mg=ctx.createRadialGradient(cx-m.w*0.15,cy-m.h*0.15,m.w*0.05,cx,cy,m.w/2);
+      mg.addColorStop(0,"#FFF8C0"); mg.addColorStop(0.5,"#E0D080"); mg.addColorStop(1,"#806020");
+      ctx.fillStyle=mg; ctx.shadowColor="#FFD93D"; ctx.shadowBlur=18;
+      ctx.beginPath(); ctx.arc(cx,cy,m.w/2,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle="rgba(0,0,0,0.2)"; ctx.shadowBlur=0;
+      [[0.3,0.3,0.12],[0.6,0.5,0.09],[0.45,0.65,0.07]].forEach(([rx,ry,rs])=>{
+        ctx.beginPath(); ctx.arc(m.x+m.w*rx,m.y+m.h*ry,m.w*rs,0,Math.PI*2); ctx.fill();
+      });
+      ctx.restore();
+    });
+  }
+
+  // ===== パワースター描画 =====
+  s16Stars.forEach(s=>{
+    ctx.save();
+    ctx.translate(s.x+s.w/2,s.y+s.h/2);
+    ctx.rotate(s.angle);
+    ctx.fillStyle="#FFD93D"; ctx.shadowColor="#FFD93D"; ctx.shadowBlur=20;
+    ctx.beginPath();
+    for(let i=0;i<5;i++){
+      const outerR=s.w/2, innerR=s.w/4;
+      const outerAngle=(i*4*Math.PI/5)-Math.PI/2;
+      const innerAngle=outerAngle+2*Math.PI/10;
+      if(i===0) ctx.moveTo(Math.cos(outerAngle)*outerR,Math.sin(outerAngle)*outerR);
+      else ctx.lineTo(Math.cos(outerAngle)*outerR,Math.sin(outerAngle)*outerR);
+      ctx.lineTo(Math.cos(innerAngle)*innerR,Math.sin(innerAngle)*innerR);
+    }
+    ctx.closePath(); ctx.fill();
+    ctx.restore();
+  });
+
+  // ===== 通常隕石 =====
+  meteors.forEach(m=>{
+    ctx.save();
+    ctx.fillStyle="#888"; ctx.shadowColor="rgba(180,180,180,0.4)"; ctx.shadowBlur=6;
+    ctx.beginPath(); ctx.ellipse(m.x+m.w/2,m.y+m.h/2,m.w/2,m.h/2,0,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle="#666"; ctx.shadowBlur=0;
+    ctx.beginPath(); ctx.ellipse(m.x+m.w*0.35,m.y+m.h*0.35,m.w*0.15,m.h*0.12,0.5,0,Math.PI*2); ctx.fill();
+    ctx.restore();
+  });
+
+  if(shootingPhase==="boss"){
+    // ===== 電磁パルスエフェクト =====
+    if(s16EmpActive){
+      const ratio=1-(s16EmpDuration/180);
+      const alpha=(Math.sin(ratio*Math.PI*4)*0.5+0.5)*0.35;
+      ctx.save();
+      ctx.fillStyle=`rgba(255,217,61,${alpha})`;
+      ctx.fillRect(0,0,W,H);
+      ctx.strokeStyle=`rgba(255,255,100,${alpha*2})`;
+      ctx.lineWidth=2;
+      const bx=boss.x+boss.w/2, by=boss.y+boss.h/2;
+      for(let i=0;i<12;i++){
+        const a=i/12*Math.PI*2;
+        ctx.beginPath();
+        ctx.moveTo(bx+Math.cos(a)*boss.w*0.8,by+Math.sin(a)*boss.h*0.8);
+        ctx.lineTo(bx+Math.cos(a)*W,by+Math.sin(a)*W);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    // ===== レーザー描画（ステージ中心基準・予告→攻撃） =====
+    if(s16LaserActive){
+      const bx=W/2, by=H/2;
+      const isWarning=s16LaserLife<80;
+      const fade=isWarning
+        ?(s16LaserLife/80)*0.6                       // 予告：じわっと出る（薄め）
+        :Math.max(0,1-(s16LaserLife-80)/120);        // 攻撃：フェードアウト
+      ctx.save();
+      ctx.globalAlpha=fade;
+      ctx.lineWidth=isWarning?5:22;
+      ctx.shadowBlur=isWarning?12:45;
+      if(s16LaserType==="cross"){
+        ctx.strokeStyle=isWarning?"rgba(255,217,61,0.8)":"#FFD93D";
+        ctx.shadowColor="#FFD93D";
+        ctx.beginPath(); ctx.moveTo(bx,-10); ctx.lineTo(bx,H+10); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(-10,by); ctx.lineTo(W+10,by); ctx.stroke();
+      } else {
+        ctx.strokeStyle=isWarning?"rgba(199,125,255,0.8)":"#C77DFF";
+        ctx.shadowColor="#C77DFF";
+        const L=W+H;
+        ctx.beginPath(); ctx.moveTo(bx-L,by-L); ctx.lineTo(bx+L,by+L); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(bx+L,by-L); ctx.lineTo(bx-L,by+L); ctx.stroke();
+      }
+      ctx.globalAlpha=1; ctx.shadowBlur=0;
+      ctx.restore();
+    }
+
+    // ===== ブーメラン描画 =====
+    s16Boomerangs.forEach(b=>{
+      ctx.save();
+      ctx.translate(b.x,b.y);
+      ctx.rotate(b.angle);
+      ctx.fillStyle="#FFD93D"; ctx.shadowColor="#FFD93D"; ctx.shadowBlur=16;
+      ctx.beginPath();
+      ctx.moveTo(-14,0); ctx.quadraticCurveTo(0,-10,14,0);
+      ctx.quadraticCurveTo(6,4,0,8);
+      ctx.quadraticCurveTo(-6,4,-14,0);
+      ctx.closePath(); ctx.fill();
+      ctx.restore();
+    });
+
+    // ===== 彗星描画 =====
+    s16Comets.forEach(c=>{
+      ctx.save();
+      const cx=c.x, cy=c.y;
+      const dir=c.vx>0?1:-1;
+      const tailLen=60;
+      const grad=ctx.createLinearGradient(cx-dir*tailLen,cy,cx,cy);
+      grad.addColorStop(0,"rgba(107,203,119,0)");
+      grad.addColorStop(1,"rgba(107,203,119,0.8)");
+      ctx.fillStyle=grad;
+      ctx.beginPath();
+      ctx.moveTo(cx-dir*tailLen,cy);
+      ctx.lineTo(cx,cy-8);
+      ctx.lineTo(cx,cy+8);
+      ctx.closePath(); ctx.fill();
+      ctx.fillStyle="#6BCB77"; ctx.shadowColor="#6BCB77"; ctx.shadowBlur=20;
+      ctx.beginPath(); ctx.arc(cx,cy,10,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+    });
+
+    // ===== ボス弾 =====
+    boss.bullets.forEach(b=>{
+      if(!b.active)return;
+      ctx.save();
+      if(b.big){
+        const bg=ctx.createRadialGradient(b.x+b.w/2,b.y+b.h/2,4,b.x+b.w/2,b.y+b.h/2,b.w/2);
+        bg.addColorStop(0,"#fff"); bg.addColorStop(0.4,"#FFD93D"); bg.addColorStop(1,"rgba(255,150,0,0.3)");
+        ctx.fillStyle=bg; ctx.shadowColor="#FFD93D"; ctx.shadowBlur=25;
+      } else {
+        ctx.fillStyle="#FFD93D"; ctx.shadowColor="#FFD93D"; ctx.shadowBlur=14;
+      }
+      ctx.beginPath(); ctx.arc(b.x+b.w/2,b.y+b.h/2,b.w/2,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+    });
+
+    // ===== 必殺技弾 =====
+    shipBullets.filter(b=>b.isUlti&&b.active).forEach(b=>{
+      ctx.save();
+      const ug=ctx.createRadialGradient(b.x+b.w/2,b.y+b.h/2,4,b.x+b.w/2,b.y+b.h/2,b.w/2);
+      ug.addColorStop(0,"#fff"); ug.addColorStop(0.3,"#FFD93D");
+      ug.addColorStop(0.7,"#FF9500"); ug.addColorStop(1,"rgba(255,100,0,0.5)");
+      ctx.fillStyle=ug; ctx.shadowColor="#FFD93D"; ctx.shadowBlur=40;
+      ctx.beginPath(); ctx.arc(b.x+b.w/2,b.y+b.h/2,b.w/2,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+    });
+
+    // ===== ベテルギウス ボス描画（赤色巨星）=====
+    const bossHPRatio=Math.max(0,boss.hp/s16BossMaxHP);
+    ctx.save();
+    ctx.shadowColor="rgba(255,180,0,0.9)"; ctx.shadowBlur=30+(1-bossHPRatio)*50;
+    const pg=ctx.createRadialGradient(
+      boss.x+boss.w*0.35,boss.y+boss.h*0.3,boss.w*0.05,
+      boss.x+boss.w/2,boss.y+boss.h/2,boss.w/2
+    );
+    pg.addColorStop(0,"#FFF0A0"); pg.addColorStop(0.2,"#FF8000");
+    pg.addColorStop(0.5,"#CC2000"); pg.addColorStop(0.8,"#801000"); pg.addColorStop(1,"#200000");
+    ctx.fillStyle=pg;
+    ctx.beginPath(); ctx.arc(boss.x+boss.w/2,boss.y+boss.h/2,boss.w/2,0,Math.PI*2); ctx.fill();
+    // 表面のゆらぎ
+    ctx.save();
+    ctx.beginPath(); ctx.arc(boss.x+boss.w/2,boss.y+boss.h/2,boss.w/2,0,Math.PI*2); ctx.clip();
+    for(let i=0;i<6;i++){
+      ctx.fillStyle=`rgba(255,${100+i*20},0,0.15)`;
+      ctx.beginPath(); ctx.arc(
+        boss.x+boss.w*(0.2+Math.sin(i*1.1)*0.35),
+        boss.y+boss.h*(0.2+Math.cos(i*1.6)*0.35),
+        boss.w*(0.07+i*0.015),0,Math.PI*2
+      ); ctx.fill();
+    }
+    ctx.restore();
+    // 雷エフェクト（ボスの周り）
+    if(Math.random()<0.3){
+      ctx.strokeStyle="rgba(255,255,100,0.6)"; ctx.lineWidth=1.5; ctx.shadowBlur=0;
+      const cx2=boss.x+boss.w/2, cy2=boss.y+boss.h/2;
+      ctx.beginPath();
+      ctx.moveTo(cx2+Math.cos(Math.random()*Math.PI*2)*boss.w*0.5,cy2+Math.sin(Math.random()*Math.PI*2)*boss.h*0.5);
+      for(let j=0;j<4;j++){
+        ctx.lineTo(cx2+(Math.random()-0.5)*boss.w*1.5,cy2+(Math.random()-0.5)*boss.h*1.5);
+      }
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // ===== クイズゾーン =====
+  if(s16QuizActive&&s16QuizZones.length>0){
+    ctx.save();
+    ctx.fillStyle="rgba(0,0,0,0.82)";
+    ctx.beginPath(); ctx.roundRect(W*0.03,H*0.47,W*0.94,46,8); ctx.fill();
+    ctx.fillStyle="#FFD93D"; ctx.font=`bold ${Math.floor(W*0.034)}px sans-serif`;
+    ctx.textAlign="center"; ctx.textBaseline="middle";
+    ctx.fillText(`「${s16QuizWord}」の意味は？`,W/2,H*0.47+16);
+    ctx.fillStyle="rgba(255,255,255,0.6)"; ctx.font=`${Math.floor(W*0.028)}px sans-serif`;
+    ctx.fillText(`⏱ ${s16QuizTimer}秒 いるゾーンが回答！`,W/2,H*0.47+34);
+    ctx.restore();
+    const zoneColors=["rgba(255,217,61,0.3)","rgba(199,125,255,0.3)","rgba(107,203,119,0.3)","rgba(77,150,255,0.3)"];
+    const zoneBorders=["#FFD93D","#C77DFF","#6BCB77","#4D96FF"];
+    s16QuizZones.forEach((z,i)=>{
+      ctx.save();
+      ctx.fillStyle=zoneColors[i%4]; ctx.strokeStyle=zoneBorders[i%4]; ctx.lineWidth=2;
+      ctx.beginPath(); ctx.roundRect(z.x,z.y,z.w,z.h,8); ctx.fill(); ctx.stroke();
+      ctx.fillStyle="#fff"; ctx.textAlign="center"; ctx.textBaseline="middle";
+      const fs=Math.floor(W*0.026); ctx.font=`bold ${fs}px sans-serif`;
+      const lines=wrapText(ctx,z.label,z.w-14,fs);
+      const lh=fs+3, sy=z.y+z.h/2-(lines.length-1)*lh/2;
+      lines.forEach((l,li)=>ctx.fillText(l,z.x+z.w/2,sy+li*lh));
+      const cx2=ship.x+ship.w/2, cy2=ship.y+ship.h/2;
+      if(cx2>=z.x&&cx2<=z.x+z.w&&cy2>=z.y&&cy2<=z.y+z.h){
+        ctx.strokeStyle=zoneBorders[i%4]; ctx.lineWidth=4;
+        ctx.shadowColor=zoneBorders[i%4]; ctx.shadowBlur=18;
+        ctx.beginPath(); ctx.roundRect(z.x,z.y,z.w,z.h,8); ctx.stroke();
+      }
+      ctx.restore();
+    });
+  }
+
+  // ===== 通常自弾 =====
+  shipBullets.filter(b=>!b.isUlti).forEach(b=>{
+    if(!b.active)return;
+    ctx.save();
+    const g=ctx.createLinearGradient(b.x,b.y,b.x,b.y+(b.h||14));
+    g.addColorStop(0,"#fff"); g.addColorStop(1,"#FFD93D");
+    ctx.fillStyle=g; ctx.shadowColor="#FFD93D"; ctx.shadowBlur=10;
+    ctx.beginPath(); ctx.roundRect(b.x,b.y,b.w,b.h||14,4); ctx.fill();
+    ctx.restore();
+  });
+
+  // ===== エフェクト =====
+  hitEffects.forEach(e=>{
+    if(e.alpha<=0)return;
+    ctx.save(); ctx.globalAlpha=e.alpha;
+    if(e.type==="debris"){ ctx.fillStyle=e.color; ctx.beginPath(); ctx.arc(e.x,e.y,Math.max(0,e.r),0,Math.PI*2); ctx.fill(); }
+    else if(e.type==="heal"){ ctx.strokeStyle=e.color; ctx.lineWidth=3; ctx.shadowColor=e.color; ctx.shadowBlur=12; ctx.beginPath(); ctx.arc(e.x,e.y,Math.max(0,e.r),0,Math.PI*2); ctx.stroke(); }
+    else if(e.type==="explosion"){
+      ctx.strokeStyle=e.color; ctx.lineWidth=4;
+      ctx.shadowColor="#FF4400"; ctx.shadowBlur=20;
+      ctx.beginPath(); ctx.arc(e.x,e.y,Math.max(0,e.r),0,Math.PI*2); ctx.stroke();
+      ctx.fillStyle=`rgba(255,100,0,${e.alpha*0.2})`;
+      ctx.beginPath(); ctx.arc(e.x,e.y,Math.max(0,e.r),0,Math.PI*2); ctx.fill();
+    }
+    else { ctx.strokeStyle=e.color; ctx.lineWidth=2.5; ctx.shadowColor=e.color; ctx.shadowBlur=14; ctx.beginPath(); ctx.arc(e.x,e.y,Math.max(0,e.r),0,Math.PI*2); ctx.stroke(); ctx.fillStyle=e.color; ctx.globalAlpha=e.alpha*0.3; ctx.beginPath(); ctx.arc(e.x,e.y,Math.max(0,e.r*0.5),0,Math.PI*2); ctx.fill(); }
+    ctx.restore();
+  });
+
+  // ===== 宇宙船 =====
+  drawSpaceShip(ctx,ship.x,ship.y,ship.w,ship.h);
+  if(ship.subShips&&ship.subShips.length>0){
+    ship.subShips.forEach(ss=>{
+      drawRVSubShip(ctx,ship.x+ship.w/2+ss.offset-12,ship.y+8,"#FFD93D");
+    });
+  }
+  if(dodgeActive){
+    ctx.save();
+    const pulse=Math.sin(Date.now()*0.02)*0.3+0.7;
+    ctx.strokeStyle=`rgba(255,255,255,${pulse})`;
+    ctx.lineWidth=3; ctx.shadowColor="#fff"; ctx.shadowBlur=20;
+    ctx.beginPath(); ctx.arc(ship.x+ship.w/2,ship.y+ship.h/2,ship.w*0.8,0,Math.PI*2); ctx.stroke();
+    ctx.restore();
+  }
+
+  // ===== 必殺技ゲージ（サバイバル・ボス両方） =====
+  if(shootingPhase==="survival"||shootingPhase==="boss"){
+    const eBarW=W*0.5, eBarX=(W-eBarW)/2, eBarY=H-26;
+    ctx.save();
+    ctx.fillStyle="rgba(0,0,0,0.4)"; ctx.beginPath(); ctx.roundRect(eBarX,eBarY,eBarW,6,3); ctx.fill();
+    const eRatio=s16Energy/s16MaxEnergy;
+    const eColor=eRatio>=1?"#FFD93D":"#FF9500";
+    ctx.fillStyle=eColor; ctx.shadowColor=eColor; ctx.shadowBlur=eRatio>=1?12:4;
+    ctx.beginPath(); ctx.roundRect(eBarX,eBarY,eBarW*eRatio,6,3); ctx.fill();
+    ctx.fillStyle="rgba(255,217,61,0.8)"; ctx.font=`bold 9px sans-serif`;
+    ctx.textAlign="left"; ctx.textBaseline="middle"; ctx.shadowBlur=0;
+    ctx.fillText(`⚡ ${s16Energy}/${s16MaxEnergy}`,eBarX,eBarY+3);
+    ctx.restore();
+  }
+
+  // ===== HPバー =====
+  const hpRatio=Math.max(0,shootingPlayerHP/shootingPlayerMaxHP);
+  const barW=W*0.5, barX=(W-barW)/2, barY=H-14;
+  ctx.save();
+  ctx.fillStyle="rgba(0,0,0,0.4)"; ctx.beginPath(); ctx.roundRect(barX,barY,barW,8,4); ctx.fill();
+  const hpColor=hpRatio>0.5?"#6BCB77":hpRatio>0.25?"#FFD93D":"#FF6B6B";
+  ctx.fillStyle=hpColor; ctx.shadowColor=hpColor; ctx.shadowBlur=6;
+  ctx.beginPath(); ctx.roundRect(barX,barY,barW*hpRatio,8,4); ctx.fill();
+  ctx.restore();
+
+  drawElementBadge(ctx,W,s16PlayerElement);
+}
+
+
+// =============================================
+//  壁生成（ST4のspawnS4WallをST16用にコピー）
+// =============================================
+function spawnS16Wall(W, H){
+  const roll=Math.random();
+  if(roll<0.4){
+    const wallH=18+Math.random()*14;
+    const gapSize=90+Math.random()*60;
+    const gapY=H*0.3+Math.random()*H*0.4;
+    if(gapY>40)
+      s16Walls.push({x:-W,y:gapY-wallH-gapSize,w:W,h:wallH,vx:2.5+Math.random()*1,vy:0,dir:"left"});
+    if(gapY+wallH+gapSize<H-40)
+      s16Walls.push({x:-W,y:gapY+gapSize,w:W,h:wallH,vx:2.5+Math.random()*1,vy:0,dir:"left"});
+  } else if(roll<0.7){
+    const wallH=18+Math.random()*14;
+    const gapSize=90+Math.random()*60;
+    const gapY=H*0.3+Math.random()*H*0.4;
+    if(gapY>40)
+      s16Walls.push({x:W,y:gapY-wallH-gapSize,w:W,h:wallH,vx:-(2.5+Math.random()*1),vy:0,dir:"right"});
+    if(gapY+wallH+gapSize<H-40)
+      s16Walls.push({x:W,y:gapY+gapSize,w:W,h:wallH,vx:-(2.5+Math.random()*1),vy:0,dir:"right"});
+  } else {
+    const gapSize=80+Math.random()*50;
+    const gapX=W*0.2+Math.random()*W*0.6;
+    if(gapX>30)
+      s16Walls.push({x:0,y:-60,w:gapX-gapSize/2,h:16,vx:0,vy:2+Math.random()*1.5,dir:"down"});
+    if(gapX+gapSize/2<W-30)
+      s16Walls.push({x:gapX+gapSize/2,y:-60,w:W-(gapX+gapSize/2),h:16,vx:0,vy:2+Math.random()*1.5,dir:"down"});
+  }
+}
+
+
+// =============================================
+//  クイズ
+// =============================================
+function triggerS16Quiz(){
+  if(s16QuizActive)return;
+  s16QuizActive=true;
+  const card=target1900Cards[Math.floor(Math.random()*target1900Cards.length)];
+  const q=card.quizzes[Math.floor(Math.random()*card.quizzes.length)];
+  s16QuizAnswer=q.correct;
+  s16QuizWord=card.word;
+  const wrongs=q.choices.filter(c=>c!==q.correct).sort(()=>Math.random()-0.5).slice(0,3);
+  const allChoices=[...wrongs,q.correct].sort(()=>Math.random()-0.5);
+  const W=shootCanvas.width, H=shootCanvas.height;
+  const zoneTop=H*0.55, zoneH=(H-zoneTop-20)/2, zoneW=W/2-8;
+  s16QuizZones=[
+    {label:allChoices[0],x:4,     y:zoneTop,         w:zoneW,h:zoneH-4},
+    {label:allChoices[1],x:W/2+4, y:zoneTop,         w:zoneW,h:zoneH-4},
+    {label:allChoices[2],x:4,     y:zoneTop+zoneH+4, w:zoneW,h:zoneH-4},
+    {label:allChoices[3],x:W/2+4, y:zoneTop+zoneH+4, w:zoneW,h:zoneH-4},
+  ];
+  s16QuizTimer=5;
+  if(s16QuizCountdown) clearInterval(s16QuizCountdown);
+  s16QuizCountdown=setInterval(()=>{
+    s16QuizTimer--;
+    if(s16QuizTimer<=0){ clearInterval(s16QuizCountdown); s16QuizCountdown=null; judgeS16Quiz(); }
+  },1000);
+}
+
+function judgeS16Quiz(){
+  s16QuizActive=false;
+  const cx=ship.x+ship.w/2, cy=ship.y+ship.h/2;
+  let chosen=null;
+  for(const z of s16QuizZones){ if(cx>=z.x&&cx<=z.x+z.w&&cy>=z.y&&cy<=z.y+z.h){ chosen=z.label; break; } }
+  s16QuizZones=[];
+  if(chosen===s16QuizAnswer){
+    diamonds+=3; saveGame();
+    const heal=Math.floor(shootingPlayerMaxHP*0.1);
+    shootingPlayerHP=Math.min(shootingPlayerHP+heal,shootingPlayerMaxHP);
+    spawnHealEffect(ship.x+ship.w/2,ship.y);
+    updateShootHUD();
+    showQuizResult(true,"");
+  } else {
+    let dmg=800; if(s16BShield) dmg=Math.floor(dmg*0.5);
+    shootingPlayerHP-=dmg; updateShootHUD();
+    showQuizResult(false,s16QuizAnswer);
+    const wc=target1900Cards.find(c=>c.word===s16QuizWord);
+    if(wc) recordWrongWord("target1900",wc.word,wc.meaning);
+    if(shootingPlayerHP<=0) handlePlayerDeath();
+  }
+}
+
+
+// =============================================
+//  クリア処理
+// =============================================
+function clearStage16(){
+  shootingPhase="clear"; shootingGameActive=false;
+  clearInterval(shootingTimerInterval);
+  if(s16QuizCountdown) clearInterval(s16QuizCountdown);
+  cancelAnimationFrame(shootingAnimFrame);
+  removeShootListeners();
+  removeS16UltiButton();
+  unlockShootingUI();
+  const firstClear=!isStage16Cleared();
+  if(firstClear){
+    markStage16Cleared();
+    diamonds+=70;
+    saveGame();
+  }
+  setTimeout(()=>{
+    document.getElementById("spaceArea").innerHTML=`
+      <div style="text-align:center;padding:30px 16px">
+        <div style="font-size:4rem;margin-bottom:10px">🏆</div>
+        <div style="font-family:'Fredoka One',cursive;font-size:2rem;
+          background:linear-gradient(90deg,#FFD93D,#FF9500);
+          -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+          margin-bottom:8px">STAGE 16 CLEAR!</div>
+        ${firstClear
+          ?`<div style="font-family:'Fredoka One',cursive;font-size:1.3rem;
+              color:#FFD93D;margin-bottom:6px">💎×70 獲得！</div>`
+          :`<div style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px">
+              ※2回目以降クリア報酬なし</div>`}
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:20px">
+          ⚡ ベテルギウスを撃破した！
+        </div>
+        <button onclick="showStage16DeckSelect()"
+          style="background:linear-gradient(135deg,#FFD93D,#FF9500);
+            font-size:1rem;padding:14px 28px;margin:6px">
+          🔄 もう一度
+        </button>
+        <br>
+        <button onclick="showNormalStageMenu()"
+          style="background:rgba(255,255,255,0.08);box-shadow:none;
+            font-size:12px;margin-top:10px;color:rgba(255,255,255,0.5)">
+          ← ステージ選択へ
+        </button>
+      </div>`;
+    spawnStars();
+  },500);
 }
 
 // =============================================
